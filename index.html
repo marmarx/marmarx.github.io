@@ -4,9 +4,10 @@
 <title>Hello world</title>
 <meta name="author" content="Marco Martins">
 <meta name="viewport" content="width=device-width, minimum-scale=0.1">
+<link href="https://fonts.googleapis.com/css2?family=Lora&amp;family=Source+Sans+Pro:wght@200;400;600&amp;display=swap" rel="stylesheet">
 <style>
 html{scroll-behavior:smooth}
-*{position:relative;margin:0;padding:0;border:0;color:#333;transition:all .3s ease-in-out;font-size:110%}
+*{position:relative;margin:0;padding:0;border:0;color:#333;transition:all .3s ease-in-out;font-size:110%;font-family: 'Source Sans Pro', sans-serif!important}
 ::-webkit-scrollbar{width:6px;height:0}
 ::-webkit-scrollbar-track{background:#f1f1f1}
 ::-webkit-scrollbar-thumb{background:#bbb}
@@ -17,7 +18,8 @@ body{width:100vw;height:100vh;display:flex}
 .container{width:80%;display:inline-flex;margin:15px auto;max-width:600px}
 .block{display:block}
 .invisible{max-height:0px}
-p{margin:25px auto;text-align:center}
+h1,p{margin:25px auto;text-align:center}
+a{text-decoration:none}
 #hidden{overflow:hidden}
 </style>
 </head>
@@ -25,7 +27,7 @@ p{margin:25px auto;text-align:center}
 <body>
 <div class="bla">
 <div class="row"><div class="container">
-<p>Nothing to see <span onclick="document.getElementById('hidden').classList.toggle('invisible')">here</span> :)</p>
+<h1>Nothing to see <span onclick="document.getElementById('hidden').classList.toggle('invisible')">here</span> :)</h1>
 </div></div>
 <div id="hidden" class="row invisible"><div class="container block">
 <p><a href="/t20">Tormenta 20</a></p>
