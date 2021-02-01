@@ -4,8 +4,33 @@
 <title>Hello world</title>
 <meta name="author" content="Marco Martins">
 <meta name="viewport" content="width=device-width, minimum-scale=0.1">
-<body>
-Nothing to see here :)
-</body>
-</html>
+<style>
+html{scroll-behavior:smooth}
+*{position:relative;margin:0;padding:0;border:0;color:#333;transition:all .3s ease-in-out;font-size:110%}
+::-webkit-scrollbar{width:6px;height:0}
+::-webkit-scrollbar-track{background:#f1f1f1}
+::-webkit-scrollbar-thumb{background:#bbb}
+::-webkit-scrollbar-thumb:hover{background:#999}
+body{width:100vw;height:100vh;display:flex}
+.bla{margin:auto;width:100%}
+.row{width:100%;display:inline-flex;max-height:500px}
+.container{width:80%;display:inline-flex;margin:15px auto;max-width:600px}
+.block{display:block}
+.invisible{max-height:0px}
+p{margin:10px auto;text-align:center}
+#hidden{overflow:hidden}
+</style>
 </head>
+
+<body>
+<div class="bla">
+<div class="row"><div class="container">
+<p>Nothing to see <span onclick="document.getElementById('hidden').classList.toggle('invisible')">here</span> :)</p>
+</div></div>
+<div id="hidden" class="row invisible"><div class="container block">
+<p><a href="/t20">Tormenta 20</a></p>
+<p><a href="/senha">Jogo Senha</a></p>
+<p><a href="/loterias">Loterias</a></p>
+</div></div>
+</div></body>
+</html>
