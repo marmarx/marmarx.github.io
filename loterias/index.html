@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css?family=Lora&display=swap" rel="stylesheet">
+
+<style>
+*, *:before, *:after{box-sizing:inherit}
+body{margin:0;height:100vh}
+.row{display:inline-flex;position:relative;width:100%;height:100%}
+.container{margin:auto;position:relative;float:left;width:80%;max-width:900px;}
+.middle{float:left;width:100%;text-align:center;display:flex}
+p{font-size:1.6em;font-family:'Lora', serif;margin:auto;margin:6% auto;padding:2%}
+.button{display:inline-block;border-radius:4px;background-color:#f4511e;border:none;color:#FFFFFF;text-align:center;font-size:28px;padding:20px;width:200px;transition:all 0.5s;cursor:pointer;margin:auto}
+.button span{cursor:pointer;display:inline-block;position:relative;transition:0.5s}
+.button span:after{content:'\00bb';position:absolute;opacity:0;top:0;right:-20px;transition:0.5s}
+.button:hover span{padding-right:25px}
+.button:hover span:after{opacity:1;right:0}
+input{text-align:center;border:0;padding:2%;margin:1% auto 5%;font-size:1.6em;width:20%}
+input:hover,input:focus,input:active{background:#f1f4ff;border:0;outline-width:0}
+.placeholder{width:20%;margin:0 auto;font-variant:small-caps}
+input,.placeholder{min-height:0}
+</style>
+
+<body>
+<div class="row"><div class="container">
+ <div class="middle">
+  <div class="placeholder">Qte de n&uacute;meros</div>
+  <div class="placeholder">M&iacute;nimo</div>
+  <div class="placeholder">M&aacute;ximo</div>
+ </div>
+ <div class="middle">
+  <input type="number" value="15" id="num" min="1" onkeyup="set_min(this)" onChange="array()">
+  <input type="number" value="1"  id="min" min="0" onkeyup="set_min(this)" onChange="array()">
+  <input type="number" value="25" id="max" min="0" onkeyup="set_min(this)" onChange="array()">
+ </div>
+ <div class="middle">
+  <button class="button" style="vertical-align:middle" id="myBtn"><span>Sortear </span></button>
+ </div>
+ <div class="middle">
+  <p id="myPar"></p>
+ </div>
+</div></div>
+</body>
+
+<script>
+function set_min(el){if(el.value<el.getAttribute('min')){el.value=el.getAttribute('min')}}
+
+var originalArray = [];
+var totalSpin = [];
+var numbers = [];
+var num = 0;
+window.onload = function(){array()}
+
+function array(){
+ originalArray = [];
+ num = JSON.parse(document.getElementById("num").value);
+ var min = JSON.parse(document.getElementById("min").value);
+ var max = JSON.parse(document.getElementById("max").value);
+ if(min>max){min=max;document.getElementById("min").value=max}
+ document.getElementById("min").setAttribute('max',max);
+ document.getElementById("max").setAttribute('min',min);
+ for(var i=min;i<=max;i++){originalArray.push(i)}
+}
+
+function sortear(){
+ console.log(originalArray);
+ totalSpin = [];
+ numbers = [];
+ for(var i=0; i<num; i++){spinArray();}
+ numbers.sort(sortNumber);
+ var string_numbers = numbers.join(', ');
+ parag.innerHTML = string_numbers;
+}
+
+function sortNumber(a, b){return a - b}
+
+function spinArray(){
+ var spin = Math.floor(Math.random()*originalArray.length);
+ if(totalSpin.indexOf(spin)==-1){
+  totalSpin.push(spin);
+  numbers.push(originalArray[spin]);
+ } else {spinArray()}
+ if(totalSpin.length == originalArray.length)
+ totalSpin = [];
+}
+
+var button = document.getElementById("myBtn");
+var parag = document.getElementById("myPar");
+button.onclick = sortear;
+</script>
+</html>
