@@ -209,6 +209,7 @@ input[type="radio"]:after{content:'';width:24px;height:24px;position:relative;to
 #dice{bottom:0;text-align:left}
 #results{height:calc(100% - 32px);bottom:32px;background:#d4d4d4;box-sizing:border-box;padding:5%;overflow-y:auto;overflow-x:hidden}
 p{padding:1%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+p:empty{margin:2px}
 #roller:hover p{overflow:unset;white-space:unset}
 .rot{color:#ef1313}
 .grun{color:#35a90f}
@@ -497,7 +498,7 @@ button,.ofic{display:none!important}
 <div id="results" onmouseleave="print_out(0)">
 <p class="bold">Exemplos de rolagens:</p>
 </div>
-<input id="dice" onchange="diceroll(this.value);this.value=''" onkeypress="return /[0-9#d+-kehl]/i.test(event.key)">
+<input id="dice" onchange="diceroll(this.value);this.value=''" onkeypress="return /[0-9!#d+-kehl]/i.test(event.key)">
 </div>
 
 <div id="habi_overlay" class="invisible" onclick="hide(event,this)"><div id="habi">
@@ -975,6 +976,7 @@ function diceroll(str){
  console.log('');
  print_out(print);
  }
+print_out('');
 }
 
 function print_out(print){
@@ -998,7 +1000,7 @@ function roll_weap(el){
  }else{
   diceroll(el.children[3].children[0].value);
  }
- print_out('<br>');
+ print_out('');
 }
 
 function roll_skill(el,ski){
@@ -1011,7 +1013,7 @@ function roll_skill(el,ski){
 
   if(per.includes('-')){diceroll('d20'+per)}
   else{diceroll('d20+'+per)}
-  print_out('<br>');
+  print_out('');
  }
 }
 
@@ -1390,7 +1392,7 @@ function create_weap(el,k){
  el = document.getElementById(el);
  var card = document.createElement('div');
  card.setAttribute('class','row weap');
- card.innerHTML = '<div class="w0 dice" onclick="roll_weap(this)"></div><div class="w1"><input type="text" onchange="change_weap(this)"></div><div class="w2"><input type="text" onchange="change_weap(this)"></div><div class="w3"><input type="text" onchange="change_weap(this)"></div><div class="w4"><input type="text" onchange="change_weap(this)"></div><div class="w5"><select class="select" onchange="change_weap(this)"><option value="0" selected disabled>Tipo</option><option value="1">Corte</option><option value="2">Impacto</option><option value="3">Perfuracao</option></select></div><div class="w6"><select class="select" onchange="change_weap(this)"><option value="0" selected disabled>Alcance</option><option value="1">Adjacente</option><option value="2">Curto</option><option value="3">M&eacute;dio</option><option value="4">Longo</option></select></div><div class="w7"><button class="rmv" onclick="rmv_weap(this)">x</button></div>';
+ card.innerHTML = '<div class="w0 dice" onclick="roll_weap(this)"></div><div class="w1"><input type="text" onchange="change_weap(this)"></div><div class="w2"><input type="text" onchange="change_weap(this)"></div><div class="w3"><input type="text" onchange="change_weap(this)"></div><div class="w4"><input type="text" onchange="change_weap(this)"></div><div class="w5"><select class="select" onchange="change_weap(this)"><option value="0" selected disabled>Tipo</option><option value="1">Corte</option><option value="2">Impacto</option><option value="3">Perfuração</option></select></div><div class="w6"><select class="select" onchange="change_weap(this)"><option value="0" selected disabled>Alcance</option><option value="1">Adjacente</option><option value="2">Curto</option><option value="3">M&eacute;dio</option><option value="4">Longo</option></select></div><div class="w7"><button class="rmv" onclick="rmv_weap(this)">x</button></div>';
  el.appendChild(card);
  if(k){weapons.splice(weapons.lenght,0,[,,,,,])}
 }
