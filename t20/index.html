@@ -976,17 +976,17 @@ function diceroll(str){
  console.log('');
  print_out(print);
  }
-print_out(' ');
+print_out('');
 }
 
 function print_out(print){
  const demo = document.getElementById("results");
- if(print){
+ if(print==0){}else{
   var card = document.createElement('p');
   card.innerHTML = print;
   demo.appendChild(card);
  }
- setTimeout(function(){demo.scrollTop=demo.scrollHeight},10);
+ setTimeout(function(){demo.scrollTop=demo.scrollHeight},300);
 }
 
 function roll_weap(el){
@@ -1000,7 +1000,7 @@ function roll_weap(el){
  }else{
   diceroll(el.children[3].children[0].value);
  }
- print_out(' ');
+ print_out('');
 }
 
 function roll_skill(el,ski){
@@ -1013,7 +1013,7 @@ function roll_skill(el,ski){
 
   if(per.includes('-')){diceroll('d20'+per)}
   else{diceroll('d20+'+per)}
-  print_out(' ');
+  print_out('');
  }
 }
 
