@@ -498,7 +498,7 @@ button,.ofic{display:none!important}
 <div id="results" onmouseleave="roll_down()">
 <p class="bold">Exemplos de rolagens:</p>
 </div>
-<input id="dice" onchange="diceroll(this.value,1);this.value=''" onkeypress="return /[0-9!#d+-kehl]/i.test(event.key)">
+<input id="dice" onchange="diceroll(this.value,1,1);this.value=''" onkeypress="return /[0-9!#d+-kehl]/i.test(event.key)">
 </div>
 
 <div id="habi_overlay" class="invisible" onclick="hide(event,this)"><div id="habi">
@@ -847,7 +847,7 @@ function roll_dice(num,max,exp){
  return roll;
 }
 
-function diceroll(str,t){
+function diceroll(str,t,g){
  //console.log(str);
  if(t){print_out(str)}
  str += ' ';
@@ -976,7 +976,7 @@ function diceroll(str,t){
  console.log('');
  print_out(print);
  }
-print_out('');
+if(g){print_out('')}
 }
 
 const demo = document.getElementById("results");
@@ -991,13 +991,13 @@ function roll_down(){setTimeout(function(){demo.scrollTop=demo.scrollHeight},300
 function roll_weap(el){
  el = el.parentNode;
  print_out('Ataque com '+el.children[1].children[0].value);
- diceroll(el.children[2].children[0].value,0);
+ diceroll(el.children[2].children[0].value,0,0);
  console.log('roll = '+roll[0]);
  if(roll[0]>=JSON.parse(el.children[4].children[0].value)){
   print_out('Dano crítico!');
-  diceroll('2#'+el.children[3].children[0].value,0);
+  diceroll('2#'+el.children[3].children[0].value,0,1);
  }else{
-  diceroll(el.children[3].children[0].value,0);
+  diceroll(el.children[3].children[0].value,0,1);
  }
 }
 
@@ -1009,21 +1009,21 @@ function roll_skill(el,ski){
   if(ski){print_out('Teste de '+el.children[2].innerHTML.replace(/[*‡]/g,''))}
   else{print_out('Teste de '+el.children[2].children[0].value)}
 
-  if(per.includes('-')){diceroll('d20'+per,0)}
-  else{diceroll('d20+'+per,0)}
+  if(per.includes('-')){diceroll('d20'+per,0,1)}
+  else{diceroll('d20+'+per,0,1)}
  }
 }
 
-print_out('d20+2');diceroll('d20+2',0);
-print_out('2d20-2');diceroll('2d20-2',0);
-print_out('2#d12+1');diceroll('2#d12+1',0);
-print_out('2d10+2d8-2');diceroll('2d10+2d8-2',0);
-print_out('3d8! (explosão)');diceroll('3d8!',0);
-print_out('3d8!5 (explosão em 5+)');diceroll('3d8!5',0);
-print_out('4d6kh3 (keep higher 3)');diceroll('4d6kh3',0);
-print_out('4d6el (eliminate lower)');diceroll('4d6el',0);
-print_out('5d4!kl2 (keep lower 2)');diceroll('5d4!kl2',0);
-print_out('5d4!3eh2 (eliminate higher 2)');diceroll('5d4!3eh2',0);
+print_out('d20+2');diceroll('d20+2',0,1);
+print_out('2d20-2');diceroll('2d20-2',0,1);
+print_out('2#d12+1');diceroll('2#d12+1',0,1);
+print_out('2d10+2d8-2');diceroll('2d10+2d8-2',0,1);
+print_out('3d8! (explosão)');diceroll('3d8!',0,1);
+print_out('3d8!5 (explosão em 5+)');diceroll('3d8!5',0,1);
+print_out('4d6kh3 (keep higher 3)');diceroll('4d6kh3',0,1);
+print_out('4d6el (eliminate lower)');diceroll('4d6el',0,1);
+print_out('5d4!kl2 (keep lower 2)');diceroll('5d4!kl2',0,1);
+print_out('5d4!3eh2 (eliminate higher 2)');diceroll('5d4!3eh2',0,1);
 print_out('');print_out('');
 
 
