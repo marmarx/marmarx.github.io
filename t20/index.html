@@ -991,13 +991,13 @@ function roll_down(){setTimeout(function(){demo.scrollTop=demo.scrollHeight},300
 function roll_weap(el){
  el = el.parentNode;
  print_out('Ataque com '+el.children[1].children[0].value);
- diceroll(el.children[2].children[0].value,1);
+ diceroll(el.children[2].children[0].value,0);
  console.log('roll = '+roll[0]);
  if(roll[0]>=JSON.parse(el.children[4].children[0].value)){
   print_out('Dano crítico!');
-  diceroll('2#'+el.children[3].children[0].value,1);
+  diceroll('2#'+el.children[3].children[0].value,0);
  }else{
-  diceroll(el.children[3].children[0].value,1);
+  diceroll(el.children[3].children[0].value,0);
  }
 }
 
@@ -1009,8 +1009,8 @@ function roll_skill(el,ski){
   if(ski){print_out('Teste de '+el.children[2].innerHTML.replace(/[*‡]/g,''))}
   else{print_out('Teste de '+el.children[2].children[0].value)}
 
-  if(per.includes('-')){diceroll('d20'+per,1)}
-  else{diceroll('d20+'+per,1)}
+  if(per.includes('-')){diceroll('d20'+per,0)}
+  else{diceroll('d20+'+per,0)}
  }
 }
 
