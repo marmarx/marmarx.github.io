@@ -495,7 +495,7 @@ button,.ofic{display:none!important}
 </div>
 
 <div id="roller">
-<div id="results" onmouseleave="print_out(0)">
+<div id="results" onmouseleave="roll_down()">
 <p class="bold">Exemplos de rolagens:</p>
 </div>
 <input id="dice" onchange="diceroll(this.value);this.value=''" onkeypress="return /[0-9!#d+-kehl]/i.test(event.key)">
@@ -981,13 +981,12 @@ print_out('');
 
 function print_out(print){
  const demo = document.getElementById("results");
- if(print==0){}else{
-  var card = document.createElement('p');
-  card.innerHTML = print;
-  demo.appendChild(card);
- }
- setTimeout(function(){demo.scrollTop=demo.scrollHeight},300);
+ var card = document.createElement('p');
+ card.innerHTML = print;
+ demo.appendChild(card);
+ roll_down();
 }
+function roll_down(){setTimeout(function(){demo.scrollTop=demo.scrollHeight},300)}
 
 function roll_weap(el){
  el = el.parentNode;
