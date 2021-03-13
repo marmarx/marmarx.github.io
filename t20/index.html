@@ -1128,7 +1128,7 @@ function add_spell(index){
  if(spells[index][9]){text += ' <sm>('+spells[index][9]+')</sm>'}
 
  if(spells[index][2]||spells[index][4]||spells[index][5]||spells[index][6]||spells[index][7]||spells[index][8]){text += '<br><sm>'}
- if(spells[index][2]){text += '<span class="nowrap"><b>Custo: </b> '+spells[index][2]+' PM</span>&nbsp;&nbsp;&nbsp;&nbsp;'}
+ if(spells[index][2]){var pmc=spells[index][2];pmc=(pmc==1?1:(pmc==2?3:(pmc==3?6:(pmc==4?10:15))));text += '<span class="nowrap"><b>Custo: </b> '+pmc+' PM</span>&nbsp;&nbsp;&nbsp;&nbsp;'}
  if(spells[index][4]){text += '<span class="nowrap"><b>Ação:</b> '+spells[index][4]+'</span>&nbsp;&nbsp;&nbsp;&nbsp;'}
  if(spells[index][5]){text += '<span class="nowrap"><b>Alcance:</b> '+spells[index][5]+'</span>&nbsp;&nbsp;&nbsp;&nbsp;'}
  if(spells[index][6]){text += '<span class="nowrap"><b>Área/Alvo:</b> '+spells[index][6]+'</span>&nbsp;&nbsp;&nbsp;&nbsp;'}
