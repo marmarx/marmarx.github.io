@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="author" content="Marco Martins">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Open+Sans:wght@300;400&family=Dancing+Script&display=swap" rel="stylesheet">
+
+<style>
+:not(ul,li,ol),*:before,*:after{margin:0;padding:0;transition:all .7s ease-in-out;font-family:'Open Sans', sans-serif;color:#292929;word-wrap:normal;word-break:keep-all;transform-style:preserve-3d}
+html,body{width:100vw;min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:#f1f1f1}::-webkit-scrollbar-thumb{background:#bbb}::-webkit-scrollbar-thumb:hover{background:#999}::selection{background:#30f2bb}
+
+.header{background:url("solar.webp") no-repeat 0 160%/cover fixed;padding:12em 0;margin-bottom:3.5em}
+.footer{background:#252525;margin-top:6.5em;min-height:150px}
+.row{display:inline-flex;position:relative;width:100%}
+.container{margin:auto;position:relative;float:left;width:80%;max-width:900px}
+.half,.third{float:left;width:100%}
+.flex{display:flex}
+
+h1,h2{text-align:center;margin:.5em 0;letter-spacing:4px;font-family:'Lora', serif;}
+h1,h2,h2:before,h2:after{color:#fff;text-shadow:2px 2px 3px #252525,2px 2px 5px #252525}
+h1{font-size:3.6em;font-weight:500}h2{font-size:1.8em;text-transform:uppercase;font-weight:600}h2:before,h2:after{content:'\2014';padding:0 0.5em}
+h3,h4{font-weight:400;margin-top:1.5em}
+h3,h4,p,li{line-height:1.8em;letter-spacing:.8px;text-align:justify}
+h3{font-size:2em}h4{font-size:1.4em}p,li{font-size:1.2em;font-weight:300;margin-top:1em}
+.quote{font-size:1em;margin:.5em auto;text-align:center}
+.quote,.italic{font-style:italic}.bold{font-weight:400}
+.footer p{font-family:'Dancing Script', cursive;text-align:right;color:#fff;font-size:1.6em}
+
+.tooltip{position:relative;border-bottom:2px dashed #30f2bb;white-space:nowrap}
+.tiptext,.tooltip:before{opacity:0;content:"";position:absolute;z-index:1;white-space:normal}
+.tooltip:hover .tiptext,.tooltip:active .tiptext,.tooltip:focus .tiptext,
+.tooltip:hover:before,.tooltip:active:before,.tooltip:focus:before{opacity:.9;visibility:visible}
+.tooltip:before{top:95%;left:50%;margin-left:-5px;border-width:5px;border-style:solid;border-color:transparent transparent #555 transparent}
+.tiptext{font-size:.8em;font-style:normal;text-indent:2em;background-color:#555;color:#fff;padding:.5em 1em;border-radius:6px;top:133%;left:50%;margin-left:-175px;width:80vw;max-width:350px;visibility:hidden}
+.tiptext *{color:#fff}
+
+@media (min-width:601px) and (max-width:990px){}
+@media (min-width:991px){.half{width:49.99999%}.third{width:33.33333%}}
+
+:root{
+ --year:36.5s; /*8760 horas por ano*/
+ --day:2.4s; /*24h por dia*/
+ --sun:.9;
+ --earth:.3;
+ --earthh:271px;
+ --sunh:170px;
+ --light:90deg, rgba(4,0,24,0) 0%, rgba(4,0,24,0.75) 25%, rgba(4,0,24,1) 50%, rgba(4,0,24,0.75) 75%, rgba(4,0,24,0) 100%;
+ --seasons:rgba(255,0,0,.7) 0%,rgba(255,0,0,.7) 8%,rgba(255,154,0,.7) 16%,rgba(208,222,33,.7) 24%,rgba(79,220,74,.7) 32%,rgba(63,218,216,.7) 40%,rgba(47,201,226,.7) 48%,rgba(28,127,238,.7) 56%,rgba(95,21,242,.7) 74%,rgba(186,12,248,.7) 82%,rgba(251,7,217,.7) 100%;
+}
+.box-container{
+  position:relative;
+  width:95%;
+  margin:2em auto;
+}
+.h300{height:300px;margin:4em auto}
+.sun{
+  position:absolute;
+  width:var(--sunh);
+  height:var(--sunh);
+  top:calc(50% - var(--sunh)/2);
+  left:calc(50% - var(--sunh)/2);
+  background-color: #FB7209;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: 0 0 60px rgba(255, 160, 60, 0.4);
+  border-radius:50%;
+  z-index:1;
+  box-shadow: 0 0 10px orange,
+              0 0 60px orange,
+              0 0 200px yellow,
+              inset 0 0 80px yellow;
+  transform:scale(var(--sun))
+}
+.earth-orbit{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(4, 0, 24,.9);
+  border-radius: 50%;
+  display: flex;
+}
+.earth{
+  position:absolute;
+  left:calc(50% - 140px);
+  width:calc(var(--earthh)*1.025);
+  height:var(--earthh);
+  border-radius:50%;
+  transform:scale(var(--earth));
+  margin:auto;
+  animation: orbit-x var(--year) linear infinite
+}
+.earth-wrap{
+  position: relative;
+  width: 100%;
+  top:calc(5px - var(--earthh)/2);
+  animation: orbit-y var(--year) cubic-bezier(0.73, 0.02, 0.25, 0.99) infinite
+}
+@keyframes orbit-x{
+ 0%,100%{left:calc(50% - var(--earthh)/2 - 5px)}
+ 25%{left:calc(-10px - var(--earthh)/2)}
+ 50%{left:calc(50% - var(--earthh)/2 + 15px)}
+ 75%{left:calc(100% - var(--earthh)/2 + 10px)}
+}
+@keyframes orbit-y{
+ 50%{top:calc(25px + var(--earthh)/2);z-index:2}
+}
+.earth-axis{
+  position:absolute;
+  height:124%;
+  width:2px;
+  background:rgba(4, 0, 24,.9);
+  left:50%;
+  top:-11.5%;
+}
+.earth-texture,.earth-hid{
+  position:absolute;
+  top:0;
+  width:100%;
+  height:100%;
+  border-radius:50%;
+}
+.earth-texture{
+  background:url(earth.jpg);
+  background-size:cover;
+  background-repeat:repeat-x;
+  animation: earth-rotate var(--day) linear infinite;
+  margin:auto;
+}
+@keyframes earth-rotate{
+ 0%{background-position:0 0}
+ 100%{background-position:calc(500*var(--earthh)/281) 0}
+}
+.earth-hid{overflow:hidden}
+.earth-light{
+  position:absolute;
+  width:400%;
+  height:100%;
+  background:linear-gradient(var(--light));
+  animation:sun-light var(--year) linear infinite;
+ }
+@keyframes sun-light{
+ 0%{left:-400%}
+ 100%{left:100%}
+}
+.sphere{width:120px;height:120px;margin:auto;animation:sphere 4s linear infinite}
+.sphere:before{content:"";position:absolute;height:124%;width:2px;background:rgba(4, 0, 24,.9);left:50%;top:-11.5%}
+.sphere2,.sphere3{width:130px}.r235{transform:rotate(23.45deg)}.r-235{transform:rotate(-23.45deg)}
+.circle{position:absolute;width:100%;height:100%;border:1px solid black;border-radius:100%;background:#30f2bb}
+.circle:nth-child(1){transform:rotateY(0)}
+.circle:nth-child(2){transform:rotateY(45deg)}
+.circle:nth-child(3){transform:rotateY(90deg)}
+.circle:nth-child(4){transform:rotateY(135deg)}
+.circle:nth-child(5){transform:rotateY(180deg)}
+@keyframes sphere{
+ 0%{transform:rotateY(0)}
+ 100%{transform:rotateY(360deg)}
+}
+.earth2{
+  position:relative;
+  width:calc(var(--earthh)*1.025);
+  height:var(--earthh);
+  border-radius:50%;
+  margin:auto;
+}
+.axis-anim{animation:axis var(--year) linear infinite}
+@keyframes axis{
+ 0%,100%{transform:scale(.7) rotate(23.45deg)}
+ 50%{transform:scale(.7) rotate(-23.45deg)}
+}
+.earth-seasons{
+  position:absolute;
+  width:120%;
+  left:-10%;
+  height:140%;
+  background: 
+   repeating-linear-gradient(0deg,var(--seasons)) top,
+   repeating-linear-gradient(-180deg,var(--seasons)) bottom,
+   transparent;
+  background-size:100% 50%;
+  background-repeat:no-repeat;
+  animation:earth-season var(--year) linear infinite;
+}
+@keyframes earth-season{
+ 0%,100%{top:-40%;transform:rotate(-23.45deg)}
+ 25%{top:-30%}
+ 50%{top:-40%;transform:rotate(23.45deg)}
+ 75%{top:-20%}
+}
+.light-ray{
+  --light-ray:
+   transparent,
+   transparent 8px,
+   rgba(250, 250, 0, .9) 12px,
+   rgba(250, 250, 0, .9) 12px;
+  width:25%;
+  padding:4em 0;
+  margin:auto 0;
+  background:repeating-linear-gradient(var(--light-ray)) left;
+}
+</style>
+
+<script>
+window.addEventListener('onload',initiate,false);
+window.addEventListener('onrezise',initiate,false);
+window.beforeunload = function(){}
+function initiate(){}
+</script>
+</head>
+
+<body>
+<div class="row header">
+ <div class="container">
+  <h1>Autonomia Energética</h1>
+  <h2>Reflexões para um Motorhome</h2>
+ </div>
+</div>
+<div class="row">
+ <div class="container">
+   <h3>Introdução</h3>
+   <p>Autonomia é a palavra chave quando falamos de <span class="italic">Motorhomes</span>, que pode ser pensada no tocante ao combustível, à água e à energia. Aqui vamos falar da autonomia energética.</p>
+   <h4>O que é autonoma energética?</h4>
+   <p>Quando falamos de um sistema <span class="tooltip italic">off-grid<span class="tiptext">É um sistema independente da rede de utilidade pública, especialmente do suprimento de energia elétrica, ou seja, não conectado a uma fonte de energia externa.</span></span>, pensamos em um sistema que tenha uma maior independência possível, idealmente infinita.</p>
+   <p>Dessa forma saber dimensionar um sistema elétrico para um <span class="italic">Motorhome</span> é tão importante quanto saber como viabilizar essa indepedência. Afinal, um sistema <span class="italic">off-grid</span> não vai conseguir manter facilidades que temos quando conectados à rede de energia em uma casa ou apartamento como, por exemplo, um chuveiro elétrico, um ar condicionado ou um fogão a inducção.</p>
+
+   <h4>Como viabilizar a autonomia energética?</h4>
+   <p>Viabilizar a autonomia enérgica é muito similar a viabilizar a autonomia em muitas outras situações da vida: é preciso saber manter o equilíbrio entre consumo e produção, gasto e ganho.</p>
+   <p>Por via de regra, quanto mais você conseguir produzir e armazenar melhor! Porém, quando falamos de um <span class="italic">Motorhome</span> a produção é limitada ao espaço disponível no telhado do veículo e o armazenamento no peso e volume das baterias. Além, é claro, do custo financeiro desse sistema.</p>
+   <p>Assim, temos duas formas de possibilitar a autonomia: aumentar o ganho e reduzir o consumo.</p>
+
+   <h3>Diminuir o gasto energético</h3>
+   <p>Diminuir o custo energético em um <span class="italic">Motorhome</span> é uma terefa que envolve muito os próprios hábitos, especialmente se você está acostumado a viver em uma casa ligada à rede elétrica. Alguns exemplos:</p>
+  <ul>
+   <li><span class="bold">Equipamentos 12V:</span> usar preferencialmente <span class="tooltip">equipamentos 12V<span class="tiptext">Veículos, de uma forma geral, são projetados para operar em corrente contínua 12 ou 24V por padrão, logo é ímprovável, pra não dizer impossível, encontrar baterias que operem acima dessas características.</span></span> é a melhor maneira de economizar energia, pois nenhuma conversão é necessária e a eficiência desses equipamentos é melhor</li>
+   <li><span class="bold">Evitar usar o inversor:</span> utilizar um inversor para transformar 12V em 220V e depois um carregador de celular para transformar de 12V para 5V é uma má ideia, o ideal é usar 12V direto ou, como nesse exemplo, usar um <span class="italic tooltip">step-down<span class="tiptext"><span class="italic">Step-down</span> é um equipamento eletrônico que consegue converter volgens para baixo, também temos o <span class="italic">step-up</span> que pode, por exemplo, possibilitar carregar um notebook diretamente fazendo a conversão de 12V para 19,5V.</span></span> para ir direto de 12V para 5V</li>
+   <li><span class="bold">Alterar seus hábitos:</span> reduzir o uso de equipamentos eletre-eletrônicos é uma possibilidade também, apesar de nem sempre ser uma opção, essa reflexão é necessária</li>
+   </ul>
+
+   <h3>Aumentar o ganho energético</h3>
+   <p>Aumentar o ganho energético em um <span class="italic">Motorhome</span> as vezes pode parecer algo óbvio e as vezes pode parecer algo impossível, vamos pensar em algumas possibilidades:</p>
+   <ul>
+   <li><span class="bold">Aumentar o número de placas:</span> aumentar o número de placas é a forma mais óbvia de aumentar a produção, porém está limitada ao quanto se pode armazenar (baterias), ao tamanho do seu telhado, e ao orçamento</li>
+   <li><span class="bold">Aumentar o número de baterias:</span> similarmente, é algo bem óbvio, porém está limitado ao peso e volume disponível e ao orçamento</li>
+   <li><span class="bold">Usar baterias de lítio-íon:</span> baterias de chumbo-ácido, conforme a recomendação do fabricante, não pode ser utilizadas além de 50% da sua capacidade e não podem ser descarregadas mais do que 10 a 20% da sua capacidade numa dada hora, já baterias de <span class="tooltip">lítio-íon<span class="tiptext">Baterias de lítio-íon atualmente são pouco presentes no mercado brasileiro, portanto caras, pois a produção brasileira hoje se resume a grandes frotas de ônibus e caminhões, não se encontra baterias de lítio-íon em carros pois a temperatura do motor impossibilita seu uso, ademais não há produção para o mercado de motorhomes, como em outros países</span></span> possibilitam o uso até 90% e não tem limites de descarga horária.</li>
+   <li><span class="bold">Usar o altenador do carro:</span> possibilita a produção de energia quando se está em movimento, porém nem sempre se está em movimento, especialmente se você pretende viajar sem pressa</li>
+   <li><span class="bold">Usar um carregador de baterias:</span> geralmente é a última opção, já que em essência você estará limitado a disponibilidade de uma tomada (ou um gerador), em essência, reduz a independência do sistema</li>
+   <li><span class="bold">Inclinar e girar as placas solares:</span> essa é uma possibilidade pouco discutida, então vamos detalhar ela mais um pouco</li>
+   </ul>
+
+   <h4>Mas primeiro, um pouco de física...</h4>
+   <p>Vamos partir do presuposto de que a terra é <span class="tooltip">redonda<span class="tiptext">Se você é um terraplanista, nada do que eu vou dizer vai fazer sentido, desculpe =/</span></span>, conforme defendido por Pitágoras no século VI A.C.</p>
+   <div class="box-container">
+    <div class="sphere">
+     <div class="circle"></div>
+     <div class="circle"></div>
+     <div class="circle"></div>
+     <div class="circle"></div>
+     <div class="circle"></div>
+    </div>
+   </div>
+   <p>Na verdade, a terra tem os polos achatados, portanto é um esferóide.</p>
+   <div class="box-container">
+    <div class="sphere sphere2">
+     <div class="circle"></div>
+     <div class="circle"></div>
+     <div class="circle"></div>
+     <div class="circle"></div>
+     <div class="circle"></div>
+    </div>
+   </div>
+   <p>A terra, além de girar em torno de si mesma (rotação), tem seu eixo inclinado aproximadamente 23,45 graus.</p>
+   <div class="box-container r235">
+    <div class="sphere sphere3">
+     <div class="circle"></div>
+     <div class="circle"></div>
+     <div class="circle"></div>
+     <div class="circle"></div>
+     <div class="circle"></div>
+    </div>
+   </div>
+   <p>A terra também gira ao redor do sol, movimento chamado de translação. A presença do sol define os dias e sua ausência as noites. Graças a união de todos esses fatores, temos as estações do ano> primaveira, verão, outono e inverno.</p>
+   <div class="box-container h300">
+    <div class="sun"></div>
+     <div class="earth-orbit"></div>
+     <div class="earth-wrap"><div class="earth">
+     <div class="earth-axis r235"></div>
+     <div class="earth-texture r235"></div>
+     <div class="earth-hid r235"><div class="earth-light"></div></div>
+    </div></div>
+   </div>
+   <p>Por fim, como a terra está a <span class="tooltip">mais ou menos<span class="tiptext">Essa distância varia conforme sua posição no movimento de translação, já que sua órbita não é um círculo perfeito, mas sim uma elípse.</span></span> 152 milhões de quilômetros, os raios de sol chegam a terra paralelamente entre si, por isso nossas sombras à luz do dia são bem definidas, ao contrário das sombras de luzes artificiais próximas.</p>
+   <div class="row"><div class="container flex">
+    <div class="half">
+     <div class="box-container">
+      <div class="sphere sphere3">
+       <div class="circle"></div>
+       <div class="circle"></div>
+       <div class="circle"></div>
+       <div class="circle"></div>
+       <div class="circle"></div>
+      </div>
+     </div>
+    </div>
+    <div class="half light-ray"></div>
+   </div></div>
+   <div class="row"><div class="container flex">
+    <div class="half">
+     <div class="box-container r235">
+      <div class="sphere sphere3">
+       <div class="circle"></div>
+       <div class="circle"></div>
+       <div class="circle"></div>
+       <div class="circle"></div>
+       <div class="circle"></div>
+      </div>
+     </div>
+    </div>
+    <div class="half light-ray">
+    </div>
+   </div></div>
+   <div class="row"><div class="container flex">
+    <div class="half">
+     <div class="box-container">
+      <div class="sphere sphere3">
+       <div class="circle"></div>
+       <div class="circle"></div>
+       <div class="circle"></div>
+       <div class="circle"></div>
+       <div class="circle"></div>
+      </div>
+     </div>
+    </div>
+    <div class="half light-ray">
+    </div>
+   </div></div>
+   <div class="row"><div class="container flex">
+    <div class="half">
+     <div class="box-container r-235">
+      <div class="sphere sphere3">
+       <div class="circle"></div>
+       <div class="circle"></div>
+       <div class="circle"></div>
+       <div class="circle"></div>
+       <div class="circle"></div>
+      </div>
+     </div>
+    </div>
+    <div class="half light-ray">
+    </div>
+   </div></div>
+   <p>Na hipótese da terra não girar em torno de si mesma, a face iluminada desse esferóide viajando pelo espaço iria variar conforme a época do ano, porém como ela gira em torno de si e graças ao eixo de inclinação da terra, temos então as diferentes estações do ano, alterando entre hemisfério norte e sul.</p>
+   <div class="box-container flex">
+    <div class="earth2 axis-anim">
+     <div class="earth-axis"></div>
+     <div class="earth-texture"></div>
+     <div class="earth-hid"><div class="earth-seasons"></div></div>
+    </div>
+   </div>
+   <p>Na animação acima, temos uma simulação de como seria se tivesse uma câmera no sol apontanto para a terra o tempo todo, assim:</p>
+   <ul>
+   <li>as áreas vermelhas são áreas mais quentes, devido a maior incidência de luz solar, definindo o verão; e</li>
+   <li>as azuis são áreas mais frias, com menor incidência solar, definindo o inverno.</li>
+   </ul>
+   <p>Dessa maneira, é interessante fazer com que as suas placas solares se inclinem e que essa inclinação possa variar conforme a época do ano, para garantir que os raios solares estejam sempre perpendiculares as mesmas.</p>
+   <h4>... então, como inclinar as placas solar?</h4>
+   <p>Blebis blubis.</p>
+ </div>
+</div>
+<div class="row footer">
+ <div class="container"><p>#forabostocaro</p></div>
+</div>
+</body>
+</html>
