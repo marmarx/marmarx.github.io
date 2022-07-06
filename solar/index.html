@@ -25,7 +25,7 @@ h1{font-size:3.6em;font-weight:500}h2{font-size:1.8em;text-transform:uppercase;f
 h3,h4{font-weight:400;margin-top:1.5em}
 h3,h4,p,li{line-height:1.8em;letter-spacing:.8px;text-align:justify}
 h3{font-size:2em}h4{font-size:1.4em}p,li{font-size:1.2em;font-weight:300;margin-top:1em}
-.quote{font-size:1em;margin:.5em auto;text-align:center}
+.quote{font-size:1em;margin:.5em auto 2em;text-align:center}
 .quote,.italic{font-style:italic}.bold{font-weight:400}
 .footer p{font-family:'Dancing Script', cursive;text-align:right;color:#fff;font-size:1.6em}
 
@@ -171,10 +171,13 @@ h3{font-size:2em}h4{font-size:1.4em}p,li{font-size:1.2em;font-weight:300;margin-
  50%{transform:scale(.7) rotate(-23.45deg)}
 }
 .earth-seasons{
-  position:absolute;
+  position:relative;
   width:120%;
-  left:-10%;
+  left:50%;
+  margin-left:-60%;
   height:140%;
+  top:50%;
+  margin-top:-70%;
   background: 
    repeating-linear-gradient(0deg,var(--seasons)) top,
    repeating-linear-gradient(-180deg,var(--seasons)) bottom,
@@ -184,10 +187,10 @@ h3{font-size:2em}h4{font-size:1.4em}p,li{font-size:1.2em;font-weight:300;margin-
   animation:earth-season var(--year) linear infinite;
 }
 @keyframes earth-season{
- 0%,100%{top:-40%;transform:rotate(-23.45deg)}
- 25%{top:-30%}
- 50%{top:-40%;transform:rotate(23.45deg)}
- 75%{top:-20%}
+ 0%,100%{margin-top:-90%;transform:rotate(-23.45deg)}
+ 25%{margin-top:-70%}
+ 50%{margin-top:-50%;transform:rotate(23.45deg)}
+ 75%{margin-top:-50%}
 }
 .light-ray{
   --light-ray:
@@ -305,6 +308,7 @@ function initiate(){}
     </div>
     <div class="half light-ray"></div>
    </div></div>
+   <p class="quote">Equinócio - Primavera no hemisfério norte e outono no hemisfério sul</p>
    <div class="row"><div class="container flex">
     <div class="half">
      <div class="box-container r235">
@@ -317,9 +321,9 @@ function initiate(){}
       </div>
      </div>
     </div>
-    <div class="half light-ray">
-    </div>
+    <div class="half light-ray"></div>
    </div></div>
+   <p class="quote">Solstício - Verão no norte e inverno no sul</p>
    <div class="row"><div class="container flex">
     <div class="half">
      <div class="box-container">
@@ -332,9 +336,9 @@ function initiate(){}
       </div>
      </div>
     </div>
-    <div class="half light-ray">
-    </div>
+    <div class="half light-ray"></div>
    </div></div>
+   <p class="quote">Equinócio - Outono no norte e primaveira no sul</p>
    <div class="row"><div class="container flex">
     <div class="half">
      <div class="box-container r-235">
@@ -347,9 +351,9 @@ function initiate(){}
       </div>
      </div>
     </div>
-    <div class="half light-ray">
-    </div>
+    <div class="half light-ray"></div>
    </div></div>
+   <p class="quote">Solstício - Inverno no norte e verão no sul</p>
    <p>Na hipótese da terra não girar em torno de si mesma, a face iluminada desse esferóide viajando pelo espaço iria variar conforme a época do ano, porém como ela gira em torno de si e graças ao eixo de inclinação da terra, temos então as diferentes estações do ano, alterando entre hemisfério norte e sul.</p>
    <div class="box-container flex">
     <div class="earth2 axis-anim">
