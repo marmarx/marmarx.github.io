@@ -11,6 +11,7 @@
 :not(ul,li,ol),*:before,*:after{margin:0;padding:0;transition:all .7s ease-in-out;font-family:'Open Sans', sans-serif;color:#292929;word-wrap:normal;word-break:keep-all;transform-style:preserve-3d}
 html,body{width:100vw;min-height:100vh;overflow-x:hidden}
 ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:#f1f1f1}::-webkit-scrollbar-thumb{background:#bbb}::-webkit-scrollbar-thumb:hover{background:#999}::selection{background:#30f2bb}
+ul{margin:2em}
 
 .header{background:url("solar.webp") no-repeat 0 160%/cover fixed;padding:12em 0;background-position:center;margin-bottom:3.5em}
 .footer{background:#252525;margin-top:6.5em;min-height:150px}
@@ -133,7 +134,7 @@ h3{font-size:2em}h4{font-size:1.4em}p,li{font-size:1.2em;font-weight:300;margin-
  0%{background-position:0 0}
  100%{background-position:calc(500*var(--earthh)/281) 0}
 }
-.earth-hid{overflow:hidden}
+.earth-hid,.hid{overflow:hidden}
 .earth-light{
   position:absolute;
   width:400%;
@@ -232,6 +233,36 @@ h3{font-size:2em}h4{font-size:1.4em}p,li{font-size:1.2em;font-weight:300;margin-
  0%,100%{margin-top:0%}
  50%{margin-top:-20%}
 }
+.tilt-circ{width:250px;height:250px;border-radius:50%;border:2px solid #292929;margin:auto;transform:scale(1.5) translate(-40px,50px);animation:tilt-rotate var(--year) linear infinite}
+.tilt-r,.tilt-s1,.tilt-s2,.tilt-ray{position:absolute;height:2px}
+.tilt-r{top:50%;left:50%;width:200px}.tilt-r2{transform:rotate(-35deg) translate(17px,-57px)}
+.tilt-s1{width:120px;transform:rotate(90deg);top:-60px;left:43.5px}
+.tilt-s2{width:150px;transform:rotate(55deg);top:-62px;left:35px}
+.tilt-r1{width:153px}
+.tilt-r1,.tilt-s1{background:rgba(255,0,0)}.tilt-r2,.tilt-s2{background:#30f2bb}
+.tilt-ray{background:rgba(250,250,0);width:100px;bottom:-1px;animation:counter-tilt-rotate var(--year) linear infinite}
+.tilt-rec{position:absolute;width:10px;height:10px;border:1px solid black}.tilt-rec:before{content:'•';position:absolute;top:-3px;left:3px;font-size:.7em}
+.tilt-rec1{top:calc(50% - 11px);left:217px}.tilt-rec2{top:calc(50% - 78px);left:214px;transform:rotate(55deg)}.tilt-rec3{top:calc(50% - 82px);left:228px}
+.tilt-arc,.tilt-arc:before{position:absolute;width:10px;height:10px;border-radius:50%}
+.tilt-arc{border-right:1px solid black;top:calc(50% - 5px);left:calc(50% + 3px);transform:scale(1.2)}
+.tilt-arc:before{content:'';border-right:2px solid #fff;transform:rotate(15deg)}
+.tilt-arc:after{position:absolute;content:'LAT';font-size:.5em;top:-6px;left:15px}
+.tilt-arc2{top:40px;left:222px;transform:rotate(-90deg)}
+.tilt-circ,.tilt-ray{animation-play-state:paused}
+.tilt-axis{}
+@keyframes tilt-rotate{
+ 0%,50%,100%{transform:scale(1.5) translate(-40px,50px)}
+ 25%{transform:scale(1.5) translate(-40px,50px) rotate(23.45deg)}
+ 75%{transform:scale(1.5) translate(-40px,50px) rotate(-23.45deg)}
+}
+@keyframes counter-tilt-rotate{
+ 0%,50%,100%{transform:rotate(-0deg)}
+ 25%{transform:rotate(-23.45deg)}
+ 75%{transform:rotate(23.45deg)}
+}
+
+table,tr,td{margin:1em auto;padding:.5em;text-align:center}
+tr:nth-child(1){font-weight:600}
 </style>
 
 <script>
@@ -280,7 +311,6 @@ function initiate(){}
    <li><span class="bold">Usar um carregador de baterias:</span> geralmente é a última opção, já que em essência você estará limitado a disponibilidade de uma tomada (ou um gerador), em essência, reduz a independência do sistema</li>
    <li><span class="bold">Inclinar e girar as placas solares:</span> essa é uma possibilidade pouco discutida, então vamos detalhar ela mais um pouco</li>
    </ul>
-
    <h4>Mas primeiro, um pouco de física...</h4>
    <p>Vamos partir do presuposto de que a terra é <span class="tooltip">redonda<span class="tiptext">Se você é um terraplanista, nada do que eu vou dizer vai fazer sentido, desculpe =/</span></span>, conforme defendido por Pitágoras no século VI A.C.</p>
    <div class="box-container">
@@ -419,8 +449,44 @@ function initiate(){}
    <li>as áreas vermelhas são áreas mais quentes, devido a maior incidência de luz solar, definindo o verão; e</li>
    <li>as azuis são áreas mais frias, com menor incidência solar, definindo o inverno.</li>
    </ul>
-   <h4>Então, como inclinar as placas solar?</h4>
-   <p>Blebis blubis.</p>
+   <h3>Inclinando as placas solares</h3>
+   <h4>Determinando o ângulo de inclinação</h4>
+   <p>Em essência, elas deverão ser inclinadas conforme a sua localização e a estação do ano. Vamos tentar definir o ângula para uma latitude qualquer no equinócio.</p>
+   <div class="row"><div class="container">
+    <div class="box-container hid">
+     <div class="tilt-circ">
+      <div class="tilt-arc"></div><div class="tilt-arc tilt-arc2"></div>
+      <div class="tilt-rec tilt-rec1"></div><div class="tilt-rec tilt-rec2"></div><div class="tilt-rec tilt-rec3"><div class="tilt-ray"></div></div>
+      <div class="tilt-r tilt-r1"><div class="tilt-s1"></div><div class="tilt-s2"></div></div>
+      <div class="tilt-r tilt-r2"></div>
+     </div>
+    </div>
+   </div></div>
+   <p class="quote">A imagem acima mostra a relação de triângulos para determinação do ângulo conforme a latitude</p>
+   <p>Temos que o ângulo de inclinação das placas solares, em relação à um plano tangente a superfície da terra é igual a latitude na qual você se encontra.</p>
+   <p>Assim, se você estiver, por exemplo, no Ushuaia durante o equinócio de outono ou primavera as placas devem estar inclinadas em 55°.</p>
+   <p>Lembrando que a inclinação da terra varia conforme as estações do ano, assim se a for época do solstício de inverno deve-se adicionar 23,5° e se for no solstício de verão deve-se reduzir 23,5°.</p>
+   <table>
+    <tr><td>Localização</td><td>Equinócio de Outono<br>ou Primavera</td><td>Solstício de Verão</td><td>Solstício de Inverno</td></tr>
+    <tr><td>São Luís</td><td>2°</td><td>21,5°</td><td>25,5°</td></tr>
+    <tr><td>Porto Seguro</td><td>16°</td><td>7,5°</td><td>39,5°</td></tr>
+    <tr><td>Rio de Janeiro</td><td>23°</td><td>0,5°</td><td>46,5°</td></tr>
+    <tr><td>Blumenau</td><td>27°</td><td>3,5°</td><td>50,5°</td></tr>
+    <tr><td>Bariloche</td><td>35°</td><td>11,5°</td><td>58,5°</td></tr>
+    <tr><td>Bariloche</td><td>55°</td><td>31,5°</td><td>78,5°</td></tr>
+   </table>
+   <p>Com essas inclinações, você deve conseguir maximizar a produção energética das placas solares, claro que ainda vai depender de alguns outros fatores como:</p>
+   <ul>
+   <li>inclinação do veículo ou do terreno, já que dificilmente vai se estar parado em um local perfeitamente nivelado;</li>
+   <li>direção do veículo, por exemplo, não adianta inclinar as placas e deixá-las de costas para o sol;</li>
+   <li>intensidade luminosa do local, em alguns locais o tempo de luz solar no inverno é pequeno ou quase nenhum;</li>
+   <li>presença de sombra, como de árvores e nuvens;</li>
+   <li>condições de manutenção e limpeza das placas, pois essas perdem produção quando sujas ou defeituosas; e</li>
+   <li>entre outros fatores.</li>
+   </ul>
+   <p>Dificilmente haverá condições perfeitas de produção energia solar, principalmente quando estamos falando de um <span class="italic">Motorhome</span>, porém qualquer variável a mais que puder estar sobre o seu controle, como a inclinação, pode ser um grande ganho.</p>
+   <h4>Mas, enfim como vou inclinar minhas placas no teto de uma van?</h4>
+   <p>Blebis blubis</p>
  </div>
 </div>
 <div class="row footer">
