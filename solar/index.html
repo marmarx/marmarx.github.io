@@ -233,32 +233,46 @@ h3{font-size:2em}h4{font-size:1.4em}p,li{font-size:1.2em;font-weight:300;margin-
  0%,100%{margin-top:0%}
  50%{margin-top:-20%}
 }
-.tilt-circ{width:250px;height:250px;border-radius:50%;border:2px solid #292929;margin:auto;transform:scale(1.5) translate(-40px,50px);animation:tilt-rotate var(--year) linear infinite}
-.tilt-r,.tilt-s1,.tilt-s2,.tilt-ray{position:absolute;height:2px}
-.tilt-r{top:50%;left:50%;width:200px}.tilt-r2{transform:rotate(-35deg) translate(17px,-57px)}
-.tilt-s1{width:120px;transform:rotate(90deg);top:-60px;left:43.5px}
-.tilt-s2{width:150px;transform:rotate(55deg);top:-62px;left:35px}
-.tilt-r1{width:153px}
-.tilt-r1,.tilt-s1{background:rgba(255,0,0)}.tilt-r2,.tilt-s2{background:#30f2bb}
-.tilt-ray{background:rgba(250,250,0);width:100px;bottom:-1px;animation:counter-tilt-rotate var(--year) linear infinite}
+.tilt-frame{width:250px;height:250px;margin:auto;transform:scale(1.5) translate(-40px,50px)}
+.tilt-circ{width:100%;height:100%;border-radius:50%;border:2px solid #292929;margin:auto}
+.tilt-axis{height:300px;width:1px;background:#292929;position:absolute;top:calc(50% - 150px);left:50%}
+.tilt-eq,.tilt-base,.tilt-rp,.tilt-pp,.tilt-ap,.tilt-bp,.tilt-rayp{left:50%;top:50%;position:absolute;width:2px;height:2px}
+.tilt-eq{border:1px dashed #292929;width:250px;height:0;left:0}.tilt-base{transform:translate(2px,2px);width:260px}
+.tilt-eq:before{position:absolute;content:'Equador';font-size:.5em;bottom:3px;left:calc(50% - 50px)}
+.tilt-rp{transform:rotate(-35deg)}
+.tilt-rc{width:127px;height:2px}
+.tilt-pp,.tilt-ap,.tilt-bp{right:0;left:unset}.tilt-pp{transform:rotate(35deg)}
+.tilt-pc{width:2px;height:200px;transform:translate(0, -20%)}
+.tilt-ac{width:2px;height:280px;transform:translate(1px,-20%)}
+.tilt-cblue{background:#30f2bb}
+.tilt-cred{background:#ff0000}
+.tilt-rayp{animation:tilt-rotate var(--year) linear infinite}
+.tilt-ray{position:absolute;background:#fff;width:100px;height:150px;transform:translate(0,-152px);border-bottom:2px solid rgba(250,250,0)}
+
 .tilt-rec{position:absolute;width:10px;height:10px;border:1px solid black}.tilt-rec:before{content:'•';position:absolute;top:-3px;left:3px;font-size:.7em}
-.tilt-rec1{top:calc(50% - 11px);left:217px}.tilt-rec2{top:calc(50% - 78px);left:214px;transform:rotate(55deg)}.tilt-rec3{top:calc(50% - 82px);left:228px}
-.tilt-arc,.tilt-arc:before{position:absolute;width:10px;height:10px;border-radius:50%}
-.tilt-arc{border-right:1px solid black;top:calc(50% - 5px);left:calc(50% + 3px);transform:scale(1.2)}
-.tilt-arc:before{content:'';border-right:2px solid #fff;transform:rotate(15deg)}
-.tilt-arc:after{position:absolute;content:'LAT';font-size:.5em;top:-6px;left:15px}
-.tilt-arc2{top:40px;left:222px;transform:rotate(-90deg)}
-.tilt-circ,.tilt-ray{animation-play-state:paused}
-.tilt-axis{}
+.tilt-rec1{right:1px;bottom:1px}.tilt-rec2{bottom:3px;left:1px}.tilt-rec3{right:1px;top:calc(50% - 1px)}
+.tilt-arc{position:absolute;width:12px;height:12px;border-radius:50%;border-right:1px solid black}
+.tilt-arc1{left:12px;top:1px}.tilt-arc1:after{position:absolute;content:'LAT';font-size:.5em;top:4px;left:15px;transform:rotate(21deg)}
+.tilt-arc2{top:-24px;left:1px;transform:rotate(285deg);width:20px;height:20px}.tilt-arc2:after{position:absolute;content:'LAT+INC';font-size:.5em;top:-8px;left:25px;transform:rotate(-15deg)}
+
+.tilt-circ{animation:tilt-rotate var(--year) linear infinite}
+.tilt-pp{animation:counter-tilt-rotate var(--year) linear infinite}
+.tilt-rec3{animation:translate var(--year) linear infinite}
+.tilt-circ,.tilt-pp,.tilt-rec3{animation-play-state:unset}
 @keyframes tilt-rotate{
- 0%,50%,100%{transform:scale(1.5) translate(-40px,50px)}
- 25%{transform:scale(1.5) translate(-40px,50px) rotate(23.45deg)}
- 75%{transform:scale(1.5) translate(-40px,50px) rotate(-23.45deg)}
+ 0%,50%,100%{transform:rotate(0)}
+ 25%{transform:rotate(-23.5deg)}
+ 75%{transform:rotate(23.5deg)}
 }
 @keyframes counter-tilt-rotate{
- 0%,50%,100%{transform:rotate(-0deg)}
- 25%{transform:rotate(-23.45deg)}
- 75%{transform:rotate(23.45deg)}
+ 0%,50%,100%{transform:rotate(35deg)}
+ 25%{transform:rotate(58.5deg)}
+ 75%{transform:rotate(11.5deg)}
+}
+@keyframes translate{
+ 0%,50%,100%{transform:translate(0)}
+ 25%{transform:translate(0,38px)}
+ 75%{transform:translate(0,-46px)}
 }
 
 table,tr,td{margin:1em auto;padding:.5em;text-align:center}
@@ -451,18 +465,31 @@ function initiate(){}
    </ul>
    <h3>Inclinando as placas solares</h3>
    <h4>Determinando o ângulo de inclinação</h4>
-   <p>Em essência, elas deverão ser inclinadas conforme a sua localização e a estação do ano. Vamos tentar definir o ângula para uma latitude qualquer no equinócio.</p>
+   <p>Em essência, elas deverão ser inclinadas conforme a sua localização e a estação do ano. Vamos tentar definir o ângula para uma latitude qualquer conforme cada estação do ano.</p>
    <div class="row"><div class="container">
     <div class="box-container hid">
-     <div class="tilt-circ">
-      <div class="tilt-arc"></div><div class="tilt-arc tilt-arc2"></div>
-      <div class="tilt-rec tilt-rec1"></div><div class="tilt-rec tilt-rec2"></div><div class="tilt-rec tilt-rec3"><div class="tilt-ray"></div></div>
-      <div class="tilt-r tilt-r1"><div class="tilt-s1"></div><div class="tilt-s2"></div></div>
-      <div class="tilt-r tilt-r2"></div>
+     <div class="tilt-frame">
+      <div class="tilt-circ">
+       <div class="tilt-axis"></div>
+       <div class="tilt-eq"></div>
+       <div class="tilt-rp"><div class="tilt-arc tilt-arc1"></div><div class="tilt-rc tilt-cblue">
+        <div class="tilt-rec tilt-rec1"></div>
+        <div class="tilt-ap">
+         <div class="tilt-arc tilt-arc2"></div>
+         <div class="tilt-ac tilt-cblue"></div>
+        </div>
+        <div class="tilt-pp">
+         <div class="tilt-ray"></div>
+         <div class="tilt-rec tilt-rec2"></div>
+         <div class="tilt-pc tilt-cred"><div class="tilt-rec tilt-rec3"></div></div>
+        </div>
+       </div></div>
+      </div>
+      <div class="tilt-base tilt-cred"></div>
      </div>
     </div>
    </div></div>
-   <p class="quote">A imagem acima mostra a relação de triângulos para determinação do ângulo conforme a latitude</p>
+   <p class="quote">A animação acima mostra a relação de triângulos para determinação do ângulo conforme a latitude e época do ano</p>
    <p>Temos que o ângulo de inclinação das placas solares, em relação à um plano tangente a superfície da terra é igual a latitude na qual você se encontra.</p>
    <p>Assim, se você estiver, por exemplo, no Ushuaia durante o equinócio de outono ou primavera as placas devem estar inclinadas em 55°.</p>
    <p>Lembrando que a inclinação da terra varia conforme as estações do ano, assim se a for época do solstício de inverno deve-se adicionar 23,5° e se for no solstício de verão deve-se reduzir 23,5°.</p>
