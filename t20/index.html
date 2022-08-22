@@ -5,6 +5,7 @@
 <meta name="author" content="Marco Martins">
 <meta name="viewport" content="width=device-width, minimum-scale=0.1">
 <link href="https://fonts.googleapis.com/css2?family=Lora&family=Source+Sans+Pro:wght@200;400;600&display=swap" rel="stylesheet">
+<script type="text/javascript" src="T20db.txt"></script>
 
 <style>
 html{scroll-behavior:smooth}
@@ -742,76 +743,11 @@ weapons = [];
 spells = [];
 equips = [];
 features = [];
-skills = [
-['Acrobacia',1,0,0,0,1],
-['Adestramento',5,0,0,1,0],
-['Atletismo',0,0,0,0,0],
-['Atuação',5,0,0,0,0],
-['Cavalgar',1,0,0,0,0],
-['Conhecimento',3,0,0,1,0],
-['Cura',4,0,0,0,0],
-['Diplomacia',5,0,0,0,0],
-['Enganação',5,0,0,0,0],
-['Fotitude',2,0,0,0,0],
-['Furtividade',1,0,0,0,1],
-['Guerra',3,0,0,1,0],
-['Iniciativa',1,0,0,0,0],
-['Intimidação',5,0,0,0,0],
-['Intuição',4,0,0,0,0],
-['Investigação',3,0,0,0,0],
-['Jogatina',5,0,0,1,0],
-['Ladinagem',1,0,0,1,1],
-['Luta',0,0,0,0,0],
-['Misticismo',3,0,0,1,0],
-['Nobreza',3,0,0,1,0],
-['Percepção',4,0,0,0,0],
-['Pilotagem',1,0,0,1,0],
-['Pontaria',1,0,0,0,0],
-['Reflexos',1,0,0,0,0],
-['Religião',4,0,0,1,0],
-['Sobrevivência',4,0,0,0,0],
-['Vontade',4,0,0,0,0]
-];
 oficios = [];
 active_conditions = [];
 effects = {'Tamanho':'','Deslocamento':'','Pontos de Vida':0,'Pontos de Mana':0,'Força':0,'Destreza':0,'Constituição':0,'Inteligência':0,'Sabedoria':0,'Carisma':0,
 'Defesa (outros)':0,'Armadura (bonus)':0,'Armadura (penalidade)':0,'Escudo (bonus)':0,'Escudo (penalidade)':0,'Perícias (todas)':0,
 'Acrobacia':0,'Adestramento':0,'Atletismo':0,'Atuação':0,'Cavalgar':0,'Conhecimento':0,'Cura':0,'Diplomacia':0,'Enganação':0,'Fotitude':0,'Furtividade':0,'Guerra':0,'Iniciativa':0,'Intimidação':0,'Intuição':0,'Investigação':0,'Jogatina':0,'Ladinagem':0,'Luta':0,'Misticismo':0,'Nobreza':0,'Percepção':0,'Pilotagem':0,'Pontaria':0,'Reflexos':0,'Religião':0,'Sobrevivência':0,'Vontade':0};
-conditions = [
-{name:'Abalado',type:'Condição de medo',obs:'Se ficar abalado novamente, em vez diz fica apavorado','Percepção':-2},
-{name:'Agarrado',type:'Condição de paralisia',obs:'Só pode atacar com armas leves','Defesa (outros)':-5,'Luta':-2,'Pontaria':-2,'Deslocamento':'0m'},
-{name:'Alquebrado',type:'Condição mental',obs:'O custo em pontos de mana das habilidades e magias aumenta em +1'},
-{name:'Apavorado',type:'Condição de medo',obs:'Deve fugir da fonte de medo da maneira mais eficiente possível','Percepção':-5},
-{name:'Atordoado',type:'Condição mental',obs:'Não pode fazer ações','Defesa (outros)':-5},
-{name:'Caído',type:'',obs:'Deitado no chão, -5 Def contra ataques corpo-a-corpo, +5 Def contra ataques à distância','Luta':-5,'Deslocamento':'1,5m'},
-{name:'Cego',type:'Condição de sentidos',obs:'Adicione as condições desprevinido e lento, não pode fazer testes de Percepção para observar e sobre -5 em testes de perícias baseadas em Força ou Destreza. Todos seus alvos recebem clamufagem total.'},
-{name:'Confuso',type:'Você age aleatoriamente (role 1d6):\u000D\u000A 1: Movimenta-se em uma direção aleatória\u000D\u000A 2-3: Não pode fazer ações, exceto reações, e fica balbuciando incoerentemente\u000D\u000A 4-5: Ataque a criatura mais próxima ou a si mesmo se estiver sozinho (nesse caso, apenas role o dano)\u000D\u000A 6: A condição termina e pode agir normalmente\u000D\u000ACondição mental',obs:'O personagem comporta-se de modo aleatório'},
-{name:'Debilitado',type:'Condição física',obs:'-5 em testes e perícias relacionadas à atributos físicos. Se o personagem ficar debilitado novamente, em vez disso fica inconsciente'},
-{name:'Desprevinido',type:'Condição de combate',obs:'Você fica desprevenido contra inimigos que não possa ver.','Defesa (outros)':-5,'Reflexos':-5},
-{name:'Doente',type:'Condição de saúde',obs:'Sobre efeito de uma doença'},
-{name:'Em Chamas',type:'Condição física',obs:'No início de seus turnos, sofre 1d6 pontos de dano de fogo. O personagem pode gastar uma ação padrão para apagar o fogo com as mãos. Imersão em água também apaga as chamas.'},
-{name:'Enjoado',type:'Condição física',obs:'O personagem só pode realizar uma ação padrão ou de movimento (não ambas) por rodada. Ele pode gastar uma ação padrão para fazer uma investida, mas pode avançar no máximo seu deslocamento (e não o dobro)'},
-{name:'Enredado',type:'Condição de paralisia',obs:'Adicione as condições lento e vulnerável','Luta':-2,'Pontaria':-2},
-{name:'Envenenado',type:'Condição de saúde',obs:'O efeito desta condição varia de acordo com o veneno (pag 393)'},
-{name:'Esmorecido',type:'Condição mental',obs:'-5 em testes e perícias relacionadas à atributos mentais '},
-{name:'Exausto',type:'Condição de fadiga',obs:'Adicione as condições debilitado, lento e vulnerável. Se ficar exausto novamente, em vez disso fica inconsciente.'},
-{name:'Fascinado',type:'Condição mental',obs:'Não pode fazer ações, exceto observar aquilo que o fascinou. Qualquer ação hostil contra o personagem anula esta condição. Balançar uma criatura fascinada para tirá-la desse estado gasta uma ação padrão.','Percepção':-5},
-{name:'Fatigado',type:'Condição de fadiga',obs:'Adicione as condições fraco e vulnerável. Se o personagem ficar fatigado novamente, em vez disso fica exausto.'},
-{name:'Fraco',type:'Condição física',obs:'-2 em testes e perícias relacionadas à atributos físicos. Se o personagem ficar fraco novamente, em vez disso fica debilitado.'},
-{name:'Frustrado',type:'Condição mental',obs:'-2 em testes e perícias relacionadas à atributos mentais. Se o personagem ficar frustrado novamente, em vez disso fica esmorecido.'},
-{name:'Imóvel',type:'Condição de paralisia',obs:'Afeta todas as formas de deslocamento','Deslocamento':'0m'},
-{name:'Inconsciente',type:'Condição de combate',obs:'Adicione a condição indefeso, não pode fazer ações. Balançar uma criatura para acordá-la gasta uma ação padrão.'},
-{name:'Indefeso',type:'Condição de combate',obs:'Falha automaticamente testes de Reflexos e pode sofrer golpes de misericórdia','Defesa (outros)':-10},
-{name:'Lento',type:'Condição de paralisia',obs:'Todas as formas de deslocamento são reduzidas pela metade, não pode correr ou fazer investidas'},
-{name:'Ofuscado',type:'Condição de sentidos',obs:'','Luta':-2,'Pontaria':-2,'Percepção':-2},
-{name:'Paralisado',type:'Condição de paralisia',obs:'Adicione as condições imóvel e indefeso, só pode realizar ações mentais'},
-{name:'Pasmo',type:'Condição mental',obs:'Não pode realizar ações, apenas reações'},
-{name:'Petrificado',type:'Condição física',obs:'Adicione a condição inconsciente, recebe RD 8'},
-{name:'Sangrando',type:'Condição física',obs:'No início de seus turnos, o personagem deve fazer um teste de Constituição (CD 15). Se passar, estabiliza e remove essa condição. Se falhar, sofre 1d6 pontos de dano e continua sangrando.'},
-{name:'Surdo',type:'Condição de sentidos',obs:'Não pode realizar testes de Percepção para ouvir. Considerado em condições ruins para lançar magias.','Iniciativa':-5},
-{name:'Surpreendido',type:'Condição de combate',obs:'Adicione a condição desprevinido. Não pode fazer ações, apenas reações.'},
-{name:'Vulnerável',type:'Condição de combate',obs:'','Defesa (outros)':-2}
-];
 }
 
 
