@@ -241,7 +241,7 @@ button,.ofic{display:none!important}
 </style>
 </head>
 
-<body>
+<body oncontextmenu="return false">
  <svg class="svgdef"><defs><radialGradient id="svggradient" x2="0%" y2="100%"><stop offset="0%" stop-color="#ac3133"/><stop offset="100%" stop-color="#d15a5c"/></radialGradient></defs></svg>
  <div id="paper">
   <section id="header">
@@ -1875,7 +1875,6 @@ var svgs = document.getElementsByTagName('svg');
 function svg_esc(){for(var i=0;i<svgs.length;i++){svgs[i].classList.toggle('invisible')}}
 function svg_shape_color(e){
  if(e.button){
-  e.preventDefault();
   var h = randomize(1, 360);
   var s = randomize(20, 100);
   var l = randomize(20, 70)-8;
