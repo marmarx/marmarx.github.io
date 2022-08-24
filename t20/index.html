@@ -1,11 +1,13 @@
 <!DOCTYPE>
 <html>
 <head>
-<title>Ficha T20 (v1.3)</title>
+<title>Ficha T20 (v2.0)</title>
 <meta name="author" content="Marco Martins">
 <meta name="viewport" content="width=device-width, minimum-scale=0.1">
 <link href="https://fonts.googleapis.com/css2?family=Lora&family=Source+Sans+Pro:wght@200;400;600&display=swap" rel="stylesheet">
-<script type="text/javascript" src="T20db.txt"></script>
+<script type="text/javascript" src="skills.txt"></script>
+<script type="text/javascript" src="conditions.txt"></script>
+<script type="text/javascript" src="spells.txt"></script>
 
 <style>
 html{scroll-behavior:smooth}
@@ -577,20 +579,20 @@ button,.ofic{display:none!important}
   <div class="half"></div>
  </div></div>
  <div class="row"><div class="container">
-  <div class="half"><input type="text" placeholder="T&iacute;tulo"></div>
+  <div class="half"><input type="text" placeholder="T&iacute;tulo" name="nome"></div>
   <div class="half"></div>
  </div></div>
  <div class="row"><div class="container">
   <div class="half">
    <select class="select ssw60" onchange="check_other(this,0)">
-    <option value='Tipo' selected disabled>Tipo</option>
+    <option value='Tipo' selected disabled name="tipo">Tipo</option>
     <option value='Arcana'>Arcana</option>
     <option value='Divina'>Divina</option>
     <option value='Universal'>Universal</option>
    </select>
    <input class="invisible" type="text">
    <select class="select ssw30" onchange="check_other(this,2)">
-    <option value='C&iacute;rculo' selected disabled>C&iacute;rculo</option>
+    <option value='C&iacute;rculo' selected disabled name="circulo">C&iacute;rculo</option>
     <option value='1'>1 (1 PM)</option>
     <option value='2'>2 (3 PMs)</option>
     <option value='3'>3 (6 PMs)</option>
@@ -600,7 +602,7 @@ button,.ofic{display:none!important}
    <input type="number" class="invisible" type="text">
   </div>
   <div class="half">
-   <select class="select" onchange="check_other(this,0)">
+   <select class="select" onchange="check_other(this,0)" name="escola">
     <option value='Escola' selected disabled>Escola</option>
     <option value='Abjur'>Abjura&ccedil;&atilde;o (Abjur)</option>
     <option value='Adiv'>Adivinha&ccedil;&atilde;o (Adiv)</option>
@@ -616,7 +618,7 @@ button,.ofic{display:none!important}
  </div></div>
  <div class="row"><div class="container">
   <div class="half">
-   <select class="select" onchange="check_other(this,0)">
+   <select class="select" onchange="check_other(this,0)" name="execucao">
     <option value='Execu&ccedil;&atilde;o' selected disabled>Execu&ccedil;&atilde;o</option>
     <option value='Livre'>Livre</option>
     <option value='Movimento'>Movimento</option>
@@ -629,7 +631,7 @@ button,.ofic{display:none!important}
   </div>
   <div class="half">
    <select class="select" onchange="check_other(this,0)">
-    <option value='Alcance' selected disabled>Alcance</option>
+    <option value='Alcance' selected disabled name="alcance">Alcance</option>
     <option value='Pessoal'>Pessoal</option>
     <option value='Toque'>Toque</option>
     <option value='Curto'>Curto</option>
@@ -643,9 +645,9 @@ button,.ofic{display:none!important}
   </div>
  </div></div>
  <div class="row"><div class="container">
-  <div class="half"><input type="text" placeholder="&Aacute;rea/alvo"></div>
+  <div class="half"><input type="text" placeholder="&Aacute;rea/alvo" name="alvo-area"></div>
   <div class="half">
-   <select class="select" onchange="check_other(this,0)">
+   <select class="select" onchange="check_other(this,0)" name="duracao">
     <option value='Dura&ccedil;&atilde;o' selected disabled>Dura&ccedil;&atilde;o</option>
     <option value='Instantânea'>Instantânea</option>
     <option value='Cena'>Cena</option>
@@ -659,11 +661,11 @@ button,.ofic{display:none!important}
   </div>
  </div></div>
  <div class="row"><div class="container">
-  <div class="half"><input type="text" placeholder="Resist&ecirc;ncia"></div>
-  <div class="half"><input type="text" placeholder="Como conseguiu (origem e n&iacute;vel)"></div>
+  <div class="half"><input type="text" placeholder="Resist&ecirc;ncia" name="resistencia"></div>
+  <div class="half"><input type="text" placeholder="Como conseguiu (classe e n&iacute;vel)"></div>
  </div></div>
  <div class="row"><div class="container" style="width:76%">
-  <textarea type="text" placeholder="Descri&ccedil;&atilde;o"></textarea>
+  <textarea type="text" placeholder="Descri&ccedil;&atilde;o" name="descricao"></textarea>
  </div></div>
  <div class="row"><div class="container">
   <div class="half">Melhoramentos de magia:</div>
