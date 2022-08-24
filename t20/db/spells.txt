@@ -3939,7 +3939,7 @@ var spells_5 = {
   "add5":"",
   "mod5":""
  },
- Deflagração de Mana":{
+ "Deflagração de Mana":{
   "nome":"Deflagração de Mana",
   "tipo":"Arcana",
   "circulo":"5",
