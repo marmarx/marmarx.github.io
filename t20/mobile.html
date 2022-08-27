@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="author" content="Marco Martins">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script type="text/javascript" src="db/skills.txt"></script>
+<script type="text/javascript" src="db/conditions.txt"></script>
+<script type="text/javascript" src="db/spells.txt"></script>
+
+<style>
+*,*:before,*:after{margin:0;padding:0;transition:all .7s ease-in-out;font-family:'Open Sans', sans-serif;color:#292929;word-wrap:normal;word-break:keep-all;transform-style:preserve-3d;box-sizing:border-box}
+html,body{scroll-behavior:smooth;overflow-x:hidden}
+::-webkit-scrollbar{width:0}
+
+.row{display:inline-flex;position:relative;width:100%}
+.container{margin:auto;position:relative;float:left;width:80%;max-width:900px}
+.half,.third{float:left;width:100%}
+@media (min-width:991px){.half{width:49.99999%}.third{width:33.33333%}}
+
+h1,h2{text-align:center;margin:.5em 0;letter-spacing:4px;font-family:'Lora', serif;color:#fff;text-shadow:2px 2px 3px #252525,2px 2px 5px #252525}
+h1{font-size:3.6em;font-weight:500}h2{font-size:1.8em;text-transform:uppercase;font-weight:600}
+h3,h4,p,li{line-height:1.8em;letter-spacing:.8px;text-align:justify}
+h3{font-size:2em}h4{font-size:1.4em}h3,h4{font-weight:400;margin-top:1.5em}
+p,li{font-size:1.2em;font-weight:300;margin-top:1em}
+ul{margin:2em}b,.bold{font-weight:bold}i,.italic{font-style:italic}
+
+body{width:100vw;min-height:100vh}
+#sections{width:800vw}
+.sec{width:100vw;float:left;min-height:100vh;padding:25px}
+.sec:nth-child(odd){background:red}
+.sec:nth-child(even){background:blue}
+#dice_roller{position:fixed;width:100vw;height:15vh;border-top-left-radius:25px;border-top-right-radius:25px;background:#fff;bottom:0}
+#drawer{width:100vw;height:5vh;padding:2.1vh 40vw}.drew{height:95vh!important}
+#drawer div{width:100%;height:100%;background:rgba(32,32,32,.2);border-radius:5px}
+#dice{position:absolute;padding:0 25px;width:100%;bottom:0}
+
+nav{position:fixed;left:0;bottom:0;height:10vh;width:100vw;background:#fff;border-top:1px solid #EBEBEB;overflow:scroll}
+#menu{display:inline-flex}
+.menubtn{width:20vw;height:10vh;float:left;display:inline-flex}.menubi{margin:auto}
+.menuicon{color:#b0b0b0;width:fit-content;margin:auto}
+.menuicon svg{display:block;height:24px;width:24px;overflow:visible;fill:currentcolor}
+.menuicon path{color:#b0b0b0}.menuselicon path{color:#ff385c}
+.menutext{font-size:.625em;font-weight:600;color:#717171;margin-top:.2em}.menuseltext{font-weight:700}
+
+@media (min-width:601px) and (max-width:990px){}
+@media (min-width:991px){section{width:500px}}
+</style>
+
+<script>
+const menucolors = ['#ff385c'];
+window.addEventListener('onload',initiate,false);
+window.addEventListener('onrezise',initiate,false);
+window.beforeunload = function(){}
+function initiate(){}
+
+var x = 0;
+function navig(e){
+ e.parentNode.children[x].children[0].children[0].classList.remove('menuselicon');
+ e.parentNode.children[x].children[0].children[1].classList.remove('menuseltext');
+ e.children[0].children[0].classList.add('menuselicon');
+ e.children[0].children[1].classList.add('menuseltext');
+ x = Array.prototype.indexOf.call(e.parentNode.children,e);
+ document.getElementById('sections').style.transform='translate(-'+x*100+'vw,0)';
+}
+</script>
+</head>
+
+<body>
+<div id="sections">
+ <div id="sec_char" class="sec"></div>
+ <div id="sec_combat" class="sec"></div>
+ <div id="sec_skill" class="sec"></div>
+ <div id="sec_feat" class="sec"></div>
+ <div id="sec_spell" class="sec"></div>
+ <div id="sec_equip" class="sec"></div>
+ <div id="sec_condition" class="sec"></div>
+ <div id="sec_notes" class="sec"></div>
+</div>
+<div id="dice_roller">
+ <div id="drawer" onclick="this.parentNode.classList.toggle('drew')"><div></div></div>
+ <div id="dice"></div>
+</div>
+<nav>
+ <div id="menu">
+  <div class="menubtn" onclick="navig(this)"><div class="menubi">
+   <div class="menuicon menuselicon"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false"><path d="m16 1c8.2842712 0 15 6.71572875 15 15 0 8.2842712-6.7157288 15-15 15-8.28427125 0-15-6.7157288-15-15 0-8.28427125 6.71572875-15 15-15zm0 8c-2.7614237 0-5 2.2385763-5 5 0 2.0143973 1.2022141 3.7998876 2.9996346 4.5835001l.0003231 2.0984999-.1499943.0278452c-2.8326474.5613112-5.31897338 2.2230336-6.93575953 4.5872979 2.34343054 2.291067 5.54974273 3.7028569 9.08579613 3.7028569 3.5355506 0 6.7414538-1.4113884 9.0850203-3.701476-1.6141801-2.3628535-4.0978119-4.0247647-6.929184-4.5867938l-.1558786-.0287302.001228-2.0991413c1.7288399-.7547474 2.9066959-2.4357565 2.9936498-4.355479l.0051645-.2283797c0-2.7614237-2.2385763-5-5-5zm0-6c-7.17970175 0-13 5.82029825-13 13 0 2.9045768.95257276 5.5866683 2.56235849 7.7509147 1.42074739-1.9134907 3.33951478-3.4002416 5.53860831-4.2955956l.3480332-.1363191-.0229565-.0189706c-1.43704227-1.2411241-2.34462949-3.045583-2.42083359-5.0285539l-.00520991-.2714755c0-3.8659932 3.1340068-7 7-7s7 3.1340068 7 7c0 1.9941317-.8415062 3.8279876-2.224566 5.1193683l-.225434.2006317.0447787.0163138c2.3268368.8792152 4.3570558 2.4138611 5.8430586 4.4127726 1.6098837-2.1632453 2.5621627-4.8449575 2.5621627-7.7490864 0-7.17970175-5.8202983-13-13-13z"></path></svg></div>
+   <div class="menutext menuseltext">Personagem</div>
+  </div></div>
+  <div class="menubtn" onclick="navig(this)"><div class="menubi">
+   <div class="menuicon"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style=""></svg></div>
+   <div class="menutext">Combate</div>
+  </div></div>
+  <div class="menubtn" onclick="navig(this)"><div class="menubi">
+   <div class="menuicon"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style=""></svg></div>
+   <div class="menutext">Perícias</div>
+  </div></div>
+  <div class="menubtn" onclick="navig(this)"><div class="menubi">
+   <div class="menuicon"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style="fill:none;stroke:currentcolor"><path d="M526.673,204.221l-195.529-7.76L263.337,12.885l-67.798,183.577L0,204.221l153.635,121.202l-53.048,188.365 l162.75-108.664l162.75,108.664l-53.048-188.365L526.673,204.221z M392.683,467.808l-129.346-86.356L133.99,467.808 l42.163-149.692L54.058,221.779l155.404-6.163l53.875-145.885l53.885,145.885l155.394,6.163l-122.096,96.337L392.683,467.808z"/></svg></div>
+   <div class="menutext">Poderes</div>
+  </div></div>
+  <div class="menubtn" onclick="navig(this)"><div class="menubi">
+   <div class="menuicon"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style=""></svg></div>
+   <div class="menutext">Magias</div>
+  </div></div>
+  <div class="menubtn" onclick="navig(this)"><div class="menubi">
+   <div class="menuicon"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style=""></svg></div>
+   <div class="menutext">Equipamento</div>
+  </div></div>
+  <div class="menubtn" onclick="navig(this)"><div class="menubi">
+   <div class="menuicon"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style="fill:none;stroke:currentcolor;stroke-width:2.5"><path d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"></path></svg></div>
+   <div class="menutext">Condições</div>
+  </div></div>
+  <div class="menubtn" onclick="navig(this)"><div class="menubi">
+   <div class="menuicon"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style=""></svg></div>
+   <div class="menutext">Anotações</div>
+  </div></div>
+ </div>
+</nav>
+</body>
+</html>
