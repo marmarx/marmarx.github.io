@@ -1,4 +1,4 @@
-conditions = [
+const conditions = [
 {name:'Abalado',type:'Condição de medo',obs:'Se ficar abalado novamente, em vez diz fica apavorado','Percepção':-2},
 {name:'Agarrado',type:'Condição de paralisia',obs:'Só pode atacar com armas leves','Defesa (outros)':-5,'Luta':-2,'Pontaria':-2,'Deslocamento':'0m'},
 {name:'Alquebrado',type:'Condição mental',obs:'O custo em pontos de mana das habilidades e magias aumenta em +1'},

@@ -1,4 +1,4 @@
-const db_spells = {
+const spells = {
  "1":{
   "Abençoar Alimentos":{
    "nome":"Abençoar Alimentos",

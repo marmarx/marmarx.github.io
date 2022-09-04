@@ -1,4 +1,4 @@
-skills = [
+const skills = [
 ['Acrobacia',1,0,0,0,1],
 ['Adestramento',5,0,0,1,0],
 ['Atletismo',0,0,0,0,0],
