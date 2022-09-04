@@ -14,8 +14,8 @@
 
 <style>
 :root{--pv:#FF4466;--pm:#4BC7CF;--menu:#ff385c;--drawer:#dbdbdb;--diceroller:#e9e9e9}
-*,*:before,*:after{margin:0;padding:0;transition:all .7s ease-in-out;font-family:'Open Sans', sans-serif;color:#292929;word-wrap:normal;word-break:keep-all;transform-style:preserve-3d;box-sizing:border-box}
-html,body{scroll-behavior:smooth;overflow-x:hidden;min-height:100vh}
+*,*:before,*:after{margin:0;padding:0;transition:all .7s ease-in-out;font-family:'Open Sans', sans-serif;color:#292929;word-wrap:normal;word-break:keep-all;box-sizing:border-box}
+html,body{overflow-x:hidden;width:100vw;min-height:100vh}
 ::-webkit-scrollbar{width:0}
 
 .row{display:inline-flex;position:relative;width:100%}
@@ -30,8 +30,7 @@ h3{font-size:2em}h4{font-size:1.4em}h3,h4{font-weight:400;margin-top:1.5em}
 p,li{font-size:1.2em;font-weight:300;margin:.5em 0}
 ul{margin:2em}b,.bold{font-weight:bold}i,.italic{font-style:italic}
 
-body{width:100vw}
-#sections{width:800vw}
+#sections{width:800vw;position:relative}
 .sec{width:100vw;float:left;padding:25px 25px 125px 25px}
 #dice_roller,#drawer{border-top-left-radius:25px;border-top-right-radius:25px}
 #dice_roller{position:fixed;width:100vw;height:105px;background:var(--diceroller);bottom:0}
@@ -67,6 +66,7 @@ nav{position:fixed;left:0;bottom:0;height:70px;width:100vw;background:#fff;borde
 .trash::before{width:10px;height:4px;border:2px solid;border-bottom:transparent;border-top-left-radius:2px;border-top-right-radius:2px;top:-7px;left:-2px}
 .divider{width:70%;height:2px;margin:1em auto;background:rgba(32,32,32,.2)}
 
+.input{position:relative}
 input,select{border:1px solid #b0b0b0;border-radius:5px;font-size:1.1em;line-height:1.2em;-webkit-appearance:none;padding:1.6em 1.3em .5em;background:#fff}
 input,select,label{margin:.6em 0;width:100%}
 label{position:absolute;left:0;pointer-events:none;color:#717171;padding:1.3em 1.6em}
@@ -101,18 +101,18 @@ a:hover{background-color:#1e90ff;color:#fff}
 <div id="sections">
  <div class="sec" id="sec_char">
   <div class="row"><div class="container db">
-   <span><input id="char" class="drop" onkeyup="filter(this)" onclick="char_list(this)" onchange="char_add(this)" autocomplete="false" autocomplete="chrome-off" required><label>Personagem</label><div id="name-dropdown" class="dropdown dn"></div></span>
-   <span><input id="jogador" onchange="data_add(this)" autocomplete="off" autocomplete="chrome-off" required><label>Jogador</label></span>
-   <span><select id="raça" onchange="data_add(this)" required></select><label>Raça</label></span>
-   <select id="origem" onchange="data_add(this)" required></select><label>Origem</label>
+   <div class="input"><input id="char" class="drop" onkeyup="filter(this)" onclick="char_list(this)" onchange="char_add(this)" autocomplete="false" autocomplete="chrome-off" required><label>Personagem</label><div id="name-dropdown" class="dropdown dn"></div></div>
+   <div class="input"><input id="jogador" onchange="data_add(this)" autocomplete="off" autocomplete="chrome-off" required><label>Jogador</label></div>
+   <div class="input"><select id="raça" onchange="data_add(this)" required></select><label>Raça</label></div>
+   <div class="input"><select id="origem" onchange="data_add(this)" required></select><label>Origem</label></div>
   </div></div>
   <div class="row"><div class="container">
-   <div class="w10"><select id="classe" onchange="data_add(this)" required></select><label>Classe</label></div>
+   <div class="w10 input"><select id="classe" onchange="data_add(this);menucolor(this.value)" required></select><label>Classe</label></div>
    <div class="w1"></div>
-   <div class="w3"><select id="nível" class="tc" onchange="data_add(this)" required></select><label class="tc">Nível</label></div>
+   <div class="w3 input"><select id="nível" class="tc" onchange="data_add(this)" required></select><label class="tc">Nível</label></div>
   </div></div>
   <div class="row"><div class="container db">
-   <select id="divindade" onchange="data_add(this)" required></select><label>Divindade</label>
+   <div class="input"><select id="divindade" onchange="data_add(this)" required></select><label>Divindade</label></div>
   </div></div>
   <div class="divider"></div>
   <div class="row"><div class="container db">
@@ -259,10 +259,10 @@ function hide(e,el){if(amIclicked(e,el)){el.classList.toggle('invisible')}}
 function show(el){document.getElementById(el).classList.toggle('invisible')}
 
 function menucolor(i){
+ console.log(i);
  document.querySelector('meta[name="theme-color"]').setAttribute('content',colors[i]);
  document.querySelector(':root').style.setProperty('--menu',colors[i]);
 }
-menucolor(7);
 
 function filter(el){
  var filter = el.value.toUpperCase();
