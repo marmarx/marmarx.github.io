@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Ficha T20 Mobile (v1)</title>
+<title>Ficha T20 Mobile - v0.5</title>
 <meta name="author" content="Marco Martins">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#FF385C">
@@ -348,7 +348,7 @@ function char_remove(){
   chars.splice(chars.indexOf(title),1);
   localStorage.removeItem(title+'_data');
   clear();title='';data={};
-  document.title = 'Ficha T20 Mobile (v1)';
+  document.title = 'Ficha T20 Mobile - v0.5';
   document.getElementById('chardel').disabled = true;
  }
 }
@@ -435,6 +435,5 @@ function reset(){
  title='';
  location.reload();
 }
-reset();
 </script>
 </html>
