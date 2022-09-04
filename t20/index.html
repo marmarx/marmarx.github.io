@@ -118,7 +118,7 @@ a:hover{background-color:#1e90ff;color:#fff}
   <div class="row"><div class="container db">
    <label for="file"><input id="file" type="file" onchange="import_char(event)">Importar</input></label>
    <button onclick="export_char()">Exportar</button>
-   <button id="nomedel" class="delete" onclick="char_remove()" disabled>Deletar</button>
+   <button id="chardel" class="delete" onclick="char_remove()" disabled>Deletar</button>
   </div></div>
  </div>
  <div class="sec" id="sec_combat"></div>
@@ -301,8 +301,6 @@ function start_up(){
 
 //-------------------------CHARACTERS FUNCTIONS------------------------//
 
-var onchange_nome = 1;
-
 function char_list(el){
  if(chars.length){
   el = el.parentNode.children[2];
@@ -318,7 +316,7 @@ function char_set(el){
  title = el.innerHTML;
  el.parentNode.parentNode.children[0].value = title;
  document.title = title + ' - T20';
- document.getElementById('nomedel').disabled = false;
+ document.getElementById('chardel').disabled = false;
  data_load();
  data_set();
  console.log('Character '+title+' was loaded');
@@ -326,11 +324,11 @@ function char_set(el){
 
 function char_add(e){
  title = e.value;
- if(title&&chars.indexOf(title)<0&&onchange_nome){
+ if(title){
   data[e.id]=e.value;
   chars.push(title);
   document.title = title + ' - T20';
-  document.getElementById('nomedel').disabled = false;
+  document.getElementById('chardel').disabled = false;
   console.log('Character '+title+' was created');
  }
 }
@@ -342,7 +340,7 @@ function char_remove(){
   clear();
   title='';data={};
   document.title = 'Ficha T20 Mobile (v1)';
-  document.getElementById('nomedel').disabled = true;
+  document.getElementById('chardel').disabled = true;
   console.log('Character '+title+' was removed');
  }
 }
@@ -368,9 +366,9 @@ window.onload = function(){
 
 function data_set(){
  for (const key in data){document.getElementById(key).value=data[key]}
- title=data['nome'];
+ title=data['char'];
  document.title = title + ' - T20';
- document.getElementById('nomedel').disabled = false;
+ document.getElementById('chardel').disabled = false;
 }
 
 function data_load(){
@@ -395,9 +393,9 @@ function import_char(evt){
    if(evt.target.readyState!=2) return;
    if(evt.target.error){alert('Error while reading file');return}
    data = JSON.parse(evt.target.result);
-   chars.push(data['nome']);
+   chars.push(data['char']);
    data_set();
-   console.log('Character '+data['nome']+' data imported');
+   console.log('Character '+data['char']+' data imported');
   };
  reader.readAsText(evt.target.files[0]);
 }
