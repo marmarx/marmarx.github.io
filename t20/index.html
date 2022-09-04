@@ -15,7 +15,7 @@
 <style>
 :root{--pv:#FF4466;--pm:#4BC7CF;--menu:#ff385c;--drawer:#dbdbdb;--diceroller:#e9e9e9}
 *,*:before,*:after{margin:0;padding:0;transition:all .7s ease-in-out;font-family:'Open Sans', sans-serif;color:#292929;word-wrap:normal;word-break:keep-all;transform-style:preserve-3d;box-sizing:border-box}
-html,body{scroll-behavior:smooth;overflow:hidden}
+html,body{scroll-behavior:smooth;overflow-x:hidden;min-height:100vh}
 ::-webkit-scrollbar{width:0}
 
 .row{display:inline-flex;position:relative;width:100%}
@@ -31,17 +31,17 @@ p,li{font-size:1.2em;font-weight:300;margin:.5em 0}
 ul{margin:2em}b,.bold{font-weight:bold}i,.italic{font-style:italic}
 
 body{width:100vw}
-#sections{width:800vw;min-height:100vh;overflow-y:scroll}
-.sec{width:100vw;float:left;min-height:100vh;padding:25px 25px 18vh 25px}
+#sections{width:800vw}
+.sec{width:100vw;float:left;padding:25px 25px 125px 25px}
 #dice_roller,#drawer{border-top-left-radius:25px;border-top-right-radius:25px}
-#dice_roller{position:fixed;width:100vw;height:15vh;background:var(--diceroller);bottom:0}
-#drawer{width:100vw;height:5vh;padding:2.1vh 40vw;background:var(--drawer)}.drew{height:90vh!important}
+#dice_roller{position:fixed;width:100vw;height:105px;background:var(--diceroller);bottom:0}
+#drawer{width:100vw;height:35px;padding:15px 35%;background:var(--drawer)}.drew{height:90vh!important}
 #drawer div{width:100%;height:100%;background:#fff;border-radius:5px}
 #dice{position:absolute;padding:0 25px;width:100%;bottom:0}
 
-nav{position:fixed;left:0;bottom:0;height:10vh;width:100vw;background:#fff;border-top:1px solid #EBEBEB;overflow:scroll}
+nav{position:fixed;left:0;bottom:0;height:70px;width:100vw;background:#fff;border-top:1px solid #EBEBEB;overflow:scroll}
 #menu{display:inline-flex}
-.menubtn{width:20vw;height:10vh;float:left;display:inline-flex}.menubi{margin:auto}
+.menubtn{width:20vw;height:70px;float:left;display:inline-flex}.menubi{margin:auto}
 .menuicon{color:#b0b0b0;width:fit-content;margin:auto}
 .menuicon svg{display:block;height:24px;width:24px;overflow:visible;fill:currentcolor}
 .menuicon path{color:#b0b0b0}.menuselicon path{color:var(--menu)}
@@ -219,8 +219,6 @@ a:hover{background-color:#1e90ff;color:#fff}
   </div></div>
  </div>
 </nav>
-
-<div id="spell_overlay" class="backdrop invisible" onclick="hide(event,this)"><div id="spell" class="call_action">
 
 </div></div>
 
