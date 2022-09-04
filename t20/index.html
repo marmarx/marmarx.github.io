@@ -102,11 +102,11 @@ a:hover{background-color:#1e90ff;color:#fff}
  <div class="sec" id="sec_char">
   <div class="row"><div class="container db">
    <div class="input">
-    <input id="char" class="drop" onkeyup="char_list(this);filter(this)" onclick="char_list(this)" autocomplete="false" autocomplete="chrome-off" required>
+    <input id="char" class="drop" type="text" onkeyup="char_list(this);filter(this)" onclick="char_list(this)" autocomplete="false" autocomplete="chrome-off" required>
     <label>Personagem</label>
     <div id="name-dropdown" class="dropdown dn"></div>
    </div>
-   <div class="input"><input id="jogador" onchange="data_add(this)" autocomplete="off" autocomplete="chrome-off" required><label>Jogador</label></div>
+   <div class="input"><input id="jogador" type="text" onchange="data_add(this)" autocomplete="off" autocomplete="chrome-off" required><label>Jogador</label></div>
    <div class="input"><select id="raça" onchange="data_add(this)" required></select><label>Raça</label></div>
    <div class="input"><select id="origem" onchange="data_add(this)" required></select><label>Origem</label></div>
   </div></div>
@@ -435,5 +435,6 @@ function reset(){
  title='';
  location.reload();
 }
+reset();
 </script>
 </html>
