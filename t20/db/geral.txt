@@ -2,7 +2,7 @@ const load = 1;
 var title = '';
 var chars = [];
 var data = {};
-const colors = ['#ff385c','#4F86F7','#FF404C','#76D7EA','#FF8866','#29AB87','#391285','#6F2DA8','#84DE02','#ED0A3F','#FF85CF','#FFDF46','#FF8833','#DB91EF','#cc296f'];
+const colors = ['#FF385C','#4F86F7','#FF404C','#76D7EA','#FF8866','#29AB87','#391285','#6F2DA8','#84DE02','#ED0A3F','#FF85CF','#FFDF46','#FF8833','#DB91EF','#CC296F'];
 
 const raca = ['raça','Anão','Dahllan','Elfo','Goblin','Golem','Humano','Hynne','Kliren','Lefou','Medusa','Minotauro','Osteon','Qareen','Sereia/tritão','Sílfide','Suraggel','Trog'];
 const origem = ['origem','Acólito','Amigo dos Animais','Amnésico','Aristocrata','Artesão','Artista','Assistente de Laboratório','Batedor','Capanga','Charlatão','Circense','Criminoso','Curandeiro','Eremita','Escravo','Estudioso','Fazendeiro','Forasteiro','Gladiador','Guarda','Herdeiro','Herói Camponês','Marujo','Mateiro','Membro de Guilda','Mercador','Minerador','Nômade','Pivete','Refugiado','Seguidor','Selvagem','Soldado','Taverneiro','Trabalhador'];
