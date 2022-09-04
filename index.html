@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Ficha T20 Mobile (v1)</title>
+<title>Ficha T20 Mobile - v0.5</title>
 <meta name="author" content="Marco Martins">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#FF385C">
@@ -44,7 +44,7 @@ nav{position:fixed;left:0;bottom:0;height:70px;width:100vw;background:#fff;borde
 .menuicon{color:#b0b0b0;width:fit-content;margin:auto}
 .menuicon svg{display:block;height:24px;width:24px;overflow:visible;fill:currentcolor}
 .menuicon path{color:#b0b0b0}.menuselicon path{color:var(--menu)}
-.menutext{font-size:.625em;font-weight:600;color:#717171;margin-top:.2em}.menuseltext{font-weight:700}
+.menutext{font-size:.625em;font-weight:600;color:#717171;margin-top:.2em;padding:.1em 0 .5em}.menuseltext{font-weight:700}
 
 #res_test{margin:auto}#spells_list{display:block}
 .spell{padding:.5em 1em;border:1px solid transparent;border-radius:10px;margin:.5em 0}
@@ -101,8 +101,12 @@ a:hover{background-color:#1e90ff;color:#fff}
 <div id="sections">
  <div class="sec" id="sec_char">
   <div class="row"><div class="container db">
-   <div class="input"><input id="char" class="drop" onkeyup="filter(this)" onclick="char_list(this)" onchange="char_add(this)" autocomplete="false" autocomplete="chrome-off" required><label>Personagem</label><div id="name-dropdown" class="dropdown dn"></div></div>
-   <div class="input"><input id="jogador" onchange="data_add(this)" autocomplete="off" autocomplete="chrome-off" required><label>Jogador</label></div>
+   <div class="input">
+    <input id="char" class="drop" type="text" onkeyup="char_list(this);filter(this)" onclick="char_list(this)" autocomplete="false" autocomplete="chrome-off" required>
+    <label>Personagem</label>
+    <div id="name-dropdown" class="dropdown dn"></div>
+   </div>
+   <div class="input"><input id="jogador" type="text" onchange="data_add(this)" autocomplete="off" autocomplete="chrome-off" required><label>Jogador</label></div>
    <div class="input"><select id="raça" onchange="data_add(this)" required></select><label>Raça</label></div>
    <div class="input"><select id="origem" onchange="data_add(this)" required></select><label>Origem</label></div>
   </div></div>
@@ -178,6 +182,7 @@ a:hover{background-color:#1e90ff;color:#fff}
  <div id="sec_equip" class="sec"></div>
  <div id="sec_condition" class="sec"></div>
  <div id="sec_notes" class="sec"></div>
+ <div id="sec_config" class="sec"></div>
 </div>
 <div id="dice_roller">
  <div id="drawer" onclick="this.parentNode.classList.toggle('drew')"><div></div></div>
@@ -217,6 +222,10 @@ a:hover{background-color:#1e90ff;color:#fff}
    <div class="menuicon"><svg id="icon8" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style="transform:scale(.07) translate(-150px,-160px)"></svg></div>
    <div class="menutext">Anotações</div>
   </div></div>
+  <div class="menubtn" onclick="navig(this)"><div class="menubi">
+   <div class="menuicon"><svg id="icon9" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style="transform:scale(.07) translate(-150px,-160px)"></svg></div>
+   <div class="menutext">Configurações</div>
+  </div></div>
  </div>
 </nav>
 
@@ -225,7 +234,7 @@ a:hover{background-color:#1e90ff;color:#fff}
 </body>
 
 <script>
-
+const load = 1;var title = '';var chars = [];var data = {};
 
 
 //-------------------------NAVIGATION FUNCTIONS------------------------//
@@ -267,7 +276,7 @@ function menucolor(i){
 function filter(el){
  var filter = el.value.toUpperCase();
  var a = el.parentNode.children[2].getElementsByTagName("a");
- for (var i=0;i<a.length;i++){
+ for (var i=1;i<a.length;i++){
   txtValue = a[i].textContent || a[i].innerText;
   if(txtValue.toUpperCase().indexOf(filter)>-1){a[i].style.display=""}
   else{a[i].style.display="none"}
@@ -278,6 +287,25 @@ window.addEventListener('click',function(e){
  var el = document.getElementsByClassName('drop');
  for (i=0;i<el.length;i++){if(el[i].contains(e.target)){}else{el[i].parentNode.children[2].classList.add("dn")}}
 });
+
+
+
+let touchstartX = 0
+let touchendX = 0
+    
+function checkDirection(){
+ if(touchendX<touchstartX) alert('swiped left!')
+ if(touchendX>touchstartX) alert('swiped right!')
+}
+
+document.addEventListener('touchstart',e=>{
+ touchstartX = e.changedTouches[0].screenX
+})
+
+document.addEventListener('touchend',e=>{
+ touchendX = e.changedTouches[0].screenX
+ checkDirection()
+})
 
 
 //-------------------------STARTER FUNCTIONS------------------------//
@@ -301,47 +329,51 @@ function start_up(){
 
 //-------------------------CHARACTERS FUNCTIONS------------------------//
 
-function char_list(el){
- if(chars.length){
-  el = el.parentNode.children[2];
-  el.classList.remove('dn');
-  el.innerHTML = '';
-  for(var i=0;i<chars.length;i++){el.innerHTML += '<a onclick="char_set(this)">'+chars[i]+'</a>'}
- }
-}
-
-function char_set(el){
- if(title){save_data()}
- clear();
- title = el.innerHTML;
- el.parentNode.parentNode.children[0].value = title;
- document.title = title + ' - T20';
- document.getElementById('chardel').disabled = false;
- data_load();
- data_set();
- console.log('Character '+title+' was loaded');
-}
-
 function char_add(e){
- title = e.value;
+ title = e.title;
  if(title){
-  data[e.id]=e.value;
+  data={};
+  data[e.name]=title;
   chars.push(title);
   document.title = title + ' - T20';
   document.getElementById('chardel').disabled = false;
+  clear();
+  document.getElementById(e.name).value=title;
   console.log('Character '+title+' was created');
  }
 }
 
+function char_list(el){
+ var value = el.value;
+ console.log('value = '+value);
+ el = el.parentNode.children[2];
+ if(value||chars.length){el.classList.remove('dn')}
+ if(!value&&!chars.length){el.classList.add('dn')}
+ el.innerHTML = '';
+ if(value){el.innerHTML = '<a name="char" onclick="char_add(this)" title="'+value+'">Criar personagem '+value+'?</a>'}
+ if(chars.length){for(var i=0;i<chars.length;i++){el.innerHTML += '<a onclick="char_set(this)">'+chars[i]+'</a>'}}
+}
+
+function char_set(el){
+ if(title){save_data()}console.log(title);
+ clear();
+ title = el.innerHTML;console.log(title);
+ data_load();
+ clear();
+ document.title = title + ' - T20';
+ document.getElementById('chardel').disabled = false;
+ data_set();
+ console.log('Character '+title+' was loaded');
+}
+
 function char_remove(){
  if(title){
+  console.log('Character '+title+' was removed');
   chars.splice(chars.indexOf(title),1);
   localStorage.removeItem(title+'_data');
-  clear();
-  title='';data={};
-  document.title = 'Ficha T20 Mobile (v1)';
+  clear();title='';data={};
+  document.title = 'Ficha T20 Mobile - v0.5';
   document.getElementById('chardel').disabled = true;
-  console.log('Character '+title+' was removed');
  }
 }
 
@@ -402,8 +434,8 @@ function import_char(evt){
 
 function export_char(){
  var filename = title?'char_'+title:'unnamed_char' +'.txt';
- data = JSON.stringify(data);
- var file = new Blob([data], {type:'text/plain'});
+ var filedata = JSON.stringify(data);
+ var file = new Blob([filedata], {type:'text/plain'});
  if (window.navigator.msSaveOrOpenBlob) // IE10+
      window.navigator.msSaveOrOpenBlob(file, filename);
  else { // Others
@@ -424,6 +456,7 @@ function reset(){
  localStorage.clear();
  chars=[];
  data={};
+ title='';
  location.reload();
 }
 </script>
