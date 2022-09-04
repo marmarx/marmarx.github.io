@@ -15,7 +15,7 @@
 <style>
 :root{--pv:#FF4466;--pm:#4BC7CF;--menu:#ff385c;--drawer:#dbdbdb;--diceroller:#e9e9e9}
 *,*:before,*:after{margin:0;padding:0;transition:all .7s ease-in-out;font-family:'Open Sans', sans-serif;color:#292929;word-wrap:normal;word-break:keep-all;transform-style:preserve-3d;box-sizing:border-box}
-html,body{scroll-behavior:smooth;overflow:hidden;height:100vh}
+html,body{scroll-behavior:smooth;overflow:hidden;min-height:95vh}
 ::-webkit-scrollbar{width:0}
 
 .row{display:inline-flex;position:relative;width:100%}
@@ -30,9 +30,9 @@ h3{font-size:2em}h4{font-size:1.4em}h3,h4{font-weight:400;margin-top:1.5em}
 p,li{font-size:1.2em;font-weight:300;margin:.5em 0}
 ul{margin:2em}b,.bold{font-weight:bold}i,.italic{font-style:italic}
 
-body{width:100vw;min-height:100vh}
-#sections{width:800vw;height:100vh;overflow-y:scroll}
-.sec{width:100vw;float:left;min-height:100vh;padding:25px 25px 18vh 25px}
+body{width:100vw}
+#sections{width:800vw;min-height:95vh;overflow-y:scroll}
+.sec{width:100vw;float:left;min-height:95vh;padding:25px 25px 18vh 25px}
 #dice_roller,#drawer{border-top-left-radius:25px;border-top-right-radius:25px}
 #dice_roller{position:fixed;width:100vw;height:15vh;background:var(--diceroller);bottom:0}
 #drawer{width:100vw;height:5vh;padding:2.1vh 40vw;background:var(--drawer)}.drew{height:95vh!important}
