@@ -1,3 +1,8 @@
+const spell_level = ['spell_level',1,2,3,4,5];
+const spell_class = ['spell_class','Arcana','Divina','Universal'];
+const spell_scholl = ['spell_scholl','Abjuração','Adivinhação','Convocação','Encantamento','Evocação','Ilusão','Necromancia','Transmutação'];
+const spell_inputs = [spell_level,spell_class,spell_scholl];
+
 const spells = {
  "1":{
   "Abençoar Alimentos":{

@@ -34,17 +34,18 @@ ul{margin:2em}b,.bold{font-weight:bold}i,.italic{font-style:italic}
 .sec{width:100vw;float:left;padding:25px 25px 125px 25px}
 #dice_roller,#drawer{border-top-left-radius:25px;border-top-right-radius:25px}
 #dice_roller{position:fixed;width:100vw;height:105px;background:var(--diceroller);bottom:0}
-#drawer{width:100vw;height:35px;padding:15px 35%;background:var(--drawer)}.drew{height:90vh!important}
+#drawer{width:100vw;height:35px;padding:15px 35%;background:var(--drawer)}.drew{height:95vh!important}
 #drawer div{width:100%;height:100%;background:#fff;border-radius:5px}
-#dice{position:absolute;padding:0 25px;width:100%;bottom:0}
+#dice{position:relative;padding:0 25px;width:100%;bottom:0}
+#dice-pick{position:absolute;bottom:0}
 
-nav{position:fixed;left:0;bottom:0;height:70px;width:100vw;background:#fff;border-top:1px solid #EBEBEB;overflow:scroll}
+nav{position:fixed;left:0;bottom:0;height:70px;width:100vw;background:#fff;border-top:1px solid #EBEBEB;overflow-x:scroll;overflow-y:hidden}
 #menu{display:inline-flex}
-.menubtn{width:20vw;height:70px;float:left;display:inline-flex}.menubi{margin:auto}
+.menubtn{width:20vw;height:70px;float:left;display:inline-flex;cursor:pointer}.menubi{margin:auto}
 .menuicon{color:#b0b0b0;width:fit-content;margin:auto}
 .menuicon svg{display:block;height:24px;width:24px;overflow:visible;fill:currentcolor}
 .menuicon path{color:#b0b0b0}.menuselicon path{color:var(--menu)}
-.menutext{font-size:.625em;font-weight:600;color:#717171;margin-top:.2em}.menuseltext{font-weight:700}
+.menutext{font-size:.625em;font-weight:600;color:#717171;margin-top:.2em;padding:.1em 0 .5em}.menuseltext{font-weight:700}
 
 #res_test{margin:auto}#spells_list{display:block}
 .spell{padding:.5em 1em;border:1px solid transparent;border-radius:10px;margin:.5em 0}
@@ -66,19 +67,21 @@ nav{position:fixed;left:0;bottom:0;height:70px;width:100vw;background:#fff;borde
 .trash::before{width:10px;height:4px;border:2px solid;border-bottom:transparent;border-top-left-radius:2px;border-top-right-radius:2px;top:-7px;left:-2px}
 .divider{width:70%;height:2px;margin:1em auto;background:rgba(32,32,32,.2)}
 
-.input{position:relative}
-input,select{border:1px solid #b0b0b0;border-radius:5px;font-size:1.1em;line-height:1.2em;-webkit-appearance:none;padding:1.6em 1.3em .5em;background:#fff}
-input,select,label{margin:.6em 0;width:100%}
-label{position:absolute;left:0;pointer-events:none;color:#717171;padding:1.3em 1.6em}
-input:focus ~ label,input:not(:focus):valid ~ label,select:focus ~ label,select:not(:focus):valid ~ label{font-size:.7em;padding:.4em 2.1em;margin:1.1em 0;left:2px}
+.input{position:relative;width:100%;margin:18px 0}
+.fakeinput,input,select{border:1px solid #b0b0b0;border-radius:5px;font-size:1.1em;line-height:1.2em;-webkit-appearance:none;padding:1.6em 1.3em .5em;background:#fff}
+.fakeinput,input,select,label{width:100%}
+label{position:absolute;left:0;top:0;pointer-events:none;color:#717171;padding:1.3em 1.6em}
+input:focus ~ label,input:not(:focus):valid ~ label,select:focus ~ label,select:not(:focus):valid ~ label,.fakeinput:focus ~ label,.fakeinput:not(:empty) ~ label{font-size:.7em;padding:.4em 2.1em;margin:.3em 0;left:2px}
 .select{padding:.8em;margin:0}
 input[type="file"]{display:none}
 label[for="file"]{position:relative;pointer-events:all}
 
-.backdrop,.call_action{width:100vw;left:0;top:0}
-.backdrop{height:100vh;position:fixed;top:0;background:hsl(0 0% 10%/.5);backdrop-filter:blur(2px)}
-.call_action{height:85vh;position:absolute;background:#e8e8e8}
-.invisible{top:100vh}
+.fakeinput{height:60.06px;cursor:text}.fakeinput:focus{outline:1px auto #141414}
+.checkmark,.checkmarked{text-indent:10px;height:46px}
+.checkmark::before,.checkmarked::before,.checkmarked::after{content:"";display:block}
+.checkmark::before,.checkmarked::before{position:absolute;left:9px;width:22px;height:22px;border:2px solid #dbdbdb;border-radius:4px}
+.checkmarked::after{width:8px;height:13px;border:1px solid #2196F3;border-width:0 2px 2px 0;transform-origin:bottom left;transform:rotate(45deg) translate(-29.5px,-5px)}
+
 button,label[for="file"]{padding:14px 26px;text-align:center;text-decoration:none;display:inline-block;font-size:100%;margin:10px 0;cursor:pointer;border-radius:5px; width:100%;background:transparent;border:2px solid #292929;color:#292929;font-weight:600}
 button:hover,button:focus,label[for="file"]:hover,label[for="file"]:focus{background:#292929;color:#e8e8e8}
 button.delete{border:2px solid #ef5d5d;color:#ef5d5d}button.delete:hover{background:#ef5d5d;color:#fff}
@@ -86,8 +89,14 @@ button:disabled,button:hover:disabled{border:2px solid #b0b0b0;color:#b0b0b0;bac
 
 a{color:black;padding:12px 30px;text-decoration:none;display:block}
 a:hover{background-color:#1e90ff;color:#fff}
-.dropdown{position:absolute;background-color:#fff;border:1px solid #000;z-index:1;width:100%;top:71px;max-height:250px;overflow-y:scroll}
+.dropdown{position:absolute;background-color:#fff;border:1px solid #000;z-index:1;width:100%;top:60px;max-height:250px;overflow-y:scroll}
 .dn{display:none!important;border:0}
+
+.backdrop,.overlay{width:100vw;left:0;top:0}
+.backdrop{height:100vh;position:fixed;top:0;background:hsl(0 0% 10%/.5);backdrop-filter:blur(2px)}
+.overlay{height:85vh;max-height:85vh;position:absolute;background:#e8e8e8;margin-top:15vh;overflow-x:hidden;overflow-y:scroll;padding:25px}
+.invisible{opacity:0;visibility:hidden;pointer-events:none;top:100vh}
+#spell_overlay{height:200vh}
 
 .dif{display:inline-flex}.db{display:block}.ma{margin:auto}.mo{margin:0}.ms{margin-top:.4em!important}.ha{height:auto}.tc{text-align:center;padding-right:0;padding-left:0}
 .w10{width:100%}.w9{width:90%}.w8{width:80%}.w7{width:70%}.w6{width:60%}.w5{width:50%}.w4{width:40%}.w3{width:30%}.w2{width:20%}.w1{width:10%}
@@ -104,18 +113,19 @@ a:hover{background-color:#1e90ff;color:#fff}
    <div class="input">
     <input id="char" class="drop" type="text" onkeyup="char_list(this);filter(this)" onclick="char_list(this)" autocomplete="false" autocomplete="chrome-off" required>
     <label>Personagem</label>
-    <div id="name-dropdown" class="dropdown dn"></div>
+    <div class="dropdown dn"></div>
    </div>
    <div class="input"><input id="jogador" type="text" onchange="data_add(this)" autocomplete="off" autocomplete="chrome-off" required><label>Jogador</label></div>
    <div class="input"><select id="raça" onchange="data_add(this)" required></select><label>Raça</label></div>
    <div class="input"><select id="origem" onchange="data_add(this)" required></select><label>Origem</label></div>
   </div></div>
   <div class="row"><div class="container">
-   <div class="w10 input"><select id="classe" onchange="data_add(this);menucolor(this.value)" required></select><label>Classe</label></div>
+   <div class="w10 input mo"><select id="classe" onchange="data_add(this);menucolor(this.value)" required></select><label>Classe</label></div>
    <div class="w1"></div>
-   <div class="w3 input"><select id="nível" class="tc" onchange="data_add(this)" required></select><label class="tc">Nível</label></div>
+   <div class="w3 input mo"><select id="nível" class="tc" onchange="data_add(this)" required></select><label class="tc">Nível</label></div>
   </div></div>
   <div class="row"><div class="container db">
+   <div class="input"><input id="distincao" onchange="data_add(this)" required><label>Distinção de classe</label></div>
    <div class="input"><select id="divindade" onchange="data_add(this)" required></select><label>Divindade</label></div>
   </div></div>
   <div class="divider"></div>
@@ -176,17 +186,22 @@ a:hover{background-color:#1e90ff;color:#fff}
 
   </div></div>
   <div class="row"><div class="container">
-   <button onclick="show('spell_overlay')">Buscar magias</button>
+   <button onclick="show('backdrop_spell')">Buscar magias</button>
   </div></div>
  </div>
  <div id="sec_equip" class="sec"></div>
  <div id="sec_condition" class="sec"></div>
  <div id="sec_notes" class="sec"></div>
+ <div id="sec_config" class="sec"></div>
 </div>
+
 <div id="dice_roller">
- <div id="drawer" onclick="this.parentNode.classList.toggle('drew')"><div></div></div>
- <div id="dice"></div>
+ <div id="drawer" onclick="this.parentNode.classList.toggle('drew');drawed=!drawed"><div></div></div>
+  <div id="results"></div>
+  <div id="dice-pick"></div>
+  <input id="dice" onkeypress="return /[0-9!#d+-kehl]/i.test(event.key)" onchange="diceroll(this.value,1,1);this.value=''"></input>
 </div>
+
 <nav>
  <div id="menu">
   <div class="menubtn" onclick="navig(this)"><div class="menubi">
@@ -221,10 +236,27 @@ a:hover{background-color:#1e90ff;color:#fff}
    <div class="menuicon"><svg id="icon8" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style="transform:scale(.07) translate(-150px,-160px)"></svg></div>
    <div class="menutext">Anotações</div>
   </div></div>
+  <div class="menubtn" onclick="navig(this)"><div class="menubi">
+   <div class="menuicon"><svg id="icon9" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style="transform:scale(.07) translate(-150px,-160px)"></svg></div>
+   <div class="menutext">Configurações</div>
+  </div></div>
  </div>
 </nav>
 
 </div></div>
+
+<div id="backdrop_spell" class="backdrop invisible" onclick="hide(event,this)">
+ <div class="overlay">
+  <div class="row"><div class="container db">
+   <p>Buscar por...</p>
+   <div class="input"><input id="spell_name" type="text" onchange="" autocomplete="off" autocomplete="chrome-off" required><label>Nome da magia</label></div>
+   <div class="input"><div id="spell_level" class="fakeinput drop" onclick="show_list(this)" tabindex="0"></div><label>Nível</label><div class="dropdown dn"></div></div>
+   <div class="input"><div id="spell_class" class="fakeinput drop" onclick="show_list(this)" tabindex="0"></div><label>Classificação</label><div class="dropdown dn"></div></div>
+   <div class="input"><div id="spell_scholl" class="fakeinput drop" onclick="show_list(this)" tabindex="0"></div><label>Escola</label><div class="dropdown dn"></div></div>   
+  </div></div>
+  <div id="spell_overlay"></div>
+ </div>
+</div>
 
 </body>
 
@@ -235,6 +267,11 @@ const load = 1;var title = '';var chars = [];var data = {};
 //-------------------------NAVIGATION FUNCTIONS------------------------//
 
 var x = 0;
+let touchstartX = 0;
+let touchendX = 0;
+const menubtn = document.getElementsByClassName('menubtn');
+var drawed = 1;
+
 function navig(e){
  e.parentNode.children[x].children[0].children[0].classList.remove('menuselicon');
  e.parentNode.children[x].children[0].children[1].classList.remove('menuseltext');
@@ -245,6 +282,14 @@ function navig(e){
  sections.style.transform='translate(-'+x*100+'vw,0)';
  sections.scrollTo({top:0,behavior:'smooth'});
 }
+
+function checkDirection(){
+ var deltaX = touchstartX-touchendX;
+ if(drawed&&deltaX>200&&x<8){navig(menubtn[x+1])}
+ if(drawed&&deltaX<-200&&x>0){navig(menubtn[x-1])}
+}
+document.addEventListener('touchstart',e=>{touchstartX=e.changedTouches[0].screenX})
+document.addEventListener('touchend',e=>{touchendX=e.changedTouches[0].screenX;checkDirection()})
 
 function moreinfo(e){
  e.classList.toggle('more_info');
@@ -278,10 +323,25 @@ function filter(el){
  }
 }
 
+function show_list(e){
+ e.focus();
+ e = e.parentNode.children[2].classList.remove('dn');
+}
+
+var cspell_level = [],cspell_class = [],cspell_scholl = [];
+function set_check(e,array){
+ e.classList.toggle('checkmarked');
+ e.value=!e.value;
+ if(e.value){array.push(e.innerHTML)}else{array.splice(array.indexOf(e.innerHTML),1)}
+ e.parentNode.parentNode.children[0].innerHTML = array.join(', ');
+}
+
 window.addEventListener('click',function(e){
  var el = document.getElementsByClassName('drop');
  for (i=0;i<el.length;i++){if(el[i].contains(e.target)){}else{el[i].parentNode.children[2].classList.add("dn")}}
+ window.focus();
 });
+
 
 
 //-------------------------STARTER FUNCTIONS------------------------//
@@ -295,11 +355,15 @@ function set_select(array){
  }
 }
 
+function set_checkbox(array){
+ for(var j=1;j<array.length;j++){document.getElementById(array[0]).parentNode.children[2].innerHTML += '<a class="checkmark" onclick="set_check(this,c'+array[0]+')">'+array[j]+'</a>'}
+}
+
 function start_up(){
  for (var key in icons){document.getElementById(key).innerHTML = icons[key]}
  for (var i=0;i<inputs.length;i++){set_select(inputs[i])}
+ for (var i=0;i<spell_inputs.length;i++){set_checkbox(spell_inputs[i])}
 }
-
 	
 
 
@@ -414,7 +478,7 @@ function export_char(){
  var file = new Blob([filedata], {type:'text/plain'});
  if (window.navigator.msSaveOrOpenBlob) // IE10+
      window.navigator.msSaveOrOpenBlob(file, filename);
- else { // Others
+ else{
   var a = document.createElement("a"),url = URL.createObjectURL(file);
   a.href = url;
   a.download = filename;
@@ -435,5 +499,7 @@ function reset(){
  title='';
  location.reload();
 }
+
+show('backdrop_spell')
 </script>
 </html>
