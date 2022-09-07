@@ -76,7 +76,7 @@ input:focus ~ label,input:not(:focus):valid ~ label,select:focus ~ label,select:
 input[type="file"]{display:none}
 label[for="file"]{position:relative;pointer-events:all}
 
-.fakeinput{height:60.06px;cursor:text}.fakeinput:focus{outline:1px auto #141414}
+.fakeinput{height:60.06px;cursor:text;white-space:nowrap;overflow:hidden}.fakeinput:focus{outline:1px auto #141414}
 .checkmark,.checkmarked{text-indent:10px;height:46px}
 .checkmark::before,.checkmarked::before,.checkmarked::after{content:"";display:block}
 .checkmark::before,.checkmarked::before{position:absolute;left:9px;width:22px;height:22px;border:2px solid #dbdbdb;border-radius:4px}
@@ -333,12 +333,15 @@ function set_check(e,array){
  e.classList.toggle('checkmarked');
  e.value=!e.value;
  if(e.value){array.push(e.innerHTML)}else{array.splice(array.indexOf(e.innerHTML),1)}
+ array.sort();
  e.parentNode.parentNode.children[0].innerHTML = array.join(', ');
 }
 
 window.addEventListener('click',function(e){
  var el = document.getElementsByClassName('drop');
- for (i=0;i<el.length;i++){if(el[i].contains(e.target)){}else{el[i].parentNode.children[2].classList.add("dn")}}
+ for (i=0;i<el.length;i++){
+  if(!el[i].contains(e.target)){el[i].parentNode.children[2].classList.add("dn")}
+ }
  window.focus();
 });
 
