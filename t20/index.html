@@ -13,8 +13,8 @@
 <script type="text/javascript" src="db/geral.txt"></script>
 
 <style>
-:root{--pv:#FF4466;--pm:#4BC7CF;--menu:#FF385C;--drawer:#dbdbdb;--diceroller:#e9e9e9}
-*,*:before,*:after{margin:0;padding:0;transition:all .7s ease-in-out;font-family:'Open Sans', sans-serif;color:#292929;word-wrap:normal;word-break:keep-all;box-sizing:border-box}
+:root{--pv:#FF4466;--pm:#4BC7CF;--menu:#FF385C;--drawer:#dbdbdb;--diceroller:#e9e9e9;--black:#292929;--white:#fff}
+*,*:before,*:after{margin:0;padding:0;transition:all .7s ease-in-out;font-family:'Open Sans', sans-serif;color:var(--black);word-wrap:normal;word-break:keep-all;box-sizing:border-box}
 html,body{overflow-x:hidden;width:100vw;min-height:100vh}
 ::-webkit-scrollbar{width:0}
 
@@ -23,23 +23,23 @@ html,body{overflow-x:hidden;width:100vw;min-height:100vh}
 .half,.third{float:left;width:100%}
 @media (min-width:991px){.half{width:49.99999%}.third{width:33.33333%}}
 
-h1,h2{text-align:center;margin:.5em 0;letter-spacing:4px;font-family:'Lora', serif;color:#fff;text-shadow:2px 2px 3px #252525,2px 2px 5px #252525}
+h1,h2{text-align:center;margin:.5em 0;letter-spacing:4px;font-family:'Lora', serif;color:var(--white);text-shadow:2px 2px 3px #252525,2px 2px 5px #252525}
 h1{font-size:3.6em;font-weight:500}h2{font-size:1.8em;text-transform:uppercase;font-weight:600}
 h3,h4,p,li{line-height:1.8em;letter-spacing:.8px;text-align:justify}
 h3{font-size:2em}h4{font-size:1.4em}h3,h4{font-weight:400;margin-top:1.5em}
 p,li{font-size:1.2em;font-weight:300;margin:.5em 0}
 ul{margin:2em}b,.bold{font-weight:bold}i,.italic{font-style:italic}
 
-#sections{width:800vw;position:relative}
-.sec{width:100vw;float:left;padding:25px 25px 125px 25px}
+#sections{width:900vw;position:relative;display:flex}
+.sec{width:100vw;min-height:100vh;float:left;padding:25px 25px 125px 25px}
 #dice_roller,#drawer{border-top-left-radius:25px;border-top-right-radius:25px}
 #dice_roller{position:fixed;width:100vw;height:105px;background:var(--diceroller);bottom:0}
 #drawer{width:100vw;height:35px;padding:15px 35%;background:var(--drawer)}.drew{height:95vh!important}
-#drawer div{width:100%;height:100%;background:#fff;border-radius:5px}
+#drawer div{width:100%;height:100%;background:var(--white);border-radius:5px}
 #dice{position:relative;padding:0 25px;width:100%;bottom:0}
 #dice-pick{position:absolute;bottom:0}
 
-nav{position:fixed;left:0;bottom:0;height:70px;width:100vw;background:#fff;border-top:1px solid #EBEBEB;overflow-x:scroll;overflow-y:hidden}
+nav{position:fixed;left:0;bottom:0;height:70px;width:100vw;background:var(--white);border-top:1px solid #EBEBEB;overflow-x:scroll;overflow-y:hidden}
 #menu{display:inline-flex}
 .menubtn{width:20vw;height:70px;float:left;display:inline-flex;cursor:pointer}.menubi{margin:auto}
 .menuicon{color:#b0b0b0;width:fit-content;margin:auto}
@@ -68,7 +68,7 @@ nav{position:fixed;left:0;bottom:0;height:70px;width:100vw;background:#fff;borde
 .divider{width:70%;height:2px;margin:1em auto;background:rgba(32,32,32,.2)}
 
 .input{position:relative;width:100%;margin:18px 0}
-.fakeinput,input,select{border:1px solid #b0b0b0;border-radius:5px;font-size:1.1em;line-height:1.2em;-webkit-appearance:none;padding:1.6em 1.3em .5em;background:#fff}
+.fakeinput,input,select{border:1px solid #b0b0b0;border-radius:5px;font-size:1.1em;line-height:1.2em;-webkit-appearance:none;padding:1.6em 1.3em .5em;background:var(--white)}
 .fakeinput,input,select,label{width:100%}
 label{position:absolute;left:0;top:0;pointer-events:none;color:#717171;padding:1.3em 1.6em}
 input:focus ~ label,input:not(:focus):valid ~ label,select:focus ~ label,select:not(:focus):valid ~ label,.fakeinput:focus ~ label,.fakeinput:not(:empty) ~ label{font-size:.7em;padding:.4em 2.1em;margin:.3em 0;left:2px}
@@ -80,16 +80,16 @@ label[for="file"]{position:relative;pointer-events:all}
 .checkmark,.checkmarked{text-indent:10px;height:46px}
 .checkmark::before,.checkmarked::before,.checkmarked::after{content:"";display:block}
 .checkmark::before,.checkmarked::before{position:absolute;left:9px;width:22px;height:22px;border:2px solid #dbdbdb;border-radius:4px}
-.checkmarked::after{width:8px;height:13px;border:1px solid #2196F3;border-width:0 2px 2px 0;transform-origin:bottom left;transform:rotate(45deg) translate(-29.5px,-5px)}
+.checkmarked::after{width:8px;height:13px;border:1px solid var(--menu);border-width:0 2px 2px 0;transform-origin:bottom left;transform:rotate(45deg) translate(-29.5px,-5px)}
 
-button,label[for="file"]{padding:14px 26px;text-align:center;text-decoration:none;display:inline-block;font-size:100%;margin:10px 0;cursor:pointer;border-radius:5px; width:100%;background:transparent;border:2px solid #292929;color:#292929;font-weight:600}
-button:hover,button:focus,label[for="file"]:hover,label[for="file"]:focus{background:#292929;color:#e8e8e8}
-button.delete{border:2px solid #ef5d5d;color:#ef5d5d}button.delete:hover{background:#ef5d5d;color:#fff}
-button:disabled,button:hover:disabled{border:2px solid #b0b0b0;color:#b0b0b0;background:#fff;cursor:no-drop}
+button,label[for="file"]{padding:14px 26px;text-align:center;text-decoration:none;display:inline-block;font-size:100%;margin:10px 0;cursor:pointer;border-radius:5px; width:100%;background:transparent;border:2px solid var(--black);color:var(--black);font-weight:600}
+button:hover,button:focus,label[for="file"]:hover,label[for="file"]:focus{background:var(--black);color:#e8e8e8}
+button.delete{border:2px solid #ef5d5d;color:#ef5d5d}button.delete:hover{background:#ef5d5d;color:var(--white)}
+button:disabled,button:hover:disabled{border:2px solid #b0b0b0;color:#b0b0b0;background:var(--white);cursor:no-drop}
 
 a{color:black;padding:12px 30px;text-decoration:none;display:block}
-a:hover{background-color:#1e90ff;color:#fff}
-.dropdown{position:absolute;background-color:#fff;border:1px solid #000;z-index:1;width:100%;top:60px;max-height:250px;overflow-y:scroll}
+a:hover{background-color:#1e90ff;color:var(--white)}
+.dropdown{position:absolute;background-color:var(--white);border:1px solid #000;z-index:1;width:100%;top:60px;max-height:250px;overflow-y:scroll}
 .dn{display:none!important;border:0}
 
 .backdrop,.overlay{width:100vw;left:0;top:0}
@@ -126,8 +126,11 @@ a:hover{background-color:#1e90ff;color:#fff}
   </div></div>
   <div class="row"><div class="container db">
    <div class="input"><input id="distincao" onchange="data_add(this)" required><label>Distinção de classe</label></div>
-   <div class="input"><select id="divindade" onchange="data_add(this)" required></select><label>Divindade</label></div>
+   <div class="input"><div id="divindade" class="fakeinput drop" onclick="show_list(this)" inner="1"></div><label>Divindade</label><div class="dropdown dn"></div></div>
   </div></div>
+
+
+
   <div class="divider"></div>
   <div class="row"><div class="container db">
    <label for="file"><input id="file" type="file" onchange="import_char(event)">Importar</input></label>
@@ -135,13 +138,26 @@ a:hover{background-color:#1e90ff;color:#fff}
    <button id="chardel" class="delete" onclick="char_remove()" disabled>Deletar</button>
   </div></div>
  </div>
- <div class="sec" id="sec_combat"></div>
- <div class="sec" id="sec_skill" ></div>
- <div class="sec" id="sec_feat"  ></div>
+
+ <div class="sec" id="sec_combat">
+  <div class="row"><div class="container db">
+  </div></div>
+ </div>
+
+ <div class="sec" id="sec_skill" >
+  <div class="row"><div class="container db">
+  </div></div>
+ </div>
+
+ <div class="sec" id="sec_feat"  >
+  <div class="row"><div class="container db">
+  </div></div>
+ </div>
+
  <div class="sec" id="sec_spell" >
   <div class="row"><div class="container">
    <div class="w8"><p>Atributo chave</p></div>
-   <div class="w3"><select id="shab" class="select tc" onchange=""><option value="3">int</option><option value="4">sab</option><option value="5">car</option></select></div>
+   <div class="w3"><select id="spell_hab" class="select tc" onchange="data_add(this)"><option value="3">int</option><option value="4">sab</option><option value="5">car</option></select></div>
   </div></div>
   <div class="row"><div class="container">
    <div class="w8"><p>Teste de resistência</p></div>
@@ -189,14 +205,35 @@ a:hover{background-color:#1e90ff;color:#fff}
    <button onclick="show('backdrop_spell')">Buscar magias</button>
   </div></div>
  </div>
- <div id="sec_equip" class="sec"></div>
- <div id="sec_condition" class="sec"></div>
- <div id="sec_notes" class="sec"></div>
- <div id="sec_config" class="sec"></div>
+
+ <div id="sec_equip" class="sec">
+  <div class="row"><div class="container db">
+  </div></div>
+ </div>
+
+ <div id="sec_condition" class="sec">
+  <div class="row"><div class="container db">
+  </div></div>
+ </div>
+
+ <div id="sec_notes" class="sec">
+  <div class="row"><div class="container db">
+  </div></div>
+ </div>
+
+ <div id="sec_config" class="sec">
+  <div class="row"><div class="container db">
+   <p>Todos os direitos relativos ao conteúdo Tormenta 20 são reservados à direito da Jambo Editora.</p>
+   <p>Esta ferramenta é desenvolvida sem fins lucrativos por Marx, sua finalidade é unicamente recreativa.</p><br>
+   <p>Seus dados são armazenados <b>apenas</b> localmente, ou seja, nada é armazenado online. Caso deseje exluir todos os dados, por favor, utilize o botão a seguir. Eles <b>não</b> poderão ser recuperados.</p>
+   <button class="delete" onclick="reset()">Excluir todos os dados</button>
+  </div></div>
+ </div>
+
 </div>
 
 <div id="dice_roller">
- <div id="drawer" onclick="this.parentNode.classList.toggle('drew');drawed=!drawed"><div></div></div>
+ <div id="drawer" onclick="this.parentNode.classList.toggle('drew')"><div></div></div>
   <div id="results"></div>
   <div id="dice-pick"></div>
   <input id="dice" onkeypress="return /[0-9!#d+-kehl]/i.test(event.key)" onchange="diceroll(this.value,1,1);this.value=''"></input>
@@ -270,7 +307,6 @@ var x = 0;
 let touchstartX = 0;
 let touchendX = 0;
 const menubtn = document.getElementsByClassName('menubtn');
-var drawed = 1;
 
 function navig(e){
  e.parentNode.children[x].children[0].children[0].classList.remove('menuselicon');
@@ -280,16 +316,16 @@ function navig(e){
  x = Array.prototype.indexOf.call(e.parentNode.children,e);
  const sections = document.getElementById('sections');
  sections.style.transform='translate(-'+x*100+'vw,0)';
- sections.scrollTo({top:0,behavior:'smooth'});
+ window.scrollTo({top:0,behavior:'smooth'});
 }
 
-function checkDirection(){
+function deltaX(){
  var deltaX = touchstartX-touchendX;
- if(drawed&&deltaX>200&&x<8){navig(menubtn[x+1])}
- if(drawed&&deltaX<-200&&x>0){navig(menubtn[x-1])}
+ if(deltaX>200&&x<8){navig(menubtn[x+1])}
+ if(deltaX<-200&&x>0){navig(menubtn[x-1])}
 }
-document.addEventListener('touchstart',e=>{touchstartX=e.changedTouches[0].screenX})
-document.addEventListener('touchend',e=>{touchendX=e.changedTouches[0].screenX;checkDirection()})
+document.getElementById('sections').addEventListener('touchstart',e=>{touchstartX=e.changedTouches[0].screenX})
+document.getElementById('sections').addEventListener('touchend',e=>{touchendX=e.changedTouches[0].screenX;deltaX()})
 
 function moreinfo(e){
  e.classList.toggle('more_info');
@@ -328,19 +364,22 @@ function show_list(e){
  e = e.parentNode.children[2].classList.remove('dn');
 }
 
-var cspell_level = [],cspell_class = [],cspell_scholl = [];
+var cspell_level=[],cspell_class=[],cspell_scholl=[],cdivindade=[];
 function set_check(e,array){
  e.classList.toggle('checkmarked');
  e.value=!e.value;
  if(e.value){array.push(e.innerHTML)}else{array.splice(array.indexOf(e.innerHTML),1)}
  array.sort();
- e.parentNode.parentNode.children[0].innerHTML = array.join(', ');
+ e = e.parentNode.parentNode.children[0];
+ e.innerHTML = array.join(', ');
+ console.log(e.getAttribute('inner'));
+ if(e.getAttribute('inner')){data_inner(e)}
 }
 
 window.addEventListener('click',function(e){
- var el = document.getElementsByClassName('drop');
+ var el = document.getElementsByClassName('dropdown');
  for (i=0;i<el.length;i++){
-  if(!el[i].contains(e.target)){el[i].parentNode.children[2].classList.add("dn")}
+  if(!el[i].parentNode.contains(e.target)){el[i].parentNode.children[2].classList.add("dn")}
  }
  window.focus();
 });
@@ -365,6 +404,7 @@ function set_checkbox(array){
 function start_up(){
  for (var key in icons){document.getElementById(key).innerHTML = icons[key]}
  for (var i=0;i<inputs.length;i++){set_select(inputs[i])}
+ set_checkbox(divindade);
  for (var i=0;i<spell_inputs.length;i++){set_checkbox(spell_inputs[i])}
 }
 	
@@ -398,11 +438,10 @@ function char_list(el){
 }
 
 function char_set(el){
- if(title){save_data()}console.log(title);
+ if(title){save_data()}
  clear();
- title = el.innerHTML;console.log(title);
+ title = el.innerHTML;
  data_load();
- clear();
  document.title = title + ' - T20';
  document.getElementById('chardel').disabled = false;
  data_set();
@@ -425,6 +464,7 @@ function char_remove(){
 //-------------------------DATA MANAGEMENT FUNCTIONS------------------------//
 
 function data_add(e){data[e.id]=e.value}
+function data_inner(e){data[e.id]=e.innerHTML}
 
 window.addEventListener('beforeunload',save_data);
 function save_data(){
@@ -440,7 +480,11 @@ window.onload = function(){
 }
 
 function data_set(){
- for (const key in data){document.getElementById(key).value=data[key]}
+ for (const key in data){
+  var e=document.getElementById(key);
+  if(e.getAttribute('inner')){e.innerHTML=data[key]}
+  else{e.value=data[key]}
+ }
  title=data['char'];
  document.title = title + ' - T20';
  document.getElementById('chardel').disabled = false;
@@ -458,6 +502,8 @@ function clear(){
   option = select[i].options;
   option[0].selected = true;
  }
+ var fakeinput = document.getElementsByClassName('fakeinput');
+ for (var i=0;i<fakeinput.length;i++){fakeinput[i].innerHTML=''}
 }
 
 function import_char(evt){
