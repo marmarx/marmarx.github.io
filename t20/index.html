@@ -50,11 +50,11 @@ nav{position:fixed;left:0;bottom:0;height:70px;width:100vw;background:var(--whit
 .menutext{font-size:.625em;font-weight:600;color:#717171;margin-top:.2em;padding:.1em 0 .5em}.menuseltext{font-weight:700}
 
 #res_test{margin:auto}#spells_list{display:block}
-.spell{padding:.3em 1em;border:1px solid transparent;border-radius:10px}
+.spell{padding:.3em 1em;border:1px solid transparent;border-radius:10px;cursor:pointer}
 .more_info{border-color:rgba(32,32,32,.4);margin:.5em 0}
 .item_title,.item_subtitle{margin:0}.item_title{font-size:1em;font-weight:500;display:inline-flex}.item_subtitle{font-size:.8em}
 .item_action{margin-right:0}p.item_subtitle{max-height:unset}
-.hid{visibility:hidden;opacity:0;margin:0;max-height:0}
+.hid{visibility:hidden;opacity:0;margin:0;max-height:0;height:0}
 .nowrap{word-break:break-all;margin:0;font-size:1em}
 
 .ac_livre,.ac_movimento,.ac_padrão,.ac_completa,.ac_padrão:before,.ac_completa:before,.ac_completa:after{width:12px;height:12px;border:1px solid #e8e8e8;display:block}
@@ -100,11 +100,8 @@ a:hover{background-color:#1e90ff;color:var(--white)}
 .invisible{opacity:0;visibility:hidden;pointer-events:none;top:100vh}
 #spell_overlay{height:200vh}
 .spell_lvl:empty{opacity:0;visibility:hidden}
-.spell_lvl_head{margin:1em 0 0;font-weight:700;padding:.5em 1em;cursor:pointer}.spell_lvl_head > p{font-weight:700;margin:0}
-.arrow-down{position:relative;display:block;width:22px;height:22px}
-.arrow-down::after,.arrow-down::before{content:"";display:block;position:absolute;bottom:4px}
-.arrow-down::after{width:8px;height:8px;border-bottom:2px solid;border-left:2px solid;transform:rotate(-45deg);left:7px}
-.arrow-down::before{width:2px;height:16px;left:10px;background:currentColor}
+.spell_lvl_head{margin:1em 0 0;font-weight:700;padding:.5em 1em;cursor:pointer;display:inline-flex;width:100%}.spell_lvl_head > p{font-weight:700;margin:0}
+.arrow-down{width:8px;height:8px;border-bottom:2px solid;border-left:2px solid;transform:rotate(-45deg);margin:auto}.arrow-up{transform:rotate(135deg)}
 
 .dif{display:inline-flex}.db{display:block}.ma{margin:auto}.mo{margin:0}.ms{margin-top:.4em!important}.ha{height:auto}.tc{text-align:center;padding-right:0;padding-left:0}
 .w10{width:100%}.w9{width:90%}.w8{width:80%}.w7{width:70%}.w6{width:60%}.w5{width:50%}.w4{width:40%}.w3{width:30%}.w2{width:20%}.w1{width:10%}
@@ -210,7 +207,7 @@ a:hover{background-color:#1e90ff;color:var(--white)}
 
   </div></div>
   <div class="row"><div class="container">
-   <button onclick="list_spells('all_spells');show('backdrop_spell')">Buscar magias</button>
+   <button onclick="show('backdrop_spell')">Buscar magias</button>
   </div></div>
  </div>
 
@@ -320,7 +317,7 @@ function list_spells(e){
   div.setAttribute('id','spell_lvl_'+lvl);
   div.classList.add('spell_lvl');
   div.setAttribute('onclick','show_spells(this,event)');
-  div.innerHTML = '<div class="spell_lvl_head"><p>Magias de '+lvl+'&deg; nível</p><div class="arrow-down"></div></div>';
+  div.innerHTML = '<div class="spell_lvl_head"><p class="w9">Magias de '+lvl+'&deg; nível</p><div class="arrow-down"></div></div>';
   e.appendChild(div);
   var div = document.createElement('div');
   div.classList.add('hid');
@@ -328,8 +325,16 @@ function list_spells(e){
   for (var name in spells[lvl]){
    var div = document.createElement('div');
    div.setAttribute('class','spell w10 h70');
+   div.setAttribute('spell',spells[lvl][name]["nome"]);
+   div.setAttribute('type',spells[lvl][name]["tipo"]);
+   div.setAttribute('school',spells[lvl][name]["escola"]);
+   div.setAttribute('level',spells[lvl][name]["circulo"]);
    div.setAttribute('onclick','moreinfo(this)');
-   var content = '<div class="w10 dif"><div class="w9"><p class="item_title">'+spells[lvl][name]["nome"]+'</p><p class="item_subtitle">'+spell_pm_cost[lvl-1]+' PM · '+spells[lvl][name]["tipo"]+' · '+spells[lvl][name]["escola"]+' '+spells[lvl][name]["circulo"]+'</p></div><div class="item_action w1 ma"><div class="ac_'+spells[lvl][name]["execucao"]+'"></div></div></div><div class="item_subtitle w10 hid ms">';
+   var content = '<div class="w10 dif"><div class="w9"><p class="item_title">'+spells[lvl][name]["nome"]+'</p><p class="item_subtitle">'+spell_pm_cost[lvl-1]+' PM · '+spells[lvl][name]["tipo"]+' · '+spells[lvl][name]["escola"]+' '+spells[lvl][name]["circulo"]+'</p></div><div class="item_action w1 ma">';
+   if(spell_action.includes(spells[lvl][name]["execucao"])){content += '<div class="ac_'+spells[lvl][name]["execucao"]+'"></div>'}
+   content += '</div></div><div class="item_subtitle w10 hid ms">';
+   if(!spell_action.includes(spells[lvl][name]["execucao"])){console.log(spells[lvl][name]["nome"]);content += '<p class="nowrap"><b>Execução:</b> '+spells[lvl][name]["execucao"]+'</p>'}
+
    if(spells[lvl][name]["alcance"]){content += '<p class="nowrap"><b>Alcance:</b> '+spells[lvl][name]["alcance"]+'</p>'}
    if(spells[lvl][name]["alvo"]){content += '<p class="nowrap"><b>Alvo:</b> '+spells[lvl][name]["alvo"]+'</p>'}
    if(spells[lvl][name]["area"]){content += '<p class="nowrap"><b>Área:</b> '+spells[lvl][name]["area"]+'</p>'}
@@ -350,7 +355,8 @@ function list_spells(e){
 }
 
 function show_spells(e,ev){
- if(e==ev.target||e.children[0]==ev.target){
+ if(e==ev.target||e.contains(ev.target)){
+  e.children[0].children[1].classList.toggle('arrow-up');
   e = e.children[1];
   e.classList.toggle('hid');
   e.style.maxHeight = e.style.maxHeight?null:e.scrollHeight+"px";
@@ -464,6 +470,7 @@ function start_up(){
  for (var i=0;i<inputs.length;i++){set_select(inputs[i])}
  set_checkbox(divindade);
  for (var i=0;i<spell_inputs.length;i++){set_checkbox(spell_inputs[i])}
+ list_spells('all_spells');
 }
 	
 
