@@ -14,7 +14,7 @@
 
 <style>
 :root{--pv:#FF4466;--pm:#4BC7CF;--menu:#FF385C;--drawer:#dbdbdb;--diceroller:#e9e9e9;--black:#292929;--white:#fff;--overlay:#e8e8e8}
-*,*:before,*:after{margin:0;padding:0;transition:all .7s ease-in-out;font-family:'Open Sans', sans-serif;color:var(--black);word-wrap:normal;word-break:keep-all;box-sizing:border-box}
+*,*:before,*:after{margin:0;padding:0;transition:all .7s ease-in-out,display 0s;font-family:'Open Sans', sans-serif;color:var(--black);word-wrap:normal;word-break:keep-all;box-sizing:border-box}
 html,body{overflow-x:hidden;width:100vw;min-height:100vh}
 ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#bbb}::-webkit-scrollbar-thumb:hover{background:#999}
 ::-webkit-scrollbar:horizontal{display:none}
@@ -54,7 +54,7 @@ nav{position:fixed;left:0;bottom:0;height:70px;width:100vw;background:var(--whit
 .more_info{border-color:rgba(32,32,32,.4);margin:.5em 0}
 .item_title,.item_subtitle{margin:0}.item_title{font-size:1em;font-weight:500;display:inline-flex}.item_subtitle{font-size:.8em}
 .item_action{margin-right:0}p.item_subtitle{max-height:unset}
-.hid{visibility:hidden;margin:0;max-height:0;overflow:hidden}
+.hid{visibility:hidden;margin:0;max-height:0;overflow:hidden;display:none}
 .nowrap{word-break:break-all;margin:0;font-size:1em}
 
 .ac_livre,.ac_movimento,.ac_padrão,.ac_completa,.ac_padrão:before,.ac_completa:before,.ac_completa:after{width:12px;height:12px;border:1px solid var(--overlay);display:block}
@@ -305,6 +305,10 @@ function list_spells(e){
   for (var name in spells[lvl]){
    var div = document.createElement('div');
    div.setAttribute('class','spell w10 h70');
+   div.setAttribute('spell',spells[lvl][name]["nome"]);
+   div.setAttribute('level',spells[lvl][name]["circulo"]);
+   div.setAttribute('cat',spells[lvl][name]["tipo"]);
+   div.setAttribute('school',spells[lvl][name]["escola"]);
    div.setAttribute('translate','0');
    div.setAttribute('written','0');
    div.setAttribute('onclick','spell_info(this,event)');
