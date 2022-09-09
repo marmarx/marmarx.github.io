@@ -265,7 +265,7 @@ a:hover{background-color:#1e90ff;color:var(--white)}
 
 </div></div>
 
-<div id="backdrop_spell" class="backdrop invisible" onclick="hide(event,this);clear_spell_filters()">
+<div id="backdrop_spell" class="backdrop invisible" onclick="hide(event,this)">
  <div class="overlay">
   <div class="row"><div class="container db">
    <p>Buscar por...</p>
@@ -334,6 +334,7 @@ function list_spells(e){
    e.children[lvl-1].children[1].appendChild(div);
   }
  }
+
  filt_spells = document.getElementById('all_spells').getElementsByClassName('spell');
  for (var i=0;i<filt_spells.length;i++){spell_viz.push([1,1,1,1])}
 }
@@ -456,13 +457,7 @@ function deltaX(){
 document.getElementById('sections').addEventListener('touchstart',e=>{touchstartX=e.changedTouches[0].screenX})
 document.getElementById('sections').addEventListener('touchend',e=>{touchendX=e.changedTouches[0].screenX;deltaX()})
 
-function amIclicked(e,el){
- e = e || event;
- var target = e.target || e.srcElement;
- if(target.id==el.id){return true}
- else{return false}
-}
-function hide(e,el){if(amIclicked(e,el)){el.classList.toggle('invisible')}}
+function hide(e,el){if(el==e.target){el.classList.toggle('invisible');if(el.id="backdrop_spell"){clear_spell_filters()}}}
 function show(el){document.getElementById(el).classList.toggle('invisible')}
 
 function menucolor(i){
