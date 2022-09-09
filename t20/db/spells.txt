@@ -1,8 +1,8 @@
 /*Version 1.2*/
 const spell_level = ['spell_level',1,2,3,4,5];
 const spell_class = ['spell_class','Arcana','Divina','Universal'];
-const spell_scholl = ['spell_scholl','Abjuração','Adivinhação','Convocação','Encantamento','Evocação','Ilusão','Necromancia','Transmutação'];
-const spell_inputs = [spell_level,spell_class,spell_scholl];
+const spell_school = ['spell_school','Abjuração','Adivinhação','Convocação','Encantamento','Evocação','Ilusão','Necromancia','Transmutação'];
+const spell_inputs = [spell_level,spell_class,spell_school];
 const spell_pm_cost = [1,3,6,10,15];
 const spell_action = ['livre','movimento','padrão','completa','reação'];
 
@@ -1440,7 +1440,7 @@ const spells = {
    "alcance":"médio",
    "duracao":"instantânea",
    "resistencia":"",
-   "descricao":"Você dissipa outras magias que estejam ativas, como se sua duração tivesse acabado. Note que efeitos de magias instantâneas não podem ser dissipados (não se pode dissipar uma Bola de Fogo ou Relâmpago depois que já causaram dano...). Se lançar essa magia em uma criatura ou área, faça um teste de Misticismo; você anula as magias com CD igual ou menor que o resultado do teste. Se lançada contra um item mágico, o transforma em um item mundano por 1d6 rodadas (sem teste de resistência).",
+   "descricao":"Você dissipa outras magias que estejam ativas, como se sua duração tivesse acabado. Note que efeitos de magias instantâneas não podem ser dissipados (não se pode dissipar uma Bola de Fogo ou Relâmpago depois que já causaram dano...). Se lançar essa magia em uma criatura ou área, faça um teste de Misticismo; você anula as magias com CD igual ou menor que o resultado do teste. Se lançada contra um item mágico, o transforma em um item mundano por 1d6 rodadas (sem teste de resistência). ",
    "add1":12,
    "mod1":"muda a área para esfera com 9m de raio. Em vez do normal, cria um efeito de disjunção. Todas as magias na área são automaticamente dissipadas e todos os itens mágicos na área, exceto aqueles que você estiver carregando, viram itens mundanos (com direito a um teste de resistência para evitar esse efeito). Requer 5º círculo.",
    "area":"1 criatura ou 1 objeto mágico ou esfera com 3m de raio",
@@ -2818,7 +2818,7 @@ const spells = {
    "area":"",
    "alvo":"você"
   },
-  "Círculo de Restauração":{
+  "Círculo da Restauração":{
    "nome":"Círculo da Restauração",
    "tipo":"Divina",
    "circulo":4,

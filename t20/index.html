@@ -13,7 +13,7 @@
 <script type="text/javascript" src="db/geral.txt"></script>
 
 <style>
-:root{--pv:#FF4466;--pm:#4BC7CF;--menu:#FF385C;--drawer:#dbdbdb;--diceroller:#e9e9e9;--black:#292929;--white:#fff}
+:root{--pv:#FF4466;--pm:#4BC7CF;--menu:#FF385C;--drawer:#dbdbdb;--diceroller:#e9e9e9;--black:#292929;--white:#fff;--overlay:#e8e8e8}
 *,*:before,*:after{margin:0;padding:0;transition:all .7s ease-in-out;font-family:'Open Sans', sans-serif;color:var(--black);word-wrap:normal;word-break:keep-all;box-sizing:border-box}
 html,body{overflow-x:hidden;width:100vw;min-height:100vh}
 ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#bbb}::-webkit-scrollbar-thumb:hover{background:#999}
@@ -50,23 +50,19 @@ nav{position:fixed;left:0;bottom:0;height:70px;width:100vw;background:var(--whit
 .menutext{font-size:.625em;font-weight:600;color:#717171;margin-top:.2em;padding:.1em 0 .5em}.menuseltext{font-weight:700}
 
 #res_test{margin:auto}#spells_list{display:block}
-.spell{padding:.3em 1em;border:1px solid transparent;border-radius:10px;cursor:pointer}
+.spell{cursor:pointer;border:1px solid transparent;border-radius:10px}
 .more_info{border-color:rgba(32,32,32,.4);margin:.5em 0}
 .item_title,.item_subtitle{margin:0}.item_title{font-size:1em;font-weight:500;display:inline-flex}.item_subtitle{font-size:.8em}
 .item_action{margin-right:0}p.item_subtitle{max-height:unset}
-.hid{visibility:hidden;opacity:0;margin:0;max-height:0;height:0}
+.hid{visibility:hidden;margin:0;max-height:0;overflow:hidden}
 .nowrap{word-break:break-all;margin:0;font-size:1em}
 
-.ac_livre,.ac_movimento,.ac_padrão,.ac_completa,.ac_padrão:before,.ac_completa:before,.ac_completa:after{width:12px;height:12px;border:1px solid #e8e8e8;display:block}
+.ac_livre,.ac_movimento,.ac_padrão,.ac_completa,.ac_padrão:before,.ac_completa:before,.ac_completa:after{width:12px;height:12px;border:1px solid var(--overlay);display:block}
 .ac_livre,.ac_movimento,.ac_padrão,.ac_completa{transform:rotate(45deg)}
 .ac_livre{border:1px solid #b3b2b2}
 .ac_movimento,.ac_padrão,.ac_completa,.ac_padrão:before,.ac_completa:before,.ac_completa:after{background:#b3b2b2}
 .ac_padrão:before,.ac_completa:before,.ac_completa:after{content:''}.ac_padrão:before,.ac_completa:before{transform:translate(4px,-6px)}.ac_completa:after{transform:translate(9px,-23px)}
 .ac_reação{width:14px;height:14px;border:2px solid;border-right-color:transparent;border-radius:100px;transform:rotate(135deg)}.ac_reação:before{content:"";position:absolute;width:6px;height:6px;border-top:2px solid;border-right:2px solid;top:-3px;right:-1px;transform:rotate(68deg)}.ac_reação,.ac_reação:before{color:#b3b2b2}
-.trash{width:10px;height:12px;border:2px solid transparent;box-shadow:0 0 0 2px,inset -2px 0 0,inset 2px 0 0;border-bottom-left-radius:1px;border-bottom-right-radius:1px;margin-top:4px;color:currentColor;position:absolute;top:calc(50% - 9px);right:25%}
-.trash::after,.trash::before{content:"";position:absolute;color:currentColor}
-.trash::after{background:currentColor;border-radius:3px;width:16px;height:2px;top:-4px;left:-5px}
-.trash::before{width:10px;height:4px;border:2px solid;border-bottom:transparent;border-top-left-radius:2px;border-top-right-radius:2px;top:-7px;left:-2px}
 .divider{width:70%;height:2px;margin:1em auto;background:rgba(32,32,32,.2)}
 
 .input{position:relative;width:100%;margin:18px 0}
@@ -79,10 +75,6 @@ input[type="file"]{display:none}
 label[for="file"]{position:relative;pointer-events:all}
 
 .fakeinput{height:60.06px;cursor:text;white-space:nowrap;overflow:hidden}.fakeinput:focus{outline:1px auto #141414}
-.checkmark,.checkmarked{text-indent:10px;height:46px}
-.checkmark::before,.checkmarked::before,.checkmarked::after{content:"";display:block}
-.checkmark::before,.checkmarked::before{position:absolute;left:9px;width:22px;height:22px;border:2px solid #dbdbdb;border-radius:4px}
-.checkmarked::after{width:8px;height:13px;border:1px solid var(--menu);border-width:0 2px 2px 0;transform-origin:bottom left;transform:rotate(45deg) translate(-29.5px,-5px)}
 
 button,label[for="file"]{padding:14px 26px;text-align:center;text-decoration:none;display:inline-block;font-size:100%;margin:10px 0;cursor:pointer;border-radius:5px; width:100%;background:transparent;border:2px solid var(--black);color:var(--black);font-weight:600}
 button:hover,button:focus,label[for="file"]:hover,label[for="file"]:focus{background:var(--black);color:#e8e8e8}
@@ -96,15 +88,39 @@ a:hover{background-color:#1e90ff;color:var(--white)}
 
 .backdrop,.overlay{width:100vw;left:0;top:0}
 .backdrop{height:100vh;position:fixed;top:0;background:hsl(0 0% 10%/.5);backdrop-filter:blur(2px)}
-.overlay{height:85vh;max-height:85vh;position:absolute;background:#e8e8e8;margin-top:15vh;overflow-x:hidden;overflow-y:scroll;padding:25px}
+.overlay{height:90vh;max-height:90vhvh;position:absolute;background:var(--overlay);margin-top:10vh;overflow-x:hidden;overflow-y:scroll;padding:25px}
 .invisible{opacity:0;visibility:hidden;pointer-events:none;top:100vh}
 #spell_overlay{height:200vh}
 .spell_lvl:empty{opacity:0;visibility:hidden}
 .spell_lvl_head{margin:1em 0 0;font-weight:700;padding:.5em 1em;cursor:pointer;display:inline-flex;width:100%}.spell_lvl_head > p{font-weight:700;margin:0}
 .arrow-down{width:8px;height:8px;border-bottom:2px solid;border-left:2px solid;transform:rotate(-45deg);margin:auto}.arrow-up{transform:rotate(135deg)}
+.spell_details{background:var(--white);padding:.3em 1em;border-radius:10px}
+.backbutton{position:absolute;top:1px;left:1px;width:calc(100% - 2px);height:calc(100% - 2px);z-index:-1}
+.spellback{background:var(--overlay)!important}
+.sbtnl,.sbtnr{width:80px;height:100%;border-radius:10px;display:inline-flex;background:#f18981}.sbtnr{margin:0 0 0 auto;padding-left:10px}.sbtnl{padding-right:10px}
+#all_spells .sbtnl,#all_spells .sbtnr{background:#67d183}
+#all_spells .spell_details{background:var(--overlay)}
 
 .dif{display:inline-flex}.db{display:block}.ma{margin:auto}.mo{margin:0}.ms{margin-top:.4em!important}.ha{height:auto}.tc{text-align:center;padding-right:0;padding-left:0}
 .w10{width:100%}.w9{width:90%}.w8{width:80%}.w7{width:70%}.w6{width:60%}.w5{width:50%}.w4{width:40%}.w3{width:30%}.w2{width:20%}.w1{width:10%}
+
+/*CSS Icons*/
+.trash{color:#424141;margin:auto;width:10px;height:12px;border:2px solid transparent;box-shadow:0 0 0 2px,inset -2px 0 0,inset 2px 0 0;border-bottom-left-radius:1px;border-bottom-right-radius:1px}
+.trash::after,.trash::before{content:"";position:absolute;color:currentColor}
+.trash::after{background:currentColor;border-radius:3px;width:16px;height:2px;margin:-4px 0 0 -5px}
+.trash::before{width:10px;height:4px;border:2px solid;border-bottom:transparent;border-top-left-radius:2px;border-top-right-radius:2px;margin:-8px 0 0 -2px}
+.checkmark,.checkmarked{text-indent:10px;height:46px}
+.checkmark::before,.checkmarked::before,.checkmarked::after{content:"";display:block}
+.checkmark::before,.checkmarked::before{position:absolute;left:9px;width:22px;height:22px;border:2px solid #dbdbdb;border-radius:4px}
+.checkmarked::after{width:8px;height:13px;border:1px solid var(--menu);border-width:0 2px 2px 0;transform-origin:bottom left;transform:rotate(45deg) translate(-29.5px,-5px)}
+.import{color:#424141;margin:auto;position:relative;display:block;width:18px;height:14px;border:2px solid;border-top:0;box-shadow:-6px -8px 0 -6px,6px -8px 0 -6px}
+.import::after,.import::before{content:"";display:block;position:absolute}
+.import::before{background:#424141;width:2px;height:14px;right:6px;bottom:5px}
+.import::after{width:6px;height:6px;border-right:2px solid;border-bottom:2px solid;right:4px;bottom:4px;transform:rotate(45deg)}
+.close{position:relative;display:block;width:22px;height:22px;border:2px solid;border-radius:40px}
+.close::after,.close::before{content:"";display:block;position:absolute;width:12px;height:2px;background:currentColor;transform:rotate(45deg);border-radius:5px;top:8px;left:3px}
+.close::after{transform:rotate(-45deg)}
+#all_spells .details,#all_spells .trash,#char_spells .import{display:none}
 
 @media (min-width:601px) and (max-width:990px){}
 @media (min-width:991px){section{width:500px}}
@@ -133,8 +149,6 @@ a:hover{background-color:#1e90ff;color:var(--white)}
    <div class="input"><input id="distincao" onchange="data_add(this)" required><label>Distinção de classe</label></div>
    <div class="input"><div id="divindade" class="fakeinput drop" onclick="show_list(this)" inner="1"></div><label>Divindade</label><div class="dropdown dn"></div></div>
   </div></div>
-
-
 
   <div class="divider"></div>
   <div class="row"><div class="container db">
@@ -169,43 +183,7 @@ a:hover{background-color:#1e90ff;color:var(--white)}
    <div class="w3 dif"><div id="res_test"><p>30</p></div></div>
   </div></div>
   <div class="divider"></div>
-  <div class="row"><div id="char_spells" class="container db">
-
-   <div class="spell w10 h70" onclick="moreinfo(this)">
-    <div class="w10 dif">
-     <div class="w9">
-      <p class="item_title">Curar Ferimentos Leves</p>
-      <p class="item_subtitle">3 PM · Divina · Conjuração 1 · Clérigo 1</p>
-     </div><div class="item_action w1 ma"><div class="ac_reac"></div></div>
-    </div>
-    <div class="item_subtitle w10 hid ms">
-     <p class="nowrap"><b>Alcance:</b> Toque</p>
-     <p class="nowrap"><b>Alvo:</b> 1 criatura</p>
-     <p class="nowrap"><b>Duração:</b> Instantânea</p>
-     <p class="nowrap"><b>Resistência:</b> Nenhuma</p>
-     <p class="nowrap ms">Ao tocar cure 1d8+1 PV do alvo, remove uma doença ou outra condição negativa</p>
-     <p class="nowrap ms"><b class="w2">+1 PM: </b><span class="w8">Ao tocar cure 1d8+1 PV do alvo, remove uma doença ou outra condição negativa</span></p>
-    </div>
-   </div>
-
-   <div class="spell w10 h70" onclick="moreinfo(this)">
-    <div class="w10 dif">
-     <div class="w9">
-      <p class="item_title">Curar Ferimentos Leves</p>
-      <p class="item_subtitle">3 PM · Divina · Conjuração 1 · Clérigo 1</p>
-     </div><div class="item_action w1 ma"><div class="ac_reac"></div></div>
-    </div>
-    <div class="item_subtitle w10 hid ms">
-     <p class="nowrap"><b>Alcance:</b> Toque</p>
-     <p class="nowrap"><b>Alvo:</b> 1 criatura</p>
-     <p class="nowrap"><b>Duração:</b> Instantânea</p>
-     <p class="nowrap"><b>Resistência:</b> Nenhuma</p>
-     <p class="nowrap ms">Ao tocar cure 1d8+1 PV do alvo, remove uma doença ou outra condição negativa</p>
-     <p class="nowrap ms"><b class="w2">+1 PM: </b><span class="w8">Ao tocar cure 1d8+1 PV do alvo, remove uma doença ou outra condição negativa</span></p>
-    </div>
-   </div>
-
-  </div></div>
+  <div class="row"><div id="char_spells" class="container db"></div></div>
   <div class="row"><div class="container">
    <button onclick="show('backdrop_spell')">Buscar magias</button>
   </div></div>
@@ -287,14 +265,14 @@ a:hover{background-color:#1e90ff;color:var(--white)}
 
 </div></div>
 
-<div id="backdrop_spell" class="backdrop invisible" onclick="hide(event,this)">
+<div id="backdrop_spell" class="backdrop invisible" onclick="hide(event,this);clear_spell_filters()">
  <div class="overlay">
   <div class="row"><div class="container db">
    <p>Buscar por...</p>
-   <div class="input"><input id="spell_name" type="text" onchange="" autocomplete="off" autocomplete="chrome-off" required><label>Nome da magia</label></div>
-   <div class="input"><div id="spell_level" class="fakeinput drop" onclick="show_list(this)" tabindex="0"></div><label>Nível</label><div class="dropdown dn"></div></div>
-   <div class="input"><div id="spell_class" class="fakeinput drop" onclick="show_list(this)" tabindex="0"></div><label>Classificação</label><div class="dropdown dn"></div></div>
-   <div class="input"><div id="spell_scholl" class="fakeinput drop" onclick="show_list(this)" tabindex="0"></div><label>Escola</label><div class="dropdown dn"></div></div>   
+   <div class="input"><input id="spell_name" type="text" onkeyup="filter_spell_name(this)" autocomplete="off" autocomplete="chrome-off" required><label>Nome da magia</label></div>
+   <div class="input"><div id="spell_level" class="fakeinput drop" onclick="show_list(this)" tabindex="1"></div><label>Nível</label><div class="dropdown dn"></div></div>
+   <div class="input"><div id="spell_class" class="fakeinput drop" onclick="show_list(this)" tabindex="2"></div><label>Classificação</label><div class="dropdown dn"></div></div>
+   <div class="input"><div id="spell_school" class="fakeinput drop" onclick="show_list(this)" tabindex="3"></div><label>Escola</label><div class="dropdown dn"></div></div>   
   </div></div>
   <div class="row"><div id="all_spells" class="container db"></div></div>
  </div>
@@ -309,6 +287,8 @@ const load = 1;var title = '';var chars = [];var data = {};
 
 //-------------------------SPELLS FUNCTIONS------------------------//
 
+var filt_spells = [];
+var spell_viz = [];
 function list_spells(e){
  e = document.getElementById(e);
  e.innerHTML = '';
@@ -326,14 +306,16 @@ function list_spells(e){
    var div = document.createElement('div');
    div.setAttribute('class','spell w10 h70');
    div.setAttribute('spell',spells[lvl][name]["nome"]);
-   div.setAttribute('type',spells[lvl][name]["tipo"]);
-   div.setAttribute('school',spells[lvl][name]["escola"]);
    div.setAttribute('level',spells[lvl][name]["circulo"]);
-   div.setAttribute('onclick','moreinfo(this)');
-   var content = '<div class="w10 dif"><div class="w9"><p class="item_title">'+spells[lvl][name]["nome"]+'</p><p class="item_subtitle">'+spell_pm_cost[lvl-1]+' PM · '+spells[lvl][name]["tipo"]+' · '+spells[lvl][name]["escola"]+' '+spells[lvl][name]["circulo"]+'</p></div><div class="item_action w1 ma">';
+   div.setAttribute('cat',spells[lvl][name]["tipo"]);
+   div.setAttribute('school',spells[lvl][name]["escola"]);
+   div.setAttribute('translate','0');
+   div.setAttribute('written','0');
+   div.setAttribute('onclick','spell_info(this,event)');
+   var content = '<div class="spell_details" ontouchstart="spell_touch_start(event)" ontouchend="spell_touch_end(event);spell_deltaX(this,event)"><div class="w10 dif"><div class="w9"><p class="item_title">'+spells[lvl][name]["nome"]+'</p><p class="item_subtitle">'+spell_pm_cost[lvl-1]+' PM · '+spells[lvl][name]["tipo"]+' · '+spells[lvl][name]["escola"]+' '+spells[lvl][name]["circulo"]+'</p></div><div class="item_action w1 ma">';
    if(spell_action.includes(spells[lvl][name]["execucao"])){content += '<div class="ac_'+spells[lvl][name]["execucao"]+'"></div>'}
    content += '</div></div><div class="item_subtitle w10 hid ms">';
-   if(!spell_action.includes(spells[lvl][name]["execucao"])){console.log(spells[lvl][name]["nome"]);content += '<p class="nowrap"><b>Execução:</b> '+spells[lvl][name]["execucao"]+'</p>'}
+   if(!spell_action.includes(spells[lvl][name]["execucao"])){content += '<p class="nowrap"><b>Execução:</b> '+spells[lvl][name]["execucao"]+'</p>'}
 
    if(spells[lvl][name]["alcance"]){content += '<p class="nowrap"><b>Alcance:</b> '+spells[lvl][name]["alcance"]+'</p>'}
    if(spells[lvl][name]["alvo"]){content += '<p class="nowrap"><b>Alvo:</b> '+spells[lvl][name]["alvo"]+'</p>'}
@@ -347,17 +329,100 @@ function list_spells(e){
     content += Number.isInteger(spells[lvl][name]["add"+i])?('+'+spells[lvl][name]["add"+i]+' PM'):spells[lvl][name]["add"+i];
     content += ': </b><span class="w8">'+spells[lvl][name]["mod"+i]+'</span></p>';
    }
-   content += '</div>';
+   content += '</div></div><div class="backbutton container"><div class="sbtnl" onclick="add_spell(this)"><div class="import"></div><div class="trash"></div></div><div class="sbtnr" onclick="add_spell(this)"><div class="import"></div><div class="trash"></div></div></div>';
    div.innerHTML = content;
    e.children[lvl-1].children[1].appendChild(div);
   }
  }
+ filt_spells = document.getElementById('all_spells').getElementsByClassName('spell');
+ for (var i=0;i<filt_spells.length;i++){spell_viz.push([1,1,1,1])}
 }
 
-function show_spells(e,ev){
+function filter_spells(){
+ for (var i=0;i<filt_spells.length;i++){
+  if(spell_viz[i][0]&&spell_viz[i][1]&&spell_viz[i][2]&&spell_viz[i][3]){filt_spells[i].style.display=""}
+  else{filt_spells[i].style.display="none"}
+ }
+}
+
+const stats = ['level','cat','school'];
+function filter_spell_other(e){
+ var k = e.getAttribute('tabindex');
+ var filter = e.innerHTML;
+ if(!filter){filter=JSON.stringify(spell_inputs[k-1])}
+ for (var i=0;i<filt_spells.length;i++){
+  var stat = filt_spells[i].getAttribute(stats[k-1]);
+  if(filter.indexOf(stat)>-1){spell_viz[i][k]=1}
+  else{spell_viz[i][k]=0}
+ }
+ filter_spells();
+}
+
+function filter_spell_name(el){
+ var filter = el.value.toUpperCase();
+ for (var i=0;i<filt_spells.length;i++){
+  var spellname = filt_spells[i].getAttribute('spell').toUpperCase();
+  if(spellname.indexOf(filter)>-1){spell_viz[i][0]=1}
+  else{spell_viz[i][0]=0}
+ }
+ filter_spells();
+}
+
+function add_spell(e){
+ e = e.parentNode.parentNode;
+ var written = JSON.parse(e.getAttribute('written'));
+ if(written){e.remove()}
+ else{
+  e.setAttribute('translate','0');
+  e.style.transform = 'translateX(0)';
+  e.children[1].style.transform = 'translateX(0)';
+  e = e.cloneNode(true);
+  document.getElementById('char_spells').appendChild(e);
+  e.setAttribute('written','1');
+ }
+}
+
+function clear_spell_filters(){
+ var e = document.getElementById('spell_name');e.value='';filter_spell_name(e);
+ e = document.getElementById('spell_level');e.innerHTML='';filter_spell_other(e);
+ e = document.getElementById('spell_class');e.innerHTML='';filter_spell_other(e);
+ e = document.getElementById('spell_school');e.innerHTML='';filter_spell_other(e);
+ e = document.getElementsByClassName('spell_lvl');
+ for (var i=0;i<e.length;i++){
+  e[i].children[0].children[1].classList.remove('arrow-up');
+  e[i].children[1].classList.add('hid');
+  e[i].children[1].style = '';
+ }
+}
+
+function spell_deltaX(e,ev){
+ var deltaX = touchendX-touchstartX;
  if(e==ev.target||e.contains(ev.target)){
+  e = e.parentNode;
+  var trans = JSON.parse(e.getAttribute('translate'));
+  trans += Math.sign(deltaX)*70;
+  if(trans>70){trans=70}if(trans<-70){trans=-70}
+  e.style.transform = 'translateX('+trans+'px)';
+  e.children[1].style.transform = 'translateX('+-trans+'px)'
+  e.setAttribute('translate',trans);
+ }
+}
+function spell_touch_start(e){touchstartX=e.changedTouches[0].screenX}
+function spell_touch_end(e){touchendX=e.changedTouches[0].screenX}
+
+function show_spells(e,ev){
+ if(e==ev.target||e.children[0].contains(ev.target)){
   e.children[0].children[1].classList.toggle('arrow-up');
   e = e.children[1];
+  e.classList.toggle('hid');
+  e.style.maxHeight = e.style.maxHeight?null:e.scrollHeight+"px";
+ }
+}
+
+function spell_info(e,ev){
+ if(e==ev.target||e.children[0].contains(ev.target)){
+  e.classList.toggle('more_info');
+  e = e.children[0].children[1];
   e.classList.toggle('hid');
   e.style.maxHeight = e.style.maxHeight?null:e.scrollHeight+"px";
  }
@@ -391,13 +456,6 @@ function deltaX(){
 document.getElementById('sections').addEventListener('touchstart',e=>{touchstartX=e.changedTouches[0].screenX})
 document.getElementById('sections').addEventListener('touchend',e=>{touchendX=e.changedTouches[0].screenX;deltaX()})
 
-function moreinfo(e){
- e.classList.toggle('more_info');
- e = e.children[1];
- e.classList.toggle('hid');
- e.style.maxHeight = e.style.maxHeight?null:e.scrollHeight+"px";
-}
-
 function amIclicked(e,el){
  e = e || event;
  var target = e.target || e.srcElement;
@@ -408,7 +466,6 @@ function hide(e,el){if(amIclicked(e,el)){el.classList.toggle('invisible')}}
 function show(el){document.getElementById(el).classList.toggle('invisible')}
 
 function menucolor(i){
- console.log(i);
  document.querySelector('meta[name="theme-color"]').setAttribute('content',colors[i]);
  document.querySelector(':root').style.setProperty('--menu',colors[i]);
 }
@@ -428,7 +485,7 @@ function show_list(e){
  e = e.parentNode.children[2].classList.remove('dn');
 }
 
-var cspell_level=[],cspell_class=[],cspell_scholl=[],cdivindade=[];
+var cspell_level=[],cspell_class=[],cspell_school=[],cdivindade=[];
 function set_check(e,array){
  e.classList.toggle('checkmarked');
  e.value=!e.value;
@@ -436,8 +493,8 @@ function set_check(e,array){
  array.sort();
  e = e.parentNode.parentNode.children[0];
  e.innerHTML = array.join(', ');
- console.log(e.getAttribute('inner'));
  if(e.getAttribute('inner')){data_inner(e)}
+ else{filter_spell_other(e)}
 }
 
 window.addEventListener('click',function(e){
@@ -614,6 +671,6 @@ function reset(){
  location.reload();
 }
 
-list_spells('all_spells');show('backdrop_spell')
+show('backdrop_spell');
 </script>
 </html>
