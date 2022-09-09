@@ -305,10 +305,6 @@ function list_spells(e){
   for (var name in spells[lvl]){
    var div = document.createElement('div');
    div.setAttribute('class','spell w10 h70');
-   div.setAttribute('spell',spells[lvl][name]["nome"]);
-   div.setAttribute('level',spells[lvl][name]["circulo"]);
-   div.setAttribute('cat',spells[lvl][name]["tipo"]);
-   div.setAttribute('school',spells[lvl][name]["escola"]);
    div.setAttribute('translate','0');
    div.setAttribute('written','0');
    div.setAttribute('onclick','spell_info(this,event)');
