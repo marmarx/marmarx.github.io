@@ -1,5 +1,5 @@
 <style>
-/*CSS Icons*/
+p{}
 .ac_livre,.ac_movimento,.ac_padrão,.ac_completa,.ac_padrão:before,.ac_completa:before,.ac_completa:after{width:12px;height:12px;border:1px solid var(--overlay);display:block}
 .ac_livre,.ac_movimento,.ac_padrão,.ac_completa{transform:rotate(45deg)}
 .ac_livre{border:1px solid #b3b2b2}
