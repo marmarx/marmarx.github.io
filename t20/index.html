@@ -34,20 +34,20 @@ body::-webkit-scrollbar{display:none}
 
 h1,h2{text-align:center;margin:0 0 .6em;letter-spacing:4px;font-family:'tormenta20';color:var(--t20red);font-size:3em;font-weight:500}
 h1{font-size:2.6em}h2{font-size:1.8em}
-p,li{line-height:1.8em;letter-spacing:.8px;text-align:justify;font-size:1.2em;font-weight:300;margin:.5em 0;color:currentColor}
+p,li{line-height:1.8em;letter-spacing:.8px;text-align:left;font-size:1.2em;font-weight:300;margin:.5em 0;color:currentColor}
 ul{margin:2em}b,.bold{font-weight:bold}i,.italic{font-style:italic}
 .t20box p{font-weight:400!important}.t20box h2{color:var(--t20yellow);font-weight:400!important}
 
 #sections{width:900vw;position:relative;display:flex}
 .sec{width:100vw;min-height:100vh;float:left;padding:35px 25px 125px 25px;background:url("src/paper.png") no-repeat 0/cover fixed;background-position:center}
 #dice_roller,#drawer{border-top-left-radius:25px;border-top-right-radius:25px}
-#dice_roller{position:fixed;width:100vw;height:105px;background:var(--diceroller);top:calc(100vh - 105px)}
+#dice_roller{position:fixed;width:100vw;height:105px;background:var(--diceroller);bottom:0}
 #drawer{width:100vw;height:35px;padding:15px 35%;background:var(--drawer)}.drew{height:95vh!important;top:5vh!important}
 #drawer div{width:100%;height:100%;background:var(--white);border-radius:5px}
 #dice{position:relative;padding:0 25px;width:100%;bottom:0}
 #dice-pick{position:absolute;bottom:0}
 
-nav{position:fixed;left:0;top:calc(100vh - 70px);height:70px;width:100vw;background:var(--white);border-top:1px solid #EBEBEB;overflow-x:scroll;overflow-y:hidden}
+nav{position:fixed;left:0;bottom:0;height:70px;width:100vw;background:var(--white);border-top:1px solid #EBEBEB;overflow-x:scroll;overflow-y:hidden}
 #menu{display:inline-flex}
 .menubtn{width:20vw;height:70px;float:left;display:inline-flex;cursor:pointer}.menubi{margin:auto}
 .menuicon{color:#b0b0b0;width:fit-content;margin:auto}
