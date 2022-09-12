@@ -4,7 +4,7 @@
 <title>Ficha T20 Mobile - v0.5</title>
 <meta name="author" content="Marco Martins">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#FF385C">
+<meta name="theme-color" content="#d13235">
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 <link rel="icon" type="image/png" href="src/t20icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,7 +16,7 @@
 
 <style>
 @font-face{font-family:'tormenta20';src:url('src/Tormenta20.ttf') format('truetype');font-weight:normal;font-style:normal;color:#d13235}
-:root{--pv:#FF4466;--pm:#4BC7CF;--menu:#FF385C;--drawer:#dbdbdb;--diceroller:#e9e9e9;--black:#292929;--white:#fff;--overlay:#e8e8e8;--t20yellow:#f0dc82;--t20red:#d13235;--t20backred:#B62E34;--transwhite:#ffffff80;--green:#2ecb57}
+:root{--pv:#FF4466;--pm:#4BC7CF;--drawer:#dbdbdb;--diceroller:#e9e9e9;--black:#292929;--white:#fff;--overlay:#e8e8e8;--t20yellow:#f0dc82;--menu:#d13235;--t20red:#d13235;--t20backred:#B62E34;--transwhite:#ffffff80;--green:#2ecb57}
 
 *,*:before,*:after{margin:0;padding:0;transition:all .7s ease-in-out,display 0s;font-family:'Open Sans', sans-serif;word-wrap:normal;word-break:keep-all;box-sizing:border-box}
 html,body{overflow-x:hidden;width:100vw;min-height:100vh}
@@ -33,7 +33,7 @@ body::-webkit-scrollbar{display:none}
 .t20box{border:20px solid black;border-image:url("src/border.png") 4% repeat;background:var(--t20backred);background-clip:padding-box,border-box;padding:10px;margin:15px 0;color:#fff}
 
 h1,h2{text-align:center;margin:0 0 .6em;letter-spacing:4px;font-family:'tormenta20';color:var(--t20red);font-size:3em;font-weight:500}
-h1{font-size:3em}h2{font-size:1.8em}
+h1{font-size:2.6em}h2{font-size:1.8em}
 p,li{line-height:1.8em;letter-spacing:.8px;text-align:justify;font-size:1.2em;font-weight:300;margin:.5em 0;color:currentColor}
 ul{margin:2em}b,.bold{font-weight:bold}i,.italic{font-style:italic}
 .t20box p{font-weight:400!important}.t20box h2{color:var(--t20yellow);font-weight:400!important}
@@ -41,13 +41,13 @@ ul{margin:2em}b,.bold{font-weight:bold}i,.italic{font-style:italic}
 #sections{width:900vw;position:relative;display:flex}
 .sec{width:100vw;min-height:100vh;float:left;padding:35px 25px 125px 25px;background:url("src/paper.png") no-repeat 0/cover fixed;background-position:center}
 #dice_roller,#drawer{border-top-left-radius:25px;border-top-right-radius:25px}
-#dice_roller{position:fixed;width:100vw;height:105px;background:var(--diceroller);bottom:0}
-#drawer{width:100vw;height:35px;padding:15px 35%;background:var(--drawer)}.drew{height:95vh!important}
+#dice_roller{position:fixed;width:100vw;height:105px;background:var(--diceroller);top:calc(100vh - 105px)}
+#drawer{width:100vw;height:35px;padding:15px 35%;background:var(--drawer)}.drew{height:95vh!important;top:5vh!important}
 #drawer div{width:100%;height:100%;background:var(--white);border-radius:5px}
 #dice{position:relative;padding:0 25px;width:100%;bottom:0}
 #dice-pick{position:absolute;bottom:0}
 
-nav{position:fixed;left:0;bottom:0;height:70px;width:100vw;background:var(--white);border-top:1px solid #EBEBEB;overflow-x:scroll;overflow-y:hidden}
+nav{position:fixed;left:0;top:calc(100vh - 70px);height:70px;width:100vw;background:var(--white);border-top:1px solid #EBEBEB;overflow-x:scroll;overflow-y:hidden}
 #menu{display:inline-flex}
 .menubtn{width:20vw;height:70px;float:left;display:inline-flex;cursor:pointer}.menubi{margin:auto}
 .menuicon{color:#b0b0b0;width:fit-content;margin:auto}
@@ -55,7 +55,7 @@ nav{position:fixed;left:0;bottom:0;height:70px;width:100vw;background:var(--whit
 .menuicon path{color:#b0b0b0}.menuselicon path{color:var(--menu)}
 .menutext{font-size:.625em;font-weight:600;color:#717171;margin-top:.2em;padding:.1em 0 .5em}.menuseltext{font-weight:700}
 
-#res_test{margin:auto}#spells_list{display:block}
+#res_test{margin:auto;width:fit-content}#spells_list{display:block}
 .spell{cursor:pointer;border:1px solid transparent;border-radius:10px}
 .more_info{border-color:rgba(32,32,32,.4);margin:.5em 0}
 .item_title,.item_subtitle{margin:0}.item_title{font-size:1em;font-weight:500;display:inline-flex}.item_subtitle{font-size:.8em}
@@ -100,8 +100,17 @@ a:hover{background-color:#1e90ff;color:var(--white)}
 .spell_add:hover,.spell_add:focus{background:var(--green);color:#fff}
 #all_spells .spell_delete,#char_spells .spell_add{display:none}
 
-.dif{display:inline-flex}.db{display:block}.ma{margin:auto}.mo{margin:0}.ms{margin-top:.4em!important}.ha{height:auto}.tc{text-align:center;padding-right:0;padding-left:0}.mt0{margin-top:0}
+.switch{position:relative;display:inline-block;width:60px;height:20px}
+.switch input{opacity:0;width:0;height:0;margin:0;padding:0}
+.slider{position:absolute;cursor:pointer;top:calc(50% - 14px);left:0;right:0;bottom:0;background-color:#ccc;-webkit-transition:.4s;transition:.4s;border-radius:34px}
+.slider:before{position:absolute;content:"";height:24px;width:24px;left:4px;bottom:6px;background-color:#fff;-webkit-transition:.4s;transition:.4s;border-radius:50%}
+input:checked+.slider{background-color:var(--menu)}
+input:focus+.slider{box-shadow:0 0 1px var(--menu)}
+input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:translateX(26px);transform:translateX(26px)}
+
+.w10,.w9,.w8,.w7,.w6,.w5,.w4,.w3,.w2,.w1{display:block}
 .w10{width:100%}.w9{width:90%}.w8{width:80%}.w7{width:70%}.w6{width:60%}.w5{width:50%}.w4{width:40%}.w3{width:30%}.w2{width:20%}.w1{width:10%}
+.dif{display:inline-flex}.db{display:block}.ma{margin:auto}.mo{margin:0}.ms{margin-top:.4em!important}.ha{height:auto}.tc{text-align:center;padding-right:0;padding-left:0}.mt0{margin-top:0}
 
 /*CSS Icons*/
 .ac_livre,.ac_movimento,.ac_padrão,.ac_completa,.ac_padrão:before,.ac_completa:before,.ac_completa:after{width:12px;height:12px;border:1px solid var(--overlay);display:block}
@@ -218,9 +227,15 @@ a:hover{background-color:#1e90ff;color:var(--white)}
 
  <div id="sec_config" class="sec">
   <h1>Configurações</h1>
-  <div class="row"><div class="container db">
+  <div class="row"><div class="container">
+   <div class="w8"><p>Cores customizadas</p></div>   
+   <div class="w2" onclick="config(this,0)"><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+  </div></div>
+  <div class="row t20box"><div class="container db">
    <p>Todos os direitos relativos ao conteúdo Tormenta 20 são reservados à direito da Jambo Editora.</p>
    <p>Esta ferramenta é desenvolvida sem fins lucrativos por Marx, sua finalidade é unicamente recreativa.</p><br>
+  </div></div>
+  <div class="row"><div class="container db">
    <p>Seus dados são armazenados <b>apenas</b> localmente, ou seja, nada é armazenado online. Caso deseje exluir todos os dados, por favor, utilize o botão a seguir. Eles <b>não</b> poderão ser recuperados.</p>
    <button class="delete" onclick="reset()">Excluir todos os dados</button>
   </div></div>
@@ -411,6 +426,16 @@ function remove_spell(e){
 
 
 
+//-------------------------CONFIG FUNCTIONS------------------------//
+
+
+data['config'] = [];
+function config(e,i){
+ e.children[0].click();
+ data.config[i]=!data.config[i];
+}
+
+
 //-------------------------NAVIGATION FUNCTIONS------------------------//
 
 var x = 0;
@@ -441,8 +466,12 @@ function hide(e,el){if(el==e.target){el.classList.toggle('invisible');if(el.id="
 function show(el){document.getElementById(el).classList.toggle('invisible')}
 
 function menucolor(i){
- document.querySelector('meta[name="theme-color"]').setAttribute('content',colors[i]);
- document.querySelector(':root').style.setProperty('--menu',colors[i]);
+ if(menucolor){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content',colors[i]);
+  document.querySelector(':root').style.setProperty('--menu',colors[i]);
+  document.querySelector(':root').style.setProperty('--t20red',colors[i]);
+  document.querySelector(':root').style.setProperty('--t20backred',colors[i]);
+ }
 }
 
 function filter(el){
@@ -580,6 +609,9 @@ function data_set(){
  for (const key in data){
   if(key=='magias'){
    for (var i=0;i<data['magias'].length;i++){list_spells('char_spells',data['magias'][i])}
+  }else if(key=='config'){
+   var configs = document.getElementById('sec_config').getElementsByClassName('switch');
+   for (var i=0;i<configs.length;i++){if(data.config[i]){configs[i].children[0].checked=1}}
   }else{
    var e=document.getElementById(key);
    if(e.getAttribute('inner')){e.innerHTML=data[key]}
@@ -589,10 +621,12 @@ function data_set(){
  title=data['char'];
  document.title = title + ' - T20';
  document.getElementById('chardel').disabled = false;
+ document.getElementById('sections').style.transform='';
 }
 
 function data_load(){
  data['magias'] = [];
+ data['config'] = [];
  if(load&&localStorage.getItem(title+'_data')){data = JSON.parse(localStorage.getItem(title+'_data'))}
 }
 
