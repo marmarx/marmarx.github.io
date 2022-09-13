@@ -17,7 +17,7 @@
 
 <style>
 @font-face{font-family:'tormenta20';src:url('src/Tormenta20.ttf') format('truetype');font-weight:normal;font-style:normal;color:#d13235}
-:root{--pv:#FF4466;--pm:#4BC7CF;--drawer:#dbdbdb;--diceroller:#e9e9e9;--black:#292929;--white:#fff;--overlay:#e8e8e8;--t20yellow:#f0dc82;--menu:#d13235;--t20red:#d13235;--t20backred:#B62E34;--transwhite:#ffffff80;--green:#2ecb57;--border:0}
+:root{--pv:#FF4466;--pm:#4BC7CF;--drawer:#dbdbdb;--diceroller:#e9e9e9;--black:#292929;--white:#fff;--overlay:#e8e8e8;--t20yellow:#f0dc82;--menu:#d13235;--t20backred:#B62E34;--transwhite:#ffffff80;--green:#2ecb57;--invert:0}
 
 *,*:before,*:after{margin:0;padding:0;transition:all .7s ease-in-out,display 0s;font-family:'Open Sans', sans-serif;word-wrap:normal;word-break:keep-all;box-sizing:border-box}
 html,body{overflow-x:hidden;width:100vw;min-height:100vh}
@@ -33,17 +33,17 @@ body::-webkit-scrollbar{display:none}
 .divider{width:70%;height:2px;margin:1em auto;background:rgba(32,32,32,.2)}
 .t20box{border:20px solid transparent;background:var(--t20backred);border-image:url("src/border.svg") 4% repeat;background-clip:padding-box,border-box;padding:10px;margin:15px 0;color:#fff}
 
-h1,h2{text-align:center;margin:0 0 .6em;letter-spacing:4px;font-family:'tormenta20';color:var(--t20red);font-size:3em;font-weight:500}
+h1,h2{text-align:center;margin:0 0 .6em;letter-spacing:4px;font-family:'tormenta20';color:var(--menu);font-size:3em;font-weight:500}
 h1{font-size:2.6em}h2{font-size:1.8em}
 p,li{line-height:1.8em;letter-spacing:.8px;text-align:left;font-size:1.2em;font-weight:500;margin:.5em 0;color:currentColor}
 ul{margin:2em}b,.bold{font-weight:bold}i,.italic{font-style:italic}
-.t20box p{font-weight:400!important}.t20box h2{color:var(--t20yellow);font-weight:400!important}
+.t20box p{font-weight:400!important}.t20box h2{color:var(--t20yellow);font-weight:400!important/*;mix-blend-mode:exclusion*/}
 
 #sections{width:900vw;position:relative;display:flex}
 .sec{width:100vw;min-height:100vh;float:left;padding:35px 25px 125px 25px;background:url("src/paper.png") no-repeat 0/cover fixed;background-position:center}
 #dice_roller,#drawer{border-top-left-radius:25px;border-top-right-radius:25px}
 #dice_roller{position:fixed;width:100vw;height:105px;background:var(--diceroller);bottom:0}
-#drawer{width:100vw;height:35px;padding:15px 35%;background:var(--drawer)}.drew{height:95vh!important;top:5vh!important}
+#drawer{width:100vw;height:35px;padding:15px 35%;background:var(--drawer)}.drew{height:95vh!important}
 #drawer div{width:100%;height:100%;background:var(--white);border-radius:5px}
 #dice{position:relative;padding:0 25px;width:100%;bottom:0}
 #dice-pick{position:absolute;bottom:0}
@@ -65,8 +65,8 @@ nav{position:fixed;left:0;bottom:0;height:70px;width:100vw;background:var(--whit
 .nowrap{word-break:break-all;margin:0;font-size:1em}
 
 .input{position:relative;width:100%;margin:18px 0;color:var(--black)}
-.fakeinput,input,select{border:1px solid #b0b0b0;border-radius:5px;font-size:1.1em;line-height:1.2em;-webkit-appearance:none;padding:1.6em 1.3em .5em;background:var(--transwhite);color:currentColor}
-.fakeinput,input,select,label{width:100%}
+.fakeinput,input,select,textarea{border:1px solid #b0b0b0;border-radius:5px;font-size:1.1em;line-height:1.2em;-webkit-appearance:none;padding:1.6em 1.3em .5em;background:var(--transwhite);color:currentColor}
+.fakeinput,input,select,label,textarea{width:100%}textarea{min-height:500px;line-height:1,3em;font-size:1em;padding:1.2em 1em}
 label{position:absolute;left:0;top:0;pointer-events:none;color:#717171;padding:1.3em 1.6em}
 input:focus ~ label,input:not(:focus):valid ~ label,select:focus ~ label,select:not(:focus):valid ~ label,.fakeinput:focus ~ label,.fakeinput:not(:empty) ~ label{font-size:.7em;padding:.4em 2.1em;margin:.3em 0;left:2px}
 .select{padding:.8em;margin:0}
@@ -75,11 +75,11 @@ label[for="file"]{position:relative;pointer-events:all}
 .fakeinput{height:60.06px;cursor:text;white-space:nowrap;overflow:hidden}.fakeinput:focus{outline:1px auto #141414}
 .t20box .fakeinput,.t20box input,.t20box select{background:#ffffff40;border:1px solid #fff}.t20box label{color:#fff}.t20box .input{color:#fff}
 option{color:var(--black)!important}
-input[type=color]{padding:0;width:60px;height:70%;margin:15% 0}
+input[type=color]{padding:0;width:60px;height:37px;margin:9px 0}
 
 button,label[for="file"]{padding:14px 26px;text-align:center;text-decoration:none;display:inline-block;font-size:100%;margin:10px 0;cursor:pointer;border-radius:5px; width:100%;background:transparent;border:2px solid var(--black);color:var(--black);font-weight:600}
 button:hover,button:focus,label[for="file"]:hover,label[for="file"]:focus{background:var(--black);color:#e8e8e8}
-.delete{border:2px solid var(--t20red);color:var(--t20red)}.delete:hover{background:var(--t20red);color:var(--white)}
+.delete{border:2px solid var(--menu);color:var(--menu)}.delete:hover{background:var(--menu);color:var(--white)}
 button:disabled,button:hover:disabled{border:2px solid #b0b0b0;color:#b0b0b0;background:var(--transwhite);cursor:no-drop}
 
 a{color:currentColor;padding:12px 30px;text-decoration:none;display:block}
@@ -102,7 +102,7 @@ a:hover{background-color:#1e90ff;color:var(--white)}
 .spell_add:hover,.spell_add:focus{background:var(--green);color:#fff}
 #all_spells .spell_delete,#char_spells .spell_add{display:none}
 
-.switch{position:relative;display:inline-block;width:60px;height:20px}
+.switch{position:relative;display:inline-block;width:60px;height:20px;pointer-events:all}
 .switch input{opacity:0;width:0;height:0;margin:0;padding:0}
 .slider{position:absolute;cursor:pointer;top:calc(50% - 14px);left:0;right:0;bottom:0;background-color:#ccc;-webkit-transition:.4s;transition:.4s;border-radius:34px}
 .slider:before{position:absolute;content:"";height:24px;width:24px;left:4px;bottom:6px;background-color:#fff;-webkit-transition:.4s;transition:.4s;border-radius:50%}
@@ -134,7 +134,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
    <div class="input"><select id="origem" onchange="data_add(this)" required></select><label>Origem</label></div>
   </div></div>
   <div class="row"><div class="container">
-   <div class="w10 input mo"><select id="classe" onchange="data_add(this);menucolor(colors[this.value])" required></select><label>Classe</label></div>
+   <div class="w10 input mo"><select id="classe" onchange="data_add(this)" required></select><label>Classe</label></div>
    <div class="w1"></div>
    <div class="w3 input mo"><select id="nível" class="tc" onchange="data_add(this)" required></select><label class="tc">Nível</label></div>
   </div></div>
@@ -201,17 +201,23 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
  <div id="sec_notes" class="sec">
   <h1>Anotações</h1>
   <div class="row"><div class="container db">
+   <textarea id="anot" onchange="data_add(this)"></textarea>
   </div></div>
  </div>
 
  <div id="sec_config" class="sec">
   <h1>Configurações</h1>
   <div class="row"><div class="container">
-   <div class="w8"><p>Cores customizadas</p></div>
-   <div class="w2" onclick="config(this,0)"><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
-  </div></div><div class="row"><div class="container">
+   <div class="w8"><p>Dados avançados</p></div>
+   <div class="w2"><label class="switch" style="pointer-events:none"><input type="checkbox" id="config0" onclick="data_check(this)"><span class="slider"></span></label></div>
+  </div></div>
+  <div class="row"><div class="container">
+   <div class="w8"><p>Bloquear rotação</p></div>
+   <div class="w2"><label class="switch"><input type="checkbox" id="config1" onclick="data_check(this)"><span class="slider"></span></label></div>
+  </div></div>
+  <div class="row"><div class="container">
    <div class="w8"><p>Escolher cor</p></div>
-   <div class="w2"><input type="color" value="#d13235" onchange="menucolor(this.value)"><br><br></div>
+   <div class="w2"><input type="color" value="#d13235" id="config2" onchange="data_add(this);menucolor(this.value)"><br><br></div>
   </div></div>
   <div class="row t20box"><div class="container db">
    <p>Todos os direitos relativos ao conteúdo Tormenta 20 são reservados à direito da Jambo Editora.</p>
@@ -225,7 +231,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 </div>
 
 <div id="dice_roller">
- <div id="drawer" onclick="this.parentNode.classList.toggle('drew')"><div></div></div>
+ <div id="drawer" onclick="this.parentNode.classList.toggle('drew')" style="pointer-events:none"><div></div></div>
   <div id="results"></div>
   <div id="dice-pick"></div>
   <input id="dice" onkeypress="return /[0-9!#d+-kehl]/i.test(event.key)" onchange="diceroll(this.value,1,1);this.value=''"></input>
@@ -409,13 +415,17 @@ function remove_spell(e){
 
 //-------------------------CONFIG FUNCTIONS------------------------//
 
-
-data['config'] = [];
-function config(e,i){
- e.children[0].click();
- data.config[i]=!data.config[i];
+function menucolor(color){
+ console.log(color);
+ document.querySelector('meta[name="theme-color"]').setAttribute('content',color);
+ document.querySelector(':root').style.setProperty('--menu',color);
 }
 
+data.config0 = 0;data.config1 = 0;data.config2 = '#D13235';
+function config(){
+ if(data.config0){}
+ if(data.config1){screen.orientation.lock}if(!data.config1){screen.orientation.unlock}
+}
 
 //-------------------------NAVIGATION FUNCTIONS------------------------//
 
@@ -435,24 +445,12 @@ function navig(e){
  window.scrollTo({top:0,behavior:'smooth'});
 }
 
-function deltaX(){
- var deltaX = touchstartX-touchendX;
- if(deltaX>200&&x<8){navig(menubtn[x+1])}
- if(deltaX<-200&&x>0){navig(menubtn[x-1])}
-}
+function deltaX(){var deltaX = touchstartX-touchendX;if(deltaX>200&&x<8){navig(menubtn[x+1])}if(deltaX<-200&&x>0){navig(menubtn[x-1])}}
 document.getElementById('sections').addEventListener('touchstart',e=>{touchstartX=e.changedTouches[0].screenX})
 document.getElementById('sections').addEventListener('touchend',e=>{touchendX=e.changedTouches[0].screenX;deltaX()})
 
 function hide(e,el){if(el==e.target){el.classList.toggle('invisible');if(el.id="backdrop_spell"){clear_spell_filters()}}}
 function show(el){document.getElementById(el).classList.toggle('invisible')}
-
-function menucolor(color){
- if(data.config[0]){
-  document.querySelector('meta[name="theme-color"]').setAttribute('content',color);
-  document.querySelector(':root').style.setProperty('--menu',color);
-  document.querySelector(':root').style.setProperty('--t20red',color);
- }
-}
 
 function filter(el){
  var filter = el.value.toUpperCase();
@@ -491,61 +489,25 @@ window.addEventListener('click',function(e){
 
 
 
-//-------------------------STARTER FUNCTIONS------------------------//
-
-function set_select(array){
- for (j=0;j<array.length;j++){
-  var div = document.createElement('option');
-  if(j){div.setAttribute('value',j);div.innerHTML = array[j]}
-  else{div.setAttribute('disabled','');div.setAttribute('selected','')}
-  document.getElementById(array[0]).appendChild(div);
- }
-}
-
-function set_checkbox(array){
- for(var j=1;j<array.length;j++){document.getElementById(array[0]).parentNode.children[2].innerHTML += '<a class="checkmark" onclick="set_check(this,c'+array[0]+')">'+array[j]+'</a>'}
-}
-
-function start_up(){
- for (var key in icons){document.getElementById(key).innerHTML = icons[key]}
- for (var i=0;i<inputs.length;i++){set_select(inputs[i])}
- set_checkbox(divindade);
- for (var i=0;i<spell_inputs.length;i++){set_checkbox(spell_inputs[i])}
- for (var i=0;i<spells.length;i++){list_spells('all_spells',i)}
-}
-
-
-
-
 //-------------------------CHARACTERS FUNCTIONS------------------------//
 
-function char_add(e){
- title = e.title;
- if(title){
-  data={};
-  data[e.name]=title;
-  chars.push(title);
-  document.title = title + ' - T20';
-  document.getElementById('chardel').disabled = false;
+function char_create(e){
+ if(e.title){
+  e.parentNode.classList.add('dn');
   clear();
-  document.getElementById(e.name).value=title;
+  title = e.title;
+  chars.push(title);
+  data.char=title;
+  document.getElementById('char').value=title;
+  document.getElementById('chardel').disabled = false;
+  document.title = title + ' - T20';
   console.log('Character '+title+' was created');
  }
 }
 
-function char_list(el){
- var value = el.value;
- console.log('value = '+value);
- el = el.parentNode.children[2];
- if(value||chars.length){el.classList.remove('dn')}
- if(!value&&!chars.length){el.classList.add('dn')}
- el.innerHTML = '';
- if(value){el.innerHTML = '<a name="char" onclick="char_add(this)" title="'+value+'">Criar personagem '+value+'?</a>'}
- if(chars.length){for(var i=0;i<chars.length;i++){el.innerHTML += '<a onclick="char_set(this)">'+chars[i]+'</a>'}}
-}
-
 function char_set(el){
  if(title){save_data()}
+ el.parentNode.classList.add('dn');
  clear();
  title = el.innerHTML;
  data_load();
@@ -560,42 +522,63 @@ function char_remove(){
   console.log('Character '+title+' was removed');
   chars.splice(chars.indexOf(title),1);
   localStorage.removeItem(title+'_data');
-  clear();title='';data={};
+  clear();
   document.title = 'Ficha T20 Mobile - v0.5';
   document.getElementById('chardel').disabled = true;
  }
 }
 
+function char_list(el){
+ var value = el.value;
+ el = el.parentNode.children[2];
+ if(value||chars.length){el.classList.remove('dn')}
+ if(!value&&!chars.length){el.classList.add('dn')}
+ el.innerHTML = '';
+ if(value){el.innerHTML = '<a onclick="char_create(this)" title="'+value+'">Criar personagem '+value+'?</a>'}
+ for(var i=0;i<chars.length;i++){el.innerHTML += '<a onclick="char_set(this)">'+chars[i]+'</a>'}
+}
+
+
+
+//-------------------------STARTER FUNCTIONS------------------------//
+
+function create_select(array){
+ for (j=0;j<array.length;j++){
+  var div = document.createElement('option');
+  if(j){div.setAttribute('value',j);div.innerHTML = array[j]}
+  else{div.setAttribute('disabled','');div.setAttribute('selected','')}
+  document.getElementById(array[0]).appendChild(div);
+ }
+}
+
+function create_checkbox(array){
+ for(var j=1;j<array.length;j++){document.getElementById(array[0]).parentNode.children[2].innerHTML += '<a class="checkmark" onclick="set_check(this,c'+array[0]+')">'+array[j]+'</a>'}
+}
+
+function start_up(){
+ for (var key in icons){document.getElementById(key).innerHTML = icons[key]}
+ for (var i=0;i<inputs.length;i++){create_select(inputs[i])}
+ create_checkbox(divindade);
+ for (var i=0;i<spell_inputs.length;i++){create_checkbox(spell_inputs[i])}
+ for (var i=0;i<spells.length;i++){list_spells('all_spells',i)}
+}
 
 
 //-------------------------DATA MANAGEMENT FUNCTIONS------------------------//
 
 function data_add(e){data[e.id]=e.value}
+function data_check(e){data[e.id]=1-data[e.id];console.log(data);config()}
 function data_inner(e){data[e.id]=e.innerHTML}
 
-window.addEventListener('beforeunload',save_data);
-function save_data(){
- localStorage.setItem('chars',JSON.stringify(chars));
- if(title){
-  localStorage.setItem(title+'_data',JSON.stringify(data));
-  console.log('Character '+title+' data saved');
- }
-}
-window.onload = function(){
- start_up();
- if(load&&localStorage.getItem('chars')){chars = JSON.parse(localStorage.getItem('chars'))}
-}
 
 function data_set(){
  for (const key in data){
   if(key=='magias'){
    for (var i=0;i<data['magias'].length;i++){list_spells('char_spells',data['magias'][i])}
-  }else if(key=='config'){
-   var configs = document.getElementById('sec_config').getElementsByClassName('switch');
-   for (var i=0;i<configs.length;i++){if(data.config[i]){configs[i].children[0].checked=1}}
   }else{
    var e=document.getElementById(key);
    if(e.getAttribute('inner')){e.innerHTML=data[key]}
+   else if(e.type=='checkbox'){e.checked=data[key]}
    else{e.value=data[key]}
   }
  }
@@ -603,25 +586,31 @@ function data_set(){
  document.title = title + ' - T20';
  document.getElementById('chardel').disabled = false;
  document.getElementById('sections').style.transform='';
+ config();
 }
 
-function data_load(){
- data['magias'] = [];
- data['config'] = [];
- if(load&&localStorage.getItem(title+'_data')){data = JSON.parse(localStorage.getItem(title+'_data'))}
+window.onload = function(){
+ start_up();
+ if(localStorage.getItem('chars')){chars = JSON.parse(localStorage.getItem('chars'))}
 }
+
+window.addEventListener('beforeunload',save_data);
+function save_data(){
+ localStorage.setItem('chars',JSON.stringify(chars));
+ if(title){localStorage.setItem(title+'_data',JSON.stringify(data))}
+}
+function data_load(){if(localStorage.getItem(title+'_data')){data = JSON.parse(localStorage.getItem(title+'_data'))}}
 
 function clear(){
  var input = document.getElementsByTagName("input");
- for (var i=0;i<input.length;i++){input[i].value=''}
+ for (var i=0;i<input.length;i++){input[i].value=(input[i].id=='config2'?'#D13235':'')}
  var select = document.getElementsByTagName("select");
- for (var i=0;i<select.length;i++){
-  option = select[i].options;
-  option[0].selected = true;
- }
+ for (var i=0;i<select.length;i++){option = select[i].options;option[0].selected = true}
  var fakeinput = document.getElementsByClassName('fakeinput');
  for (var i=0;i<fakeinput.length;i++){fakeinput[i].innerHTML=''}
- document.getElementById('char_spells').innerHTML = '';data['magias'] = [];
+ document.getElementById('char_spells').innerHTML = '';
+ title='';data={};
+ data.config0 = 0;data.config1 = 0;data.config2 = '#D13235';
 }
 
 function import_char(evt){
@@ -659,12 +648,7 @@ function export_char(){
  console.log('Character '+title+' data exported');
 }
 
-function reset(){
- localStorage.clear();
- chars=[];
- data={};
- title='';
- location.reload();
-}
+function reset(){localStorage.clear();chars=[];data={};title='';location.reload()}
+navig(menubtn[8]);
 </script>
 </html>
