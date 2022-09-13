@@ -420,7 +420,7 @@ function menucolor(color){
 data.config0 = 0;data.config1 = 0;
 function config(){
  if(data.config0){}
- if(data.config1){screen.orientation.lock('portrait')}if(!data.config1){screen.orientation.lock('any')}
+ if(data.config1){window.screen.orientation.lock('portrait')}if(!data.config1){window.screen.orientation.unlock()}
 }
 
 //-------------------------NAVIGATION FUNCTIONS------------------------//
