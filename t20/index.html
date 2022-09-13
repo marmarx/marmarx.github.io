@@ -17,7 +17,7 @@
 
 <style>
 @font-face{font-family:'tormenta20';src:url('src/Tormenta20.ttf') format('truetype');font-weight:normal;font-style:normal;color:#d13235}
-:root{--pv:#FF4466;--pm:#4BC7CF;--drawer:#dbdbdb;--diceroller:#e9e9e9;--black:#292929;--white:#fff;--overlay:#e8e8e8;--t20yellow:#f0dc82;--menu:#d13235;--t20backred:#B62E34;--transwhite:#ffffff80;--green:#2ecb57;--invert:0}
+:root{--pv:#FF4466;--pm:#4BC7CF;--drawer:#dbdbdb;--diceroller:#e9e9e9;--black:#292929;--white:#fff;--overlay:#e8e8e8;--t20yellow:#f0dc82;--menu:#d13235;--t20backred:#B62E34;--transwhite:#ffffff80;--green:#2ecb57}
 
 *,*:before,*:after{margin:0;padding:0;transition:all .7s ease-in-out,display 0s;font-family:'Open Sans', sans-serif;word-wrap:normal;word-break:keep-all;box-sizing:border-box}
 html,body{overflow-x:hidden;width:100vw;min-height:100vh}
@@ -37,7 +37,7 @@ h1,h2{text-align:center;margin:0 0 .6em;letter-spacing:4px;font-family:'tormenta
 h1{font-size:2.6em}h2{font-size:1.8em}
 p,li{line-height:1.8em;letter-spacing:.8px;text-align:left;font-size:1.2em;font-weight:500;margin:.5em 0;color:currentColor}
 ul{margin:2em}b,.bold{font-weight:bold}i,.italic{font-style:italic}
-.t20box p{font-weight:400!important}.t20box h2{color:var(--t20yellow);font-weight:400!important/*;mix-blend-mode:exclusion*/}
+.t20box p{font-weight:400!important}.t20box h2{color:var(--t20yellow);font-weight:400!important}
 
 #sections{width:900vw;position:relative;display:flex}
 .sec{width:100vw;min-height:100vh;float:left;padding:35px 25px 125px 25px;background:url("src/paper.png") no-repeat 0/cover fixed;background-position:center}
@@ -214,10 +214,6 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
   <div class="row"><div class="container">
    <div class="w8"><p>Bloquear rotação</p></div>
    <div class="w2"><label class="switch"><input type="checkbox" id="config1" onclick="data_check(this)"><span class="slider"></span></label></div>
-  </div></div>
-  <div class="row"><div class="container">
-   <div class="w8"><p>Escolher cor</p></div>
-   <div class="w2"><input type="color" value="#d13235" id="config2" onchange="data_add(this);menucolor(this.value)"><br><br></div>
   </div></div>
   <div class="row t20box"><div class="container db">
    <p>Todos os direitos relativos ao conteúdo Tormenta 20 são reservados à direito da Jambo Editora.</p>
@@ -421,10 +417,10 @@ function menucolor(color){
  document.querySelector(':root').style.setProperty('--menu',color);
 }
 
-data.config0 = 0;data.config1 = 0;data.config2 = '#D13235';
+data.config0 = 0;data.config1 = 0;
 function config(){
  if(data.config0){}
- if(data.config1){screen.orientation.lock}if(!data.config1){screen.orientation.unlock}
+ if(data.config1){screen.orientation.lock('portrait')}if(!data.config1){screen.orientation.lock('any')}
 }
 
 //-------------------------NAVIGATION FUNCTIONS------------------------//
@@ -603,14 +599,14 @@ function data_load(){if(localStorage.getItem(title+'_data')){data = JSON.parse(l
 
 function clear(){
  var input = document.getElementsByTagName("input");
- for (var i=0;i<input.length;i++){input[i].value=(input[i].id=='config2'?'#D13235':'')}
+ for (var i=0;i<input.length;i++){input[i].value=''}
  var select = document.getElementsByTagName("select");
  for (var i=0;i<select.length;i++){option = select[i].options;option[0].selected = true}
  var fakeinput = document.getElementsByClassName('fakeinput');
  for (var i=0;i<fakeinput.length;i++){fakeinput[i].innerHTML=''}
  document.getElementById('char_spells').innerHTML = '';
  title='';data={};
- data.config0 = 0;data.config1 = 0;data.config2 = '#D13235';
+ data.config0 = 0;data.config1 = 0;
 }
 
 function import_char(evt){
