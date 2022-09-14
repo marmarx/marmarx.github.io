@@ -26,7 +26,7 @@ html,body{overflow-x:hidden;width:100vw;min-height:100vh}
 body::-webkit-scrollbar{display:none}
 
 .row{display:grid;position:relative;width:100%}
-.container{margin:auto;width:80%;display:inline-flex}
+.container{margin:auto;width:85%;display:inline-flex}
 .half,.third{float:left;width:100%}
 @media (min-width:991px){.half{width:49.99999%}.third{width:33.33333%}}
 
@@ -35,7 +35,7 @@ body::-webkit-scrollbar{display:none}
 
 h1,h2{text-align:center;margin:0 0 .6em;letter-spacing:4px;font-family:'tormenta20';color:var(--menu);font-size:3em;font-weight:500}
 h1{font-size:2.6em}h2{font-size:1.8em}
-p,li{line-height:1.8em;letter-spacing:.8px;text-align:left;font-size:1.2em;font-weight:500;margin:.5em 0;color:currentColor}
+p,li{line-height:1.8em;letter-spacing:.8px;text-align:justify;font-size:1.2em;font-weight:500;margin:.5em 0;color:currentColor}
 ul{margin:2em}b,.bold{font-weight:bold}i,.italic{font-style:italic}
 .t20box p{font-weight:400!important}.t20box h2{color:var(--yellow);font-weight:400!important}
 
@@ -56,19 +56,20 @@ nav{position:fixed;left:0;bottom:0;height:70px;width:100vw;background:var(--whit
 .menuicon path{color:#b0b0b0}.menuselicon path{color:var(--menu)}
 .menutext{font-size:.625em;font-weight:600;color:#717171;margin-top:.2em;padding:.1em 0 .5em}.menuseltext{font-weight:700}
 
-#res_test{margin:auto;width:fit-content}#spells_list{display:block}
+#spells_list{display:block}
 .spell{cursor:pointer;border:1px solid transparent;border-radius:10px}
 .more_info{border-color:rgba(32,32,32,.4);margin:.5em 0}
 .item_title,.item_subtitle{margin:0}.item_title{font-size:1em;font-weight:500;display:inline-flex}.item_subtitle{font-size:.8em}
 .item_action{margin-right:0}p.item_subtitle{max-height:unset}
 .hid{visibility:hidden;margin:0;max-height:0;overflow:hidden}
-.nowrap{word-break:break-all;margin:0;font-size:1em}
+.nowrap{word-break:break-word;margin:0;font-size:1em}
 
 .input{position:relative;width:100%;margin:18px 0;color:var(--black)}
 .fakeinput,input,select,textarea{border:1px solid #b0b0b0;border-radius:5px;font-size:1.1em;line-height:1.2em;-webkit-appearance:none;padding:1.6em 1.3em .5em;background:var(--transwhite);color:currentColor}
 .fakeinput,input,select,label,textarea{width:100%}textarea{min-height:500px;line-height:1,3em;font-size:1em;padding:1.2em 1em}
 label{position:absolute;left:0;top:0;pointer-events:none;color:#717171;padding:1.3em 1.6em}
 input:focus ~ label,input:not(:focus):valid ~ label,select:focus ~ label,select:not(:focus):valid ~ label,.fakeinput:focus ~ label,.fakeinput:not(:empty) ~ label{font-size:.7em;padding:.4em 2.1em;margin:.3em 0;left:2px}
+label.tac{padding:}
 .select{padding:.8em;margin:0}
 input[type="file"]{display:none}
 label[for="file"]{position:relative;pointer-events:all}
@@ -76,6 +77,8 @@ label[for="file"]{position:relative;pointer-events:all}
 .t20box .fakeinput,.t20box input,.t20box select{background:#ffffff40;border:1px solid #fff}.t20box label{color:#fff}.t20box .input{color:#fff}
 option{color:var(--black)!important}
 input[type=color]{padding:0;width:60px;height:37px;margin:9px 0}
+
+#habilidades .input{margin:8px 0}
 
 button,label[for="file"]{padding:14px 26px;text-align:center;text-decoration:none;display:inline-block;font-size:100%;margin:10px 0;cursor:pointer;border-radius:5px; width:100%;background:transparent;border:2px solid var(--black);color:var(--black);font-weight:600}
 button:hover,button:focus,label[for="file"]:hover,label[for="file"]:focus{background:var(--black);color:#e8e8e8}
@@ -112,7 +115,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 
 .w10,.w9,.w8,.w7,.w6,.w5,.w4,.w3,.w2,.w1{display:block}
 .w10{width:100%}.w9{width:90%}.w8{width:80%}.w7{width:70%}.w6{width:60%}.w5{width:50%}.w4{width:40%}.w3{width:30%}.w2{width:20%}.w1{width:10%}
-.dif{display:inline-flex}.db{display:block}.ma{margin:auto}.mo{margin:0}.ms{margin-top:.4em!important}.ha{height:auto}.tc{text-align:center;padding-right:0;padding-left:0}.mt0{margin-top:0}
+.dif{display:inline-flex}.db{display:block}.ma{margin:auto}.mo{margin:0}.ms{margin-top:.4em!important}.ha{height:auto}.mt0{margin-top:0}.tal{text-align:left}.tc,.tac{text-align:center!important}.tac{padding-left:0!important;padding-right:0!important}
 
 @media (min-width:601px) and (max-width:990px){}
 @media (min-width:991px){section{width:500px}}
@@ -136,7 +139,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
   <div class="row"><div class="container">
    <div class="w10 input mo"><select id="classe" onchange="data_add(this)" required></select><label>Classe</label></div>
    <div class="w1"></div>
-   <div class="w3 input mo"><select id="nível" class="tc" onchange="data_add(this)" required></select><label class="tc">Nível</label></div>
+   <div class="w3 input mo"><select id="nível" class="tc" onchange="data_add(this)" required></select><label class="tac">Nível</label></div>
   </div></div>
   <div class="row"><div class="container db">
    <div class="input"><input id="distincao" onchange="data_add(this)" required><label>Distinção de classe</label></div>
@@ -144,10 +147,32 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
   </div></div>
 
   <div class="divider"></div>
-  <div class="row"><div class="container db">
-   <label for="file"><input id="file" type="file" onchange="import_char(event)">Importar</input></label>
-   <button onclick="export_char()">Exportar</button>
-   <button id="chardel" class="delete" onclick="char_remove()" disabled>Deletar</button>
+
+  <div id="habilidades" class="row t20box"><div class="container db">
+   <div class="half dif">
+    <div class="w5"><div class="input"><input id="hab_for" class="tc" type="number" onchange="data_add(this)" required><label class="tc">FOR</label></div></div>
+    <div class="w5 dif"><p id="bon_for" class="ma">+0</p></div>
+   </div>
+   <div class="half dif">
+    <div class="w5"><div class="input"><input id="hab_con" class="tc" type="number" onchange="data_add(this)" required><label class="tc">CON</label></div></div>
+    <div class="w5 dif"><p id="bon_con" class="ma">+0</p></div>
+   </div>
+   <div class="half dif">
+    <div class="w5"><div class="input"><input id="hab_des" class="tc" type="number" onchange="data_add(this)" required><label class="tc">DES</label></div></div>
+    <div class="w5 dif"><p id="bon_des" class="ma">+0</p></div>
+   </div>
+   <div class="half dif">
+    <div class="w5"><div class="input"><input id="hab_int" class="tc" type="number" onchange="data_add(this)" required><label class="tc">INT</label></div></div>
+    <div class="w5 dif"><p id="bon_int" class="ma">+0</p></div>
+   </div>
+   <div class="half dif">
+    <div class="w5"><div class="input"><input id="hab_sab" class="tc" type="number" onchange="data_add(this)" required><label class="tc">SAB</label></div></div>
+    <div class="w5 dif"><p id="bon_sab" class="ma">+0</p></div>
+   </div>
+   <div class="half dif">
+    <div class="w5"><div class="input"><input id="hab_car" class="tc" type="number" onchange="data_add(this)" required><label class="tc">CAR</label></div></div>
+    <div class="w5 dif"><p id="bon_car" class="ma">+0</p></div>
+   </div>
   </div></div>
  </div>
 
@@ -176,8 +201,8 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
     <div class="w8"><p>Atributo chave</p></div>
     <div class="w3"><select id="spell_hab" class="select tc" onchange="data_add(this)"><option value="3">int</option><option value="4">sab</option><option value="5">car</option></select></div>
    </div><div class="container">
-    <div class="w8"><p>Teste de resistência</p></div>
-    <div class="w3 dif"><div id="res_test"><p>30</p></div></div>
+    <div class="w8"><p class="tal">Teste de resistência</p></div>
+    <div class="w3 dif"><p id="res_test" class="ma">30</p></div>
    </div>
   </div>
   <div class="row"><div id="char_spells" class="container db"></div></div>
@@ -211,12 +236,11 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
    <div class="w8"><p>Dados avançados</p></div>
    <div class="w2"><label class="switch" style="pointer-events:none"><input type="checkbox" id="config0" onclick="data_check(this)"><span class="slider"></span></label></div>
   </div></div>
-  <div class="row"><div class="container">
-   <div class="w8"><p>Bloquear rotação</p></div>
-   <div class="w2"><label class="switch"><input type="checkbox" id="config1" onclick="data_check(this)"><span class="slider"></span></label></div>
+  <div class="row"><div class="container db">
+   <p>Essa ferramenta é desenvolvida de forma independente para fins recreativos apenas.</p>
   </div></div>
   <div class="row t20box"><div class="container db">
-   <p>Todos os direitos relativos ao conteúdo Tormenta 20 são reservados à direito da Jambo Editora.</p>
+   <p>Direitos referetens ao conteúdo Tormenta 20 reservados à Editora Jambo.</p>
   </div></div>
   <div class="row"><div class="container db">
    <p>Seus dados são armazenados <b>apenas</b> localmente, ou seja, nada é armazenado online. Caso deseje exluir todos os dados, por favor, utilize o botão a seguir. Eles <b>não</b> poderão ser recuperados.</p>
@@ -337,9 +361,9 @@ function spell_info(e){
   content += '<p class="nowrap ms">'+spells[i][10]+'</p>';
   var length = spells[i].length;
   for (var j=12;j<length;j+=2){
-   content += '<p class="nowrap ms"><b class="w2">';
+   content += '<p class="nowrap ms"><b>';
    content += Number.isInteger(spells[i][j])?('+'+spells[i][j]+' PM'):spells[i][j];
-   content += ': </b><span class="w8">'+spells[i][j+1]+'</span></p>';
+   content += ': </b><span>'+spells[i][j+1]+'</span></p>';
   }
   if(spells[i][11]){content += '<p class="nowrap"><i>Publicação:</i> '+spells[i][11]+'</p>'}
   content += '</div></div><button class="spell_add" onclick="add_spell(this)">Adicionar magia</div><button class="delete spell_delete" onclick="remove_spell(this)">Remover magia</div>';
@@ -645,6 +669,6 @@ function export_char(){
 }
 
 function reset(){localStorage.clear();chars=[];data={};title='';location.reload()}
-navig(menubtn[8]);
+navig(menubtn[0]);
 </script>
 </html>
