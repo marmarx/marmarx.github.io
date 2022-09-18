@@ -48,7 +48,8 @@ ul{margin:2em}b,.bold{font-weight:bold}i,.italic{font-style:italic}
 #drawer{width:100vw;height:35px;padding:15px 30%;background:var(--drawer)}.drew{height:95vh!important}
 #drawer div{width:100%;max-width:500px;height:100%;margin:auto;background:var(--white);border-radius:5px}
 #dice{position:relative;padding:0 25px;width:100%;bottom:0}
-#dice-input{position:absolute;bottom:0;padding:1.1em 1.3em}
+#dice-input{position:absolute;bottom:0;padding:1.1em 1.3em;background:#ffffffd9}
+#dice-input:after{content:'';animation:blink 1s step-end infinite;border-left:2px solid #000}@keyframes blink{from,to{border-color:transparent}50%{border-color:#000}}
 #allrolls{bottom:60.06px;height:calc(100% - 60.06px);overflow-x:hidden;overflow-y:scroll;position:relative;top:0}
 #results{position:relative;width:100%;padding:5px 25px}#results p:empty{height:5px}
 #diceholder{position:relative;height:calc(95vh - 105px);overflow:hidden}.diceholder{height:calc(95vh - 242px)!important}
