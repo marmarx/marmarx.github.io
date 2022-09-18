@@ -42,12 +42,37 @@ ul{margin:2em}b,.bold{font-weight:bold}i,.italic{font-style:italic}
 
 #sections{width:900vw;position:relative;display:flex}
 .sec{width:100vw;min-height:100vh;float:left;padding:35px 25px 125px 25px;background:url("src/paper.png") no-repeat 0/cover fixed;background-position:center}
+
 #dice_roller,#drawer{border-top-left-radius:25px;border-top-right-radius:25px}
 #dice_roller{position:fixed;width:100vw;height:105px;background:var(--diceroller);bottom:0}
 #drawer{width:100vw;height:35px;padding:15px 30%;background:var(--drawer)}.drew{height:95vh!important}
 #drawer div{width:100%;max-width:500px;height:100%;margin:auto;background:var(--white);border-radius:5px}
 #dice{position:relative;padding:0 25px;width:100%;bottom:0}
-#dice-pick{position:absolute;bottom:0}
+#dice-input{position:absolute;bottom:0;padding:1.1em 1.3em}
+#allrolls{bottom:60.06px;height:calc(100% - 60.06px);overflow-x:hidden;overflow-y:scroll;position:relative;top:0}
+#results{position:relative;width:100%;padding:5px 25px}#results p:empty{height:5px}
+#diceholder{position:relative;height:calc(95vh - 105px);overflow:hidden}.diceholder{height:calc(95vh - 242px)!important}
+.rot{color:#ef1313}
+.grun{color:#35a90f}
+.strike{text-decoration:line-through}
+
+#keyboard{width:100%;height:206px;padding:3px;background:#403f3f;position:fixed;bottom:-206px}
+.boardshow{bottom:0!important}
+.keybar{float:left}
+.key{vertical-align:top;justify-content:center;align-items:center;display:inline-flex;cursor:pointer;border-radius:4px;margin:3px;max-width:120px;position:relative;padding:0;color:#fff;font-size:1.4em}
+.dkey:after{content:'';top:10px;right:10px;position:absolute;width:8px;height:8px;background:rgba(0,0,0,0.4);border-radius:50%}.nkey:after{background:#08ff00}
+.keybar:nth-child(1){width:75%}.keybar:nth-child(2){width:25%}.hkey{display:none}
+.skey{height:44px;width:calc(33.33% - 6px);background:rgba(255,255,255,0.2)}.xkey{width:calc(100% - 6px);height:44px;background:rgba(255,255,255,.1)}
+.keyext .keybar:nth-child(1){width:60%}.keyext .keybar:nth-child(2){width:40%}.keyext .hkey{display:inline-flex}
+.keyext .xkey{width:calc(50% - 6px);height:34px;font-size:1.1em}
+.enter{box-sizing:border-box;position:relative;display:block;width:22px;height:22px}
+.enter::after,.enter::before{content:"";display:block;box-sizing:border-box;position:absolute;left:3px}
+.enter::after{width:8px;height:8px;border-bottom:2px solid;border-left:2px solid;transform:rotate(45deg);bottom:3px}
+.enter::before{width:16px;height:12px;border-bottom-right-radius:4px;border-bottom:2px solid;border-right:2px solid;bottom:6px}
+.backspace{box-sizing:border-box;position:relative;display:block;width:14px;height:14px;border:2px solid;border-left:0;border-top-right-radius:2px;border-bottom-right-radius:2px;transform:scale(1.1);left:3px}
+.backspace::after,.backspace::before{content:"";display:block;box-sizing:border-box;position:absolute;left:1px}
+.backspace::before{background:linear-gradient(to left,currentColor 18px,transparent 0) no-repeat center center/10px 2px;border-right:3px solid transparent;box-shadow:inset 0 0 0 2px;right:2px;bottom:1px;width:8px;height:8px;border-left:3px solid transparent;transform:rotate(45deg)}
+.backspace::after{width:10px;height:10px;border-top:2px solid;border-left:2px solid;border-top-left-radius:1px;transform:rotate(-45deg);top:0;left:-5px}
 
 nav{position:fixed;left:0;bottom:0;height:70px;width:100vw;background:var(--white);border-top:1px solid #EBEBEB;overflow-x:scroll;overflow-y:hidden;display:grid}
 #menu{display:inline-flex;width:100%;max-width:1000px;margin:auto}
@@ -133,7 +158,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
   <div class="row"><div class="container db">
    <div class="half">
     <div class="input mt0">
-     <input id="char" class="drop" type="text" onkeyup="char_list(this);filter(this)" onclick="char_list(this)" autocomplete="false" autocomplete="new" required>
+     <input id="char" class="drop" type="text" onkeyup="char_list(this);filter(this)" onclick="char_list(this)" autocomplete="false" autocomplete="chrome-off" required>
      <label>Personagem</label>
      <div class="dropdown dn"></div>
     </div>
@@ -231,7 +256,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
   <h1>Configurações</h1>
   <div class="row"><div class="container">
    <div class="w8"><p>Dados avançados</p></div>
-   <div class="w2"><label class="switch" style="pointer-events:none"><input type="checkbox" id="config0" onclick="data_check(this)"><span class="slider"></span></label></div>
+   <div class="w2"><label class="switch"><input type="checkbox" id="config0" onclick="data_check(this)"><span class="slider"></span></label></div>
   </div></div>
   <div class="row"><div class="container db">
    <p>Essa ferramenta é desenvolvida de forma independente para fins recreativos apenas.</p>
@@ -248,11 +273,12 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 
 </div>
 
-<div id="dice_roller">
- <div id="drawer" onclick="this.parentNode.classList.toggle('drew')" style="pointer-events:none"><div></div></div>
-  <div id="results"></div>
-  <div id="dice-pick"></div>
-  <input id="dice" onkeypress="return /[0-9!#d+-kehl]/i.test(event.key)" onchange="diceroll(this.value,1,1);this.value=''"></input>
+<div id="dice_roller" class="drew">
+ <div id="drawer" onclick="openroller(this)"><div></div></div>
+  <div id="diceholder">
+   <div id="allrolls"><div id="results"><p><i>(toque na barra acima para abrir e fechar)</i></p><p><b>Exemplos de rolagens:</b></p></div></div>
+   <div id="dice-input" class="fakeinput" onclick="open_key()"></div>
+  </div>
 </div>
 
 <nav>
@@ -268,6 +294,8 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
   <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Configurações</div></div></div>
  </div>
 </nav>
+
+<div id="keyboard"></div>
 
 </div></div>
 
@@ -288,6 +316,261 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 
 <script>
 const load = 1;var title = '';var chars = [];var data = {};
+
+
+
+
+//-------------------------DICE ROLLER FUNCTIONS------------------------//
+
+const keyels = ['d','+','-','!','eh','el','kh','kl'];
+var roll=[];
+
+function getIndicesOf(str){
+ var index, indices = [];
+ str = str.toLowerCase();
+ for(i=0;i<keyels.length;i++){
+  var startIndex = 0;
+  while ((index = str.indexOf(keyels[i],startIndex)) > -1){
+   indices.push([index,keyels[i].length]);
+   startIndex = index + keyels[i].length;
+  }
+ }
+ return indices;
+}
+
+function roll_dice(num,max,exp){
+ var roll = [];
+ var rolled = '';
+ for(k=0;k<num;k++){
+  rolled = Math.floor(Math.random()*max)+1;
+  roll.push(rolled);
+  while(rolled>=exp){
+   rolled = Math.floor(Math.random()*max)+1;
+   roll.push(rolled);
+  }
+ }
+ return roll;
+}
+
+function diceroll(str){
+ str += ' ';
+ var repeat = 1;
+ if(str.includes("#")){
+  repeat = str.slice(0,str.indexOf('#'));
+  str = str.slice(str.indexOf('#')+1,-1) + ' ';
+ }
+
+ var indexes = [];
+ indexes = getIndicesOf(str);
+ indexes.sort(function sortFunction(a,b){if(a[0]===b[0]){return 0}else{return (a[0]<b[0])?-1:1}});
+ if(indexes[0]){indexes.splice(0,0,[0,0])}
+ indexes.push([-1,1]);
+
+ var subkeys = [];
+ var subarrays = [];
+ for(i=0;i<indexes.length-1;i++){
+  if(i){subkeys.push(str.slice(indexes[i][0],indexes[i][0]+indexes[i][1]))}
+  subarrays.push(str.slice(indexes[i][0]+indexes[i][1],indexes[i+1][0]));
+ }
+
+ for(i=0;i<subarrays.length;i++){
+  if(subarrays[i]==''){
+   if(subkeys[i]=='d'){subarrays[i]='1'}
+   if(subkeys[i-1]=='!'){subarrays[i]=subarrays[i-1]}
+   if(subkeys[i-1]=='eh'||subkeys[i-1]=='el'||subkeys[i-1]=='kh'||subkeys[i-1]=='kl'){subarrays[i]='1'}
+  }
+ }
+ if(!indexes[0]){subarrays.splice(0,0,'1')}
+
+ for(var reroll=0;reroll<repeat;reroll++){
+ var soma = 0;
+ roll=[];
+ var dices=[];
+ var sum=[];
+ var alg='+';
+ var print=' ⟵';
+
+ for(i=0;i<subkeys.length;i++){
+  if(subkeys[i]=='d'){
+   if(subkeys[i+1]=='!'){
+    roll.push(roll_dice(subarrays[i],subarrays[i+1],subarrays[i+2]));
+    dices = subarrays[i]+'d'+subarrays[i+1]+'!'+subarrays[i+2];
+   }else{
+    roll.push(roll_dice(subarrays[i],subarrays[i+1],subarrays[i+1]+1))
+    dices = subarrays[i]+'d'+subarrays[i+1];
+   }
+   roll[roll.length-1] = roll[roll.length-1].sort(function(a,b){return b-a});
+
+   if(subkeys[i+1]=='eh'||subkeys[i+1]=='el'||subkeys[i+1]=='kh'||subkeys[i+1]=='kl'){
+    if(subkeys[i+1]=='eh'){
+     var start = subarrays[i+2];
+     var end = roll[roll.length-1].length;
+    }
+    if(subkeys[i+1]=='el'){
+     var start = 0;
+     var end = roll[roll.length-1].length-subarrays[i+2];
+    }
+    if(subkeys[i+1]=='kh'){
+     var start = 0;
+     var end = subarrays[i+2];
+    }
+    if(subkeys[i+1]=='kl'){
+     var start = roll[roll.length-1].length-subarrays[i+2];
+     var end = roll[roll.length-1].length;
+    }
+    dices += subkeys[i+1] + subarrays[i+2];
+
+   }else if(subkeys[i+2]=='eh'||subkeys[i+2]=='el'||subkeys[i+2]=='kh'||subkeys[i+2]=='kl'){
+    if(subkeys[i+2]=='eh'){
+     var start = subarrays[i+3];
+     var end = roll[roll.length-1].length;
+    }
+    if(subkeys[i+2]=='el'){
+     var start = 0;
+     var end = roll[roll.length-1].length-subarrays[i+3];
+    }
+    if(subkeys[i+2]=='kh'){
+     var start = 0;
+     var end = subarrays[i+3];
+    }
+    if(subkeys[i+2]=='kl'){
+     var start = roll[roll.length-1].length-subarrays[i+3];
+     var end = roll[roll.length-1].length;
+    }
+    dices += subkeys[i+2] + subarrays[i+3];
+
+   } else {
+    var start = 0;
+    var end = roll[roll.length-1].length;
+   }
+
+   for(j=start;j<end;j++){
+    if(alg=='+'){sum.push(roll[roll.length-1][j])}
+    if(alg=='-'){sum.push(-roll[roll.length-1][j])}
+   }
+   for(j=0;j<roll[roll.length-1].length;j++){
+    var classe = '';
+    if(j){print += ', '}
+    else{print += ' ['}
+    if(j<start||j>end-1){classe+=' strike'}
+    if(roll[roll.length-1][j]==subarrays[i+1]){classe+=' bold grun'}
+    if(roll[roll.length-1][j]==1){classe+=' bold rot'}
+    print += '<span class="'+classe+'">'+roll[roll.length-1][j]+'</span>';
+   }
+   print += '] ' + dices;
+  } else if(subkeys[i]=='+'||subkeys[i]=='-'){
+   if(subkeys[i+1]=='+'||subkeys[i+1]=='-'||i==subkeys.length-1){
+    if(subkeys[i]=='+'){sum.push(JSON.parse(subarrays[i+1]))}
+    if(subkeys[i]=='-'){sum.push(-JSON.parse(subarrays[i+1]))}
+    print+=' '+subkeys[i]+' '+subarrays[i+1];
+   } else {alg=subkeys[i];print+=' '+subkeys[i]+' '}
+  }
+ }
+
+ for(j=0;j<sum.length;j++){soma+=sum[j]}
+ print = '<span class="bold">'+soma+'</span>'+print;
+ print_out(print);
+ }
+}
+
+function scroll_down(e){setTimeout(function(){e=document.getElementById(e);e.scroll({top:e.scrollHeight,behavior:"smooth"})},700)}
+function print_out(print){
+ var card = document.createElement('p');
+ card.innerHTML = print;
+ document.getElementById("results").appendChild(card);
+ scroll_down('allrolls');
+}
+
+function startroll(e){
+ value = document.getElementById(e).innerHTML;
+ if(e.includes('hab')){print_out('Teste de '+habis[habs.indexOf(e.replace('hab_',''))])}
+
+ if(e.includes('dice')){print_out(value);diceroll(value)}
+ else{diceroll('d20'+value);openroller(document.getElementById('drawer'))}
+ print_out('');
+}
+
+print_out('d20+2');diceroll('d20+2');print_out('');
+print_out('2d20-2');diceroll('2d20-2');print_out('');
+print_out('2#d12+1');diceroll('2#d12+1');print_out('');
+print_out('2d10+2d8-2');diceroll('2d10+2d8-2');print_out('');
+print_out('3d8! (explosão)');diceroll('3d8!');print_out('');
+print_out('3d8!5 (explosão em 5+)');diceroll('3d8!5');print_out('');
+print_out('4d6kh3 (keep higher 3)');diceroll('4d6kh3');print_out('');
+print_out('4d6el (eliminate lower)');diceroll('4d6el');print_out('');
+print_out('5d4!kl2 (keep lower 2)');diceroll('5d4!kl2');print_out('');
+print_out('5d4!3eh2 (eliminate higher 2)');diceroll('5d4!3eh2');print_out('');
+
+//-------------------------KEYBOARD FUNCTIONS------------------------//
+
+const keys = [[7,8,9,4,5,6,1,2,3,'AC',0,'d'],
+['d20','d100','d10','d12','d8','d6','d4','d3','d2','AC','dx','123']];
+const xkeys = ['kh','eh','kl','el','+','-','#','!','backspace','enter'];
+
+var skeys;
+function set_keyboard(){
+ var e = document.getElementById('keyboard');
+
+ var div = document.createElement('div');
+ div.setAttribute('class','keybar');
+ var content = '';
+ for (var i=0;i<keys[0].length;i++){
+  if(keys[0][i]=='d'){content += '<div class="key skey dkey" onclick="keyshift(this)">d</div>'}
+  else if(keys[0][i]=='AC'){content += '<div class="key skey" onclick="keyac()">AC</div>'}
+  else{content += '<div class="key skey" onclick="keyprint(this)">'+keys[0][i]+'</div>'}
+ }
+ div.innerHTML = content;
+ e.appendChild(div);
+ skeys = document.getElementsByClassName('skey');
+
+ var div = document.createElement('div');
+ div.setAttribute('class','keybar');
+ var content = '';
+ for (var i=0;i<xkeys.length;i++){
+  if(xkeys[i]=='backspace'){content += '<div class="key xkey" onclick="keydel()"><div class="backspace"></div></div>'}
+  else if(xkeys[i]=='enter'){content += '<div class="key xkey" onclick="keysend()"><div class="enter"></div></div>'}
+  else if(xkeys[i]=='+'||xkeys[i]=='-'){content += '<div class="key xkey" onclick="keyprint(this)">'+xkeys[i]+'</div>'}
+  else{content += '<div class="key xkey hkey" onclick="keyprint(this)">'+xkeys[i]+'</div>'}
+ }
+ div.innerHTML = content;
+ e.appendChild(div);
+}
+
+function keyshift(e){
+ e.classList.toggle('nkey');
+ for (var i=0;i<skeys.length;i++){skeys[i].innerHTML = keys[Number(e.classList.contains('nkey'))][i]}
+}
+
+var printed_keys = [];
+function keyac(){document.getElementById('dice-input').innerHTML = '';printed_keys = []}
+function keyprint(e){
+ document.getElementById('dice-input').innerHTML += e.innerHTML;
+ printed_keys.push(e.innerHTML);
+}
+function keydel(){
+ if(printed_keys.length>0){
+  var size = printed_keys[printed_keys.length-1].length;
+  var text = document.getElementById('dice-input').innerHTML;
+  text = text.slice(0,text.length-size);
+  document.getElementById('dice-input').innerHTML = text;
+  printed_keys.splice(printed_keys.length-1,1);
+ }
+}
+
+function keysend(){startroll('dice-input');keyac()}
+
+function open_key(){
+ document.getElementById('keyboard').classList.toggle('boardshow');
+ document.getElementById('diceholder').classList.toggle('diceholder');
+ scroll_down('allrolls');
+}
+
+function openroller(e){
+ e.parentNode.classList.toggle('drew');
+ document.getElementById('keyboard').classList.remove('boardshow');
+ document.getElementById('diceholder').classList.remove('diceholder');
+}
+
 
 
 //-------------------------CALCULATION FUNCTIONS------------------------//
@@ -428,10 +711,7 @@ function menucolor(color){
  document.querySelector(':root').style.setProperty('--menu',color);
 }
 
-data.config0 = 0;
-function config(){
- if(data.config0){}
-}
+function config(){document.getElementById('keyboard').classList.toggle('keyext')}
 
 //-------------------------NAVIGATION FUNCTIONS------------------------//
 
@@ -567,7 +847,7 @@ function create_habs(){
   if(i>=habs.length/2){e = e.parentNode.children[1]}
   var div = document.createElement('div');
   div.setAttribute('class','w10 dif');
-  var content = '<div class="w2 dif" onclick="roll(hab_'+habs[i]+')"><div class="dice" data-dice="d20"></div></div><div class="w1 dif"><div class="hab_label">';
+  var content = '<div class="w2 dif" onclick="startroll(\'hab_'+habs[i]+'\')"><div class="dice" data-dice="d20"></div></div><div class="w1 dif"><div class="hab_label">';
   content += habs[i].toUpperCase();
   content += '</div></div><div class="w4"><div class="input"><input id="hab_'+habs[i]+'_val" class="tc hab" type="number" onchange="data_add(this);calc_hab(this)" required></div></div>';
   content += '<div class="w4 dif"><p id="hab_'+habs[i]+'" class="ma" sign="1">+0</p></div>';
@@ -587,6 +867,7 @@ function start_up(){
  create_checkbox(deslocamento);
  for (var i=0;i<spell_inputs.length;i++){create_checkbox(spell_inputs[i])}
  for (var i=0;i<spells.length;i++){list_spells('all_spells',i)}
+ set_keyboard();
 }
 
 
