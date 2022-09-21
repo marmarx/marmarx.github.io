@@ -4,274 +4,780 @@
 <title>Ficha T20 Mobile - v0.5</title>
 <meta name="author" content="Marco Martins">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#FF385C">
+<meta name="theme-color" content="#d13235">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<link rel="icon" type="image/png" href="src/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="src/css.css">
 <script type="text/javascript" src="db/skills.txt"></script>
 <script type="text/javascript" src="db/conditions.txt"></script>
 <script type="text/javascript" src="db/spells.txt"></script>
 <script type="text/javascript" src="db/geral.txt"></script>
 
 <style>
-:root{--pv:#FF4466;--pm:#4BC7CF;--menu:#FF385C;--drawer:#dbdbdb;--diceroller:#e9e9e9}
-*,*:before,*:after{margin:0;padding:0;transition:all .7s ease-in-out;font-family:'Open Sans', sans-serif;color:#292929;word-wrap:normal;word-break:keep-all;box-sizing:border-box}
+@font-face{font-family:'tormenta20';src:url('src/Tormenta20.ttf') format('truetype');font-weight:normal;font-style:normal}
+:root{--t20:#D13235;--black:#292929;--white:#fff;--transwhite:#ffffff80;--drawer:#dbdbdb;--diceroller:#e9e9e9;--overlay:#e8e8e8;--menu:#b62e34;--bright:brightness(1.1);--t20white:#fff;--t20weight:400;--yellow:#f0dc82;--green:#2ecb57;--pv:#FF4466;--pm:#4BC7CF}
+
+*,*:before,*:after{margin:0;padding:0;transition:all .7s ease-in-out,display 0s;font-family:'Open Sans', sans-serif;word-wrap:normal;word-break:keep-all;box-sizing:border-box}
 html,body{overflow-x:hidden;width:100vw;min-height:100vh}
-::-webkit-scrollbar{width:0}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#bbb}::-webkit-scrollbar-thumb:hover{background:#999}
+::-webkit-scrollbar:horizontal,::-webkit-scrollbar-thumb:horizontal{display:none}
+body::-webkit-scrollbar{display:none}
+div[onclick]{cursor:pointer}
+input[type="number"],input[type="number"]::-webkit-outer-spin-button,input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none;-moz-appearance:textfield}
 
-.row{display:inline-flex;position:relative;width:100%}
-.container{margin:auto;width:80%;display:inline-flex}
+.row{display:grid;position:relative;width:100%}
+.container{margin:auto;width:85%;display:inline-flex;max-width:1000px}
 .half,.third{float:left;width:100%}
-@media (min-width:991px){.half{width:49.99999%}.third{width:33.33333%}}
 
-h1,h2{text-align:center;margin:.5em 0;letter-spacing:4px;font-family:'Lora', serif;color:#fff;text-shadow:2px 2px 3px #252525,2px 2px 5px #252525}
-h1{font-size:3.6em;font-weight:500}h2{font-size:1.8em;text-transform:uppercase;font-weight:600}
-h3,h4,p,li{line-height:1.8em;letter-spacing:.8px;text-align:justify}
-h3{font-size:2em}h4{font-size:1.4em}h3,h4{font-weight:400;margin-top:1.5em}
-p,li{font-size:1.2em;font-weight:300;margin:.5em 0}
+.divider{width:70%;max-width:500px;height:2px;margin:2.5em auto;background:rgba(32,32,32,.2)}
+.t20box{margin:15px auto;border:20px solid transparent;padding:20px 40px 20px 30px;background-color:var(--menu);color:var(--t20white);background-clip:border-box;-webkit-mask-box-image-source:url("src/border.svg");-webkit-mask-box-image-slice:450 150 300 150 fill;-webkit-mask-box-image-width:120px;-webkit-mask-box-image-repeat:repeat}
+
+h1,h2{text-align:center;margin:0 0 .6em;letter-spacing:4px;font-family:'tormenta20';color:var(--menu);font-size:3em;font-weight:500;filter:var(--bright)}
+h1{font-size:2.6em}h2{font-size:1.8em}
+p,li{line-height:1.8em;letter-spacing:.8px;text-align:justify;font-size:1.2em;font-weight:500;margin:.5em 0;color:currentColor}
 ul{margin:2em}b,.bold{font-weight:bold}i,.italic{font-style:italic}
+.t20box *{font-weight:var(--t20weight)!important}.t20box h2{color:var(--yellow);font-weight:400!important}
 
-#sections{width:800vw;position:relative}
-.sec{width:100vw;float:left;padding:25px 25px 125px 25px}
+#sections{width:900%;position:relative;display:flex}
+.sec{width:100%;min-height:100%;float:left;padding:35px 25px 125px 25px;background:url("src/paper.png") no-repeat 0/cover fixed;background-position:center}
+
 #dice_roller,#drawer{border-top-left-radius:25px;border-top-right-radius:25px}
-#dice_roller{position:fixed;width:100vw;height:105px;background:var(--diceroller);bottom:0}
-#drawer{width:100vw;height:35px;padding:15px 35%;background:var(--drawer)}.drew{height:90vh!important}
-#drawer div{width:100%;height:100%;background:#fff;border-radius:5px}
-#dice{position:absolute;padding:0 25px;width:100%;bottom:0}
+#dice_roller{position:fixed;width:100%;height:105px;background:var(--diceroller);bottom:0}
+#drawer{width:100%;height:35px;padding:15px 30%;background:var(--drawer)}.drew{height:90%!important}
+#drawer div{width:100%;max-width:500px;height:100%;margin:auto;background:var(--white);border-radius:5px}
+#dice{position:relative;padding:0 25px;width:100%;bottom:0}
+#dice-input{position:absolute;bottom:0;padding:1.1em 1.3em;background:#ffffffd9}
+#dice-input:after{content:'';animation:blink 1s step-end infinite;border-left:2px solid #000}@keyframes blink{from,to{border-color:transparent}50%{border-color:#000}}
+#allrolls{bottom:60.06px;height:calc(100% - 60.06px);overflow-x:hidden;overflow-y:scroll;position:relative;top:0}
+#results{position:relative;width:100%;padding:5px 25px}#results p:empty{height:5px}
+#diceholder{position:relative;height:calc(100% - 105px);overflow:hidden}.diceholder{height:calc(100% - 242px)!important}
+.rot{color:#ef1313}
+.grun{color:#35a90f}
+.strike{text-decoration:line-through}
 
-nav{position:fixed;left:0;bottom:0;height:70px;width:100vw;background:#fff;border-top:1px solid #EBEBEB;overflow:scroll}
-#menu{display:inline-flex}
-.menubtn{width:20vw;height:70px;float:left;display:inline-flex}.menubi{margin:auto}
+#keyboard{width:100%;height:206px;padding:3px;background:#403f3f;position:fixed;bottom:-206px}.keyboard{width:100%;max-width:500px}.boardshow{bottom:0!important}.keybar{float:left}
+.key{vertical-align:top;justify-content:center;align-items:center;display:inline-flex;cursor:pointer;border-radius:4px;margin:3px;max-width:120px;position:relative;padding:0;color:#fff;font-size:1.4em}
+.dkey:after{content:'';top:10px;right:10px;position:absolute;width:8px;height:8px;background:rgba(0,0,0,0.4);border-radius:50%}.nkey:after{background:#08ff00}
+.keybar:nth-child(1){width:75%}.keybar:nth-child(2){width:25%}.hkey{display:none}
+.skey{height:44px;width:calc(33.33% - 6px);background:rgba(255,255,255,0.2)}.xkey{width:calc(100% - 6px);height:44px;background:rgba(255,255,255,.1)}
+.keyext .keybar:nth-child(1){width:60%}.keyext .keybar:nth-child(2){width:40%}.keyext .hkey{display:inline-flex}
+.keyext .xkey{width:calc(50% - 6px);height:34px;font-size:1.1em}
+.enter{box-sizing:border-box;position:relative;display:block;width:22px;height:22px}
+.enter::after,.enter::before{content:"";display:block;box-sizing:border-box;position:absolute;left:3px}
+.enter::after{width:8px;height:8px;border-bottom:2px solid;border-left:2px solid;transform:rotate(45deg);bottom:3px}
+.enter::before{width:16px;height:12px;border-bottom-right-radius:4px;border-bottom:2px solid;border-right:2px solid;bottom:6px}
+.backspace{box-sizing:border-box;position:relative;display:block;width:14px;height:14px;border:2px solid;border-left:0;border-top-right-radius:2px;border-bottom-right-radius:2px;transform:scale(1.1);left:3px}
+.backspace::after,.backspace::before{content:"";display:block;box-sizing:border-box;position:absolute;left:1px}
+.backspace::before{background:linear-gradient(to left,currentColor 18px,transparent 0) no-repeat center center/10px 2px;border-right:3px solid transparent;box-shadow:inset 0 0 0 2px;right:2px;bottom:1px;width:8px;height:8px;border-left:3px solid transparent;transform:rotate(45deg)}
+.backspace::after{width:10px;height:10px;border-top:2px solid;border-left:2px solid;border-top-left-radius:1px;transform:rotate(-45deg);top:0;left:-5px}
+
+nav{position:fixed;left:0;bottom:0;height:70px;width:100%;background:var(--white);border-top:1px solid #EBEBEB;overflow-x:scroll;overflow-y:hidden;display:grid}
+#menu{display:inline-flex;width:160%;max-width:1000px;margin:auto}
+.menubtn{width:20%;max-width:150px;height:70px;float:left;display:inline-flex;cursor:pointer}.menubi{margin:auto}
 .menuicon{color:#b0b0b0;width:fit-content;margin:auto}
 .menuicon svg{display:block;height:24px;width:24px;overflow:visible;fill:currentcolor}
-.menuicon path{color:#b0b0b0}.menuselicon path{color:var(--menu)}
+.menuicon path{color:#b0b0b0}.menuselicon path{color:var(--menu);filter:var(--bright)}
 .menutext{font-size:.625em;font-weight:600;color:#717171;margin-top:.2em;padding:.1em 0 .5em}.menuseltext{font-weight:700}
 
-#res_test{margin:auto}#spells_list{display:block}
-.spell{padding:.5em 1em;border:1px solid transparent;border-radius:10px;margin:.5em 0}
-.more_info{border-color:rgba(32,32,32,.4)}
-.item_title,.item_subtitle{margin:0}.item_title{font-size:1em;font-weight:500;display:inline-flex}.item_subtitle{font-size:.8em;max-height:0}
+#spells_list{display:block}
+.spell{cursor:pointer;border:1px solid transparent;border-radius:10px}
+.more_info{border-color:rgba(32,32,32,.4);margin:.5em 0}
+.item_title,.item_subtitle{margin:0}.item_title{font-size:1em;font-weight:500;display:inline-flex}.item_subtitle{font-size:.8em}
 .item_action{margin-right:0}p.item_subtitle{max-height:unset}
-.hid{visibility:hidden;opacity:0;margin:0}
-.nowrap{word-break:break-all;margin:0;font-size:1em}
+.hid{visibility:hidden;margin:0;max-height:0;overflow:hidden}
+.nowrap{word-break:break-word;margin:0;font-size:1em}
 
-.ac_free,.ac_mov,.ac_pad,.ac_comp,.ac_pad:before,.ac_comp:before,.ac_comp:after{width:12px;height:12px;border:1px solid #e8e8e8;display:block}
-.ac_free,.ac_mov,.ac_pad,.ac_comp{transform:rotate(45deg)}
-.ac_free{border:1px solid #b3b2b2}
-.ac_mov,.ac_pad,.ac_comp,.ac_pad:before,.ac_comp:before,.ac_comp:after{background:#b3b2b2}
-.ac_pad:before,.ac_comp:before,.ac_comp:after{content:''}.ac_pad:before,.ac_comp:before{transform:translate(4px,-6px)}.ac_comp:after{transform:translate(9px,-23px)}
-.ac_reac{width:14px;height:14px;border:2px solid;border-right-color:transparent;border-radius:100px;transform:rotate(135deg)}.ac_reac:before{content:"";position:absolute;width:6px;height:6px;border-top:2px solid;border-right:2px solid;top:-3px;right:-1px;transform:rotate(68deg)}.ac_reac,.ac_reac:before{color:#b3b2b2}
-.trash{width:10px;height:12px;border:2px solid transparent;box-shadow:0 0 0 2px,inset -2px 0 0,inset 2px 0 0;border-bottom-left-radius:1px;border-bottom-right-radius:1px;margin-top:4px;color:currentColor;position:absolute;top:calc(50% - 9px);right:25%}
-.trash::after,.trash::before{content:"";position:absolute;color:currentColor}
-.trash::after{background:currentColor;border-radius:3px;width:16px;height:2px;top:-4px;left:-5px}
-.trash::before{width:10px;height:4px;border:2px solid;border-bottom:transparent;border-top-left-radius:2px;border-top-right-radius:2px;top:-7px;left:-2px}
-.divider{width:70%;height:2px;margin:1em auto;background:rgba(32,32,32,.2)}
-
-.input{position:relative}
-input,select{border:1px solid #b0b0b0;border-radius:5px;font-size:1.1em;line-height:1.2em;-webkit-appearance:none;padding:1.6em 1.3em .5em;background:#fff}
-input,select,label{margin:.6em 0;width:100%}
-label{position:absolute;left:0;pointer-events:none;color:#717171;padding:1.3em 1.6em}
-input:focus ~ label,input:not(:focus):valid ~ label,select:focus ~ label,select:not(:focus):valid ~ label{font-size:.7em;padding:.4em 2.1em;margin:1.1em 0;left:2px}
+.input{position:relative;width:100%;margin:18px 0;color:var(--black)}
+.fakeinput,input,select,textarea{border:1px solid #b0b0b0;border-radius:5px;font-size:1.1em;line-height:1.2em;-webkit-appearance:none;padding:1.6em 1.3em .5em;background:var(--transwhite);color:currentColor}
+.fakeinput,input,select,label,textarea{width:100%}textarea{min-height:500px;line-height:1,3em;font-size:1em;padding:1.2em 1em}
+label{position:absolute;left:0;top:0;pointer-events:none;color:#717171;padding:1.3em 1.6em}
+input:focus ~ label,input:not(:focus):valid ~ label,select:focus ~ label,select:not(:focus):valid ~ label,.fakeinput:focus ~ label,.fakeinput:not(:empty) ~ label{font-size:.7em;padding:.4em 2.1em;margin:.3em 0;left:2px}
 .select{padding:.8em;margin:0}
 input[type="file"]{display:none}
 label[for="file"]{position:relative;pointer-events:all}
+.fakeinput{height:60.06px;cursor:text;white-space:nowrap;overflow:hidden}.fakeinput:focus{outline:1px auto #141414}
+.t20box .fakeinput,.t20box input,.t20box select{background:#ffffff40;border:1px solid currentColor}.t20box label,.t20box input::placeholder,.t20box .input{color:currentColor}
+.t20box input:focus,.t20box select:focus{outline:1px solid currentColor}
+option{color:var(--black)!important}
+input[type=color]{padding:0;width:60px;height:37px;margin:9px 0}
+.hab{padding:1em 1.3em}
 
-.backdrop,.call_action{width:100vw;left:0;top:0}
-.backdrop{height:100vh;position:fixed;top:0;background:hsl(0 0% 10%/.5);backdrop-filter:blur(2px)}
-.call_action{height:85vh;position:absolute;background:#e8e8e8}
-.invisible{top:100vh}
-button,label[for="file"]{padding:14px 26px;text-align:center;text-decoration:none;display:inline-block;font-size:100%;margin:10px 0;cursor:pointer;border-radius:5px; width:100%;background:transparent;border:2px solid #292929;color:#292929;font-weight:600}
-button:hover,button:focus,label[for="file"]:hover,label[for="file"]:focus{background:#292929;color:#e8e8e8}
-button.delete{border:2px solid #ef5d5d;color:#ef5d5d}button.delete:hover{background:#ef5d5d;color:#fff}
-button:disabled,button:hover:disabled{border:2px solid #b0b0b0;color:#b0b0b0;background:#fff;cursor:no-drop}
+button,label[for="file"]{padding:14px 26px;text-align:center;text-decoration:none;display:inline-block;font-size:100%;margin:10px 0;cursor:pointer;border-radius:5px; width:100%;background:transparent;border:2px solid var(--black);color:var(--black);font-weight:600}
+button:hover,button:focus,label[for="file"]:hover,label[for="file"]:focus{background:var(--black);color:#e8e8e8}
+.delete{border:2px solid var(--menu);color:var(--menu);filter:var(--bright)}.delete:hover{background:var(--menu);color:var(--white);filter:var(--bright)}
+button:disabled,button:hover:disabled{border:2px solid #b0b0b0;color:#b0b0b0;background:var(--transwhite);cursor:no-drop}
 
-a{color:black;padding:12px 30px;text-decoration:none;display:block}
-a:hover{background-color:#1e90ff;color:#fff}
-.dropdown{position:absolute;background-color:#fff;border:1px solid #000;z-index:1;width:100%;top:71px;max-height:250px;overflow-y:scroll}
+a{color:currentColor;padding:12px 30px;text-decoration:none;display:block}
+a:hover{background-color:#1e90ff;color:var(--white)}
+.dropdown{position:absolute;background-color:var(--white);border:1px solid #000;z-index:1;width:100%;top:60px;max-height:250px;overflow-y:scroll}
 .dn{display:none!important;border:0}
 
-.dif{display:inline-flex}.db{display:block}.ma{margin:auto}.mo{margin:0}.ms{margin-top:.4em!important}.ha{height:auto}.tc{text-align:center;padding-right:0;padding-left:0}
-.w10{width:100%}.w9{width:90%}.w8{width:80%}.w7{width:70%}.w6{width:60%}.w5{width:50%}.w4{width:40%}.w3{width:30%}.w2{width:20%}.w1{width:10%}
+#char_spells{margin:25px auto}
+.backdrop,.overlay{width:100%;left:0;top:0}
+.backdrop{height:100%;position:fixed;top:0;background:hsl(0 0% 10%/.5)}
+.overlay{height:100%;position:absolute;background:var(--overlay);margin-top:100px;overflow-x:hidden;overflow-y:scroll;padding:50px 25px 150px;bottom:0}
+.invisible{opacity:0;visibility:hidden;pointer-events:none;top:100%}
+#spell_overlay{height:200%}
+.spell_lvl:empty{opacity:0;visibility:hidden}
+.spell_lvl_head{margin:1em 0 0;font-weight:700;padding:.5em 1em;cursor:pointer;display:inline-flex;width:100%}.spell_lvl_head > p{font-weight:700;margin:0}
+.arrow-down{width:8px;height:8px;border-bottom:2px solid;border-left:2px solid;transform:rotate(-45deg);margin:auto}.arrow-up{transform:rotate(135deg)}
+.spell_details{padding:.3em 1em;border-radius:10px}
+.spell_add,.spell_delete{width:60%;margin:20px 20%}
+.spell_add{border-color:var(--green);color:var(--green)}
+.spell_add:hover,.spell_add:focus{background:var(--green);color:#fff}
+#all_spells .spell_delete,#char_spells .spell_add{display:none}
 
-@media (min-width:601px) and (max-width:990px){}
-@media (min-width:991px){section{width:500px}}
+#habilidades .input{margin:8px 0}
+.hab_label{transform:rotate(180deg);margin:auto;writing-mode:vertical-lr}
+.dice{width:50%;margin:auto}
+.t20box svg,.t20box g{fill:currentColor;color:currentColor;width:100%;height:100%}
+
+.switch{position:relative;display:inline-block;width:60px;height:20px;pointer-events:all}
+.switch input{opacity:0;width:0;height:0;margin:0;padding:0}
+.slider{position:absolute;cursor:pointer;top:calc(50% - 14px);left:0;right:0;bottom:0;background-color:#ccc;-webkit-transition:.4s;transition:.4s;border-radius:34px}
+.slider:before{position:absolute;content:"";height:24px;width:24px;left:4px;bottom:6px;background-color:#fff;-webkit-transition:.4s;transition:.4s;border-radius:50%}
+input:checked+.slider{background-color:var(--menu);filter:var(--bright)}
+input:focus+.slider{box-shadow:0 0 1px var(--menu);filter:var(--bright)}
+input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:translateX(26px);transform:translateX(26px)}
+
+.w10,.w9,.w8,.w7,.w6,.w5,.w4,.w3,.w2,.w1{display:block}.mw400{max-width:400px}
+.w10{width:100%}.w9{width:90%}.w8{width:80%}.w7{width:70%}.w6{width:60%}.w5{width:50%}.w4{width:40%}.w3{width:30%}.w2{width:20%}.w1{width:10%}
+.dif{display:inline-flex}.db{display:block}.ma{margin:auto}.mo,.m0{margin:0}.ms{margin-top:.4em!important}.ha{height:auto}.mt0{margin-top:0}.tal{text-align:left}.tc,.tac{text-align:center!important}.tac{padding-left:0!important;padding-right:0!important}.ml{margin-left:2em}
+
+@media (min-width:991px){.half{width:39.99999%;margin:0 5%}.m0{margin:18px 0}.third{width:33.33333%}#sections{width:450%}#dice_roller{width:60%;margin:0 20%}#keyboard{background:#403f3fdb}}
+.invert{filter:invert(1)}
 </style>
 </head>
 
 <body>
 <div id="sections">
- <div class="sec" id="sec_char">
+ <div id="sec_char" class="sec">
+  <h1>Personagem</h1>
   <div class="row"><div class="container db">
-   <div class="input">
-    <input id="char" class="drop" type="text" onkeyup="char_list(this);filter(this)" onclick="char_list(this)" autocomplete="false" autocomplete="chrome-off" required>
-    <label>Personagem</label>
-    <div id="name-dropdown" class="dropdown dn"></div>
+   <div class="half">
+    <div class="input mt0">
+     <input id="char" class="drop" type="text" onkeyup="char_list(this);filter(this)" onclick="char_list(this)" autocomplete="false" autocomplete="chrome-off" required>
+     <label>Personagem</label>
+     <div class="dropdown dn"></div>
+    </div>
+   </div><div class="half">
+    <div class="input mt0"><input id="jogador" type="text" onchange="data_add(this)" autocomplete="off" autocomplete="chrome-off" required><label>Jogador</label></div>
    </div>
-   <div class="input"><input id="jogador" type="text" onchange="data_add(this)" autocomplete="off" autocomplete="chrome-off" required><label>Jogador</label></div>
-   <div class="input"><select id="raça" onchange="data_add(this)" required></select><label>Raça</label></div>
-   <div class="input"><select id="origem" onchange="data_add(this)" required></select><label>Origem</label></div>
   </div></div>
-  <div class="row"><div class="container">
-   <div class="w10 input"><select id="classe" onchange="data_add(this);menucolor(this.value)" required></select><label>Classe</label></div>
-   <div class="w1"></div>
-   <div class="w3 input"><select id="nível" class="tc" onchange="data_add(this)" required></select><label class="tc">Nível</label></div>
-  </div></div>
+
+  <div id="habilidades" class="row"><div class="container t20box db"><div class="half"></div><div class="half"></div></div></div>
+
   <div class="row"><div class="container db">
-   <div class="input"><select id="divindade" onchange="data_add(this)" required></select><label>Divindade</label></div>
+   <div class="half">
+    <div class="input"><select id="raça" onchange="data_add(this)" required></select><label>Raça</label></div>
+    <div class="input"><select id="origem" onchange="data_add(this)" required></select><label>Origem</label></div>
+    <div class="input"><select id="tamanho" onchange="data_add(this)" required></select><label>Tamanho</label></div>
+    <div class="input m0"><div id="deslocamento" class="fakeinput drop" onclick="show_list(this)" inner="1"></div><label>Deslocamento</label><div class="dropdown dn"></div></div>
+   </div>
+   <div class="half">
+    <div class="row dif">
+     <div class="w10 input"><select id="classe" onchange="data_add(this)" required></select><label>Classe</label></div>
+     <div class="w1"></div>
+     <div class="w3 input"><select id="nível" class="tc" onchange="data_add(this)" required></select><label class="tac">Nível</label></div>
+    </div>
+    <div class="input mt0"><input id="distincao" onchange="data_add(this)" required><label>Distinção de classe</label></div>
+    <div class="input mt0"><div id="divindade" class="fakeinput drop" onclick="show_list(this)" inner="1"></div><label>Divindade</label><div class="dropdown dn"></div></div>
+    <div class="input"><input id="xp" type="number" onchange="data_add(this)" required><label>Experiência</label></div>
+   </div>
   </div></div>
+
   <div class="divider"></div>
-  <div class="row"><div class="container db">
+
+  <div class="row"><div class="container db mw400">
    <label for="file"><input id="file" type="file" onchange="import_char(event)">Importar</input></label>
    <button onclick="export_char()">Exportar</button>
    <button id="chardel" class="delete" onclick="char_remove()" disabled>Deletar</button>
   </div></div>
+
  </div>
- <div class="sec" id="sec_combat"></div>
- <div class="sec" id="sec_skill" ></div>
- <div class="sec" id="sec_feat"  ></div>
- <div class="sec" id="sec_spell" >
+
+ <div id="sec_combat" class="sec">
+  <h1>Combate</h1>
+  <div class="row"><div class="container db">
+  </div></div>
+ </div>
+
+ <div id="sec_skill" class="sec">
+  <h1>Perícias</h1>
+  <div class="row"><div class="container db">
+  </div></div>
+ </div>
+
+ <div id="sec_feat" class="sec">
+    <h1>Poderes</h1>
+  <div class="row"><div class="container db">
+  </div></div>
+ </div>
+
+ <div id="sec_spell" class="sec">
+  <h1>Magias</h1>
+  <div class="row t20box">
+   <div class="container">
+    <div class="w8"><p>Atributo chave</p></div>
+    <div class="w3"><select id="spell_hab" class="select tc" onchange="data_add(this);calc_spell_res()"></select></div>
+   </div><div class="container">
+    <div class="w8"><p class="tal">Teste de resistência</p></div>
+    <div class="w3 dif"><p id="spell_res" class="ma" inner="1">30</p></div>
+   </div>
+  </div>
+  <div class="row"><div id="char_spells" class="container db"></div></div>
   <div class="row"><div class="container">
-   <div class="w8"><p>Atributo chave</p></div>
-   <div class="w3"><select id="shab" class="select tc" onchange=""><option value="3">int</option><option value="4">sab</option><option value="5">car</option></select></div>
+   <button onclick="show('backdrop_spell')">Buscar magias</button>
+  </div></div>
+ </div>
+
+ <div id="sec_equip" class="sec">
+  <h1>Equipamento</h1>
+  <div class="row"><div class="container db">
+  </div></div>
+ </div>
+
+ <div id="sec_condition" class="sec">
+  <h1>Condições</h1>
+  <div class="row"><div class="container db">
+  </div></div>
+ </div>
+
+ <div id="sec_notes" class="sec">
+  <h1>Anotações</h1>
+  <div class="row"><div class="container db">
+   <textarea id="anot" onchange="data_add(this)"></textarea>
+  </div></div>
+ </div>
+
+ <div id="sec_config" class="sec">
+  <h1>Configurações</h1>
+
+  <div class="row"><div class="container">
+   <div class="w8"><p>Teclado avançado de dados</p></div>
+   <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="0" name="config" onclick="data_check(this);config()"><span class="slider"></span></label></div>
   </div></div>
   <div class="row"><div class="container">
-   <div class="w8"><p>Teste de resistência</p></div>
-   <div class="w3 dif"><div id="res_test"><p>30</p></div></div>
+   <div class="w8"><p>Modo tela cheia</p></div>
+   <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="1" name="config" onclick="data_check(this);config()"><span class="slider"></span></label></div>
+  </div></div>
+  <div class="row"><div class="container">
+   <div class="w8"><p>Modo noturno</p></div>
+   <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="2" name="config" onclick="data_check(this);config()"><span class="slider"></span></label></div>
+  </div></div>
+  <div class="row"><div class="container">
+   <div class="w8"><p>Cor customizada</p></div>
+   <div class="w2 ma ml"><input id="color" type="color" alt="3" name="config" value="#D13235" onchange="data_array(this);config()"></div>
   </div></div>
   <div class="divider"></div>
-  <div class="row"><div id="spells_list" class="container">
 
-   <div class="spell w10 h70" onclick="moreinfo(this)">
-    <div class="w10 dif">
-     <div class="w9">
-      <p class="item_title">Curar Ferimentos Leves</p>
-      <p class="item_subtitle">3 PM · Divina · Conjuração 1 · Clérigo 1</p>
-     </div><div class="item_action w1 ma"><div class="ac_reac"></div></div>
-    </div>
-    <div class="item_subtitle w10 hid ms">
-     <p class="nowrap"><b>Alcance:</b> Toque</p>
-     <p class="nowrap"><b>Alvo:</b> 1 criatura</p>
-     <p class="nowrap"><b>Duração:</b> Instantânea</p>
-     <p class="nowrap"><b>Resistência:</b> Nenhuma</p>
-     <p class="nowrap ms">Ao tocar cure 1d8+1 PV do alvo, remove uma doença ou outra condição negativa</p>
-     <p class="nowrap ms"><b class="w2">+1 PM: </b><span class="w8">Ao tocar cure 1d8+1 PV do alvo, remove uma doença ou outra condição negativa</span></p>
-    </div>
-   </div>
-
-   <div class="spell w10 h70" onclick="moreinfo(this)">
-    <div class="w10 dif">
-     <div class="w9">
-      <p class="item_title">Curar Ferimentos Leves</p>
-      <p class="item_subtitle">3 PM · Divina · Conjuração 1 · Clérigo 1</p>
-     </div><div class="item_action w1 ma"><div class="ac_reac"></div></div>
-    </div>
-    <div class="item_subtitle w10 hid ms">
-     <p class="nowrap"><b>Alcance:</b> Toque</p>
-     <p class="nowrap"><b>Alvo:</b> 1 criatura</p>
-     <p class="nowrap"><b>Duração:</b> Instantânea</p>
-     <p class="nowrap"><b>Resistência:</b> Nenhuma</p>
-     <p class="nowrap ms">Ao tocar cure 1d8+1 PV do alvo, remove uma doença ou outra condição negativa</p>
-     <p class="nowrap ms"><b class="w2">+1 PM: </b><span class="w8">Ao tocar cure 1d8+1 PV do alvo, remove uma doença ou outra condição negativa</span></p>
-    </div>
-   </div>
-
+  <div class="row"><div class="container db">
+   <p>Essa ferramenta é desenvolvida de forma independente para fins recreativos apenas.</p>
+  </div></div>
+  <div class="row"><div class="container t20box db">
+   <p>Direitos referentes ao conteúdo Tormenta 20 reservados à Editora Jambo.</p>
   </div></div>
   <div class="row"><div class="container">
-   <button onclick="show('spell_overlay')">Buscar magias</button>
+   <p>Seus dados são armazenados <b>apenas</b> localmente, ou seja, nada é armazenado online. Caso deseje exluir todos os dados, por favor, utilize o botão a seguir. Eles <b>não</b> poderão ser recuperados.</p>
+  </div><div class="container mw400">
+   <button class="delete" onclick="reset()">Excluir todos os dados</button>
   </div></div>
  </div>
- <div id="sec_equip" class="sec"></div>
- <div id="sec_condition" class="sec"></div>
- <div id="sec_notes" class="sec"></div>
- <div id="sec_config" class="sec"></div>
+
 </div>
+
 <div id="dice_roller">
- <div id="drawer" onclick="this.parentNode.classList.toggle('drew')"><div></div></div>
- <div id="dice"></div>
+ <div id="drawer" onclick="openroller(this)"><div></div></div>
+  <div id="diceholder">
+   <div id="allrolls"><div id="results"><p><i>(toque na barra acima para abrir e fechar)</i></p><p><b>Exemplos de rolagens:</b></p></div></div>
+   <div id="dice-input" class="fakeinput" onclick="open_key()"></div>
+  </div>
 </div>
+
 <nav>
  <div id="menu">
-  <div class="menubtn" onclick="navig(this)"><div class="menubi">
-   <div class="menuicon menuselicon"><svg id="icon1" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false"></svg></div>
-   <div class="menutext menuseltext">Personagem</div>
-  </div></div>
-  <div class="menubtn" onclick="navig(this)"><div class="menubi">
-   <div class="menuicon"><svg id="icon2" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style="transform:translate(14px,13px) scale(-.07)"></svg></div>
-   <div class="menutext">Combate</div>
-  </div></div>
-  <div class="menubtn" onclick="navig(this)"><div class="menubi">
-   <div class="menuicon"><svg id="icon3" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style="transform:translate(-11px,-13px) scale(.08)"></svg></div>
-   <div class="menutext">Perícias</div>
-  </div></div>
-  <div class="menubtn" onclick="navig(this)"><div class="menubi">
-   <div class="menuicon"><svg id="icon4" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false"></svg></div>
-   <div class="menutext">Poderes</div>
-  </div></div>
-  <div class="menubtn" onclick="navig(this)"><div class="menubi">
-   <div class="menuicon"><svg id="icon5" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false"></svg></div>
-   <div class="menutext">Magias</div>
-  </div></div>
-  <div class="menubtn" onclick="navig(this)"><div class="menubi">
-   <div class="menuicon"><svg id="icon6" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style="transform:scale(.074) translate(-195px,-160px)"></svg></div>
-   <div class="menutext">Equipamento</div>
-  </div></div>
-  <div class="menubtn" onclick="navig(this)"><div class="menubi">
-   <div class="menuicon"><svg id="icon7" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style="fill:none;stroke:currentcolor;stroke-width:2.5"></svg></div>
-   <div class="menutext">Condições</div>
-  </div></div>
-  <div class="menubtn" onclick="navig(this)"><div class="menubi">
-   <div class="menuicon"><svg id="icon8" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style="transform:scale(.07) translate(-150px,-160px)"></svg></div>
-   <div class="menutext">Anotações</div>
-  </div></div>
-  <div class="menubtn" onclick="navig(this)"><div class="menubi">
-   <div class="menuicon"><svg id="icon9" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style="transform:scale(.07) translate(-150px,-160px)"></svg></div>
-   <div class="menutext">Configurações</div>
-  </div></div>
+  <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon menuselicon"></div><div class="menutext menuseltext">Personagem</div></div></div>
+  <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Combate</div></div></div>
+  <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Perícias</div></div></div>
+  <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Poderes</div></div></div>
+  <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Magias</div></div></div>
+  <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Equipamento</div></div></div>
+  <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Condições</div></div></div>
+  <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Anotações</div></div></div>
+  <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Configurações</div></div></div>
  </div>
 </nav>
 
+<div id="keyboard" class="row"><div class="container keyboard"></div></div>
+
 </div></div>
+
+<div id="backdrop_spell" class="backdrop invisible" onclick="hide(event,this)">
+ <div class="overlay">
+  <div class="row"><div class="container t20box db">
+   <h2>Buscar por...</h2>
+   <div class="input"><input id="spell_name" type="text" onkeyup="filter_spell_name(this)" autocomplete="off" autocomplete="chrome-off" required><label>Nome da magia</label></div>
+   <div class="input"><div id="spell_class" class="fakeinput drop" onclick="show_list(this)" tabindex="1"></div><label>Classificação</label><div class="dropdown dn"></div></div>
+   <div class="input"><div id="spell_level" class="fakeinput drop" onclick="show_list(this)" tabindex="2"></div><label>Nível</label><div class="dropdown dn"></div></div>
+   <div class="input"><div id="spell_school" class="fakeinput drop" onclick="show_list(this)" tabindex="3"></div><label>Escola</label><div class="dropdown dn"></div></div>   
+  </div></div>
+  <div class="row"><div id="all_spells" class="container db"></div></div>
+ </div>
+</div>
 
 </body>
 
 <script>
-const load = 1;var title = '';var chars = [];var data = {};
+const load = 1;var title = '';var chars = [];
+var data = {'config':[0,0,0,'#D13235'],'magias':[]};
 
+
+
+//-------------------------DICE ROLLER FUNCTIONS------------------------//
+
+const keyels = ['d','+','-','!','eh','el','kh','kl'];
+var roll=[];
+
+function getIndicesOf(str){
+ var index, indices = [];
+ str = str.toLowerCase();
+ for(i=0;i<keyels.length;i++){
+  var startIndex = 0;
+  while ((index = str.indexOf(keyels[i],startIndex)) > -1){
+   indices.push([index,keyels[i].length]);
+   startIndex = index + keyels[i].length;
+  }
+ }
+ return indices;
+}
+
+function roll_dice(num,max,exp){
+ var roll = [];
+ var rolled = '';
+ for(k=0;k<num;k++){
+  rolled = Math.floor(Math.random()*max)+1;
+  roll.push(rolled);
+  while(rolled>=exp){
+   rolled = Math.floor(Math.random()*max)+1;
+   roll.push(rolled);
+  }
+ }
+ return roll;
+}
+
+function diceroll(str){
+ str += ' ';
+ var repeat = 1;
+ if(str.includes("#")){
+  repeat = str.slice(0,str.indexOf('#'));
+  str = str.slice(str.indexOf('#')+1,-1) + ' ';
+ }
+
+ var indexes = [];
+ indexes = getIndicesOf(str);
+ indexes.sort(function sortFunction(a,b){if(a[0]===b[0]){return 0}else{return (a[0]<b[0])?-1:1}});
+ if(indexes[0]){indexes.splice(0,0,[0,0])}
+ indexes.push([-1,1]);
+
+ var subkeys = [];
+ var subarrays = [];
+ for(i=0;i<indexes.length-1;i++){
+  if(i){subkeys.push(str.slice(indexes[i][0],indexes[i][0]+indexes[i][1]))}
+  subarrays.push(str.slice(indexes[i][0]+indexes[i][1],indexes[i+1][0]));
+ }
+
+ for(i=0;i<subarrays.length;i++){
+  if(subarrays[i]==''){
+   if(subkeys[i]=='d'){subarrays[i]='1'}
+   if(subkeys[i-1]=='!'){subarrays[i]=subarrays[i-1]}
+   if(subkeys[i-1]=='eh'||subkeys[i-1]=='el'||subkeys[i-1]=='kh'||subkeys[i-1]=='kl'){subarrays[i]='1'}
+  }
+ }
+ if(!indexes[0]){subarrays.splice(0,0,'1')}
+
+ for(var reroll=0;reroll<repeat;reroll++){
+ var soma = 0;
+ roll=[];
+ var dices=[];
+ var sum=[];
+ var alg='+';
+ var print=' ⟵';
+
+ for(i=0;i<subkeys.length;i++){
+  if(subkeys[i]=='d'){
+   if(subkeys[i+1]=='!'){
+    roll.push(roll_dice(subarrays[i],subarrays[i+1],subarrays[i+2]));
+    dices = subarrays[i]+'d'+subarrays[i+1]+'!'+subarrays[i+2];
+   }else{
+    roll.push(roll_dice(subarrays[i],subarrays[i+1],subarrays[i+1]+1))
+    dices = subarrays[i]+'d'+subarrays[i+1];
+   }
+   roll[roll.length-1] = roll[roll.length-1].sort(function(a,b){return b-a});
+
+   if(subkeys[i+1]=='eh'||subkeys[i+1]=='el'||subkeys[i+1]=='kh'||subkeys[i+1]=='kl'){
+    if(subkeys[i+1]=='eh'){
+     var start = subarrays[i+2];
+     var end = roll[roll.length-1].length;
+    }
+    if(subkeys[i+1]=='el'){
+     var start = 0;
+     var end = roll[roll.length-1].length-subarrays[i+2];
+    }
+    if(subkeys[i+1]=='kh'){
+     var start = 0;
+     var end = subarrays[i+2];
+    }
+    if(subkeys[i+1]=='kl'){
+     var start = roll[roll.length-1].length-subarrays[i+2];
+     var end = roll[roll.length-1].length;
+    }
+    dices += subkeys[i+1] + subarrays[i+2];
+
+   }else if(subkeys[i+2]=='eh'||subkeys[i+2]=='el'||subkeys[i+2]=='kh'||subkeys[i+2]=='kl'){
+    if(subkeys[i+2]=='eh'){
+     var start = subarrays[i+3];
+     var end = roll[roll.length-1].length;
+    }
+    if(subkeys[i+2]=='el'){
+     var start = 0;
+     var end = roll[roll.length-1].length-subarrays[i+3];
+    }
+    if(subkeys[i+2]=='kh'){
+     var start = 0;
+     var end = subarrays[i+3];
+    }
+    if(subkeys[i+2]=='kl'){
+     var start = roll[roll.length-1].length-subarrays[i+3];
+     var end = roll[roll.length-1].length;
+    }
+    dices += subkeys[i+2] + subarrays[i+3];
+
+   } else {
+    var start = 0;
+    var end = roll[roll.length-1].length;
+   }
+
+   for(j=start;j<end;j++){
+    if(alg=='+'){sum.push(roll[roll.length-1][j])}
+    if(alg=='-'){sum.push(-roll[roll.length-1][j])}
+   }
+   for(j=0;j<roll[roll.length-1].length;j++){
+    var classe = '';
+    if(j){print += ', '}
+    else{print += ' ['}
+    if(j<start||j>end-1){classe+=' strike'}
+    if(roll[roll.length-1][j]==subarrays[i+1]){classe+=' bold grun'}
+    if(roll[roll.length-1][j]==1){classe+=' bold rot'}
+    print += '<span class="'+classe+'">'+roll[roll.length-1][j]+'</span>';
+   }
+   print += '] ' + dices;
+  } else if(subkeys[i]=='+'||subkeys[i]=='-'){
+   if(subkeys[i+1]=='+'||subkeys[i+1]=='-'||i==subkeys.length-1){
+    if(subkeys[i]=='+'){sum.push(JSON.parse(subarrays[i+1]))}
+    if(subkeys[i]=='-'){sum.push(-JSON.parse(subarrays[i+1]))}
+    print+=' '+subkeys[i]+' '+subarrays[i+1];
+   } else {alg=subkeys[i];print+=' '+subkeys[i]+' '}
+  }
+ }
+
+ for(j=0;j<sum.length;j++){soma+=sum[j]}
+ print = '<span class="bold">'+soma+'</span>'+print;
+ print_out(print);
+ }
+}
+
+function scroll_down(e){setTimeout(function(){e=document.getElementById(e);e.scroll({top:e.scrollHeight,behavior:"smooth"})},700)}
+function print_out(print){
+ var card = document.createElement('p');
+ card.innerHTML = print;
+ document.getElementById("results").appendChild(card);
+ scroll_down('allrolls');
+}
+
+function startroll(e){
+ value = document.getElementById(e).innerHTML;
+ if(e.includes('hab')){print_out('Teste de '+habis[habs.indexOf(e.replace('hab_',''))])}
+
+ if(e.includes('dice')){print_out(value);diceroll(value)}
+ else{diceroll('d20'+value);openroller(document.getElementById('drawer'))}
+ print_out('');
+}
+
+print_out('d20+2');diceroll('d20+2');print_out('');
+print_out('2d20-2');diceroll('2d20-2');print_out('');
+print_out('2#d12+1');diceroll('2#d12+1');print_out('');
+print_out('2d10+2d8-2');diceroll('2d10+2d8-2');print_out('');
+print_out('3d8! (explosão)');diceroll('3d8!');print_out('');
+print_out('3d8!5 (explosão em 5+)');diceroll('3d8!5');print_out('');
+print_out('4d6kh3 (keep higher 3)');diceroll('4d6kh3');print_out('');
+print_out('4d6el (eliminate lower)');diceroll('4d6el');print_out('');
+print_out('5d4!kl2 (keep lower 2)');diceroll('5d4!kl2');print_out('');
+print_out('5d4!3eh2 (eliminate higher 2)');diceroll('5d4!3eh2');print_out('');
+
+//-------------------------KEYBOARD FUNCTIONS------------------------//
+
+const keys = [[7,8,9,4,5,6,1,2,3,'AC',0,'dx'],
+['d100','d20','d10','d12','d8','d6','d4','d3','d2','AC','d','123']];
+const xkeys = ['kh','eh','kl','el','+','-','#','!','backspace','enter'];
+
+var skeys;
+function set_keyboard(){
+ var e = document.getElementById('keyboard').children[0];
+
+ var div = document.createElement('div');
+ div.setAttribute('class','keybar');
+ var content = '';
+ for (var i=0;i<keys[0].length;i++){
+  if(keys[0][i]=='dx'){content += '<div class="key skey dkey" onclick="keyshift(this)">dx</div>'}
+  else if(keys[0][i]=='AC'){content += '<div class="key skey" onclick="keyac()">AC</div>'}
+  else{content += '<div class="key skey" onclick="keyprint(this)">'+keys[0][i]+'</div>'}
+ }
+ div.innerHTML = content;
+ e.appendChild(div);
+ skeys = document.getElementsByClassName('skey');
+
+ var div = document.createElement('div');
+ div.setAttribute('class','keybar');
+ var content = '';
+ for (var i=0;i<xkeys.length;i++){
+  if(xkeys[i]=='backspace'){content += '<div class="key xkey" onclick="keydel()"><div class="backspace"></div></div>'}
+  else if(xkeys[i]=='enter'){content += '<div class="key xkey" onclick="keysend()"><div class="enter"></div></div>'}
+  else if(xkeys[i]=='+'||xkeys[i]=='-'){content += '<div class="key xkey" onclick="keyprint(this)">'+xkeys[i]+'</div>'}
+  else{content += '<div class="key xkey hkey" onclick="keyprint(this)">'+xkeys[i]+'</div>'}
+ }
+ div.innerHTML = content;
+ e.appendChild(div);
+}
+
+function keyshift(e){
+ e.classList.toggle('nkey');
+ for (var i=0;i<skeys.length;i++){skeys[i].innerHTML = keys[Number(e.classList.contains('nkey'))][i]}
+}
+
+var printed_keys = [];
+function keyac(){document.getElementById('dice-input').innerHTML = '';printed_keys = []}
+function keyprint(e){
+ document.getElementById('dice-input').innerHTML += e.innerHTML;
+ printed_keys.push(e.innerHTML);
+}
+function keydel(){
+ if(printed_keys.length>0){
+  var size = printed_keys[printed_keys.length-1].length;
+  var text = document.getElementById('dice-input').innerHTML;
+  text = text.slice(0,text.length-size);
+  document.getElementById('dice-input').innerHTML = text;
+  printed_keys.splice(printed_keys.length-1,1);
+ }
+}
+
+function keysend(){startroll('dice-input');keyac()}
+
+function open_key(){
+ document.getElementById('keyboard').classList.toggle('boardshow');
+ document.getElementById('diceholder').classList.toggle('diceholder');
+ scroll_down('allrolls');
+}
+
+function openroller(e){
+ e.parentNode.classList.toggle('drew');
+ document.getElementById('keyboard').classList.remove('boardshow');
+ document.getElementById('diceholder').classList.remove('diceholder');
+}
+
+
+
+//-------------------------CALCULATION FUNCTIONS------------------------//
+
+function add_plus_sign(v){v=v<0?v:'+'+v;return v}
+function calc_hab(e){
+ var value = Math.floor((e.value-10)/2);
+ value = add_plus_sign(value);
+ e = e.parentNode.parentNode.parentNode.children[3].children[0];
+ e.innerHTML = value;
+ data_inner(e);
+ calc_spell_res();
+}
+function calc_spell_res(){
+ document.getElementById('spell_res').innerHTML = 10 + Math.floor(JSON.parse(data.nível)/2) + JSON.parse(data['hab_'+habs[data.spell_hab]]);
+ data_inner(document.getElementById('spell_res'));
+}
+
+
+//-------------------------SPELLS FUNCTIONS------------------------//
+
+data['magias'] = [];
+var spell_viz = [];
+function list_spells(e,i){
+ var div = document.createElement('div');
+ div.setAttribute('id','spell_'+i);
+ div.setAttribute('class','spell w10 h70');
+ div.setAttribute('onclick','spell_info(this)');
+ div.setAttribute('index',i);
+ var content = '<div class="spell_details"><div class="w10 dif"><div class="w9"><p class="item_title">'+spells[i][0]+'</p><p class="item_subtitle">'+spell_pm_cost[spells[i][2]-1]+' PM · '+spells[i][1]+' · '+spells[i][3]+' '+spells[i][2]+'</p></div><div class="item_action w1 ma">';
+ if(spell_action.includes(spells[i][4])){content += '<div class="ac_'+spells[i][4]+'"></div>'}
+ content += '</div></div><div class="item_subtitle w10 ms"></div></div>';
+ div.innerHTML = content;
+ document.getElementById(e).appendChild(div);
+ spell_viz.push([1,1,1,1,0]);
+}
+
+function spell_info(e){
+ var i = e.getAttribute('index');
+
+ if(spell_viz[i][4]){
+  spell_viz[i][4] = 0;
+  e.classList.toggle('more_info');
+  e.children[0].children[1].innerHTML = '';
+ } else {
+  spell_viz[i][4] = 1;
+  e.classList.toggle('more_info');
+  e = e.children[0].children[1];
+  var content = '';
+
+  if(!spell_action.includes(spells[i][4])){content += '<p class="nowrap"><b>Execução:</b> '+spells[i][4]+'</p>'}
+  if(spells[i][5]){content += '<p class="nowrap"><b>Alcance:</b> '+spells[i][5]+'</p>'}
+  if(spells[i][7]){content += '<p class="nowrap"><b>Alvo:</b> '+spells[i][7]+'</p>'}
+  if(spells[i][8]){content += '<p class="nowrap"><b>Área:</b> '+spells[i][8]+'</p>'}
+  if(spells[i][6]){content += '<p class="nowrap"><b>Duração:</b> '+spells[i][6]+'</p>'}
+  if(spells[i][9]){content += '<p class="nowrap"><b>Resistência:</b> '+spells[i][9]+'</p>'}
+
+  content += '<p class="nowrap ms">'+spells[i][10]+'</p>';
+  var length = spells[i].length;
+  for (var j=12;j<length;j+=2){
+   content += '<p class="nowrap ms"><b>';
+   content += Number.isInteger(spells[i][j])?('+'+spells[i][j]+' PM'):spells[i][j];
+   content += ': </b><span>'+spells[i][j+1]+'</span></p>';
+  }
+  if(spells[i][11]){content += '<p class="nowrap"><i>Publicação:</i> '+spells[i][11]+'</p>'}
+  content += '</div></div><button class="spell_add" onclick="add_spell(this)">Adicionar magia</div><button class="delete spell_delete" onclick="remove_spell(this)">Remover magia</div>';
+  e.innerHTML = content;
+ }
+}
+
+function filter_spells(){
+ for (var i=0;i<spells.length;i++){
+  var e = document.getElementById('spell_'+i);
+  if(spell_viz[i][0]&&spell_viz[i][1]&&spell_viz[i][2]&&spell_viz[i][3]){e.style.display=""}
+  else{e.style.display="none"}
+ }
+}
+
+function filter_spell_other(e){
+ var k = e.getAttribute('tabindex');
+ var filter = e.innerHTML;
+ if(!filter){filter=JSON.stringify(spell_inputs[k-1])}
+ for (var i=0;i<spells.length;i++){
+  if(filter.indexOf(spells[i][k])>-1){spell_viz[i][k]=1}
+  else{spell_viz[i][k]=0}
+ }
+ filter_spells();
+}
+
+function filter_spell_name(el){
+ var filter = el.value.toUpperCase();
+ for (var i=0;i<spells.length;i++){
+  var spellname = spells[i][0].toUpperCase();
+  if(spellname.indexOf(filter)>-1){spell_viz[i][0]=1}
+  else{spell_viz[i][0]=0}
+ }
+ filter_spells();
+}
+
+function clear_spell_filters(){
+ var e = document.getElementById('spell_name');e.value='';filter_spell_name(e);
+ e = document.getElementById('spell_level');e.innerHTML='';filter_spell_other(e);
+ e = document.getElementById('spell_class');e.innerHTML='';filter_spell_other(e);
+ e = document.getElementById('spell_school');e.innerHTML='';filter_spell_other(e);
+ for (var i=0;i<spells.length;i++){
+  if(spell_viz[i][4]){
+   var e = document.getElementById('spell_'+i);
+   e.classList.remove('more_info');
+   e.children[0].children[1].innerHTML = '';
+   spell_viz[i][4] = 0;
+  }
+ }
+}
+
+function add_spell(e){
+ e = e.parentNode;
+ e.innerHTML = '';
+ e = e.parentNode.parentNode.cloneNode(true);
+ e.id = '';
+ e.classList.remove('more_info');
+ document.getElementById('char_spells').appendChild(e);
+ data['magias'][Object.keys(data['magias']).length] = JSON.parse(e.getAttribute('index'));
+}
+
+function remove_spell(e){
+ e = e.parentNode.parentNode.parentNode;
+ data['magias'].splice(data['magias'].indexOf(e.getAttribute('index')),1);
+ e.remove();
+}
+
+
+
+//-------------------------CONFIG FUNCTIONS------------------------//
+
+function invert(color){return '#'+(Number(`0x1${color}`)^0xFFFFFF).toString(16).substr(1).toUpperCase()}
+function menucolor(color){
+ document.querySelector('meta[name="theme-color"]').setAttribute('content',color);
+ document.querySelector(':root').style.setProperty('--menu',data.config[2]?invert(color.replace('#','')):color);
+ document.querySelector(':root').style.setProperty('--t20white',data.config[2]?'#000':'#fff');
+ document.querySelector(':root').style.setProperty('--t20weight',data.config[2]?'600':'400');
+ document.querySelector(':root').style.setProperty('--bright',data.config[2]?'brightness(.9)':'brightness(1.1)');
+}
+
+function fullscreen(e){
+ if(data.config[1]&&document.fullscreenElement==null){
+  if(e.requestFullscreen){e.requestFullscreen()}
+  else if(e.webkitRequestFullscreen){e.webkitRequestFullscreen()}
+  else if(e.msRequestFullscreen){e.msRequestFullscreen()}
+ }
+ if(!data.config[1]&&document.fullscreenElement){
+  if(document.exitFullscreen){document.exitFullscreen()}
+  else if(document.webkitExitFullscreen){document.webkitExitFullscreen()}
+  else if(document.msExitFullscreen){document.msExitFullscreen()}
+ }
+}
+
+function config(){
+ const e = document.documentElement;
+ const key = document.getElementById('keyboard');
+ const picker = document.getElementById('color');
+ data.config[0]?key.classList.add('keyext'):key.classList.remove('keyext');
+ data.config[2]?e.classList.add('invert'):e.classList.remove('invert');
+ data.config[2]?picker.classList.add('invert'):picker.classList.remove('invert');
+ menucolor(data.config[3]);
+ fullscreen(e);
+}
 
 //-------------------------NAVIGATION FUNCTIONS------------------------//
 
 var x = 0;
+let touchstartX = 0;
+let touchendX = 0;
+const menubtn = document.getElementsByClassName('menubtn');
+
 function navig(e){
  e.parentNode.children[x].children[0].children[0].classList.remove('menuselicon');
  e.parentNode.children[x].children[0].children[1].classList.remove('menuseltext');
  e.children[0].children[0].classList.add('menuselicon');
  e.children[0].children[1].classList.add('menuseltext');
  x = Array.prototype.indexOf.call(e.parentNode.children,e);
+ y=window.innerWidth>990&&x==8?x-1:x;
  const sections = document.getElementById('sections');
- sections.style.transform='translate(-'+x*100+'vw,0)';
- sections.scrollTo({top:0,behavior:'smooth'});
+ sections.style.transform='translate(-'+y*100/9+'%,0)';
+ window.scrollTo({top:0,behavior:'smooth'});
 }
 
-function moreinfo(e){
- e.classList.toggle('more_info');
- e = e.children[1];
- e.classList.toggle('hid');
- e.style.maxHeight = e.style.maxHeight?null:e.scrollHeight+"px";
-}
+function deltaX(){var deltaX = touchstartX-touchendX;if(deltaX>200&&x<8){navig(menubtn[x+1])}if(deltaX<-200&&x>0){navig(menubtn[x-1])}}
+document.getElementById('sections').addEventListener('touchstart',e=>{touchstartX=e.changedTouches[0].screenX})
+document.getElementById('sections').addEventListener('touchend',e=>{touchendX=e.changedTouches[0].screenX;deltaX()})
 
-function amIclicked(e,el){
- e = e || event;
- var target = e.target || e.srcElement;
- if(target.id==el.id){return true}
- else{return false}
-}
-function hide(e,el){if(amIclicked(e,el)){el.classList.toggle('invisible')}}
+function hide(e,el){if(el==e.target){el.classList.toggle('invisible');if(el.id="backdrop_spell"){clear_spell_filters()}}}
 function show(el){document.getElementById(el).classList.toggle('invisible')}
-
-function menucolor(i){
- console.log(i);
- document.querySelector('meta[name="theme-color"]').setAttribute('content',colors[i]);
- document.querySelector(':root').style.setProperty('--menu',colors[i]);
-}
 
 function filter(el){
  var filter = el.value.toUpperCase();
@@ -283,83 +789,55 @@ function filter(el){
  }
 }
 
+function show_list(e){
+ e.focus();
+ e = e.parentNode.children[2].classList.remove('dn');
+}
+
+var cspell_level=[],cspell_class=[],cspell_school=[],cdivindade=[],cdeslocamento=[];
+function set_check(e,array){
+ e.classList.toggle('checkmarked');
+ e.value=!e.value;
+ if(e.value){array.push(e.innerHTML)}else{array.splice(array.indexOf(e.innerHTML),1)}
+ array.sort();
+ e = e.parentNode.parentNode.children[0];
+ e.innerHTML = array.join(', ');
+ if(e.getAttribute('inner')){data_inner(e)}
+ else{filter_spell_other(e)}
+}
+
 window.addEventListener('click',function(e){
- var el = document.getElementsByClassName('drop');
- for (i=0;i<el.length;i++){if(el[i].contains(e.target)){}else{el[i].parentNode.children[2].classList.add("dn")}}
+ var el = document.getElementsByClassName('dropdown');
+ for (i=0;i<el.length;i++){
+  if(!el[i].parentNode.contains(e.target)){el[i].parentNode.children[2].classList.add("dn")}
+ }
+ window.focus();
 });
 
 
 
-let touchstartX = 0
-let touchendX = 0
-    
-function checkDirection(){
- if(touchendX<touchstartX) alert('swiped left!')
- if(touchendX>touchstartX) alert('swiped right!')
-}
-
-document.addEventListener('touchstart',e=>{
- touchstartX = e.changedTouches[0].screenX
-})
-
-document.addEventListener('touchend',e=>{
- touchendX = e.changedTouches[0].screenX
- checkDirection()
-})
-
-
-//-------------------------STARTER FUNCTIONS------------------------//
-
-function set_select(array){
- for (j=0;j<array.length;j++){
-  var div = document.createElement('option');
-  if(j){div.setAttribute('value',j);div.innerHTML = array[j]}
-  else{div.setAttribute('disabled','');div.setAttribute('selected','')}
-  document.getElementById(array[0]).appendChild(div);
- }
-}
-
-function start_up(){
- for (var key in icons){document.getElementById(key).innerHTML = icons[key]}
- for (var i=0;i<inputs.length;i++){set_select(inputs[i])}
-}
-
-	
-
-
 //-------------------------CHARACTERS FUNCTIONS------------------------//
 
-function char_add(e){
- title = e.title;
- if(title){
-  data={};
-  data[e.name]=title;
-  chars.push(title);
-  document.title = title + ' - T20';
-  document.getElementById('chardel').disabled = false;
+function char_create(e){
+ if(e.title){
+  e.parentNode.classList.add('dn');
   clear();
-  document.getElementById(e.name).value=title;
+  title = e.title;
+  chars.push(title);
+  data.char=title;
+  document.getElementById('char').value=title;
+  document.getElementById('chardel').disabled = false;
+  document.title = title + ' - T20';
   console.log('Character '+title+' was created');
  }
 }
 
-function char_list(el){
- var value = el.value;
- console.log('value = '+value);
- el = el.parentNode.children[2];
- if(value||chars.length){el.classList.remove('dn')}
- if(!value&&!chars.length){el.classList.add('dn')}
- el.innerHTML = '';
- if(value){el.innerHTML = '<a name="char" onclick="char_add(this)" title="'+value+'">Criar personagem '+value+'?</a>'}
- if(chars.length){for(var i=0;i<chars.length;i++){el.innerHTML += '<a onclick="char_set(this)">'+chars[i]+'</a>'}}
-}
-
 function char_set(el){
- if(title){save_data()}console.log(title);
+ if(title){save_data()}
+ el.parentNode.classList.add('dn');
  clear();
- title = el.innerHTML;console.log(title);
+ title = el.innerHTML;
  data_load();
- clear();
  document.title = title + ' - T20';
  document.getElementById('chardel').disabled = false;
  data_set();
@@ -371,60 +849,129 @@ function char_remove(){
   console.log('Character '+title+' was removed');
   chars.splice(chars.indexOf(title),1);
   localStorage.removeItem(title+'_data');
-  clear();title='';data={};
+  clear();
   document.title = 'Ficha T20 Mobile - v0.5';
   document.getElementById('chardel').disabled = true;
  }
 }
 
+function char_list(el){
+ var value = el.value;
+ el = el.parentNode.children[2];
+ if(value||chars.length){el.classList.remove('dn')}
+ if(!value&&!chars.length){el.classList.add('dn')}
+ el.innerHTML = '';
+ if(value){el.innerHTML = '<a onclick="char_create(this)" title="'+value+'">Criar personagem '+value+'?</a>'}
+ for(var i=0;i<chars.length;i++){el.innerHTML += '<a onclick="char_set(this)">'+chars[i]+'</a>'}
+}
+
+
+
+//-------------------------STARTER FUNCTIONS------------------------//
+
+function create_select(array){
+ for (j=0;j<array.length;j++){
+  var div = document.createElement('option');
+  if(j){div.setAttribute('value',j);div.innerHTML = array[j]}
+  else{div.setAttribute('disabled','');div.setAttribute('selected','')}
+  document.getElementById(array[0]).appendChild(div);
+ }
+}
+
+function create_checkbox(array){
+ for(var j=1;j<array.length;j++){document.getElementById(array[0]).parentNode.children[2].innerHTML += '<a class="checkmark" onclick="set_check(this,c'+array[0]+')">'+array[j]+'</a>'}
+}
+
+function create_habs(){
+ var e = document.getElementById('habilidades').children[0].children[0];
+ for (var i=1;i<habs.length;i++){
+  if(i>=habs.length/2){e = e.parentNode.children[1]}
+  var div = document.createElement('div');
+  div.setAttribute('class','w10 dif');
+  var content = '<div class="w2 dif" onclick="startroll(\'hab_'+habs[i]+'\')"><div class="dice" data-dice="d20"></div></div><div class="w2 dif"><div class="hab_label">';
+  content += habs[i].toUpperCase();
+  content += '</div></div><div class="w4"><div class="input"><input id="hab_'+habs[i]+'_val" class="tc hab" type="number" onchange="data_add(this);calc_hab(this)" required></div></div>';
+  content += '<div class="w4 dif"><p id="hab_'+habs[i]+'" class="ma" sign="1">+0</p></div>';
+  div.innerHTML = content;
+  e.appendChild(div);
+ }
+}
+
+function start_up(){
+ create_habs();
+ const menuicon = document.getElementsByClassName('menuicon');
+ for (var i=0;i<menuicon.length;i++){menuicon[i].innerHTML = icons[i]}
+ dice = document.getElementsByClassName('dice');
+ for (var i=0;i<dice.length;i++){dice[i].innerHTML = dices[dice[i].getAttribute("data-dice")]}
+ for (var i=0;i<inputs.length;i++){create_select(inputs[i])}
+ create_checkbox(divindade);
+ create_checkbox(deslocamento);
+ for (var i=0;i<spell_inputs.length;i++){create_checkbox(spell_inputs[i])}
+ for (var i=0;i<spells.length;i++){list_spells('all_spells',i)}
+ set_keyboard();
+}
 
 
 //-------------------------DATA MANAGEMENT FUNCTIONS------------------------//
 
 function data_add(e){data[e.id]=e.value}
+function data_array(e){data[e.name][e.alt]=e.value}
+function data_check(e){data[e.name][e.alt]=e.checked}
+function data_inner(e){var value = e.innerHTML.replace('+','');data[e.id]=value}
+
+
+function data_set(){
+ for (const key in data){
+  if(key=='magias'){
+   for (var i=0;i<data['magias'].length;i++){list_spells('char_spells',data['magias'][i])}
+  }else{
+   var e=document.getElementById(key);
+   if(e.getAttribute('sign')){e.innerHTML=add_plus_sign(data[key])}
+   else if(e.getAttribute('inner')){e.innerHTML=data[key]}
+   else if(e.type=='checkbox'){e.checked=data[key]}
+   else{e.value=data[key]}
+  }
+ }
+ title=data['char'];
+ document.title = title + ' - T20';
+ document.getElementById('chardel').disabled = false;
+ document.getElementById('sections').style.transform='';
+ config();
+}
+
+window.onload = function(){
+ start_up();
+ if(localStorage.getItem('chars')){chars = JSON.parse(localStorage.getItem('chars'))}
+}
 
 window.addEventListener('beforeunload',save_data);
 function save_data(){
  localStorage.setItem('chars',JSON.stringify(chars));
- if(title){
-  localStorage.setItem(title+'_data',JSON.stringify(data));
-  console.log('Character '+title+' data saved');
- }
+ if(title){localStorage.setItem(title+'_data',JSON.stringify(data))}
 }
-window.onload = function(){
- start_up();
- if(load&&localStorage.getItem('chars')){chars = JSON.parse(localStorage.getItem('chars'))}
-}
-
-function data_set(){
- for (const key in data){document.getElementById(key).value=data[key]}
- title=data['char'];
- document.title = title + ' - T20';
- document.getElementById('chardel').disabled = false;
-}
-
-function data_load(){
- if(load&&localStorage.getItem(title+'_data')){data = JSON.parse(localStorage.getItem(title+'_data'))}
-}
+function data_load(){if(localStorage.getItem(title+'_data')){data = JSON.parse(localStorage.getItem(title+'_data'));if(!data.magias){data.magias=[]}}}
 
 function clear(){
  var input = document.getElementsByTagName("input");
  for (var i=0;i<input.length;i++){input[i].value=''}
  var select = document.getElementsByTagName("select");
- for (var i=0;i<select.length;i++){
-  option = select[i].options;
-  option[0].selected = true;
- }
+ for (var i=0;i<select.length;i++){option = select[i].options;option[0].selected = true}
+ var fakeinput = document.getElementsByClassName('fakeinput');
+ for (var i=0;i<fakeinput.length;i++){fakeinput[i].innerHTML=''}
+ document.getElementById('char_spells').innerHTML = '';
+ title='';
+ data = {'config':[0,0,0,'#D13235'],'magias':[]};
 }
 
 function import_char(evt){
- data = {};
+ data = {'config':[0,0,0,'#D13235'],'magias':[]};
  if(!window.FileReader) return; // Browser is not compatible
  var reader = new FileReader();
   reader.onload = function(evt) {
    if(evt.target.readyState!=2) return;
    if(evt.target.error){alert('Error while reading file');return}
    data = JSON.parse(evt.target.result);
+   if(!data.magias){data.magias=[]}
    chars.push(data['char']);
    data_set();
    console.log('Character '+data['char']+' data imported');
@@ -438,7 +985,7 @@ function export_char(){
  var file = new Blob([filedata], {type:'text/plain'});
  if (window.navigator.msSaveOrOpenBlob) // IE10+
      window.navigator.msSaveOrOpenBlob(file, filename);
- else { // Others
+ else{
   var a = document.createElement("a"),url = URL.createObjectURL(file);
   a.href = url;
   a.download = filename;
@@ -452,12 +999,7 @@ function export_char(){
  console.log('Character '+title+' data exported');
 }
 
-function reset(){
- localStorage.clear();
- chars=[];
- data={};
- title='';
- location.reload();
-}
+function reset(){localStorage.clear();chars=[];data={};title='';location.reload()}
+navig(menubtn[0]);
 </script>
 </html>
