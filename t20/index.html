@@ -728,12 +728,12 @@ function menucolor(color){
 }
 
 function fullscreen(e){
- if(data.config[2]&&document.fullscreenElement==null){
+ if(data.config[1]&&document.fullscreenElement==null){
   if(e.requestFullscreen){e.requestFullscreen()}
   else if(e.webkitRequestFullscreen){e.webkitRequestFullscreen()}
   else if(e.msRequestFullscreen){e.msRequestFullscreen()}
  }
- if(!data.config[2]&&document.fullscreenElement){
+ if(!data.config[1]&&document.fullscreenElement){
   if(document.exitFullscreen){document.exitFullscreen()}
   else if(document.webkitExitFullscreen){document.webkitExitFullscreen()}
   else if(document.msExitFullscreen){document.msExitFullscreen()}
