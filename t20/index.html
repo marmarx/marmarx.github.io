@@ -147,7 +147,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 .dif{display:inline-flex}.db{display:block}.ma{margin:auto}.mo,.m0{margin:0}.ms{margin-top:.4em!important}.ha{height:auto}.mt0{margin-top:0}.tal{text-align:left}.tc,.tac{text-align:center!important}.tac{padding-left:0!important;padding-right:0!important}.ml{margin-left:2em}
 
 @media (min-width:991px){.half{width:39.99999%;margin:0 5%}.m0{margin:18px 0}.third{width:33.33333%}#sections{width:450%}#dice_roller{width:60%;margin:0 20%}#keyboard{background:#403f3fdb}}
-@media screen and (min-width:320px) and (max-width:900px) and (orientation:landscape){.norotate{transform:rotate(-90deg);transform-origin:left top;width:100vh;height:100vw;overflow-x:hidden;position:absolute;top:100%left:0}}
+@media screen and (min-width:320px) and (max-width:900px) and (orientation:landscape){.norotate{transform:rotate(-90deg);transform-origin:left top;width:100vh;height:100vw;overflow-x:hidden;position:absolute;top:100%;left:0}}
 .invert{filter:invert(1)}
 </style>
 </head>
@@ -727,9 +727,9 @@ function remove_spell(e){
 
 function invert(color){return '#'+(Number(`0x1${color}`)^0xFFFFFF).toString(16).substr(1).toUpperCase()}
 function menucolor(color){
+ document.querySelector('meta[name="theme-color"]').setAttribute('content',color);
  color = data.config[3]?invert(color.replace('#','')):color;
  var bright = data.config[3]?'brightness(.9)':'brightness(1.1)';
- document.querySelector('meta[name="theme-color"]').setAttribute('content',color);
  document.querySelector(':root').style.setProperty('--menu',color);
  document.querySelector(':root').style.setProperty('--bright',bright);
 }
