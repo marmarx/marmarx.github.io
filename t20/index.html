@@ -17,7 +17,7 @@
 
 <style>
 @font-face{font-family:'tormenta20';src:url('src/Tormenta20.ttf') format('truetype');font-weight:normal;font-style:normal}
-:root{--black:#292929;--white:#fff;--transwhite:#ffffff80;--drawer:#dbdbdb;--diceroller:#e9e9e9;--overlay:#e8e8e8;--menu:#D13235;--backred:#b62e34;--yellow:#f0dc82;--green:#2ecb57;--pv:#FF4466;--pm:#4BC7CF}
+:root{--t20:#D13235;--black:#292929;--white:#fff;--transwhite:#ffffff80;--drawer:#dbdbdb;--diceroller:#e9e9e9;--overlay:#e8e8e8;--menu:#b62e34;--bright:brightness(1.1);--yellow:#f0dc82;--green:#2ecb57;--pv:#FF4466;--pm:#4BC7CF}
 
 *,*:before,*:after{margin:0;padding:0;transition:all .7s ease-in-out,display 0s;font-family:'Open Sans', sans-serif;word-wrap:normal;word-break:keep-all;box-sizing:border-box}
 html,body{overflow-x:hidden;width:100vw;min-height:100vh}
@@ -32,27 +32,27 @@ input[type="number"],input[type="number"]::-webkit-outer-spin-button,input[type=
 .half,.third{float:left;width:100%}
 
 .divider{width:70%;max-width:500px;height:2px;margin:2.5em auto;background:rgba(32,32,32,.2)}
-.t20box{border:20px solid transparent;background:var(--backred);border-image:url("src/border.svg") 4% repeat;padding:10px 30px;margin:15px auto;color:#fff}
+.t20box{margin:15px auto;border:20px solid transparent;padding:20px 40px 20px 30px;background-color:var(--menu);color:#fff;background-clip:border-box;-webkit-mask-box-image-source:url("src/border.svg");-webkit-mask-box-image-slice:450 150 300 150 fill;-webkit-mask-box-image-width:120px;-webkit-mask-box-image-repeat:repeat}
 
-h1,h2{text-align:center;margin:0 0 .6em;letter-spacing:4px;font-family:'tormenta20';color:var(--menu);font-size:3em;font-weight:500}
+h1,h2{text-align:center;margin:0 0 .6em;letter-spacing:4px;font-family:'tormenta20';color:var(--menu);font-size:3em;font-weight:500;filter:var(--bright)}
 h1{font-size:2.6em}h2{font-size:1.8em}
 p,li{line-height:1.8em;letter-spacing:.8px;text-align:justify;font-size:1.2em;font-weight:500;margin:.5em 0;color:currentColor}
 ul{margin:2em}b,.bold{font-weight:bold}i,.italic{font-style:italic}
 .t20box p{font-weight:400!important}.t20box h2{color:var(--yellow);font-weight:400!important}
 
-#sections{width:900vw;position:relative;display:flex}
-.sec{width:100vw;min-height:100vh;float:left;padding:35px 25px 125px 25px;background:url("src/paper.png") no-repeat 0/cover fixed;background-position:center}
+#sections{width:900%;position:relative;display:flex}
+.sec{width:100%;min-height:100%;float:left;padding:35px 25px 125px 25px;background:url("src/paper.png") no-repeat 0/cover fixed;background-position:center}
 
 #dice_roller,#drawer{border-top-left-radius:25px;border-top-right-radius:25px}
-#dice_roller{position:fixed;width:100vw;height:105px;background:var(--diceroller);bottom:0}
-#drawer{width:100vw;height:35px;padding:15px 30%;background:var(--drawer)}.drew{height:90vh!important}
+#dice_roller{position:fixed;width:100%;height:105px;background:var(--diceroller);bottom:0}
+#drawer{width:100vw;height:35px;padding:15px 30%;background:var(--drawer)}.drew{height:90%!important}
 #drawer div{width:100%;max-width:500px;height:100%;margin:auto;background:var(--white);border-radius:5px}
 #dice{position:relative;padding:0 25px;width:100%;bottom:0}
 #dice-input{position:absolute;bottom:0;padding:1.1em 1.3em;background:#ffffffd9}
 #dice-input:after{content:'';animation:blink 1s step-end infinite;border-left:2px solid #000}@keyframes blink{from,to{border-color:transparent}50%{border-color:#000}}
 #allrolls{bottom:60.06px;height:calc(100% - 60.06px);overflow-x:hidden;overflow-y:scroll;position:relative;top:0}
 #results{position:relative;width:100%;padding:5px 25px}#results p:empty{height:5px}
-#diceholder{position:relative;height:calc(90vh - 105px);overflow:hidden}.diceholder{height:calc(90vh - 242px)!important}
+#diceholder{position:relative;height:calc(100% - 105px);overflow:hidden}.diceholder{height:calc(90% - 242px)!important}
 .rot{color:#ef1313}
 .grun{color:#35a90f}
 .strike{text-decoration:line-through}
@@ -73,12 +73,12 @@ ul{margin:2em}b,.bold{font-weight:bold}i,.italic{font-style:italic}
 .backspace::before{background:linear-gradient(to left,currentColor 18px,transparent 0) no-repeat center center/10px 2px;border-right:3px solid transparent;box-shadow:inset 0 0 0 2px;right:2px;bottom:1px;width:8px;height:8px;border-left:3px solid transparent;transform:rotate(45deg)}
 .backspace::after{width:10px;height:10px;border-top:2px solid;border-left:2px solid;border-top-left-radius:1px;transform:rotate(-45deg);top:0;left:-5px}
 
-nav{position:fixed;left:0;bottom:0;height:70px;width:100vw;background:var(--white);border-top:1px solid #EBEBEB;overflow-x:scroll;overflow-y:hidden;display:grid}
-#menu{display:inline-flex;width:100%;max-width:1000px;margin:auto}
-.menubtn{width:20vw;max-width:150px;height:70px;float:left;display:inline-flex;cursor:pointer}.menubi{margin:auto}
+nav{position:fixed;left:0;bottom:0;height:70px;width:100%;background:var(--white);border-top:1px solid #EBEBEB;overflow-x:scroll;overflow-y:hidden;display:grid}
+#menu{display:inline-flex;width:160%;max-width:1000px;margin:auto}
+.menubtn{width:20%;max-width:150px;height:70px;float:left;display:inline-flex;cursor:pointer}.menubi{margin:auto}
 .menuicon{color:#b0b0b0;width:fit-content;margin:auto}
 .menuicon svg{display:block;height:24px;width:24px;overflow:visible;fill:currentcolor}
-.menuicon path{color:#b0b0b0}.menuselicon path{color:var(--menu)}
+.menuicon path{color:#b0b0b0}.menuselicon path{color:var(--menu);filter:var(--bright)}
 .menutext{font-size:.625em;font-weight:600;color:#717171;margin-top:.2em;padding:.1em 0 .5em}.menuseltext{font-weight:700}
 
 #spells_list{display:block}
@@ -106,7 +106,7 @@ input[type=color]{padding:0;width:60px;height:37px;margin:9px 0}
 
 button,label[for="file"]{padding:14px 26px;text-align:center;text-decoration:none;display:inline-block;font-size:100%;margin:10px 0;cursor:pointer;border-radius:5px; width:100%;background:transparent;border:2px solid var(--black);color:var(--black);font-weight:600}
 button:hover,button:focus,label[for="file"]:hover,label[for="file"]:focus{background:var(--black);color:#e8e8e8}
-.delete{border:2px solid var(--menu);color:var(--menu)}.delete:hover{background:var(--menu);color:var(--white)}
+.delete{border:2px solid var(--menu);color:var(--menu);filter:var(--bright)}.delete:hover{background:var(--menu);color:var(--white);filter:var(--bright)}
 button:disabled,button:hover:disabled{border:2px solid #b0b0b0;color:#b0b0b0;background:var(--transwhite);cursor:no-drop}
 
 a{color:currentColor;padding:12px 30px;text-decoration:none;display:block}
@@ -115,11 +115,11 @@ a:hover{background-color:#1e90ff;color:var(--white)}
 .dn{display:none!important;border:0}
 
 #char_spells{margin:25px auto}
-.backdrop,.overlay{width:100vw;left:0;top:0}
-.backdrop{height:100vh;position:fixed;top:0;background:hsl(0 0% 10%/.5)}
-.overlay{height:90vh;max-height:90vh;position:absolute;background:var(--overlay);margin-top:10vh;overflow-x:hidden;overflow-y:scroll;padding:25px}
-.invisible{opacity:0;visibility:hidden;pointer-events:none;top:100vh}
-#spell_overlay{height:200vh}
+.backdrop,.overlay{width:100%;left:0;top:0}
+.backdrop{height:100%;position:fixed;top:0;background:hsl(0 0% 10%/.5)}
+.overlay{height:95%;max-height:95%;position:absolute;background:var(--overlay);margin-top:10%;overflow-x:hidden;overflow-y:scroll;padding:25px}
+.invisible{opacity:0;visibility:hidden;pointer-events:none;top:100%}
+#spell_overlay{height:200%}
 .spell_lvl:empty{opacity:0;visibility:hidden}
 .spell_lvl_head{margin:1em 0 0;font-weight:700;padding:.5em 1em;cursor:pointer;display:inline-flex;width:100%}.spell_lvl_head > p{font-weight:700;margin:0}
 .arrow-down{width:8px;height:8px;border-bottom:2px solid;border-left:2px solid;transform:rotate(-45deg);margin:auto}.arrow-up{transform:rotate(135deg)}
@@ -138,8 +138,8 @@ a:hover{background-color:#1e90ff;color:var(--white)}
 .switch input{opacity:0;width:0;height:0;margin:0;padding:0}
 .slider{position:absolute;cursor:pointer;top:calc(50% - 14px);left:0;right:0;bottom:0;background-color:#ccc;-webkit-transition:.4s;transition:.4s;border-radius:34px}
 .slider:before{position:absolute;content:"";height:24px;width:24px;left:4px;bottom:6px;background-color:#fff;-webkit-transition:.4s;transition:.4s;border-radius:50%}
-input:checked+.slider{background-color:var(--menu)}
-input:focus+.slider{box-shadow:0 0 1px var(--menu)}
+input:checked+.slider{background-color:var(--menu);filter:var(--bright)}
+input:focus+.slider{box-shadow:0 0 1px var(--menu);filter:var(--bright)}
 input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:translateX(26px);transform:translateX(26px)}
 
 .w10,.w9,.w8,.w7,.w6,.w5,.w4,.w3,.w2,.w1{display:block}.mw400{max-width:400px}
@@ -147,6 +147,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 .dif{display:inline-flex}.db{display:block}.ma{margin:auto}.mo,.m0{margin:0}.ms{margin-top:.4em!important}.ha{height:auto}.mt0{margin-top:0}.tal{text-align:left}.tc,.tac{text-align:center!important}.tac{padding-left:0!important;padding-right:0!important}.ml{margin-left:2em}
 
 @media (min-width:991px){.half{width:39.99999%;margin:0 5%}.m0{margin:18px 0}.third{width:33.33333%}}
+@media screen and (min-width:320px) and (max-width:900px) and (orientation:landscape){.norotate{transform:rotate(-90deg);transform-origin:left top;width:100vh;height:100vw;overflow-x:hidden;position:absolute;top:100%left:0}}
 .invert{filter:invert(1)}
 </style>
 </head>
@@ -260,16 +261,20 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
    <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="0" name="config" onclick="data_check(this);config()"><span class="slider"></span></label></div>
   </div></div>
   <div class="row"><div class="container">
-   <div class="w8"><p>Modo tela cheia</p></div>
+   <div class="w8"><p>Bloquear rotação</p></div>
    <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="1" name="config" onclick="data_check(this);config()"><span class="slider"></span></label></div>
   </div></div>
   <div class="row"><div class="container">
-   <div class="w8"><p>Modo noturno</p></div>
+   <div class="w8"><p>Mode tela cheia</p></div>
    <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="2" name="config" onclick="data_check(this);config()"><span class="slider"></span></label></div>
   </div></div>
   <div class="row"><div class="container">
+   <div class="w8"><p>Modo noturno</p></div>
+   <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="3" name="config" onclick="data_check(this);config()"><span class="slider"></span></label></div>
+  </div></div>
+  <div class="row"><div class="container">
    <div class="w8"><p>Cor customizada</p></div>
-   <div class="w2 ma ml"><input id="color" type="color" alt="3" name="config" value="#D13235" onchange="data_array(this);config()" style="pointer-events:none"></div>
+   <div class="w2 ma ml"><input id="color" type="color" alt="4" name="config" value="#D13235" onchange="data_array(this);config()"></div>
   </div></div>
   <div class="divider"></div>
 
@@ -288,7 +293,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 
 </div>
 
-<div id="dice_roller" class="drew">
+<div id="dice_roller">
  <div id="drawer" onclick="openroller(this)"><div></div></div>
   <div id="diceholder">
    <div id="allrolls"><div id="results"><p><i>(toque na barra acima para abrir e fechar)</i></p><p><b>Exemplos de rolagens:</b></p></div></div>
@@ -331,7 +336,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 
 <script>
 const load = 1;var title = '';var chars = [];
-var data = {'config':[0,0,0,'#D13235'],'magias':[]};
+var data = {'config':[0,0,0,0,'#D13235'],'magias':[]};
 
 
 
@@ -722,18 +727,20 @@ function remove_spell(e){
 
 function invert(color){return '#'+(Number(`0x1${color}`)^0xFFFFFF).toString(16).substr(1).toUpperCase()}
 function menucolor(color){
- color = data.config[2]?invert(color.replace('#','')):color;
+ color = data.config[3]?invert(color.replace('#','')):color;
+ var bright = data.config[3]?'brightness(.9)':'brightness(1.1)';
  document.querySelector('meta[name="theme-color"]').setAttribute('content',color);
  document.querySelector(':root').style.setProperty('--menu',color);
+ document.querySelector(':root').style.setProperty('--bright',bright);
 }
 
 function fullscreen(e){
- if(data.config[1]&&document.fullscreenElement==null){
+ if(data.config[2]&&document.fullscreenElement==null){
   if(e.requestFullscreen){e.requestFullscreen()}
   else if(e.webkitRequestFullscreen){e.webkitRequestFullscreen()}
   else if(e.msRequestFullscreen){e.msRequestFullscreen()}
  }
- if(!data.config[1]&&document.fullscreenElement){
+ if(!data.config[2]&&document.fullscreenElement){
   if(document.exitFullscreen){document.exitFullscreen()}
   else if(document.webkitExitFullscreen){document.webkitExitFullscreen()}
   else if(document.msExitFullscreen){document.msExitFullscreen()}
@@ -745,9 +752,10 @@ function config(){
  const key = document.getElementById('keyboard');
  const picker = document.getElementById('color');
  data.config[0]?key.classList.add('keyext'):key.classList.remove('keyext');
- data.config[2]?e.classList.add('invert'):e.classList.remove('invert');
- data.config[2]?picker.classList.add('invert'):picker.classList.remove('invert');
- menucolor(data.config[3]);
+ data.config[1]?e.classList.add('norotate'):e.classList.remove('norotate');
+ data.config[3]?e.classList.add('invert'):e.classList.remove('invert');
+ data.config[3]?picker.classList.add('invert'):picker.classList.remove('invert');
+ menucolor(data.config[4]);
  fullscreen(e);
 }
 
@@ -765,7 +773,7 @@ function navig(e){
  e.children[0].children[1].classList.add('menuseltext');
  x = Array.prototype.indexOf.call(e.parentNode.children,e);
  const sections = document.getElementById('sections');
- sections.style.transform='translate(-'+x*100+'vw,0)';
+ sections.style.transform='translate(-'+x*100/9+'%,0)';
  window.scrollTo({top:0,behavior:'smooth'});
 }
 
@@ -957,11 +965,11 @@ function clear(){
  for (var i=0;i<fakeinput.length;i++){fakeinput[i].innerHTML=''}
  document.getElementById('char_spells').innerHTML = '';
  title='';
- var data = {'config':[0,0,0,'#D13235'],'magias':[]};
+ data = {'config':[0,0,0,0,'#D13235'],'magias':[]};
 }
 
 function import_char(evt){
- data = {'config':[0,0,0,'#D13235'],'magias':[]};
+ data = {'config':[0,0,0,0,'#D13235'],'magias':[]};
  if(!window.FileReader) return; // Browser is not compatible
  var reader = new FileReader();
   reader.onload = function(evt) {
