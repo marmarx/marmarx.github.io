@@ -772,8 +772,9 @@ function navig(e){
  e.children[0].children[0].classList.add('menuselicon');
  e.children[0].children[1].classList.add('menuseltext');
  x = Array.prototype.indexOf.call(e.parentNode.children,e);
+ y=window.innerWidth>990&&x==8?x-1:x;
  const sections = document.getElementById('sections');
- sections.style.transform='translate(-'+x*100/9+'%,0)';
+ sections.style.transform='translate(-'+y*100/9+'%,0)';
  window.scrollTo({top:0,behavior:'smooth'});
 }
 
