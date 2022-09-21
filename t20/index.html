@@ -147,7 +147,6 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 .dif{display:inline-flex}.db{display:block}.ma{margin:auto}.mo,.m0{margin:0}.ms{margin-top:.4em!important}.ha{height:auto}.mt0{margin-top:0}.tal{text-align:left}.tc,.tac{text-align:center!important}.tac{padding-left:0!important;padding-right:0!important}.ml{margin-left:2em}
 
 @media (min-width:991px){.half{width:39.99999%;margin:0 5%}.m0{margin:18px 0}.third{width:33.33333%}}
-@media screen and (min-width:320px) and (max-width:990px) and (orientation:landscape){.norotate{transform:rotate(-90deg);transform-origin:left top;width:100vh;height:100vw;overflow-x:hidden;position:absolute;top:100%;left:0}}
 .invert{filter:invert(1)}
 </style>
 </head>
@@ -261,20 +260,16 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
    <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="0" name="config" onclick="data_check(this);config()"><span class="slider"></span></label></div>
   </div></div>
   <div class="row"><div class="container">
-   <div class="w8"><p>Desativar rotação</p></div>
+   <div class="w8"><p>Modo tela cheia</p></div>
    <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="1" name="config" onclick="data_check(this);config()"><span class="slider"></span></label></div>
   </div></div>
   <div class="row"><div class="container">
-   <div class="w8"><p>Modo tela cheia</p></div>
+   <div class="w8"><p>Modo noturno</p></div>
    <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="2" name="config" onclick="data_check(this);config()"><span class="slider"></span></label></div>
   </div></div>
   <div class="row"><div class="container">
-   <div class="w8"><p>Modo noturno</p></div>
-   <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="3" name="config" onclick="data_check(this);config()"><span class="slider"></span></label></div>
-  </div></div>
-  <div class="row"><div class="container">
    <div class="w8"><p>Cor customizada</p></div>
-   <div class="w2 ma ml"><input id="color" type="color" alt="4" name="config" value="#D13235" onchange="data_array(this);config()" style="pointer-events:none"></div>
+   <div class="w2 ma ml"><input id="color" type="color" alt="3" name="config" value="#D13235" onchange="data_array(this);config()" style="pointer-events:none"></div>
   </div></div>
   <div class="divider"></div>
 
@@ -336,7 +331,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 
 <script>
 const load = 1;var title = '';var chars = [];
-var data = {'config':[0,0,0,0,'#D13235'],'magias':[]};
+var data = {'config':[0,0,0,'#D13235'],'magias':[]};
 
 
 
@@ -727,7 +722,7 @@ function remove_spell(e){
 
 function invert(color){return '#'+(Number(`0x1${color}`)^0xFFFFFF).toString(16).substr(1).toUpperCase()}
 function menucolor(color){
- color = data.config[3]?invert(color.replace('#','')):color;
+ color = data.config[2]?invert(color.replace('#','')):color;
  document.querySelector('meta[name="theme-color"]').setAttribute('content',color);
  document.querySelector(':root').style.setProperty('--menu',color);
 }
@@ -750,10 +745,9 @@ function config(){
  const key = document.getElementById('keyboard');
  const picker = document.getElementById('color');
  data.config[0]?key.classList.add('keyext'):key.classList.remove('keyext');
- data.config[1]?e.classList.add('norotate'):e.classList.remove('norotate');
- data.config[3]?e.classList.add('invert'):e.classList.remove('invert');
- data.config[3]?picker.classList.add('invert'):picker.classList.remove('invert');
- menucolor(data.config[4]);
+ data.config[2]?e.classList.add('invert'):e.classList.remove('invert');
+ data.config[2]?picker.classList.add('invert'):picker.classList.remove('invert');
+ menucolor(data.config[3]);
  fullscreen(e);
 }
 
@@ -963,11 +957,11 @@ function clear(){
  for (var i=0;i<fakeinput.length;i++){fakeinput[i].innerHTML=''}
  document.getElementById('char_spells').innerHTML = '';
  title='';
- var data = {'config':[0,0,0,0,'#D13235'],'magias':[]};
+ var data = {'config':[0,0,0,'#D13235'],'magias':[]};
 }
 
 function import_char(evt){
- data = {'config':[0,0,0,0,'#D13235'],'magias':[]};
+ data = {'config':[0,0,0,'#D13235'],'magias':[]};
  if(!window.FileReader) return; // Browser is not compatible
  var reader = new FileReader();
   reader.onload = function(evt) {
