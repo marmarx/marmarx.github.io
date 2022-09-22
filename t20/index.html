@@ -17,7 +17,7 @@
 
 <style>
 @font-face{font-family:'tormenta20';src:url('src/Tormenta20.ttf') format('truetype');font-weight:normal;font-style:normal}
-:root{--t20:#D13235;--black:#292929;--white:#fff;--transwhite:#ffffff80;--drawer:#dbdbdb;--diceroller:#e9e9e9;--overlay:#e8e8e8;--menu:#b62e34;--bright:brightness(1.1);--yellow:#f0dc82;--green:#2ecb57;--pv:#FF4466;--pm:#4BC7CF}
+:root{--t20:#D13235;--black:#292929;--white:#fff;--transwhite:#ffffff80;--drawer:#dbdbdb;--diceroller:#e9e9e9;--overlay:#e8e8e8;--menu:#b62e34;--bright:brightness(1.1);--t20white:#fff;--t20weight:400;--yellow:#f0dc82;--green:#2ecb57;--pv:#FF4466;--pm:#4BC7CF}
 
 *,*:before,*:after{margin:0;padding:0;transition:all .7s ease-in-out,display 0s;font-family:'Open Sans', sans-serif;word-wrap:normal;word-break:keep-all;box-sizing:border-box}
 html,body{overflow-x:hidden;width:100vw;min-height:100vh}
@@ -32,13 +32,13 @@ input[type="number"],input[type="number"]::-webkit-outer-spin-button,input[type=
 .half,.third{float:left;width:100%}
 
 .divider{width:70%;max-width:500px;height:2px;margin:2.5em auto;background:rgba(32,32,32,.2)}
-.t20box{margin:15px auto;border:20px solid transparent;padding:20px 40px 20px 30px;background-color:var(--menu);color:#fff;background-clip:border-box;-webkit-mask-box-image-source:url("src/border.svg");-webkit-mask-box-image-slice:450 150 300 150 fill;-webkit-mask-box-image-width:120px;-webkit-mask-box-image-repeat:repeat}
+.t20box{margin:15px auto;border:20px solid transparent;padding:20px 40px 20px 30px;background-color:var(--menu);color:var(--t20white);background-clip:border-box;-webkit-mask-box-image-source:url("src/border.svg");-webkit-mask-box-image-slice:450 150 300 150 fill;-webkit-mask-box-image-width:120px;-webkit-mask-box-image-repeat:repeat}
 
 h1,h2{text-align:center;margin:0 0 .6em;letter-spacing:4px;font-family:'tormenta20';color:var(--menu);font-size:3em;font-weight:500;filter:var(--bright)}
 h1{font-size:2.6em}h2{font-size:1.8em}
 p,li{line-height:1.8em;letter-spacing:.8px;text-align:justify;font-size:1.2em;font-weight:500;margin:.5em 0;color:currentColor}
 ul{margin:2em}b,.bold{font-weight:bold}i,.italic{font-style:italic}
-.t20box p{font-weight:400!important}.t20box h2{color:var(--yellow);font-weight:400!important}
+.t20box *{font-weight:var(--t20weight)!important}.t20box h2{color:var(--yellow);font-weight:400!important}
 
 #sections{width:900%;position:relative;display:flex}
 .sec{width:100%;min-height:100%;float:left;padding:35px 25px 125px 25px;background:url("src/paper.png") no-repeat 0/cover fixed;background-position:center}
@@ -98,8 +98,8 @@ input:focus ~ label,input:not(:focus):valid ~ label,select:focus ~ label,select:
 input[type="file"]{display:none}
 label[for="file"]{position:relative;pointer-events:all}
 .fakeinput{height:60.06px;cursor:text;white-space:nowrap;overflow:hidden}.fakeinput:focus{outline:1px auto #141414}
-.t20box .fakeinput,.t20box input,.t20box select{background:#ffffff40;border:1px solid #fff}.t20box label,.t20box input::placeholder,.t20box svg{color:#fff}.t20box .input{color:#fff}
-.t20box input:focus,.t20box select:focus{outline:1px solid #fff}
+.t20box .fakeinput,.t20box input,.t20box select{background:#ffffff40;border:1px solid currentColor}.t20box label,.t20box input::placeholder,.t20box .input{color:currentColor}
+.t20box input:focus,.t20box select:focus{outline:1px solid currentColor}
 option{color:var(--black)!important}
 input[type=color]{padding:0;width:60px;height:37px;margin:9px 0}
 .hab{padding:1em 1.3em}
@@ -132,7 +132,7 @@ a:hover{background-color:#1e90ff;color:var(--white)}
 #habilidades .input{margin:8px 0}
 .hab_label{transform:rotate(180deg);margin:auto;writing-mode:vertical-lr}
 .dice{width:50%;margin:auto}
-.t20box svg,.t20box g{fill:#fff;color:#fff;width:100%;height:100%}
+.t20box svg,.t20box g{fill:currentColor;color:currentColor;width:100%;height:100%}
 
 .switch{position:relative;display:inline-block;width:60px;height:20px;pointer-events:all}
 .switch input{opacity:0;width:0;height:0;margin:0;padding:0}
@@ -147,7 +147,6 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 .dif{display:inline-flex}.db{display:block}.ma{margin:auto}.mo,.m0{margin:0}.ms{margin-top:.4em!important}.ha{height:auto}.mt0{margin-top:0}.tal{text-align:left}.tc,.tac{text-align:center!important}.tac{padding-left:0!important;padding-right:0!important}.ml{margin-left:2em}
 
 @media (min-width:991px){.half{width:39.99999%;margin:0 5%}.m0{margin:18px 0}.third{width:33.33333%}#sections{width:450%}#dice_roller{width:60%;margin:0 20%}#keyboard{background:#403f3fdb}}
-@media screen and (min-width:320px) and (max-width:900px) and (orientation:landscape){.norotate{transform:rotate(-90deg);transform-origin:left top;width:100vh;height:100vw;overflow-x:hidden;position:absolute;top:100%;left:0}}
 .invert{filter:invert(1)}
 </style>
 </head>
@@ -261,15 +260,15 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
    <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="0" name="config" onclick="data_check(this);config()"><span class="slider"></span></label></div>
   </div></div>
   <div class="row"><div class="container">
-   <div class="w8"><p>Bloquear rotação</p></div>
+   <div class="w8"><p>Modo tela cheia</p></div>
    <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="1" name="config" onclick="data_check(this);config()"><span class="slider"></span></label></div>
   </div></div>
   <div class="row"><div class="container">
-   <div class="w8"><p>Mode tela cheia</p></div>
+   <div class="w8"><p>Modo noturno</p></div>
    <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="2" name="config" onclick="data_check(this);config()"><span class="slider"></span></label></div>
   </div></div>
   <div class="row"><div class="container">
-   <div class="w8"><p>Modo noturno</p></div>
+   <div class="w8"><p>Vibrar</p></div>
    <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="3" name="config" onclick="data_check(this);config()"><span class="slider"></span></label></div>
   </div></div>
   <div class="row"><div class="container">
@@ -728,19 +727,19 @@ function remove_spell(e){
 function invert(color){return '#'+(Number(`0x1${color}`)^0xFFFFFF).toString(16).substr(1).toUpperCase()}
 function menucolor(color){
  document.querySelector('meta[name="theme-color"]').setAttribute('content',color);
- color = data.config[3]?invert(color.replace('#','')):color;
- var bright = data.config[3]?'brightness(.9)':'brightness(1.1)';
- document.querySelector(':root').style.setProperty('--menu',color);
- document.querySelector(':root').style.setProperty('--bright',bright);
+ document.querySelector(':root').style.setProperty('--menu',data.config[2]?invert(color.replace('#','')):color);
+ document.querySelector(':root').style.setProperty('--t20white',data.config[2]?'#000':'#fff');
+ document.querySelector(':root').style.setProperty('--t20weight',data.config[2]?'600':'400');
+ document.querySelector(':root').style.setProperty('--bright',data.config[2]?'brightness(.9)':'brightness(1.1)');
 }
 
 function fullscreen(e){
- if(data.config[2]&&document.fullscreenElement==null){
+ if(data.config[1]&&document.fullscreenElement==null){
   if(e.requestFullscreen){e.requestFullscreen()}
   else if(e.webkitRequestFullscreen){e.webkitRequestFullscreen()}
   else if(e.msRequestFullscreen){e.msRequestFullscreen()}
  }
- if(!data.config[2]&&document.fullscreenElement){
+ if(!data.config[1]&&document.fullscreenElement){
   if(document.exitFullscreen){document.exitFullscreen()}
   else if(document.webkitExitFullscreen){document.webkitExitFullscreen()}
   else if(document.msExitFullscreen){document.msExitFullscreen()}
@@ -752,10 +751,9 @@ function config(){
  const key = document.getElementById('keyboard');
  const picker = document.getElementById('color');
  data.config[0]?key.classList.add('keyext'):key.classList.remove('keyext');
- data.config[1]?e.classList.add('norotate'):e.classList.remove('norotate');
- data.config[3]?e.classList.add('invert'):e.classList.remove('invert');
- data.config[3]?picker.classList.add('invert'):picker.classList.remove('invert');
- menucolor(data.config[4]);
+ data.config[2]?e.classList.add('invert'):e.classList.remove('invert');
+ data.config[2]?picker.classList.add('invert'):picker.classList.remove('invert');
+ menucolor(data.config[3]);
  fullscreen(e);
 }
 
@@ -894,7 +892,7 @@ function create_habs(){
   if(i>=habs.length/2){e = e.parentNode.children[1]}
   var div = document.createElement('div');
   div.setAttribute('class','w10 dif');
-  var content = '<div class="w2 dif" onclick="startroll(\'hab_'+habs[i]+'\')"><div class="dice" data-dice="d20"></div></div><div class="w1 dif"><div class="hab_label">';
+  var content = '<div class="w2 dif" onclick="startroll(\'hab_'+habs[i]+'\')"><div class="dice" data-dice="d20"></div></div><div class="w2 dif"><div class="hab_label">';
   content += habs[i].toUpperCase();
   content += '</div></div><div class="w4"><div class="input"><input id="hab_'+habs[i]+'_val" class="tc hab" type="number" onchange="data_add(this);calc_hab(this)" required></div></div>';
   content += '<div class="w4 dif"><p id="hab_'+habs[i]+'" class="ma" sign="1">+0</p></div>';
@@ -1004,6 +1002,9 @@ function export_char(){
  }
  console.log('Character '+title+' data exported');
 }
+
+function vibrate(){if(data.config[3]){navigator.vibrate(75)}}
+window.addEventListener("onclick",vibrate);
 
 function reset(){localStorage.clear();chars=[];data={};title='';location.reload()}
 navig(menubtn[0]);
