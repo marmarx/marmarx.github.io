@@ -269,7 +269,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
   </div></div>
   <div class="row"><div class="container">
    <div class="w8"><p>Vibrar</p></div>
-   <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="4" name="config" onclick="data_check(this);config()"><span class="slider"></span></label></div>
+   <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="4" name="config" onclick="data_check(this)"><span class="slider"></span></label></div>
   </div></div>
   <div class="row"><div class="container">
    <div class="w8"><p>Cor customizada</p></div>
@@ -817,7 +817,7 @@ window.addEventListener('click',function(e){
  }
  window.focus();
 });
-
+document.addEventListener('touchend',e=>{if(data.config[4]){navigator.vibrate(75)}})
 
 
 //-------------------------CHARACTERS FUNCTIONS------------------------//
@@ -1003,10 +1003,7 @@ function export_char(){
  console.log('Character '+title+' data exported');
 }
 
-function vibrate(){if(data.config[3]){navigator.vibrate(75)}}
-window.addEventListener("onclick",vibrate);
-
 function reset(){localStorage.clear();chars=[];data={};title='';location.reload()}
-navig(menubtn[0]);
+navig(menubtn[8]);
 </script>
 </html>
