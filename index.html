@@ -257,19 +257,23 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 
   <div class="row"><div class="container">
    <div class="w8"><p>Teclado avançado de dados</p></div>
-   <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="0" name="config" onclick="data_check(this);config()"><span class="slider"></span></label></div>
-  </div></div>
-  <div class="row"><div class="container">
-   <div class="w8"><p>Modo tela cheia</p></div>
    <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="1" name="config" onclick="data_check(this);config()"><span class="slider"></span></label></div>
   </div></div>
   <div class="row"><div class="container">
-   <div class="w8"><p>Modo noturno</p></div>
+   <div class="w8"><p>Modo tela cheia</p></div>
    <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="2" name="config" onclick="data_check(this);config()"><span class="slider"></span></label></div>
   </div></div>
   <div class="row"><div class="container">
+   <div class="w8"><p>Modo noturno</p></div>
+   <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="3" name="config" onclick="data_check(this);config()"><span class="slider"></span></label></div>
+  </div></div>
+  <div class="row"><div class="container">
+   <div class="w8"><p>Vibrar</p></div>
+   <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="4" name="config" onclick="data_check(this);config()"><span class="slider"></span></label></div>
+  </div></div>
+  <div class="row"><div class="container">
    <div class="w8"><p>Cor customizada</p></div>
-   <div class="w2 ma ml"><input id="color" type="color" alt="3" name="config" value="#D13235" onchange="data_array(this);config()"></div>
+   <div class="w2 ma ml"><input id="color" type="color" alt="0" name="config" value="#D13235" onchange="data_array(this);config()"></div>
   </div></div>
   <div class="divider"></div>
 
@@ -331,7 +335,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 
 <script>
 const load = 1;var title = '';var chars = [];
-var data = {'config':[0,0,0,'#D13235'],'magias':[]};
+var data = {'config':['#D13235',0,0,0,0],'magias':[]};
 
 
 
@@ -723,19 +727,19 @@ function remove_spell(e){
 function invert(color){return '#'+(Number(`0x1${color}`)^0xFFFFFF).toString(16).substr(1).toUpperCase()}
 function menucolor(color){
  document.querySelector('meta[name="theme-color"]').setAttribute('content',color);
- document.querySelector(':root').style.setProperty('--menu',data.config[2]?invert(color.replace('#','')):color);
- document.querySelector(':root').style.setProperty('--t20white',data.config[2]?'#000':'#fff');
- document.querySelector(':root').style.setProperty('--t20weight',data.config[2]?'600':'400');
- document.querySelector(':root').style.setProperty('--bright',data.config[2]?'brightness(.9)':'brightness(1.1)');
+ document.querySelector(':root').style.setProperty('--menu',data.config[3]?invert(color.replace('#','')):color);
+ document.querySelector(':root').style.setProperty('--t20white',data.config[3]?'#000':'#fff');
+ document.querySelector(':root').style.setProperty('--t20weight',data.config[3]?'600':'400');
+ document.querySelector(':root').style.setProperty('--bright',data.config[3]?'brightness(.9)':'brightness(1.1)');
 }
 
 function fullscreen(e){
- if(data.config[1]&&document.fullscreenElement==null){
+ if(data.config[2]&&document.fullscreenElement==null){
   if(e.requestFullscreen){e.requestFullscreen()}
   else if(e.webkitRequestFullscreen){e.webkitRequestFullscreen()}
   else if(e.msRequestFullscreen){e.msRequestFullscreen()}
  }
- if(!data.config[1]&&document.fullscreenElement){
+ if(!data.config[2]&&document.fullscreenElement){
   if(document.exitFullscreen){document.exitFullscreen()}
   else if(document.webkitExitFullscreen){document.webkitExitFullscreen()}
   else if(document.msExitFullscreen){document.msExitFullscreen()}
@@ -746,10 +750,10 @@ function config(){
  const e = document.documentElement;
  const key = document.getElementById('keyboard');
  const picker = document.getElementById('color');
- data.config[0]?key.classList.add('keyext'):key.classList.remove('keyext');
- data.config[2]?e.classList.add('invert'):e.classList.remove('invert');
- data.config[2]?picker.classList.add('invert'):picker.classList.remove('invert');
- menucolor(data.config[3]);
+ data.config[1]?key.classList.add('keyext'):key.classList.remove('keyext');
+ data.config[3]?e.classList.add('invert'):e.classList.remove('invert');
+ data.config[3]?picker.classList.add('invert'):picker.classList.remove('invert');
+ menucolor(data.config[0]);
  fullscreen(e);
 }
 
@@ -960,11 +964,11 @@ function clear(){
  for (var i=0;i<fakeinput.length;i++){fakeinput[i].innerHTML=''}
  document.getElementById('char_spells').innerHTML = '';
  title='';
- data = {'config':[0,0,0,'#D13235'],'magias':[]};
+ data = {'config':['#D13235',0,0,0,0],'magias':[]};
 }
 
 function import_char(evt){
- data = {'config':[0,0,0,'#D13235'],'magias':[]};
+ data = {'config':['#D13235',0,0,0,0],'magias':[]};
  if(!window.FileReader) return; // Browser is not compatible
  var reader = new FileReader();
   reader.onload = function(evt) {
@@ -998,6 +1002,9 @@ function export_char(){
  }
  console.log('Character '+title+' data exported');
 }
+
+function vibrate(){if(data.config[3]){navigator.vibrate(75)}}
+window.addEventListener("onclick",vibrate);
 
 function reset(){localStorage.clear();chars=[];data={};title='';location.reload()}
 navig(menubtn[0]);
