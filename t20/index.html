@@ -4,7 +4,7 @@
 <title>Ficha T20 Mobile - v0.5</title>
 <meta name="author" content="Marco Martins">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#d13235">
+<meta name="theme-color" content="#D13235">
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 <link rel="icon" type="image/png" href="src/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +17,7 @@
 
 <style>
 @font-face{font-family:'tormenta20';src:url('src/Tormenta20.ttf') format('truetype');font-weight:normal;font-style:normal}
-:root{--t20:#D13235;--black:#292929;--white:#fff;--transwhite:#ffffff80;--drawer:#dbdbdb;--diceroller:#e9e9e9;--overlay:#e8e8e8;--menu:#b62e34;--bright:brightness(1.1);--t20white:#fff;--t20weight:400;--yellow:#f0dc82;--green:#2ecb57;--pv:#FF4466;--pm:#4BC7CF}
+:root{--t20:#D13235;--black:#292929;--white:#fff;--transwhite:#ffffff80;--drawer:#dbdbdb;--diceroller:#e9e9e9;--overlay:#e8e8e8;--menu:#B62E34;--bright:brightness(1.1);--t20white:#fff;--t20weight:400;--yellow:#f0dc82;--green:#2ecb57;--pv:#FF4466;--pm:#4BC7CF;--backborder:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="922pt" height="852pt" viewBox="0 0 922 852"><g transform="translate(0,852) scale(.1,-.1)"><path fill="%23B62E34" d="M140 7107 l0 -1412 35 -52 c19 -29 35 -57 35 -64 0 -6 -16 -29 -35 -52 l-35 -41 0 -883 0 -884 -50 -53 -51 -54 51 -42 50 -42 0 -461 0 -461 27 -28 27 -28 -37 -38 -37 -38 0 -188 0 -188 35 -59 c19 -33 35 -64 35 -69 0 -5 -16 -36 -35 -69 l-35 -59 0 -284 -1 -283 -38 -45 -39 -45 44 -47 44 -47 0 -474 0 -473 -36 -35 c-20 -18 -45 -46 -56 -61 l-19 -28 4550 0 c2503 0 4551 4 4551 8 0 5 -20 35 -45 66 l-45 58 0 823 0 823 55 41 c30 23 55 43 55 45 0 2 -25 20 -55 40 -54 35 -55 37 -55 84 l0 48 80 39 c44 21 80 44 80 50 0 5 -34 32 -75 59 l-75 48 0 119 0 118 -30 23 c-35 26 -37 38 -10 63 20 18 20 31 20 781 l0 762 52 45 53 45 -53 56 -52 55 0 585 0 586 -90 76 c-71 61 -88 80 -80 93 5 9 45 52 89 96 l81 80 0 1342 0 1343 -4440 0 -4440 0 0 -1413z"/></g></svg>') 4% repeat}
 
 *,*:before,*:after{margin:0;padding:0;transition:all .7s ease-in-out,display 0s;font-family:'Open Sans', sans-serif;word-wrap:normal;word-break:keep-all;box-sizing:border-box}
 html,body{overflow-x:hidden;width:100vw;min-height:100vh}
@@ -32,7 +32,7 @@ input[type="number"],input[type="number"]::-webkit-outer-spin-button,input[type=
 .half,.third{float:left;width:100%}
 
 .divider{width:70%;max-width:500px;height:2px;margin:2.5em auto;background:rgba(32,32,32,.2)}
-.t20box{margin:15px auto;border:20px solid transparent;padding:20px 40px 20px 30px;background-color:var(--menu);color:var(--t20white);background-clip:border-box;-webkit-mask-box-image-source:url("src/border.svg");-webkit-mask-box-image-slice:450 150 300 150 fill;-webkit-mask-box-image-width:120px;-webkit-mask-box-image-repeat:repeat}
+.t20box{margin:15px auto;border:30px solid transparent;padding:0 40px;background-color:var(--menu);color:var(--t20white);background-clip:padding-box;border-image:var(--backborder)}
 
 h1,h2{text-align:center;margin:0 0 .6em;letter-spacing:4px;font-family:'tormenta20';color:var(--menu);font-size:3em;font-weight:500;filter:var(--bright)}
 h1{font-size:2.6em}h2{font-size:1.8em}
@@ -117,7 +117,7 @@ a:hover{background-color:#1e90ff;color:var(--white)}
 #char_spells{margin:25px auto}
 .backdrop,.overlay{width:100%;left:0;top:0}
 .backdrop{height:100%;position:fixed;top:0;background:hsl(0 0% 10%/.5)}
-.overlay{height:100%;position:absolute;background:var(--overlay);margin-top:100px;overflow-x:hidden;overflow-y:scroll;padding:50px 25px 150px;bottom:0}
+.overlay{height:100%;position:absolute;background:var(--overlay);margin-top:100px;overflow-x:hidden;overflow-y:scroll;padding:50px 25px 150px;bottom:0;box-shadow:0 0 20px rgb(0 0 0 / 10%)}
 .invisible{opacity:0;visibility:hidden;pointer-events:none;top:100%}
 #spell_overlay{height:200%}
 .spell_lvl:empty{opacity:0;visibility:hidden}
@@ -145,9 +145,17 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 .w10,.w9,.w8,.w7,.w6,.w5,.w4,.w3,.w2,.w1{display:block}.mw400{max-width:400px}
 .w10{width:100%}.w9{width:90%}.w8{width:80%}.w7{width:70%}.w6{width:60%}.w5{width:50%}.w4{width:40%}.w3{width:30%}.w2{width:20%}.w1{width:10%}
 .dif{display:inline-flex}.db{display:block}.ma{margin:auto}.mo,.m0{margin:0}.ms{margin-top:.4em!important}.ha{height:auto}.mt0{margin-top:0}.tal{text-align:left}.tc,.tac{text-align:center!important}.tac{padding-left:0!important;padding-right:0!important}.ml{margin-left:2em}
-
-@media (min-width:991px){.half{width:39.99999%;margin:0 5%}.m0{margin:18px 0}.third{width:33.33333%}#sections{width:450%}#dice_roller{width:60%;margin:0 20%}#keyboard{background:#403f3fdb}}
 .invert{filter:invert(1)}
+
+@media (min-width:991px){
+.half{width:39.99999%;margin:0 5%}
+.third{width:33.33333%}
+.overlay{max-width:800px;left:50%;margin-left:-400px;height:calc(100% - 200px)}
+.m0{margin:18px 0}
+#sections{width:450%}
+#dice_roller{width:60%;margin:0 20%}
+#keyboard{background:#403f3fdb}
+}
 </style>
 </head>
 
@@ -212,7 +220,12 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 
  <div id="sec_feat" class="sec">
     <h1>Poderes</h1>
-  <div class="row"><div class="container db">
+  <div class="row"><div id="char_spells" class="container db"></div></div>
+  <div class="row"><div class="container">
+   <button onclick="show('backdrop_power')">Buscar poderes</button>
+  </div></div>
+  <div class="row"><div class="container">
+   <button onclick="show('backdrop_power_create')">Criar um poder</button>
   </div></div>
  </div>
 
@@ -230,6 +243,9 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
   <div class="row"><div id="char_spells" class="container db"></div></div>
   <div class="row"><div class="container">
    <button onclick="show('backdrop_spell')">Buscar magias</button>
+  </div></div>
+  <div class="row"><div class="container">
+   <button onclick="show('backdrop_spell_create')">Criar uma magia</button>
   </div></div>
  </div>
 
@@ -273,7 +289,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
   </div></div>
   <div class="row"><div class="container">
    <div class="w8"><p>Cor customizada</p></div>
-   <div class="w2 ma ml"><input id="color" type="color" alt="0" name="config" value="#D13235" onchange="data_array(this);config()"></div>
+   <div class="w2 ma ml"><input id="colorpicker" type="color" alt="0" name="config" value="#D13235" onchange="data_array(this);config()"></div>
   </div></div>
   <div class="divider"></div>
 
@@ -317,6 +333,18 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 <div id="keyboard" class="row"><div class="container keyboard"></div></div>
 
 </div></div>
+
+<div id="backdrop_power" class="backdrop invisible" onclick="hide(event,this)">
+ <div class="overlay">
+  <div class="row"><div class="container t20box db">
+   <h2>Buscar por...</h2>
+   <div class="input"><input id="power_name" type="text" onkeyup="filter_spell_name(this)" autocomplete="off" autocomplete="chrome-off" required><label>Nome do poder</label></div>
+   <div class="input"><div id="power_type" class="fakeinput drop" onclick="show_list(this)" tabindex="1"></div><label>Tipo de poder</label><div class="dropdown dn"></div></div>
+   <div class="input"><div id="power_cat" class="fakeinput drop" onclick="show_list(this)" tabindex="2"></div><label>Raça, classe, categoria</label><div class="dropdown dn"></div></div> 
+  </div></div>
+  <div class="row"><div id="all_powers" class="container db"></div></div>
+ </div>
+</div>
 
 <div id="backdrop_spell" class="backdrop invisible" onclick="hide(event,this)">
  <div class="overlay">
@@ -724,13 +752,16 @@ function remove_spell(e){
 
 //-------------------------CONFIG FUNCTIONS------------------------//
 
-function invert(color){return '#'+(Number(`0x1${color}`)^0xFFFFFF).toString(16).substr(1).toUpperCase()}
+function invert(color){return (Number(`0x1${color}`)^0xFFFFFF).toString(16).substr(1).toUpperCase()}
 function menucolor(color){
  document.querySelector('meta[name="theme-color"]').setAttribute('content',color);
- document.querySelector(':root').style.setProperty('--menu',data.config[3]?invert(color.replace('#','')):color);
  document.querySelector(':root').style.setProperty('--t20white',data.config[3]?'#000':'#fff');
  document.querySelector(':root').style.setProperty('--t20weight',data.config[3]?'600':'400');
  document.querySelector(':root').style.setProperty('--bright',data.config[3]?'brightness(.9)':'brightness(1.1)');
+ color = data.config[3]?invert(color.replace('#','')):color.replace('#','');
+ document.querySelector(':root').style.setProperty('--menu','#'+color);
+ color = 'url(\''+backborder.replace('backborder',color)+'\') 4% repeat';
+ document.querySelector(':root').style.setProperty('--backborder',color);
 }
 
 function fullscreen(e){
@@ -749,10 +780,10 @@ function fullscreen(e){
 function config(){
  const e = document.documentElement;
  const key = document.getElementById('keyboard');
- const picker = document.getElementById('color');
+ const colorpicker = document.getElementById('colorpicker');
  data.config[1]?key.classList.add('keyext'):key.classList.remove('keyext');
  data.config[3]?e.classList.add('invert'):e.classList.remove('invert');
- data.config[3]?picker.classList.add('invert'):picker.classList.remove('invert');
+ data.config[3]?colorpicker.classList.add('invert'):colorpicker.classList.remove('invert');
  menucolor(data.config[0]);
  fullscreen(e);
 }
@@ -817,7 +848,7 @@ window.addEventListener('click',function(e){
  }
  window.focus();
 });
-document.addEventListener('touchend',e=>{if(data.config[4]){navigator.vibrate(75)}})
+document.addEventListener('touchstart',e=>{if(data.config[4]){navigator.vibrate(75)}})
 
 
 //-------------------------CHARACTERS FUNCTIONS------------------------//
@@ -1004,6 +1035,6 @@ function export_char(){
 }
 
 function reset(){localStorage.clear();chars=[];data={};title='';location.reload()}
-navig(menubtn[8]);
+navig(menubtn[3]);
 </script>
 </html>
