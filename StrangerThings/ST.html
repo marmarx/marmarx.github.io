@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="author" content="Renata Jovanini">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#2f4550">
+<meta http-equiv=”Content-Type” content=”text/html; charset=utf-8″>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
+<script type="text/javascript" src="time.txt"></script>
+<script>
+var page = window.location.pathname.split("/").pop();
+page = page.replace(".html","");
+var myScript = document.createElement('script');
+myScript.setAttribute('src',page+'/candidatos.txt');
+document.head.appendChild(myScript);
+</script>
+
+<style>
+:root{--black:#292929;--white:#fff}
+*,*:before,*:after{margin:0;padding:0;transition:all .7s ease-in-out;font-family:'Open Sans', sans-serif;color:var(--black);word-wrap:normal;word-break:keep-all;box-sizing:border-box}
+html,body{scroll-behavior:smooth;overflow-x:hidden}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:#f1f1f1}::-webkit-scrollbar-thumb{background:#bbb}::-webkit-scrollbar-thumb:hover{background:#999}::selection{background:#30f2bb}
+
+.row{display:inline-flex;position:relative;width:100%}
+.container{margin:auto;position:relative;float:left;width:80%;max-width:1500px;margin-bottom:5%}
+.half{float:left;width:100%;text-align:center;margin:1.5em 0}
+.third{padding:5%;cursor:pointer;text-align:center;display:inline-grid;width:49.9999%}
+.half:hover > .third{opacity:.4}.third:hover{opacity:1!important}
+.disabled{filter:grayscale(1);cursor:not-allowed}.disabled div{pointer-events:none}
+.pic,.txt{width:130px;margin:0 auto}.txt > p{height:70px}.pic{height:150px;background-repeat:no-repeat;background-size:cover;background-position:center}
+
+h1{text-align:center;margin:.5em 0;letter-spacing:4px;font-family:'Lora', serif;color:#000;font-size:3em;font-weight:500}
+p{line-height:1.8em;letter-spacing:.8px;text-align:center;font-size:1.2em;font-weight:300;margin-top:1em}
+@media (min-width:1500px){.third{width:33.2999%}}
+@media (min-width:1200px){.half{width:48.49999%;margin:unset}h1{margin:1.5em 0}}
+
+#menino{margin-left:3%}
+#menino,#menina{border:1px solid rgba(0,0,0,.75)}
+#menino{box-shadow:10px 10px 5px 0px rgba(0,0,0,.55)}#menina{box-shadow:-10px -10px 5px 0px rgba(0,0,0,.55)}
+.menu{width:100px;height:100px;position:fixed;bottom:0;right:0}
+#menu{width:30%;left:100%;top:0;height:100%;position:fixed;background:rgba(0,0,0,.3);padding:5%}
+.show{left:unset!important;right:0}
+.button{border:none;color:white;padding:15px 32px;text-align:center;text-decoration:none;display:inline-block;font-size:16px;margin:20px 0;cursor:pointer;width:100%}
+.button:hover{opacity:.8}
+.green{background-color:#4CAF50}.red{background-color:#f44336}
+#thanks{position:fixed;width:100%;height:100%;display:none;top:0;left:0;background:rgba(255,255,255,.9)}
+.thanks{margin:auto 0;width:100%}
+</style>
+</head>
+
+<body>
+<h1 id="title">Eleições para Representante de Turma</h1>
+<div class="row">
+ <div class="container">
+  <div class="half" id="menina"></div>
+  <div class="half" id="menino"></div>
+ </div>
+</div>
+<div id="thanks"><h1 class="thanks">Obrigado!</h1></div>
+
+<audio id="myAudio">
+ <source src="vote.mp3" type="audio/mpeg">
+ Your browser does not support the audio element.
+</audio>
+
+<div class="menu" onClick="document.getElementById('menu').classList.add('show')"></div>
+<div id="menu">
+<div class="button green" onClick="data_export()">Gerar relatório final</div>
+<div class="button red" onClick="data_erase()">Apagar dados</div>
+</div>
+</body>
+
+<script defer>
+var votes = 0, save = 1;
+
+function startup(){
+ var page = "";
+ page = window.location.pathname.split("/").pop();
+ page = page.replace(".html","");
+ document.title = "Eleições " + page;
+ document.getElementById("title").innerHTML = "Eleições para Representante de Turma - " + page;
+ return page;
+}
+
+function populate(){
+ for (i=0;i<candidatos.length;i++){
+  var node = document.createElement("div");
+  node.classList.add("third");
+  node.setAttribute("id",candidatos[i][0]);
+  node.setAttribute("onClick","vote(this.id)");
+  node.innerHTML = '<div class="pic" style=background-image:url(&quot;'+page+'/'+candidatos[i][0].replace(" ","%20")+'.png&quot;)></div><div class="txt"><p>'+candidatos[i][0]+'</p></div>';
+  document.getElementById(candidatos[i][1]).appendChild(node)
+ }
+}
+
+function vote(voted){
+ for (i=0;i<candidatos.length;i++){if(candidatos[i][0]==voted){candidatos[i][2]++;document.getElementById(candidatos[i][1]).classList.add("disabled")}}
+ votes++;
+ if(votes==2){
+  document.getElementById("myAudio").play();
+  document.getElementById("thanks").style.display = "inline-flex";
+  setTimeout(function(){location.reload(true);},time*1000)
+  }
+}
+
+function data_export(){
+ var filename = document.title;
+ var filedata = document.getElementById("title").innerHTML + "\r\n\r\n";
+ var votos_totais = 0;
+ for (i=0;i<candidatos.length;i++){filedata += candidatos[i][0] + ": " + candidatos[i][2] + "\r\n";votos_totais+=candidatos[i][2]}
+ filedata += "\r\nVotos totais: "+votos_totais;
+ var file = new Blob([filedata], {type:'text/plain'});
+ if (window.navigator.msSaveOrOpenBlob) // IE10+
+     window.navigator.msSaveOrOpenBlob(file, filename);
+ else{
+  var a = document.createElement("a"),url = URL.createObjectURL(file);
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function() {
+   document.body.removeChild(a);
+   window.URL.revokeObjectURL(url);
+  }, 0);
+ }
+ console.log(candidatos);
+}
+
+function data_save(){if(save){console.log("data saved");localStorage.setItem(page,JSON.stringify(candidatos))}}
+function data_load(){if(localStorage.getItem(page)){console.log("data loaded");candidatos = JSON.parse(localStorage.getItem(page))}}
+function data_erase(){console.log("data erased");candidatos=[];localStorage.clear();save=0;location.reload(true)}
+
+window.addEventListener('beforeunload',data_save);
+window.onload = function(){
+ var page = startup();
+ data_load();
+ populate();
+}
+</script>
+</html>

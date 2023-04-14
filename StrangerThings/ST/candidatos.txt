@@ -1,0 +1,15 @@
+var candidatos = [
+["Eleven","menina",0],
+["Erica Sinclair","menina",0],
+["Joyce Byers","menina",0],
+["Max Mayfield","menina",0],
+["Nancy Wheeler","menina",0],
+["Robin Buckley","menina",0],
+["Dustin Henderson","menino",0],
+["Jim Hopper","menino",0],
+["Lucas Sinclair","menino",0],
+["Mike Wheeler","menino",0],
+["Murray Bauman","menino",0],
+["Steve Harrington","menino",0],
+["Will Byers","menino",0]
+];
