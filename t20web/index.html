@@ -498,7 +498,7 @@ button,.ofic{display:none!important}
 <div id="results" onmouseleave="roll_down()">
 <p class="bold">Exemplos de rolagens:</p>
 </div>
-<input id="dice" onchange="diceroll(this.value,1,1);this.value=''" pattern="[0-9!#d+-ckhel]">
+<input id="dice" onchange="diceroll(this.value,1,1);this.value=''" onkeyup="this.value=this.value.replace('[0-9!#d+-ckhel]','')">
 </div>
 
 <div id="habi_overlay" class="invisible" onclick="hide(event,this)"><div id="habi">
