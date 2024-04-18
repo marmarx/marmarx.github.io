@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<title>Loterias</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css?family=Lora&display=swap" rel="stylesheet">
+
+<style>
+*, *:before, *:after{box-sizing:inherit}
+body{margin:0;height:100vh}
+.row{display:inline-flex;position:relative;width:100%;height:100%}
+.container{margin:auto;position:relative;float:left;width:100%}
+.middle{float:left;width:100%;text-align:center;display:flex}
+table,p{font-size:1.6em;font-family:'Lora', serif;margin:auto;margin:0 auto}
+th{font-weight:normal;padding:0 15px}
+</style>
+
+<body>
+<div class="row"><div class="container">
+ <div class="middle"><p id="myPar"></p></div>
+ <div class="middle"><table id="table"></table></div>
+ <div class="middle"><table id="results"></table></div>
+</div></div>
+</body>
+
+<script>
+var originalArray = [];
+var numbers = [];
+var groups = [];
+var checks = [0,0,0,0,0];
+var results = [];
+var counts = [];
+const premio = {15:'1.700.000',14:'1.500',13:'30',12:'12',11:'6',10:'0',9:'0'}
+
+function array(){
+ originalArray = [];
+ for(var i=1;i<=25;i++){originalArray.push(i)}
+ console.log(originalArray);
+}
+
+function sortear(num){
+ numbers = [];
+ for(var i=0; i<num; i++){
+  var spin = Math.floor(Math.random()*originalArray.length);
+  numbers.push(originalArray[spin]);
+  originalArray.splice(spin,1);
+ }
+ numbers.sort(sortNumber);
+ console.log(originalArray);
+ return numbers;
+}
+
+function sortNumber(a, b){return a - b}
+function print(str){document.getElementById("myPar").innerHTML += str}
+function prints(str){document.getElementById("results").innerHTML += str}
+
+function check(){
+ for(var k=0; k<5; k++){
+  for(var i=0; i<groups[k].length; i++){
+   if(numbers.indexOf(groups[k][i])>-1){checks[k]++}
+  }
+ }
+ console.log(checks);
+ return checks;
+}
+
+function start(){
+ array();
+ print('<b>Grupos:</b><br>');
+ for(var i=0; i<5; i++){
+  groups[i] = sortear(5);
+  print(groups[i].join(', ') + '<br />');
+ }
+ print('<br />');
+
+ print('<b>Testes:</b><br>');
+ for(var j=0; j<1000; j++){
+  var tables = '<tr><th><b>' + (j+1) + '. </b></th>';
+  array();
+  numbers = sortear(15);
+  tables += '<th>' + numbers.join(', ') + '</th>';
+  tables += '<th>' + check().join(', ') + '</th>';
+
+  checks.sort(sortNumber);
+  var t = checks[4] + checks[3] + checks[2];
+  results.push(t);
+  if(t>13){tables += '<th><b>' + t + '</b></th>'}
+  else{tables += '<th>' + t + '</th>'}
+  
+  tables += '</tr>';
+  document.getElementById("table").innerHTML += tables;
+  checks = [0,0,0,0,0];
+ }
+
+ prints('<br>');
+ for(const num of results){counts[num] = counts[num] ? counts[num] + 1 : 1}
+ for(var i=15; i>8; i--){
+  let k = (100*counts[i]/results.length).toFixed(2);
+  prints('<tr><th><b>'+i+'</b></th><th>' + k + '%</th><th>R$ '+ premio[i] + '</th></tr>');
+ }
+
+}
+start();
+
+</script>
+</html>
