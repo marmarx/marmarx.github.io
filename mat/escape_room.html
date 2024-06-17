@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Biblioteca dos Números Perdidos</title>
+<link rel="stylesheet" href="styles.css">
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+#game {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+}
+
+.sala {
+    display: none;
+}
+
+.enigma {
+    margin-bottom: 20px;
+}
+
+input {
+    margin: 10px 0;
+    padding: 8px;
+    width: calc(100% - 20px);
+    box-sizing: border-box;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+</style>
+
+<script>
+function startGame() {
+    document.getElementById('intro').style.display = 'none';
+    document.getElementById('sala1').style.display = 'block';
+}
+
+function checkFechadura1() {
+    const answer = document.getElementById('fechadura1').value;
+    const result = document.getElementById('result1');
+    if (answer == 55) {
+        result.innerHTML = 'Correto!';
+        checkAllFechaduras();
+    } else {
+        result.innerHTML = 'Tente novamente.';
+    }
+}
+
+function checkFechadura2() {
+    const answer = document.getElementById('fechadura2').value;
+    const result = document.getElementById('result2');
+    if (answer == 53) {
+        result.innerHTML = 'Correto!';
+        checkAllFechaduras();
+    } else {
+        result.innerHTML = 'Tente novamente.';
+    }
+}
+
+function checkFechadura3() {
+    const answer = document.getElementById('fechadura3').value;
+    const result = document.getElementById('result3');
+    if (answer == 9) {
+        result.innerHTML = 'Correto!';
+        checkAllFechaduras();
+    } else {
+        result.innerHTML = 'Tente novamente.';
+    }
+}
+
+function checkFechadura4() {
+    const answer = document.getElementById('fechadura4').value;
+    const result = document.getElementById('result4');
+    if (answer == 12) {
+        result.innerHTML = 'Correto!';
+        checkAllFechaduras();
+    } else {
+        result.innerHTML = 'Tente novamente.';
+    }
+}
+
+function checkAllFechaduras() {
+    const result1 = document.getElementById('result1').innerHTML;
+    const result2 = document.getElementById('result2').innerHTML;
+    const result3 = document.getElementById('result3').innerHTML;
+    const result4 = document.getElementById('result4').innerHTML;
+    if (result1 === 'Correto!' && result2 === 'Correto!' && result3 === 'Correto!' && result4 === 'Correto!') {
+        document.getElementById('nextRoom1').style.display = 'block';
+    }
+}
+
+function nextRoom(currentRoom, nextRoom) {
+    document.getElementById(currentRoom).style.display = 'none';
+    document.getElementById(nextRoom).style.display = 'block';
+}
+
+function checkEnigma1() {
+    const answer = document.getElementById('enigma1').value;
+    const result = document.getElementById('result5');
+    if (answer == 30) {
+        result.innerHTML = 'Correto!';
+        checkAllEnigmas();
+    } else {
+        result.innerHTML = 'Tente novamente.';
+    }
+}
+
+function checkEnigma2() {
+    const answer = document.getElementById('enigma2').value;
+    const result = document.getElementById('result6');
+    if (answer == 8) {
+        result.innerHTML = 'Correto!';
+        checkAllEnigmas();
+    } else {
+        result.innerHTML = 'Tente novamente.';
+    }
+}
+
+function checkEnigma3() {
+    const answer1 = document.getElementById('enigma3-1').value;
+    const answer2 = document.getElementById('enigma3-2').value;
+    const result = document.getElementById('result7');
+    if ((answer1 == 3 && answer2 == 4) || (answer1 == 4 && answer2 == 3)) {
+        result.innerHTML = 'Correto!';
+        checkAllEnigmas();
+    } else {
+        result.innerHTML = 'Tente novamente.';
+    }
+}
+
+function checkAllEnigmas() {
+    const result5 = document.getElementById('result5').innerHTML;
+    const result6 = document.getElementById('result6').innerHTML;
+    const result7 = document.getElementById('result7').innerHTML;
+    if (result5 === 'Correto!' && result6 === 'Correto!' && result7 === 'Correto!') {
+        document.getElementById('nextRoom2').style.display = 'block';
+    }
+}
+
+function checkFinalCode() {
+    const codigo1 = document.getElementById('codigo1').value;
+    const codigo2 = document.getElementById('codigo2').value;
+    const result = document.getElementById('result8');
+    if (codigo1 == 70 && codigo2 == 69) {
+        result.innerHTML = 'Correto! Parabéns, vocês escaparam da Biblioteca dos Números Perdidos!';
+    } else {
+        result.innerHTML = 'Tente novamente.';
+    }
+}
+</script>
+</head>
+<body>
+    <div id="game">
+        <h1>A Biblioteca dos Números Perdidos</h1>
+        <div id="intro">
+            <p>Bem-vindos à Biblioteca dos Números Perdidos. Para sair, vocês devem resolver os enigmas matemáticos e completar as missões que os levarão à chave da saída. Boa sorte!</p>
+            <button onclick="startGame()">Começar</button>
+        </div>
+        <div id="sala1" class="sala">
+            <h2>Sala 1: A Porta dos Números</h2>
+            <p>Resolva os problemas para abrir cada uma das quatro fechaduras.</p>
+            <div class="enigma">
+                <p>Fechadura 1: Encontre o número que somado a 34 resulta em 89.</p>
+                <input type="number" id="fechadura1">
+                <button onclick="checkFechadura1()">Verificar</button>
+                <p id="result1"></p>
+            </div>
+            <div class="enigma">
+                <p>Fechadura 2: Qual é o número que, ao ser subtraído de 75, dá 22?</p>
+                <input type="number" id="fechadura2">
+                <button onclick="checkFechadura2()">Verificar</button>
+                <p id="result2"></p>
+            </div>
+            <div class="enigma">
+                <p>Fechadura 3: Se você multiplicar um número por 9 e o resultado for 81, qual é o número?</p>
+                <input type="number" id="fechadura3">
+                <button onclick="checkFechadura3()">Verificar</button>
+                <p id="result3"></p>
+            </div>
+            <div class="enigma">
+                <p>Fechadura 4: Divida 144 por um número para obter 12. Qual é o número?</p>
+                <input type="number" id="fechadura4">
+                <button onclick="checkFechadura4()">Verificar</button>
+                <p id="result4"></p>
+            </div>
+            <button onclick="nextRoom('sala1', 'sala2')" id="nextRoom1" style="display:none;">Próxima Sala</button>
+        </div>
+        <div id="sala2" class="sala" style="display:none;">
+            <h2>Sala 2: O Salão dos Enigmas</h2>
+            <p>Resolva os seguintes enigmas para revelar o código escondido.</p>
+            <div class="enigma">
+                <p>Eu sou um número que, ao ser dividido por 6, dá 5 como resultado. Qual é o dividendo?</p>
+                <input type="number" id="enigma1">
+                <button onclick="checkEnigma1()">Verificar</button>
+                <p id="result5"></p>
+            </div>
+            <div class="enigma">
+                <p>Se o produto de dois números é 48 e um dos fatores é 6, qual é o outro fator?</p>
+                <input type="number" id="enigma2">
+                <button onclick="checkEnigma2()">Verificar</button>
+                <p id="result6"></p>
+            </div>
+            <div class="enigma">
+                <p>Quais são os fatores de 12 cuja soma é 7?</p>
+                <input type="number" id="enigma3-1"> e <input type="number" id="enigma3-2">
+                <button onclick="checkEnigma3()">Verificar</button>
+                <p id="result7"></p>
+            </div>
+            <button onclick="nextRoom('sala2', 'sala3')" id="nextRoom2" style="display:none;">Próxima Sala</button>
+        </div>
+        <div id="sala3" class="sala" style="display:none;">
+            <h2>Sala 3: A Biblioteca dos Mistérios</h2>
+            <p>Resolva a missão final usando os conhecimentos adquiridos.</p>
+            <div class="enigma">
+                <p>O código final é uma combinação de dois números. O primeiro número é a soma de 23 e 47. O segundo número é o resultado de 88 subtraído por 19.</p>
+                <input type="number" id="codigo1"> e <input type="number" id="codigo2">
+                <button onclick="checkFinalCode()">Verificar</button>
+                <p id="result8"></p>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
