@@ -3,15 +3,14 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-body {font-family: Arial, Helvetica, sans-serif;width:100vw;display:block}
-.container{width:100%;text-align:center;margin:auto;max-width:900px}
+body {font-family: Arial, Helvetica, sans-serif}
 h2{text-align:center;color:#3f3f3f}
 .grid-container {
   width:100%;
   max-width: 960px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  padding: 10px;
   margin:auto;
 }
 
@@ -70,7 +69,7 @@ function flip(ele){
 </script>
 </head>
 <body>
-<div class="container"><h2>&Eacute; poss&iacute;vel deixar todos os quadrados rosa?</h2></div>
+<h2>&Eacute; poss&iacute;vel deixar todos os quadrados rosa?</h2>
 <div class="grid-container">
   <div class="flip-card"><div class="flip-card-inner" id="1" onclick="flip(this.id)">
     <div class="flip-card-front"><h1>1</h1></div>
