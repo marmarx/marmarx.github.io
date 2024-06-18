@@ -4,28 +4,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {font-family: Arial, Helvetica, sans-serif}
-h2{text-align:center;color:#3f3f3f}
-.grid-container {
-  width:100%;
-  max-width: 960px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  padding: 10px;
-  margin:auto;
-}
-
+.container{width:100%;max-width: 900px;margin:auto;display:flex}
+.third{width:33.3333%;padding-bottom:33.3333%;position:relative}
+h1{color:#3f3f3f;font-size:2em}h2{color:#fff;margin:auto;font-size:2.5em}h1,h2{text-align:center}
+@media screen and (max-width : 555px){h1,h2{font-size:1.5em}}
 .flip-card {
-  background-color: transparent;
-  width: 300px;
-  height: 300px;
+  position:absolute;
+  background-color:transparent;
+  padding:10px;
+  width:calc(100% - 20px);
+  height:calc(100% - 20px);
   perspective: 1000px;
   text-align: center;
-  padding: 10px;
 }
 
 .flip-card-inner {
-  width: 100%;
-  height: 100%;
+  width:100%;
+  height:100%;
   text-align: center;
   transition: transform 0.6s;
   transform-style: preserve-3d;
@@ -41,8 +36,7 @@ h2{text-align:center;color:#3f3f3f}
   height: 100%;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  color:white;
-  line-height:270px;
+  display:flex;
 }
 
 .flip-card-front {background-color: #19D719}
@@ -69,53 +63,54 @@ function flip(ele){
 </script>
 </head>
 <body>
-<h2>&Eacute; poss&iacute;vel deixar todos os quadrados rosa?</h2>
-<div class="grid-container">
+<h1>&Eacute; poss&iacute;vel deixar todos os quadrados rosa?</h1>
+<div class="container">
+<div class="third">
   <div class="flip-card"><div class="flip-card-inner" id="1" onclick="flip(this.id)">
-    <div class="flip-card-front"><h1>1</h1></div>
-    <div class="flip-card-back"><h1>1</h1></div>
+    <div class="flip-card-front"><h2>1</h2></div>
+    <div class="flip-card-back"><h2>1</h2></div>
   </div></div>
-
+</div><div class="third">
   <div class="flip-card"><div class="flip-card-inner" id="2" onclick="flip(this.id)">
-    <div class="flip-card-front"><h1>2</h1></div>
-    <div class="flip-card-back"><h1>2</h1></div>
+    <div class="flip-card-front"><h2>2</h2></div>
+    <div class="flip-card-back"><h2>2</h2></div>
   </div></div>
-
+</div><div class="third">
   <div class="flip-card"><div class="flip-card-inner" id="3" onclick="flip(this.id)">
-    <div class="flip-card-front"><h1>3</h1></div>
-    <div class="flip-card-back"><h1>3</h1></div>
+    <div class="flip-card-front"><h2>3</h2></div>
+    <div class="flip-card-back"><h2>3</h2></div>
   </div></div>
-
+</div></div><div class="container"><div class="third">
   <div class="flip-card"><div class="flip-card-inner" id="4" onclick="flip(this.id)">
-    <div class="flip-card-front"><h1>4</h1></div>
-    <div class="flip-card-back"><h1>4</h1></div>
+    <div class="flip-card-front"><h2>4</h2></div>
+    <div class="flip-card-back"><h2>4</h2></div>
   </div></div>
-  
+</div><div class="third">
   <div class="flip-card"><div class="flip-card-inner" id="5" onclick="flip(this.id)">
-    <div class="flip-card-front"><h1>5</h1></div>
-    <div class="flip-card-back"><h1>5</h1></div>
+    <div class="flip-card-front"><h2>5</h2></div>
+    <div class="flip-card-back"><h2>5</h2></div>
   </div></div>
-  
+</div><div class="third">
   <div class="flip-card"><div class="flip-card-inner" id="6" onclick="flip(this.id)">
-    <div class="flip-card-front"><h1>6</h1></div>
-    <div class="flip-card-back"><h1>6</h1></div>
+    <div class="flip-card-front"><h2>6</h2></div>
+    <div class="flip-card-back"><h2>6</h2></div>
   </div></div>
-  
+</div></div><div class="container"><div class="third">
   <div class="flip-card"><div class="flip-card-inner" id="7" onclick="flip(this.id)">
-    <div class="flip-card-front"><h1>7</h1></div>
-    <div class="flip-card-back"><h1>7</h1></div>
+    <div class="flip-card-front"><h2>7</h2></div>
+    <div class="flip-card-back"><h2>7</h2></div>
   </div></div>
-  
+</div><div class="third">
   <div class="flip-card"><div class="flip-card-inner" id="8" onclick="flip(this.id)">
-    <div class="flip-card-front"><h1>8</h1></div>
-    <div class="flip-card-back"><h1>8</h1></div>
+    <div class="flip-card-front"><h2>8</h2></div>
+    <div class="flip-card-back"><h2>8</h2></div>
   </div></div>
-  
+</div><div class="third">
   <div class="flip-card"><div class="flip-card-inner" id="9" onclick="flip(this.id)">
-    <div class="flip-card-front"><h1>9</h1></div>
-    <div class="flip-card-back"><h1>9</h1></div>
+    <div class="flip-card-front"><h2>9</h2></div>
+    <div class="flip-card-back"><h2>9</h2></div>
   </div></div>
-</div>
+</div></div>
 
 </body>
 </html>
