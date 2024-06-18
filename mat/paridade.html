@@ -3,7 +3,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-body {font-family: Arial, Helvetica, sans-serif;width:100vw;display:block;width:100vw}
+body {font-family: Arial, Helvetica, sans-serif;width:100vw;display:block}
 .container{width:100%;text-align:center;margin:auto}
 h2{text-align:center;color:#3f3f3f}
 .grid-container {
@@ -11,14 +11,14 @@ h2{text-align:center;color:#3f3f3f}
   max-width: 960px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  padding: 10px;
+  gap: 10px;
   margin:auto;
 }
 
 .flip-card {
   background-color: transparent;
-  width: 300px;
-  height: 300px;
+  width: calc(33.3333vw - 20px);
+  height: calc(33.3333vw - 20px);
   perspective: 1000px;
   text-align: center;
   padding: 10px;
