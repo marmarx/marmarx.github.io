@@ -13,6 +13,7 @@
 <script type="text/javascript" src="db/skills.txt"></script>
 <script type="text/javascript" src="db/conditions.txt"></script>
 <script type="text/javascript" src="db/spells.txt"></script>
+<script type="text/javascript" src="db/poderes.txt"></script>
 <script type="text/javascript" src="db/geral.txt"></script>
 
 <style>
@@ -40,7 +41,7 @@ p,li{line-height:1.8em;letter-spacing:.8px;text-align:justify;font-size:1.2em;fo
 ul{margin:2em}b,.bold{font-weight:bold}i,.italic{font-style:italic}
 .t20box *{font-weight:var(--t20weight)!important}.t20box h2{color:var(--yellow);font-weight:400!important}
 
-#sections{width:900%;position:relative;display:flex}
+#sections{width:600%;position:relative;display:flex}
 .sec{width:100%;min-height:100%;float:left;padding:35px 25px 125px 25px;background:url("src/paper.png") no-repeat 0/cover fixed;background-position:center}
 
 #dice_roller,#drawer{border-top-left-radius:25px;border-top-right-radius:25px}
@@ -74,15 +75,15 @@ ul{margin:2em}b,.bold{font-weight:bold}i,.italic{font-style:italic}
 .backspace::after{width:10px;height:10px;border-top:2px solid;border-left:2px solid;border-top-left-radius:1px;transform:rotate(-45deg);top:0;left:-5px}
 
 nav{position:fixed;left:0;bottom:0;height:70px;width:100%;background:var(--white);border-top:1px solid #EBEBEB;overflow-x:scroll;overflow-y:hidden;display:grid}
-#menu{display:inline-flex;width:160%;max-width:1000px;margin:auto}
-.menubtn{width:20%;max-width:150px;height:70px;float:left;display:inline-flex;cursor:pointer}.menubi{margin:auto}
+#menu{display:inline-flex;width:100%;max-width:1000px;margin:auto} /*width:160%*/
+.menubtn{width:16.6666%;max-width:150px;height:70px;float:left;display:inline-flex;cursor:pointer}.menubi{margin:auto} /*width:20%*/
 .menuicon{color:#b0b0b0;width:fit-content;margin:auto}
 .menuicon svg{display:block;height:24px;width:24px;overflow:visible;fill:currentcolor}
 .menuicon path{color:#b0b0b0}.menuselicon path{color:var(--menu);filter:var(--bright)}
 .menutext{font-size:.625em;font-weight:600;color:#717171;margin-top:.2em;padding:.1em 0 .5em}.menuseltext{font-weight:700}
 
-#spells_list{display:block}
-.spell{cursor:pointer;border:1px solid transparent;border-radius:10px}
+#spells_list,#powers_list{display:block}
+.spell,.power{cursor:pointer;border:1px solid transparent;border-radius:10px}
 .more_info{border-color:rgba(32,32,32,.4);margin:.5em 0}
 .item_title,.item_subtitle{margin:0}.item_title{font-size:1em;font-weight:500;display:inline-flex}.item_subtitle{font-size:.8em}
 .item_action{margin-right:0}p.item_subtitle{max-height:unset}
@@ -123,7 +124,7 @@ a:hover{background-color:#1e90ff;color:var(--white)}
 .spell_lvl:empty{opacity:0;visibility:hidden}
 .spell_lvl_head{margin:1em 0 0;font-weight:700;padding:.5em 1em;cursor:pointer;display:inline-flex;width:100%}.spell_lvl_head > p{font-weight:700;margin:0}
 .arrow-down{width:8px;height:8px;border-bottom:2px solid;border-left:2px solid;transform:rotate(-45deg);margin:auto}.arrow-up{transform:rotate(135deg)}
-.spell_details{padding:.3em 1em;border-radius:10px}
+.spell_details,.power_details{padding:.3em 1em;border-radius:10px}
 .spell_add,.spell_delete{width:60%;margin:20px 20%}
 .spell_add{border-color:var(--green);color:var(--green)}
 .spell_add:hover,.spell_add:focus{background:var(--green);color:#fff}
@@ -152,7 +153,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 .third{width:33.33333%}
 .overlay{max-width:800px;left:50%;margin-left:-400px;height:calc(100% - 200px)}
 .m0{margin:18px 0}
-#sections{width:450%}
+#sections{width:300%} /* 450%*/
 #dice_roller{width:60%;margin:0 20%}
 #keyboard{background:#403f3fdb}
 }
@@ -206,26 +207,11 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 
  </div>
 
- <div id="sec_combat" class="sec">
-  <h1>Combate</h1>
-  <div class="row"><div class="container db">
-  </div></div>
- </div>
-
- <div id="sec_skill" class="sec">
-  <h1>Perícias</h1>
-  <div class="row"><div class="container db">
-  </div></div>
- </div>
-
  <div id="sec_feat" class="sec">
     <h1>Poderes</h1>
-  <div class="row"><div id="char_spells" class="container db"></div></div>
+  <div class="row"><div id="char_feats" class="container db"></div></div>
   <div class="row"><div class="container">
    <button onclick="show('backdrop_power')">Buscar poderes</button>
-  </div></div>
-  <div class="row"><div class="container">
-   <button onclick="show('backdrop_power_create')">Criar um poder</button>
   </div></div>
  </div>
 
@@ -243,15 +229,6 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
   <div class="row"><div id="char_spells" class="container db"></div></div>
   <div class="row"><div class="container">
    <button onclick="show('backdrop_spell')">Buscar magias</button>
-  </div></div>
-  <div class="row"><div class="container">
-   <button onclick="show('backdrop_spell_create')">Criar uma magia</button>
-  </div></div>
- </div>
-
- <div id="sec_equip" class="sec">
-  <h1>Equipamento</h1>
-  <div class="row"><div class="container db">
   </div></div>
  </div>
 
@@ -319,11 +296,11 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 <nav>
  <div id="menu">
   <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon menuselicon"></div><div class="menutext menuseltext">Personagem</div></div></div>
-  <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Combate</div></div></div>
-  <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Perícias</div></div></div>
+  <!-- <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Combate</div></div></div> -->
+  <!-- <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Perícias</div></div></div> -->
   <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Poderes</div></div></div>
   <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Magias</div></div></div>
-  <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Equipamento</div></div></div>
+  <!-- <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Equipamento</div></div></div> -->
   <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Condições</div></div></div>
   <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Anotações</div></div></div>
   <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Configurações</div></div></div>
@@ -340,7 +317,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
    <h2>Buscar por...</h2>
    <div class="input"><input id="power_name" type="text" onkeyup="filter_spell_name(this)" autocomplete="off" autocomplete="chrome-off" required><label>Nome do poder</label></div>
    <div class="input"><div id="power_type" class="fakeinput drop" onclick="show_list(this)" tabindex="1"></div><label>Tipo de poder</label><div class="dropdown dn"></div></div>
-   <div class="input"><div id="power_cat" class="fakeinput drop" onclick="show_list(this)" tabindex="2"></div><label>Raça, classe, categoria</label><div class="dropdown dn"></div></div> 
+   <div class="input"><div id="power_cat" class="fakeinput drop" onclick="show_list(this)" tabindex="2"></div><label>Raça, classe, categoria</label><div class="dropdown dn"></div></div>
   </div></div>
   <div class="row"><div id="all_powers" class="container db"></div></div>
  </div>
@@ -353,7 +330,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
    <div class="input"><input id="spell_name" type="text" onkeyup="filter_spell_name(this)" autocomplete="off" autocomplete="chrome-off" required><label>Nome da magia</label></div>
    <div class="input"><div id="spell_class" class="fakeinput drop" onclick="show_list(this)" tabindex="1"></div><label>Classificação</label><div class="dropdown dn"></div></div>
    <div class="input"><div id="spell_level" class="fakeinput drop" onclick="show_list(this)" tabindex="2"></div><label>Nível</label><div class="dropdown dn"></div></div>
-   <div class="input"><div id="spell_school" class="fakeinput drop" onclick="show_list(this)" tabindex="3"></div><label>Escola</label><div class="dropdown dn"></div></div>   
+   <div class="input"><div id="spell_school" class="fakeinput drop" onclick="show_list(this)" tabindex="3"></div><label>Escola</label><div class="dropdown dn"></div></div>
   </div></div>
   <div class="row"><div id="all_spells" class="container db"></div></div>
  </div>
@@ -637,6 +614,24 @@ function calc_spell_res(){
 }
 
 
+//-------------------------POWERS FUNCTIONS------------------------//
+
+data['powers'] = [];
+var powers_viz = [];
+
+function list_powers(e,i){
+ var div = document.createElement('div');
+ div.setAttribute('id','power_'+i);
+ div.setAttribute('class','power w10 h70');
+ div.setAttribute('onclick','power_info(this)');
+ div.setAttribute('index',i);
+ var content = '';
+ div.innerHTML = content;
+ document.getElementById(e).appendChild(div);
+ powers_viz.push([1,1,1,0]);
+}
+
+
 //-------------------------SPELLS FUNCTIONS------------------------//
 
 data['magias'] = [];
@@ -718,18 +713,18 @@ function filter_spell_name(el){
 }
 
 function clear_spell_filters(){
- var e = document.getElementById('spell_name');e.value='';filter_spell_name(e);
- e = document.getElementById('spell_level');e.innerHTML='';filter_spell_other(e);
- e = document.getElementById('spell_class');e.innerHTML='';filter_spell_other(e);
- e = document.getElementById('spell_school');e.innerHTML='';filter_spell_other(e);
- for (var i=0;i<spells.length;i++){
-  if(spell_viz[i][4]){
-   var e = document.getElementById('spell_'+i);
-   e.classList.remove('more_info');
-   e.children[0].children[1].innerHTML = '';
-   spell_viz[i][4] = 0;
+  var e = document.getElementById('spell_name');e.value='';filter_spell_name(e);
+  e = document.getElementById('spell_level');e.innerHTML='';filter_spell_other(e);
+  e = document.getElementById('spell_class');e.innerHTML='';filter_spell_other(e);
+  e = document.getElementById('spell_school');e.innerHTML='';filter_spell_other(e);
+  for (var i=0;i<spells.length;i++){
+   if(spell_viz[i][4]){
+    var e = document.getElementById('spell_'+i);
+    e.classList.remove('more_info');
+    e.children[0].children[1].innerHTML = '';
+    spell_viz[i][4] = 0;
+   }
   }
- }
 }
 
 function add_spell(e){
@@ -801,9 +796,9 @@ function navig(e){
  e.children[0].children[0].classList.add('menuselicon');
  e.children[0].children[1].classList.add('menuseltext');
  x = Array.prototype.indexOf.call(e.parentNode.children,e);
- y=window.innerWidth>990&&x==8?x-1:x;
+ y=window.innerWidth>990&&x==5?x-1:x;  //x==8
  const sections = document.getElementById('sections');
- sections.style.transform='translate(-'+y*100/9+'%,0)';
+ sections.style.transform='translate(-'+y*100/6+'%,0)'; //+y*100/9
  window.scrollTo({top:0,behavior:'smooth'});
 }
 
@@ -811,7 +806,7 @@ function deltaX(){var deltaX = touchstartX-touchendX;if(deltaX>200&&x<8){navig(m
 document.getElementById('sections').addEventListener('touchstart',e=>{touchstartX=e.changedTouches[0].screenX})
 document.getElementById('sections').addEventListener('touchend',e=>{touchendX=e.changedTouches[0].screenX;deltaX()})
 
-function hide(e,el){if(el==e.target){el.classList.toggle('invisible');if(el.id="backdrop_spell"){clear_spell_filters()}}}
+function hide(e,el){if(el==e.target){el.classList.toggle('invisible');if(el.id=="backdrop_spell"){clear_spell_filters()}}}
 function show(el){document.getElementById(el).classList.toggle('invisible')}
 
 function filter(el){
@@ -944,6 +939,7 @@ function start_up(){
  create_checkbox(deslocamento);
  for (var i=0;i<spell_inputs.length;i++){create_checkbox(spell_inputs[i])}
  for (var i=0;i<spells.length;i++){list_spells('all_spells',i)}
+ for (var i=0;i<powers.length;i++){list_powers('all_powers',i)}
  set_keyboard();
 }
 
@@ -1029,13 +1025,13 @@ function export_char(){
   a.click();
   setTimeout(function() {
    document.body.removeChild(a);
-   window.URL.revokeObjectURL(url);  
-  }, 0); 
+   window.URL.revokeObjectURL(url);
+  }, 0);
  }
  console.log('Character '+title+' data exported');
 }
 
 function reset(){localStorage.clear();chars=[];data={};title='';location.reload()}
-navig(menubtn[3]);
+navig(menubtn[1]);
 </script>
 </html>
