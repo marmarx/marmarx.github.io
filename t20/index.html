@@ -13,7 +13,7 @@
 <script type="text/javascript" src="db/skills.txt"></script>
 <script type="text/javascript" src="db/conditions.txt"></script>
 <script type="text/javascript" src="db/spells.txt"></script>
-<script type="text/javascript" src="db/poderes.txt"></script>
+<script type="text/javascript" src="db/feats.txt"></script>
 <script type="text/javascript" src="db/geral.txt"></script>
 
 <style>
@@ -25,15 +25,20 @@ html,body{overflow-x:hidden;width:100vw;min-height:100vh}
 ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#bbb}::-webkit-scrollbar-thumb:hover{background:#999}
 ::-webkit-scrollbar:horizontal,::-webkit-scrollbar-thumb:horizontal{display:none}
 body::-webkit-scrollbar{display:none}
+br{content:'';display:block;margin:6px 0;line-height:2.2em}
 div[onclick]{cursor:pointer}
 input[type="number"],input[type="number"]::-webkit-outer-spin-button,input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none;-moz-appearance:textfield}
 
 .row{display:grid;position:relative;width:100%}
-.container{margin:auto;width:85%;display:inline-flex;max-width:1000px}
+.container{margin:auto;width:85%;display:inline-flex;max-width:600px}
 .half,.third{float:left;width:100%}
 
+table{margin:auto;width:80%}
+td,th{text-align:center;padding:5px}
+tr:nth-child(even){background-color:rgba(0,0,0,.1)}
+
 .divider{width:70%;max-width:500px;height:2px;margin:2.5em auto;background:rgba(32,32,32,.2)}
-.t20box{margin:15px auto;border:30px solid transparent;padding:0 40px;background-color:var(--menu);color:var(--t20white);background-clip:padding-box;border-image:var(--backborder)}
+.t20box{margin:15px auto;border:30px solid transparent;padding:0 40px;background-color:var(--menu);color:var(--t20white);background-clip:padding-box;border-image:var(--backborder);max-width:600px}
 
 h1,h2{text-align:center;margin:0 0 .6em;letter-spacing:4px;font-family:'tormenta20';color:var(--menu);font-size:3em;font-weight:500;filter:var(--bright)}
 h1{font-size:2.6em}h2{font-size:1.8em}
@@ -56,6 +61,7 @@ ul{margin:2em}b,.bold{font-weight:bold}i,.italic{font-style:italic}
 #diceholder{position:relative;height:calc(100% - 105px);overflow:hidden}.diceholder{height:calc(100% - 242px)!important}
 .rot{color:#ef1313}
 .grun{color:#35a90f}
+.magic{display:inline-block;position:absolute;padding:4px 0 0 4px}
 .strike{text-decoration:line-through}
 
 #keyboard{width:100%;height:206px;padding:3px;background:#403f3f;position:fixed;bottom:-206px}.keyboard{width:100%;max-width:500px}.boardshow{bottom:0!important}.keybar{float:left}
@@ -86,7 +92,7 @@ nav{position:fixed;left:0;bottom:0;height:70px;width:100%;background:var(--white
 .spell,.power{cursor:pointer;border:1px solid transparent;border-radius:10px}
 .more_info{border-color:rgba(32,32,32,.4);margin:.5em 0}
 .item_title,.item_subtitle{margin:0}.item_title{font-size:1em;font-weight:500;display:inline-flex}.item_subtitle{font-size:.8em}
-.item_action{margin-right:0}p.item_subtitle{max-height:unset}
+.item_action{margin-right:0}p.item_subtitle{max-height:unset}.item_action div{margin:auto}
 .hid{visibility:hidden;margin:0;max-height:0;overflow:hidden}
 .nowrap{word-break:break-word;margin:0;font-size:1em}
 
@@ -116,8 +122,8 @@ a:hover{background-color:#1e90ff;color:var(--white)}
 .dn{display:none!important;border:0}
 
 #char_spells{margin:25px auto}
-.backdrop,.overlay{width:100%;left:0;top:0}
-.backdrop{height:100%;position:fixed;top:0;background:hsl(0 0% 10%/.5)}
+.backdrop,.overlay{width:100%;left:0;top:0;inherit!important}
+.backdrop{height:100%;position:fixed;top:0;background:hsl(0 0% 10%/.3)}
 .overlay{height:100%;position:absolute;background:var(--overlay);margin-top:100px;overflow-x:hidden;overflow-y:scroll;padding:50px 25px 150px;bottom:0;box-shadow:0 0 20px rgb(0 0 0 / 10%)}
 .invisible{opacity:0;visibility:hidden;pointer-events:none;top:100%}
 #spell_overlay{height:200%}
@@ -128,7 +134,7 @@ a:hover{background-color:#1e90ff;color:var(--white)}
 .spell_add,.spell_delete{width:60%;margin:20px 20%}
 .spell_add{border-color:var(--green);color:var(--green)}
 .spell_add:hover,.spell_add:focus{background:var(--green);color:#fff}
-#all_spells .spell_delete,#char_spells .spell_add{display:none}
+#all_spells .spell_delete,#char_spells .spell_add,#all_powers .spell_delete,#char_powers .spell_add{display:none}
 
 #habilidades .input{margin:8px 0}
 .hab_label{transform:rotate(180deg);margin:auto;writing-mode:vertical-lr}
@@ -209,7 +215,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 
  <div id="sec_feat" class="sec">
     <h1>Poderes</h1>
-  <div class="row"><div id="char_feats" class="container db"></div></div>
+  <div class="row"><div id="char_powers" class="container db"></div></div>
   <div class="row"><div class="container">
    <button onclick="show('backdrop_power')">Buscar poderes</button>
   </div></div>
@@ -223,7 +229,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
     <div class="w3"><select id="spell_hab" class="select tc" onchange="data_add(this);calc_spell_res()"></select></div>
    </div><div class="container">
     <div class="w8"><p class="tal">Teste de resistência</p></div>
-    <div class="w3 dif"><p id="spell_res" class="ma" inner="1">30</p></div>
+    <div class="w3 dif"><p id="spell_res" class="ma" inner="1">10</p></div>
    </div>
   </div>
   <div class="row"><div id="char_spells" class="container db"></div></div>
@@ -235,6 +241,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
  <div id="sec_condition" class="sec">
   <h1>Condições</h1>
   <div class="row"><div class="container db">
+   <p>Em desenvolvimento...</p>
   </div></div>
  </div>
 
@@ -250,23 +257,19 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 
   <div class="row"><div class="container">
    <div class="w8"><p>Teclado avançado de dados</p></div>
-   <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="1" name="config" onclick="data_check(this);config()"><span class="slider"></span></label></div>
+   <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="1" name="config" onclick="config()"><span class="slider"></span></label></div>
   </div></div>
   <div class="row"><div class="container">
    <div class="w8"><p>Modo tela cheia</p></div>
-   <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="2" name="config" onclick="data_check(this);config()"><span class="slider"></span></label></div>
+   <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="2" name="config" onclick="config()"><span class="slider"></span></label></div>
   </div></div>
   <div class="row"><div class="container">
    <div class="w8"><p>Modo noturno</p></div>
-   <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="3" name="config" onclick="data_check(this);config()"><span class="slider"></span></label></div>
-  </div></div>
-  <div class="row"><div class="container">
-   <div class="w8"><p>Vibrar</p></div>
-   <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="4" name="config" onclick="data_check(this)"><span class="slider"></span></label></div>
+   <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="3" name="config" onclick="config()"><span class="slider"></span></label></div>
   </div></div>
   <div class="row"><div class="container">
    <div class="w8"><p>Cor customizada</p></div>
-   <div class="w2 ma ml"><input id="colorpicker" type="color" alt="0" name="config" value="#D13235" onchange="data_array(this);config()"></div>
+   <div class="w2 ma ml"><input id="colorpicker" type="color" alt="0" name="config" value="#D13235" onchange="config()"></div>
   </div></div>
   <div class="divider"></div>
 
@@ -274,10 +277,13 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
    <p>Essa ferramenta é desenvolvida de forma independente para fins recreativos apenas.</p>
   </div></div>
   <div class="row"><div class="container t20box db">
-   <p>Direitos referentes ao conteúdo Tormenta 20 reservados à Editora Jambo.</p>
+   <p>Direitos referentes ao conteúdo Tormenta 20 reservados à seus criadores e à Editora Jambo.</p>
   </div></div>
   <div class="row"><div class="container">
-   <p>Seus dados são armazenados <b>apenas</b> localmente, ou seja, nada é armazenado online. Caso deseje exluir todos os dados, por favor, utilize o botão a seguir. Eles <b>não</b> poderão ser recuperados.</p>
+   <p>Seus dados são armazenados <b>apenas</b> localmente, ou seja, nada é armazenado online. Use as opções de <b>importar</b> e <b>exportar</b> para transferir seu personagem entre dispositivos.</p>
+  </div>
+  <div class="container">
+   <p>Caso deseje exluir todos os dados, por favor, utilize o botão a seguir. Eles <b>não</b> poderão ser recuperados.</p>
   </div><div class="container mw400">
    <button class="delete" onclick="reset()">Excluir todos os dados</button>
   </div></div>
@@ -315,8 +321,8 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
  <div class="overlay">
   <div class="row"><div class="container t20box db">
    <h2>Buscar por...</h2>
-   <div class="input"><input id="power_name" type="text" onkeyup="filter_spell_name(this)" autocomplete="off" autocomplete="chrome-off" required><label>Nome do poder</label></div>
-   <div class="input"><div id="power_type" class="fakeinput drop" onclick="show_list(this)" tabindex="1"></div><label>Tipo de poder</label><div class="dropdown dn"></div></div>
+   <div class="input"><input id="power_name" type="text" onkeyup="filter_powers_name(this)" autocomplete="off" autocomplete="chrome-off" required><label>Nome</label></div>
+   <div class="input"><div id="power_type" class="fakeinput drop" onclick="show_list(this)" tabindex="1"></div><label>Tipo</label><div class="dropdown dn"></div></div>
    <div class="input"><div id="power_cat" class="fakeinput drop" onclick="show_list(this)" tabindex="2"></div><label>Raça, classe, categoria</label><div class="dropdown dn"></div></div>
   </div></div>
   <div class="row"><div id="all_powers" class="container db"></div></div>
@@ -327,7 +333,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
  <div class="overlay">
   <div class="row"><div class="container t20box db">
    <h2>Buscar por...</h2>
-   <div class="input"><input id="spell_name" type="text" onkeyup="filter_spell_name(this)" autocomplete="off" autocomplete="chrome-off" required><label>Nome da magia</label></div>
+   <div class="input"><input id="spell_name" type="text" onkeyup="filter_spell_name(this)" autocomplete="off" autocomplete="chrome-off" required><label>Nome</label></div>
    <div class="input"><div id="spell_class" class="fakeinput drop" onclick="show_list(this)" tabindex="1"></div><label>Classificação</label><div class="dropdown dn"></div></div>
    <div class="input"><div id="spell_level" class="fakeinput drop" onclick="show_list(this)" tabindex="2"></div><label>Nível</label><div class="dropdown dn"></div></div>
    <div class="input"><div id="spell_school" class="fakeinput drop" onclick="show_list(this)" tabindex="3"></div><label>Escola</label><div class="dropdown dn"></div></div>
@@ -340,7 +346,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 
 <script>
 const load = 1;var title = '';var chars = [];
-var data = {'config':['#D13235',0,0,0,0],'magias':[]};
+var data = {'config':['#D13235',0,0,0,0],'magias':[],'powers':[]};
 
 
 
@@ -625,10 +631,98 @@ function list_powers(e,i){
  div.setAttribute('class','power w10 h70');
  div.setAttribute('onclick','power_info(this)');
  div.setAttribute('index',i);
- var content = '';
+ var q = powers[i][4]?' · '+powers[i][4]:'';
+ var p = powers[i][5]==1?'<div class="magic">'+magic+'</div>':'';
+ var content = '<div class="spell_details"><div class="w10 dif"><div class="w9"><p class="item_title">'+powers[i][0]+'</p>'+p+'<p class="item_subtitle">'+powers[i][1]+' · '+powers[i][2]+q+'</p></div><div class="item_action w1 ma">';
+ if(spell_action.includes(powers[i][3])){content += '<div class="ac_'+powers[i][3]+'"></div>'}
+ content += '</div></div><div class="item_subtitle w10 ms"></div></div>';
  div.innerHTML = content;
  document.getElementById(e).appendChild(div);
  powers_viz.push([1,1,1,0]);
+}
+
+function power_info(e){
+ var i = e.getAttribute('index');
+
+ if(powers_viz[i][3]){
+  powers_viz[i][3] = 0;
+  e.classList.toggle('more_info');
+  e.children[0].children[1].innerHTML = '';
+ } else {
+  powers_viz[i][3] = 1;
+  e.classList.toggle('more_info');
+  e = e.children[0].children[1];
+  var content = powers[i][6];
+  content += '</div></div><button class="spell_add" onclick="add_power(this)">Adicionar poder</div><button class="delete spell_delete" onclick="remove_power(this)">Remover poder</div>';
+  e.innerHTML = content;
+ }
+}
+
+function add_power(e){
+ e = e.parentNode;
+ e.innerHTML = '';
+ e = e.parentNode.parentNode.cloneNode(true);
+ e.id = '';
+ e.classList.remove('more_info');
+ document.getElementById('char_powers').appendChild(e);
+ data['powers'][Object.keys(data['powers']).length] = JSON.parse(e.getAttribute('index'));
+}
+
+function remove_power(e){
+ e = e.parentNode.parentNode.parentNode;
+ data['powers'].splice(data['powers'].indexOf(e.getAttribute('index')),1);
+ e.remove();
+}
+
+function filter_powers(){
+ for (var i=0;i<powers.length;i++){
+  var e = document.getElementById('power_'+i);
+  if(powers_viz[i][0]&&powers_viz[i][1]&&powers_viz[i][2]){e.style.display=""}
+  else{e.style.display="none"}
+ }
+}
+
+function filter_powers_other(e){
+ var k = e.getAttribute('tabindex');
+ var filter = e.innerHTML;
+ if(!filter){filter=JSON.stringify(power_inputs[k-1])}
+ for (var i=0;i<powers.length;i++){
+  if(filter.indexOf(powers[i][k])>-1){powers_viz[i][k]=1}
+  else{powers_viz[i][k]=0}
+ }
+ filter_powers();
+}
+
+function filter_powers_name(el){
+ var filter = el.value.toUpperCase();
+ for (var i=0;i<powers.length;i++){
+  var powername = powers[i][0].toUpperCase();
+  if(powername.indexOf(filter)>-1){powers_viz[i][0]=1}
+  else{powers_viz[i][0]=0}
+ }
+ filter_powers();
+}
+
+function clear_powers_filters(){
+ for (var i=0;i<powers.length;i++){if(powers_viz[i][3]){
+   var e = document.getElementById('powers_'+i);
+   e.classList.remove('more_info');
+   e.children[0].children[1].innerHTML = '';
+   powers_viz[i][3] = 0;
+ }}
+ for (var i=0;i<powers.length;i++){powers_viz[i]=[1,1,1,0]}
+ cpower_type=[],cpower_cat=[];
+
+ e = document.getElementById('power_type');e.innerHTML='';
+ var d = e.parentNode.children[2].getElementsByClassName('checkmark');
+ for(var i=0;i<d.length;i++){d[i].classList.remove("checkmarked");d[i].setAttribute('value',0)}
+
+ e = document.getElementById('power_cat');e.innerHTML='';
+ var d = e.parentNode.children[2].getElementsByClassName('checkmark');
+ for(var i=0;i<d.length;i++){d[i].classList.remove("checkmarked");d[i].setAttribute('value',0)}
+
+ var e = document.getElementById('power_name');e.value='';
+ filter_powers_name(e);
 }
 
 
@@ -667,17 +761,18 @@ function spell_info(e){
   if(spells[i][5]){content += '<p class="nowrap"><b>Alcance:</b> '+spells[i][5]+'</p>'}
   if(spells[i][7]){content += '<p class="nowrap"><b>Alvo:</b> '+spells[i][7]+'</p>'}
   if(spells[i][8]){content += '<p class="nowrap"><b>Área:</b> '+spells[i][8]+'</p>'}
+  if(spells[i][10]){content += '<p class="nowrap"><b>Efeito:</b> '+spells[i][10]+'</p>'}
   if(spells[i][6]){content += '<p class="nowrap"><b>Duração:</b> '+spells[i][6]+'</p>'}
   if(spells[i][9]){content += '<p class="nowrap"><b>Resistência:</b> '+spells[i][9]+'</p>'}
 
-  content += '<p class="nowrap ms">'+spells[i][10]+'</p>';
+  content += '<p class="nowrap ms">'+spells[i][11]+'</p>';
   var length = spells[i].length;
-  for (var j=12;j<length;j+=2){
+  for (var j=13;j<length;j+=2){
    content += '<p class="nowrap ms"><b>';
    content += Number.isInteger(spells[i][j])?('+'+spells[i][j]+' PM'):spells[i][j];
    content += ': </b><span>'+spells[i][j+1]+'</span></p>';
   }
-  if(spells[i][11]){content += '<p class="nowrap"><i>Publicação:</i> '+spells[i][11]+'</p>'}
+  if(spells[i][12]){content += '<p class="nowrap"><i>Publicação:</i> '+spells[i][12]+'</p>'}
   content += '</div></div><button class="spell_add" onclick="add_spell(this)">Adicionar magia</div><button class="delete spell_delete" onclick="remove_spell(this)">Remover magia</div>';
   e.innerHTML = content;
  }
@@ -713,18 +808,29 @@ function filter_spell_name(el){
 }
 
 function clear_spell_filters(){
-  var e = document.getElementById('spell_name');e.value='';filter_spell_name(e);
-  e = document.getElementById('spell_level');e.innerHTML='';filter_spell_other(e);
-  e = document.getElementById('spell_class');e.innerHTML='';filter_spell_other(e);
-  e = document.getElementById('spell_school');e.innerHTML='';filter_spell_other(e);
-  for (var i=0;i<spells.length;i++){
-   if(spell_viz[i][4]){
-    var e = document.getElementById('spell_'+i);
-    e.classList.remove('more_info');
-    e.children[0].children[1].innerHTML = '';
-    spell_viz[i][4] = 0;
-   }
-  }
+ for (var i=0;i<spells.length;i++){if(spell_viz[i][4]){
+  var e = document.getElementById('spell_'+i);
+  e.classList.remove('more_info');
+  e.children[0].children[1].innerHTML = '';
+  spell_viz[i][4] = 0;
+ }}
+ for (var i=0;i<spells.length;i++){spell_viz[i]=[1,1,1,1,0]}
+ cspell_level=[],cspell_class=[],cspell_school=[];
+
+ e = document.getElementById('spell_level');e.innerHTML='';
+ var d = e.parentNode.children[2].getElementsByClassName('checkmark');
+ for(var i=0;i<d.length;i++){d[i].classList.remove("checkmarked");d[i].setAttribute('value',0)}
+
+ e = document.getElementById('spell_class');e.innerHTML='';
+ var d = e.parentNode.children[2].getElementsByClassName('checkmark');
+ for(var i=0;i<d.length;i++){d[i].classList.remove("checkmarked");d[i].setAttribute('value',0)}
+
+ e = document.getElementById('spell_school');e.innerHTML='';
+ var d = e.parentNode.children[2].getElementsByClassName('checkmark');
+ for(var i=0;i<d.length;i++){d[i].classList.remove("checkmarked");d[i].setAttribute('value',0)}
+
+ var e = document.getElementById('spell_name');e.value='';
+ filter_spell_name(e);
 }
 
 function add_spell(e){
@@ -806,7 +912,7 @@ function deltaX(){var deltaX = touchstartX-touchendX;if(deltaX>200&&x<8){navig(m
 document.getElementById('sections').addEventListener('touchstart',e=>{touchstartX=e.changedTouches[0].screenX})
 document.getElementById('sections').addEventListener('touchend',e=>{touchendX=e.changedTouches[0].screenX;deltaX()})
 
-function hide(e,el){if(el==e.target){el.classList.toggle('invisible');if(el.id=="backdrop_spell"){clear_spell_filters()}}}
+function hide(e,el){if(el==e.target){el.classList.toggle('invisible');if(el.id=="backdrop_spell"){clear_spell_filters()};if(el.id=="backdrop_power"){clear_powers_filters()}}}
 function show(el){document.getElementById(el).classList.toggle('invisible')}
 
 function filter(el){
@@ -824,16 +930,20 @@ function show_list(e){
  e = e.parentNode.children[2].classList.remove('dn');
 }
 
-var cspell_level=[],cspell_class=[],cspell_school=[],cdivindade=[],cdeslocamento=[];
+var cspell_level=[],cspell_class=[],cspell_school=[],cdivindade=[],cdeslocamento=[],cpower_type=[],cpower_cat=[];
 function set_check(e,array){
  e.classList.toggle('checkmarked');
- e.value=!e.value;
- if(e.value){array.push(e.innerHTML)}else{array.splice(array.indexOf(e.innerHTML),1)}
+ e.setAttribute('value',e.getAttribute('value')==1?0:1)
+
+ if(e.getAttribute('value')==1){array.push(e.innerHTML)}else{array.splice(array.indexOf(e.innerHTML),1)}
  array.sort();
  e = e.parentNode.parentNode.children[0];
  e.innerHTML = array.join(', ');
+
+ var c = e.parentNode.parentNode.parentNode.parentNode.parentNode.id;
  if(e.getAttribute('inner')){data_inner(e)}
- else{filter_spell_other(e)}
+ else if(c=="backdrop_power"){filter_powers_other(e)}
+ else if(c=="backdrop_spell"){filter_spell_other(e)}
 }
 
 window.addEventListener('click',function(e){
@@ -909,7 +1019,7 @@ function create_select(array){
 }
 
 function create_checkbox(array){
- for(var j=1;j<array.length;j++){document.getElementById(array[0]).parentNode.children[2].innerHTML += '<a class="checkmark" onclick="set_check(this,c'+array[0]+')">'+array[j]+'</a>'}
+ for(var j=1;j<array.length;j++){document.getElementById(array[0]).parentNode.children[2].innerHTML += '<a class="checkmark" onclick="set_check(this,c'+array[0]+')" value="0">'+array[j]+'</a>'}
 }
 
 function create_habs(){
@@ -938,6 +1048,7 @@ function start_up(){
  create_checkbox(divindade);
  create_checkbox(deslocamento);
  for (var i=0;i<spell_inputs.length;i++){create_checkbox(spell_inputs[i])}
+ for (var i=0;i<power_inputs.length;i++){create_checkbox(power_inputs[i])}
  for (var i=0;i<spells.length;i++){list_spells('all_spells',i)}
  for (var i=0;i<powers.length;i++){list_powers('all_powers',i)}
  set_keyboard();
@@ -956,7 +1067,9 @@ function data_set(){
  for (const key in data){
   if(key=='magias'){
    for (var i=0;i<data['magias'].length;i++){list_spells('char_spells',data['magias'][i])}
-  }else{
+  }else if(key=='powers'){
+   for (var i=0;i<data['powers'].length;i++){list_powers('char_powers',data['powers'][i])}
+  }else if(key=='config'){}else{
    var e=document.getElementById(key);
    if(e.getAttribute('sign')){e.innerHTML=add_plus_sign(data[key])}
    else if(e.getAttribute('inner')){e.innerHTML=data[key]}
@@ -992,11 +1105,11 @@ function clear(){
  for (var i=0;i<fakeinput.length;i++){fakeinput[i].innerHTML=''}
  document.getElementById('char_spells').innerHTML = '';
  title='';
- data = {'config':['#D13235',0,0,0,0],'magias':[]};
+ data = {'config':['#D13235',0,0,0,0],'magias':[],'powers':[]};
 }
 
 function import_char(evt){
- data = {'config':['#D13235',0,0,0,0],'magias':[]};
+ data = {'config':['#D13235',0,0,0,0],'magias':[],'powers':[]};
  if(!window.FileReader) return; // Browser is not compatible
  var reader = new FileReader();
   reader.onload = function(evt) {
@@ -1032,6 +1145,5 @@ function export_char(){
 }
 
 function reset(){localStorage.clear();chars=[];data={};title='';location.reload()}
-navig(menubtn[1]);
 </script>
 </html>
