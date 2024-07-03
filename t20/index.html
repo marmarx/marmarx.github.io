@@ -239,9 +239,11 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
  </div>
 
  <div id="sec_condition" class="sec">
+  <h1>Status</h1>
+  <div class="row"><div class="container db">
+  </div></div>
   <h1>Condições</h1>
   <div class="row"><div class="container db">
-   <p>Em desenvolvimento...</p>
   </div></div>
  </div>
 
@@ -257,15 +259,19 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 
   <div class="row"><div class="container">
    <div class="w8"><p>Teclado avançado de dados</p></div>
-   <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="1" name="config" onclick="config()"><span class="slider"></span></label></div>
+   <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="1" name="config" onclick="data_check(this);config()"><span class="slider"></span></label></div>
   </div></div>
   <div class="row"><div class="container">
    <div class="w8"><p>Modo tela cheia</p></div>
-   <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="2" name="config" onclick="config()"><span class="slider"></span></label></div>
+   <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="2" name="config" onclick="data_check(this);config()"><span class="slider"></span></label></div>
   </div></div>
   <div class="row"><div class="container">
    <div class="w8"><p>Modo noturno</p></div>
-   <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="3" name="config" onclick="config()"><span class="slider"></span></label></div>
+   <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="3" name="config" onclick="data_check(this);config()"><span class="slider"></span></label></div>
+  </div></div>
+  <div class="row"><div class="container">
+   <div class="w8"><p>Vibrar</p></div>
+   <div class="w2 ma ml"><label class="switch"><input type="checkbox" alt="4" name="config" onclick="data_check(this);config()"><span class="slider"></span></label></div>
   </div></div>
   <div class="row"><div class="container">
    <div class="w8"><p>Cor customizada</p></div>
@@ -307,13 +313,14 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
   <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Poderes</div></div></div>
   <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Magias</div></div></div>
   <!-- <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Equipamento</div></div></div> -->
-  <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Condições</div></div></div>
+  <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Status</div></div></div>
   <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Anotações</div></div></div>
   <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Configurações</div></div></div>
  </div>
 </nav>
 
 <div id="keyboard" class="row"><div class="container keyboard"></div></div>
+<div id="keyboard2" class="row"><div class="container keyboard"></div></div>
 
 </div></div>
 
@@ -534,12 +541,12 @@ print_out('5d4!3eh2 (eliminate higher 2)');diceroll('5d4!3eh2');print_out('');
 //-------------------------KEYBOARD FUNCTIONS------------------------//
 
 const keys = [[7,8,9,4,5,6,1,2,3,'AC',0,'dx'],
-['d100','d20','d10','d12','d8','d6','d4','d3','d2','AC','d','123']];
+['d10','d20','d100','d6','d8','d12','d2','d3','d4','AC','d','123']];
 const xkeys = ['kh','eh','kl','el','+','-','#','!','backspace','enter'];
 
 var skeys;
-function set_keyboard(){
- var e = document.getElementById('keyboard').children[0];
+function set_keyboard(e){
+ e = document.getElementById(e).children[0];
 
  var div = document.createElement('div');
  div.setAttribute('class','keybar');
@@ -953,7 +960,7 @@ window.addEventListener('click',function(e){
  }
  window.focus();
 });
-document.addEventListener('touchstart',e=>{if(data.config[4]){navigator.vibrate(75)}})
+document.addEventListener('touchstart',e=>{if(data.config[4]){navigator.vibrate(100)}})
 
 
 //-------------------------CHARACTERS FUNCTIONS------------------------//
@@ -1051,7 +1058,7 @@ function start_up(){
  for (var i=0;i<power_inputs.length;i++){create_checkbox(power_inputs[i])}
  for (var i=0;i<spells.length;i++){list_spells('all_spells',i)}
  for (var i=0;i<powers.length;i++){list_powers('all_powers',i)}
- set_keyboard();
+ set_keyboard('keyboard');
 }
 
 
