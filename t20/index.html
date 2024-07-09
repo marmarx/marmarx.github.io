@@ -805,7 +805,7 @@ function power_info(e){
   powers_viz[i][3] = 1;
   e.classList.toggle('more_info');
   e = e.children[0].children[1];
-  var content = powers[i][6];
+  var content = '<p class="nowrap">'+powers[i][6]+'</p>';
   content += '</div></div><button class="spell_add" onclick="add_power(this)">Adicionar poder</div><button class="delete spell_delete" onclick="remove_power(this)">Remover poder</div>';
   e.innerHTML = content;
  }
