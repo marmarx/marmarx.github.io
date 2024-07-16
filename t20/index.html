@@ -784,9 +784,10 @@ function list_powers(e,i){
  div.setAttribute('class','power w10 h70');
  div.setAttribute('onclick','power_info(this)');
  div.setAttribute('index',i);
+ var p = powers[i][2]?' · '+powers[i][2]:'';
  var q = powers[i][4]?' · '+powers[i][4]:'';
- var p = powers[i][5]==1?'<div class="magic">'+magic+'</div>':'';
- var content = '<div class="spell_details"><div class="w10 dif"><div class="w9"><p class="item_title">'+powers[i][0]+'</p>'+p+'<p class="item_subtitle">'+powers[i][1]+' · '+powers[i][2]+q+'</p></div><div class="item_action w1 ma">';
+ var m = powers[i][5]==1?'<div class="magic">'+magic+'</div>':'';
+ var content = '<div class="spell_details"><div class="w10 dif"><div class="w9"><p class="item_title">'+powers[i][0]+'</p>'+m+'<p class="item_subtitle">'+powers[i][1]+p+q+'</p></div><div class="item_action w1 ma">';
  if(spell_action.includes(powers[i][3])){content += '<div class="ac_'+powers[i][3]+'"></div>'}
  content += '</div></div><div class="item_subtitle w10 ms"></div></div>';
  div.innerHTML = content;
@@ -805,7 +806,8 @@ function power_info(e){
   powers_viz[i][3] = 1;
   e.classList.toggle('more_info');
   e = e.children[0].children[1];
-  var content = '<p class="nowrap">'+powers[i][6]+'</p>';
+  var content = '<p class="nowrap">'+powers[i][7]+'</p>';
+  content += '<p class="nowrap"><i>Publicação:</i> '+powers[i][6]+'</p>';
   content += '</div></div><button class="spell_add" onclick="add_power(this)">Adicionar poder</div><button class="delete spell_delete" onclick="remove_power(this)">Remover poder</div>';
   e.innerHTML = content;
  }
