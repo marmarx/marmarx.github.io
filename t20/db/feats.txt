@@ -1,5 +1,5 @@
 const power_type = ['power_type','Raça','Classe','Origem','Geral'];
-const power_cat = ['power_cat','Arcanista','Bárbaro','Bardo','Bucaneiro','Caçador','Cavaleiro','Clérigo','Druida','Guerreiro','Inventor','Ladino','Lutador','Nobre','Paladino','Poderes Concedidos','Poderes da Tormenta','Poderes de Combate','Poderes de Destino','Poderes de Magia','Aggelus','Anão','Dahllan','Elfo','Goblin','Golem','Humano','Hynne','Kliren','Lefou','Medusa','Minotauro','Osteon','Qareen','Sereia/Tritão','Sílfide','Sulfure','Trog'];
+const power_cat = ['power_cat','Arcanista','Bárbaro','Bardo','Bucaneiro','Caçador','Cavaleiro','Clérigo','Druida','Guerreiro','Inventor','Ladino','Lutador','Nobre','Paladino','Teurgista da Fonte Abençoada','Miragem','Místico','Samurai','Poderes Concedidos','Poderes da Tormenta','Poderes de Combate','Poderes de Destino','Poderes de Magia','Anão','Dahllan','Elfo','Goblin','Golem','Humano','Hynne','Kliren','Lefou','Medusa','Minotauro','Osteon','Qareen','Sereia/Tritão','Sílfide','Suraggel: Aggelus','Suraggel: Sulfure','Trog','Meio-Orc','Orc','Tabrachi','Ogro','Bugbear','Hobgoblin','Centauro','Gnoll','Kallyanach','Kaijin','Kappa','Mashin','Nezumi','Tengu','Minauro','Kobolts','Harpia','Ceratops','Pteros','Velocis','Voracis','Yidishan','Moreau','Elfo-do-Mar','Nagah','Finntroll'];
 const power_inputs = [power_type,power_cat];
 
 const powers = [
