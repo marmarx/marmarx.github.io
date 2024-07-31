@@ -6,7 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#2f4550">
 <meta http-equiv=”Content-Type” content=”text/html; charset=utf-8″>
-<link rel="icon" type="image/png" href="src/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -182,14 +181,17 @@ hr{display:none}
 </div></div>
 
 <script>
-const elements = document.querySelectorAll('.ani-scroll');
-const startAnimation = (entries,observer) => {
+const options = {root:null,rootMargin:'0px',threshold:0.5};
+const callback = (entries) => {
  entries.forEach(entry => {
-  entry.target.classList.add("ani-width"); //entry.isIntersecting
-  //elements.splice(elements.indexOf(entry.target),1) //remove this row to repeat animation
+  if(entry.isIntersecting){
+   entry.target.classList.add("ani-width"); //entry.isIntersecting
+   //elements.splice(elements.indexOf(entry.target),1) //remove this row to repeat animation
+  }
  });
 };
-const observer = new IntersectionObserver(startAnimation);
-elements.forEach(el => {observer.observe(el)});
+let observer = new IntersectionObserver(callback,options);
+document.querySelectorAll('.ani-scroll')
+.forEach(el => {observer.observe(el)});
 </script>
 </html>
