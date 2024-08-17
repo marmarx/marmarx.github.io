@@ -222,7 +222,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
     <div class="input"><select id="raça" onchange="data_add(this)" required></select><label>Raça</label></div>
     <div class="input"><select id="origem" onchange="data_add(this)" required></select><label>Origem</label></div>
     <div class="input"><select id="tamanho" onchange="data_add(this)" required></select><label>Tamanho</label></div>
-    <div class="input m0"><div id="deslocamento" class="fakeinput drop" onclick="show_list(this)" inner="1"></div><label>Deslocamento</label><div class="dropdown dn"></div></div>
+    <div class="input m0"><div id="deslocamento" class="fakeinput drop" onclick="show_list(this)" str="1"></div><label>Deslocamento</label><div class="dropdown dn"></div></div>
    </div>
    <div class="half">
     <div class="row dif">
@@ -1260,13 +1260,13 @@ function config(){
   var l = document.getElementsByClassName('slash');for (let i of l){i.classList.remove('invert')}
  }
  if(data.c_marker){
-  document.getElementById('spbar').classList.add('dn');
-  document.getElementById('epbar').classList.add('dn');
-  document.getElementById('xpbar').classList.add('dn')
- }else{
   document.getElementById('spbar').classList.remove('dn');
   document.getElementById('epbar').classList.remove('dn');
-  document.getElementById('xpbar').classList.remove('dn')
+  document.getElementById('xpbar').classList.remove('dn');
+ }else{
+  document.getElementById('spbar').classList.add('dn');
+  document.getElementById('epbar').classList.add('dn');
+  document.getElementById('xpbar').classList.add('dn');
  }
 
  if(data.c_combat){
@@ -1355,6 +1355,7 @@ function set_check(e,array){
 
  var c = e.parentNode.parentNode.parentNode.parentNode.parentNode.id;
  if(e.getAttribute('inner')){data_inner(e)}
+ if(e.getAttribute('str')){data_str(e)}
  else if(c=="backdrop_power"){filter_powers_other(e)}
  else if(c=="backdrop_spell"){filter_spell_other(e)}
 }
@@ -1478,6 +1479,7 @@ function data_add(e){data[e.id]=e.value}
 function data_array(e){data[e.id]=e.value}
 function data_check(e){data[e.id]=e.checked;loaded=0}
 function data_inner(e){var value = e.innerHTML.replace('+','');data[e.id]=JSON.parse(value)}
+function data_str(e){data[e.id]=e.innerHTML}
 
 
 function data_set(){
@@ -1497,6 +1499,7 @@ function data_set(){
    var e=document.getElementById(key);
    if(e.getAttribute('sign')){e.innerHTML=add_plus_sign(data[key])}
    else if(e.getAttribute('inner')){e.innerHTML=data[key]}
+   else if(e.getAttribute('str')){e.innerHTML=data[key]}
    else if(e.type=='checkbox'){e.checked=data[key]}
    else{e.value=data[key]}
   }
@@ -1528,6 +1531,7 @@ function data_load(){
   if(!data.crafts){data.crafts=crafts}
   if(!data.defense){data.defense=data_ini.defense}
   loaded=1;
+  console.log('here');
  }
 }
 
