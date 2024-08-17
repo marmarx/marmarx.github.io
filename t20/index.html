@@ -231,7 +231,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
      <div class="w3 input"><select id="nível" class="tc" onchange="data_add(this);calc()" required></select><label class="tac">Nível</label></div>
     </div>
     <div class="input mt0"><input id="distincao" onchange="data_add(this)" required><label>Distinção de classe</label></div>
-    <div class="input mt0"><div id="divindade" class="fakeinput drop" onclick="show_list(this)" inner="1"></div><label>Divindade</label><div class="dropdown dn"></div></div>
+    <div class="input mt0"><div id="divindade" class="fakeinput drop" onclick="show_list(this)" str="1"></div><label>Divindade</label><div class="dropdown dn"></div></div>
     <div class="input"><input id="xp" type="number" onchange="data_add(this)" required><label>Experiência</label></div>
    </div>
   </div></div>
@@ -1531,7 +1531,6 @@ function data_load(){
   if(!data.crafts){data.crafts=crafts}
   if(!data.defense){data.defense=data_ini.defense}
   loaded=1;
-  console.log('here');
  }
 }
 
