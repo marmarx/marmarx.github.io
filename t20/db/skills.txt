@@ -9,7 +9,7 @@ const skills = [
 ['Cura',5,0,0,0,0,0],
 ['Diplomacia',6,0,0,0,0,0],
 ['Enganação',6,0,0,0,0,0],
-['Fotitude',3,0,0,0,0,0],
+['Fortitude',3,0,0,0,0,0],
 ['Furtividade',2,0,0,0,0,1],
 ['Guerra',4,0,1,0,0,0],
 ['Iniciativa',2,0,0,0,0,0],
