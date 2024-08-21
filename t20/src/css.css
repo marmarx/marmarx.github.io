@@ -8,7 +8,7 @@ p{}
 .ac_reação{width:14px;height:14px;border:2px solid;border-right-color:transparent;border-radius:100px;transform:rotate(135deg)}.ac_reação:before{content:"";position:absolute;width:6px;height:6px;border-top:2px solid;border-right:2px solid;top:-3px;right:-1px;transform:rotate(68deg)}.ac_reação,.ac_reação:before{color:#b3b2b2}
 .trash{color:#424141;margin:auto;width:10px;height:12px;border:2px solid transparent;box-shadow:0 0 0 2px,inset -2px 0 0,inset 2px 0 0;border-bottom-left-radius:1px;border-bottom-right-radius:1px}
 .trash::after,.trash::before{content:"";position:absolute;color:currentColor}
-.trash::after{background:currentColor;border-radius:3px;width:16px;height:2px;margin:-4px 0 0 -5px}
+.trash::after{background:currentColor;border-radius:3px;width:20px;height:2px;margin:-4px 0 0 -7px}
 .trash::before{width:10px;height:4px;border:2px solid;border-bottom:transparent;border-top-left-radius:2px;border-top-right-radius:2px;margin:-8px 0 0 -2px}
 .checkmark,.checkmarked{text-indent:10px;height:46px;color:var(--black)!important}
 .checkmark::before,.checkmarked::before,.checkmarked::after{content:"";display:block}
