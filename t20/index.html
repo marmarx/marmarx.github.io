@@ -31,7 +31,7 @@ div[onclick]{cursor:pointer}
 input[type="number"],input[type="number"]::-webkit-outer-spin-button,input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none;-moz-appearance:textfield}
 
 .row{display:grid;position:relative;width:100%}
-.container{margin:auto;width:85%;display:inline-flex;max-width:600px}
+.container{margin:auto;width:90%;display:inline-flex;max-width:600px}
 .half,.third{float:left;width:100%}
 
 table{margin:auto;width:80%}
@@ -39,7 +39,7 @@ td,th{text-align:center;padding:5px}
 tr:nth-child(even){background-color:rgba(0,0,0,.1)}
 
 .divider{width:70%;max-width:500px;height:2px;margin:2.5em auto;background:rgba(32,32,32,.2)}
-.t20box{margin:15px auto;border:30px solid transparent;padding:0 40px;background-color:var(--menu);color:var(--t20white);background-clip:padding-box;border-image:var(--backborder);max-width:600px}
+.t20box{margin:15px auto;border:30px solid transparent;padding:0 10px;background-color:var(--menu);color:var(--t20white);background-clip:padding-box;border-image:var(--backborder);max-width:600px}
 
 h1,h2{text-align:center;margin:0 0 .6em;letter-spacing:4px;font-family:'tormenta20';color:var(--menu);font-size:3em;font-weight:500;filter:var(--bright)}
 h1{font-size:2.6em}h2{font-size:1.8em}
@@ -48,7 +48,7 @@ ul{margin:2em}b,.bold{font-weight:bold}i,.italic{font-style:italic}
 .t20box *{font-weight:var(--t20weight)!important}.t20box h2{color:var(--yellow);font-weight:400!important}
 
 #sections{width:var(--menulen);position:relative;display:flex}
-.sec{width:100%;max-width:100%;min-height:100%;float:left;padding:35px 25px 125px 25px}
+.sec{width:100%;max-width:100%;min-height:100%;float:left;padding:35px 15px 125px 15px}
 
 #dice_roller,#drawer{border-top-left-radius:25px;border-top-right-radius:25px}
 #dice_roller{position:fixed;width:100%;height:105px;background:var(--diceroller);bottom:0}
@@ -167,7 +167,7 @@ a:hover{background-color:#1e90ff;color:var(--white)}
 .attack_info input,.attack_info select{color:var(--black);background:#ffffffe8}.attack_info .w10{margin:5px 0}
 .attack_info:before{border-color:transparent transparent rgba(0,0,0,.5) transparent}
 
-.skills.attack_info{width:50%;margin:0 auto 35px}.skills.attack_info:before{left:65px}
+.skills.attack_info{width:90%;margin:0 auto 35px}.skills.attack_info:before{left:65px}
 
 .checkbox{position:relative;margin:auto;width:25px;height:25px;border:2px solid #dbdbdb;border-radius:4px}
 .markedbox:after{width:8px;height:13px;border:1px solid var(--menu);border-width:0 2px 2px 0;transform-origin:bottom left;transform:rotate(45deg);position:absolute;top:-3px;left:3px;content:"";display:block}
@@ -203,6 +203,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 @media (min-width:991px){
 .half{width:39.99999%;margin:0 5%}
 .third{width:33.33333%}
+.container{width:85%}
 .overlay{max-width:800px;left:50%;margin-left:-400px;height:calc(100% - 200px)}
 .m0{margin:18px 0}
 #sections{width:calc(var(--menulen)/2)} /* 450%*/
