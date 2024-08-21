@@ -32,7 +32,8 @@ input[type="number"],input[type="number"]::-webkit-outer-spin-button,input[type=
 
 .row{display:grid;position:relative;width:100%}
 .container{margin:auto;width:90%;display:inline-flex;max-width:600px}
-.half,.third{float:left;width:100%}
+.half,.third{float:left}.half{width:100%}.third{width:33.3333%}
+.third .trash:before,.third .trash:after{transform:translateX(-2.8px)}
 
 table{margin:auto;width:80%}
 td,th{text-align:center;padding:5px}
@@ -99,7 +100,7 @@ nav{position:fixed;left:0;bottom:0;height:70px;width:100%;background:var(--white
 
 .input{position:relative;width:100%;margin:18px 0;color:var(--black)}
 .fakeinput,input,select,textarea{border:1px solid #b0b0b0;border-radius:5px;font-size:1.1em;line-height:1.2em;-webkit-appearance:none;padding:1.6em 1.3em .5em;background:var(--transwhite);color:currentColor}
-.fakeinput,input,select,label,textarea{width:100%}textarea{min-height:500px;line-height:1,3em;font-size:1em;padding:1.2em 1em}
+.fakeinput,input,select,label,textarea{width:100%}textarea{min-height:500px;line-height:1.3em;font-size:1em;padding:1.2em 1em}
 label{position:absolute;left:0;top:0;pointer-events:none;color:#717171;padding:1.3em 1.6em}
 input:focus ~ label,input:not(:focus):valid ~ label,select:focus ~ label,select:not(:focus):valid ~ label,.fakeinput:focus ~ label,.fakeinput:not(:empty) ~ label{font-size:.7em;padding:.4em 2.1em;margin:.3em 0;left:2px}
 .select{padding:.8em;margin:0}
@@ -113,10 +114,11 @@ input[type=color]{padding:0;width:60px;height:37px;margin:9px 0}
 .hab,#spell_hab{padding:1em .8em}
 input,select,.fakeinput{min-width:70px}
 
-button,label[for="file"]{padding:14px 26px;text-align:center;text-decoration:none;display:inline-block;font-size:100%;margin:10px 0;cursor:pointer;border-radius:5px; width:100%;background:transparent;border:2px solid var(--black);color:var(--black);font-weight:600}
-button:hover,button:focus,label[for="file"]:hover,label[for="file"]:focus{background:var(--black);color:#e8e8e8}
+.fakebtn,button,label[for="file"]{padding:14px 26px;text-align:center;text-decoration:none;display:inline-block;font-size:100%;margin:10px 0;cursor:pointer;border-radius:5px; width:100%;background:transparent;border:2px solid var(--black);color:var(--black);font-weight:600}
+.fakebtn:hover,button:hover,button:focus,label[for="file"]:hover,label[for="file"]:focus{background:var(--black);color:#e8e8e8}
 .delete{border:2px solid var(--menu);color:var(--menu);filter:var(--bright)}.delete:hover{background:var(--menu);color:var(--white);filter:var(--bright)}
 button:disabled,button:hover:disabled{border:2px solid #b0b0b0;color:#b0b0b0;background:var(--transwhite);cursor:no-drop}
+.fakebtn{padding:0}
 
 a{color:currentColor;padding:12px 30px;text-decoration:none;display:block}
 a:hover{background-color:#1e90ff;color:var(--white)}
@@ -161,11 +163,15 @@ a:hover{background-color:#1e90ff;color:var(--white)}
 #char_attack input,#char_ac input{font-size:1em}
 #char_ac label{margin:.3em 0;padding:0;width:100%;text-align:center;left:0}
 
-.attack{margin:1em auto}
+.attack,.equip{margin:1em auto}
 .attack .dice,.skills .dice{margin-right:0}.attack .trash{color:var(--white)}.attack .dice{width:30%}
 .attack_info{background:rgba(0,0,0,.5);margin:10px auto 0;padding:20px 25px;position:relative;color:var(--white)}
-.attack_info input,.attack_info select{color:var(--black);background:#ffffffe8}.attack_info .w10{margin:5px 0}
+.attack_info input,.attack_info select,.attack_info textarea{color:var(--black);background:#ffffffe8}.attack_info .w10{margin:5px 0}.attack_info textarea{min-height:unset}
 .attack_info:before{border-color:transparent transparent rgba(0,0,0,.5) transparent}
+
+.equip_btns{margin:auto;margin-left:2em;max-height:40px;max-width:120px;padding-top:5px}.equip_btns > div{max-width:40px}
+.equip_btn{padding:0;min-width:33.3333%;width:33.3333%}
+.equip_btn:hover .trash,.equip_btn:hover .trash:before,.equip_btn:hover .trash:after{color:var(--white)}
 
 .skills.attack_info{width:90%;margin:0 auto 35px}.skills.attack_info:before{left:65px}
 
@@ -182,7 +188,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 
 .w10,.w9,.w8,.w7,.w6,.w5,.w4,.w3,.w2,.w1{display:block;float:left}.mw400{max-width:400px}
 .w10{width:100%}.w9{width:90%}.w8{width:80%}.w7{width:70%}.w6{width:60%}.w5{width:50%}.w4{width:40%}.w3{width:30%}.w2{width:20%}.w1{width:10%}
-.pr{position:relative}.z1{z-index:1}
+.pr{position:relative}.z1{z-index:1}.mwu{min-width:unset}
 .dif{display:inline-flex}.db{display:block}.df{display:flex}
 .ma{margin:auto}.m0{margin:0}.m0a{margin:0 auto}.ma0{margin:auto 0}.ms{margin-top:.4em!important}.mt0{margin-top:0}.ml{margin-left:2em}.m3e{margin:.1em .3em}
 .ha{height:auto}.tal{text-align:left}.tc,.tac{text-align:center!important}.tac{padding-left:0!important;padding-right:0!important}
@@ -205,7 +211,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 .third{width:33.33333%}
 .container{width:85%}
 .overlay{max-width:800px;left:50%;margin-left:-400px;height:calc(100% - 200px)}
-.m0{margin:18px 0}
+/* .m0{margin:18px 0} */
 #sections{width:calc(var(--menulen)/2)} /* 450%*/
 #dice_roller{width:60%;margin:0 20%}
 #keyboard{background:#403f3fdb}
@@ -403,8 +409,10 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 
  <div id="sec_equip" class="sec">
   <h1>Equipamentos</h1>
-  <div class="row"><div class="container db">
-   <textarea id="equip" onchange="data_add(this)"></textarea>
+  <div class="row"><div id="char_equip" class="container db">
+  </div></div>
+  <div class="row"><div class="container">
+   <button onclick="equip_add(1,'','','','','')">Adicionar equipamento</button>
   </div></div>
  </div>
 
@@ -528,7 +536,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 
 <script>
 const load = 1;var title = '';var chars = [];var loaded = 0;
-const data_ini = {'c_color':'#b72a2b','c_keyboard':0,'c_marker':0,'c_fullscreen':0,'c_nocturnal':0,'c_vibrate':0,'magias':[],'powers':[],'conditions':{'def':0,'attack':0,'dmg':0},'skills':skills,'crafts':crafts,'nível':0,'hab_for_val':10,'hab_for':0,'hab_des_val':10,'hab_des':0,'hab_con_val':10,'hab_con':0,'hab_int_val':10,'hab_int':0,'hab_sab_val':10,'hab_sab':0,'hab_car_val':10,'hab_car':0,'spell_hab':1,'defense':{'def_hab':2,'armor_bonus':0,'shield_bonus':0,'armor_penal':0,'shield_penal':0,'def_out':0},'attack':[]}
+const data_ini = {'c_color':'#b72a2b','c_keyboard':0,'c_marker':0,'c_fullscreen':0,'c_nocturnal':0,'c_vibrate':0,'magias':[],'powers':[],'conditions':{'def':0,'attack':0,'dmg':0},'skills':skills,'crafts':crafts,'nível':0,'hab_for_val':10,'hab_for':0,'hab_des_val':10,'hab_des':0,'hab_con_val':10,'hab_con':0,'hab_int_val':10,'hab_int':0,'hab_sab_val':10,'hab_sab':0,'hab_car_val':10,'hab_car':0,'spell_hab':1,'defense':{'def_hab':2,'armor_bonus':0,'shield_bonus':0,'armor_penal':0,'shield_penal':0,'def_out':0},'attack':[],'equip':[]}
 var data = data_ini;
 
 
@@ -1127,6 +1135,96 @@ function cond_info(e,i){
  e.innerHTML = data.conditions[i]?conditions[i][2]:'';
 }
 
+//-------------------------EQUIP FUNCTIONS------------------------//
+
+var peso = '<option disabled selected>Espaço por unidade</option>';
+for(var i=1;i<peso_item.length;i++){peso += '<option value="'+i+'">'+peso_item[i]+'</option>'}
+
+var tipo = '<option disabled selected>Tipo de item</option>';
+for(var i=1;i<tipo_item.length;i++){tipo += '<option value="'+i+'">'+tipo_item[i]+'</option>'}
+
+var carga = 0;
+var carga_cap = 0;
+function calc_peso(qte,weight,x){
+ let peso = 0;
+ if(weight==2){peso=1/8}
+ else if(weight==3){peso=1/4}
+ else if(weight==4){peso=1/2}
+ else{peso = peso_item[weight]}
+ var result = 'Espaços totais ocupados';
+ if(!isNaN(qte*peso)){result = qte*peso+' espaço'+(qte*peso>1?'s':'');data.equip[x][6]=qte*peso}
+ return result;
+}
+
+function equip_calc(){
+ carga = 0;
+ var equips = document.getElementsByClassName('equip');
+ for(var i=0;i<data.equip.length;i++){
+  console.log(equips.length);
+  e = equips[i].children[0];
+  e.children[0].children[0].innerHTML = data.equip[i][1]?data.equip[i][1]:'Nome do item';
+  e.children[0].children[1].innerHTML = (data.equip[i][2]?tipo_item[data.equip[i][2]]:'Tipo de item')+' • '+(data.equip[i][3]?data.equip[i][3]:'Valor do item')+' • '+calc_peso(data.equip[i][0],data.equip[i][4],i);
+  carga += isNaN(data.equip[i][6])?0:data.equip[i][6];
+ }
+}
+
+function equip_data(e,i){
+ var el = e.parentNode.parentNode.parentNode.parentNode;
+ var equips = document.getElementsByClassName('equip');
+ var x = Array.prototype.indexOf.call(equips,el);
+ data.equip[x][i]=(e.value==''?'':(!isNaN(e.value)?JSON.parse(e.value):e.value));
+ equip_calc();
+}
+
+function qte_change(e,v,k){
+ var el = e.parentNode.children[2].children[0];
+ console.log(el.value);
+ v += ((el.value==''||el.value==null)?0:JSON.parse(el.value));
+ if(v==0&&k){e.classList.add('dn');e.parentNode.children[0].classList.remove('dn')}
+ else{e.parentNode.children[1].classList.remove('dn');e.parentNode.children[0].classList.add('dn')}
+ el.value = v;
+}
+
+function equip_remov(e){
+ e = e.parentNode.parentNode.parentNode;
+ var equips = document.getElementsByClassName('equip');
+ var x = Array.prototype.indexOf.call(equips,e);
+ e.remove();
+ data.equip.splice(x,1);
+}
+
+function regexqte(e){e.value=/(\d)*$/.test(e.value)?e.value:e.value.slice(0,-1)}
+function equip_add(qte,title,type,cost,weight,desc){
+ var div = document.createElement('div');
+ div.setAttribute('class','w10 equip');
+
+ var content = '<div class="w10 dif">';
+ content += '<div class="w7 ma" onclick="attack_info(this)"><p class="item_title">Nome do item</p><p class="item_subtitle">Tipo de item • Valor do item • Espaços totais ocupados</p></div>';
+ content += '<div class="w3 equip_btns dif"><div class="third fakebtn equip_btn df m0 dn" onclick="equip_remov(this)"><div class="trash" style="transform:translateY(2px)"></div></div><button class="third equip_btn m0" onclick="qte_change(this,-1,1)">-</button><div class="third equip_btn df"><input class="skill_input mwu tc" type="number" placeholder="Un." value="'+qte+'" autocomplete="off" onkeyup="regexqte(this)" onchange="equip_data(this,0)"></div><button class="third equip_btn m0" onclick="qte_change(this,1,0)">+</button></div>';
+ content += '</div><div class="w10 attack_info def_hide">';
+ content += '<div><div class="w10 dif"><input class="skill_input m3e" type="text" placeholder="Nome do item" value="'+title+'" autocomplete="off" onchange="equip_data(this,1)"></div></div>';
+ content += '<div class="w10 dif">';
+ content += '<div class="third m3e"><select class="skill_input" autocomplete="off" onchange="equip_data(this,2)">'+tipo+'</select></div>';
+ content += '<div class="third m3e"><input class="skill_input" type="text" placeholder="Valor do item" value="'+cost+'" autocomplete="off" onchange="equip_data(this,3)"></div>';
+ content += '<div class="third m3e"><select class="skill_input" autocomplete="off" onchange="equip_data(this,4)">'+peso+'</select></div>';
+ content += '</div><div><div class="w10 dif"><textarea class="skill_input m3e" type="text" placeholder="Descrição e detalhes" autocomplete="off" onchange="equip_data(this,5)">'+desc+'</textarea></div></div>';
+ content += '</div>';
+
+ div.innerHTML = content;
+ document.getElementById('char_equip').appendChild(div);
+ if(title==''){data.equip.push([qte,,,,,,])}
+ else{
+  div.children[1].children[1].children[0].children[0].value=type;
+  div.children[1].children[1].children[2].children[0].value=weight
+ }
+}
+
+function equip_kit(){
+ equip_add();
+ console.log('here');
+}
+
+
 //-------------------------CALCULATION FUNCTIONS------------------------//
 
 function add_plus_sign(v){v=v<0?v:'+'+v;return v}
@@ -1653,7 +1751,7 @@ function data_set(){
    for (let i in data.defense){document.getElementById(i).value=data.defense[i]}
   }else if(key=='skills'||key=='crafts'){ //do nothing
   }else if(key=='attack'){attack_set()
-  }else if(key=='equip'){document.getElementById('equip').value=data.equip;
+  }else if(key=='equip'){for(var i=0;i<data.equip.length;i++){equip_add(data.equip[i][0],data.equip[i][1],data.equip[i][2],data.equip[i][3],data.equip[i][4],data.equip[i][5])}equip_calc()
   }else{
    var e=document.getElementById(key);
    if(e.getAttribute('sign')){e.innerHTML=add_plus_sign(data[key])}
@@ -1689,6 +1787,8 @@ function data_load(){
   if(!data.skills){data.skills=skills}
   if(!data.crafts){data.crafts=crafts}
   if(!data.defense){data.defense=data_ini.defense}
+  if(!data.attack){data.attack=data_ini.attack}
+  if(!data.equip){data.equip=data_ini.equip}
   loaded=1;
  }
 }
@@ -1702,6 +1802,8 @@ function clear(){
  for (var i=0;i<fakeinput.length;i++){fakeinput[i].innerHTML=''}
  document.getElementById('char_spells').innerHTML = '';
  document.getElementById('char_powers').innerHTML = '';
+ document.getElementById('char_attack').innerHTML = '';
+ document.getElementById('char_equip').innerHTML = '';
  title='';
  data = data_ini;
 }
@@ -1748,7 +1850,7 @@ function export_char(){
 }
 
 function reset(){localStorage.clear();chars=[];data={};title='';location.reload()}
-navig(allmenubtn[menubtn[1]]);
+navig(allmenubtn[menubtn[6]]);
 //alert('Comece criando ou carregando um personagem digitando um nome de personagem, quaisquer edições feitas antes disso serão perdidas.');
 </script>
 </html>
