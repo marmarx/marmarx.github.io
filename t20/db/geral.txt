@@ -13,7 +13,8 @@ const inputs = [raca,origem,classe,nivel,tamanho,habs];
 const rd = ['Ácido', 'Eletricidade', 'Fogo', 'Frio', 'Luz', 'Trevas', 'Mágico'];
 const alcance = ['Adjacente','Curto','Médio','Longo'];
 const tipo_dano = ['Corte','Impacto','Perfuração'];
-const tipo_item = ['Geral','Alquimia','Alimentação','Animais','Esotéricos','Ferramentas','Mágico','Pergaminhos','Poções','Veículos','Vestuário','Arma Simples','Arma Macial','Arma Exótica','Arma de Fogo','Armadura Leve','Armadura Pesada','Escudo','Outro']
+const tipo_item = ['Tipo de item','Equip. de Aventura','Arma Simples','Arma Macial','Arma Exótica','Arma de Fogo','Armadura Leve','Armadura Pesada','Escudo','Alquimia','Alimentação','Animais','Esotéricos','Ferramentas','Mágico','Pergaminhos','Poções','Veículos','Vestuário','Outro'];
+const peso_item = ['Espaço por unidade',0,'⅛','¼','½',1,2,3,4,5,6,7,8,9,10];
 
 const deslocamento = ['deslocamento',
 'terrestre (3m, 2q)','terrestre (6m, 4q)','terrestre (9m, 6q)','terrestre (12m, 8q)','terrestre (15m, 10q)','terrestre (18m, 12q)','terrestre (30m, 20q)',
