@@ -163,7 +163,8 @@ a:hover{background-color:#1e90ff;color:var(--white)}
 .def_input{text-align:center;padding:1.6em .8em .5em;font-size:1em}
 #char_attack input,#char_ac input{font-size:1em}
 #char_ac label{margin:.3em 0;padding:0;width:100%;text-align:center;left:0}
-.def_half,.def_quarter{float:left;padding:0 5px}.def_half{width:100%}.def_quarter{width:49.9999%}
+.def_half,.def_quarter{float:left;padding:5px}.def_half{width:100%}.def_quarter{width:49.9999%}
+.def_half label,.def_quarter label{top:5px}
 .def_info .w10{margin:1% 0}
 
 .attack,.equip{margin:1em auto}
@@ -219,7 +220,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 #dice_roller{width:60%;margin:0 20%}
 #keyboard{background:#403f3fdb}
 }
-@media (min-width:520px){.def_half{width:49.9999%}.def_quarter{width:24.9999%}}
+@media (min-width:520px){.def_half,.def_quarter{padding:0 5px}.def_half{width:49.9999%}.def_quarter{width:24.9999%}.def_half label,.def_quarter label{top:0}}
 </style>
 </head>
 
