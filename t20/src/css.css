@@ -22,4 +22,5 @@ p{}
 .close::after,.close::before{content:"";display:block;position:absolute;width:12px;height:2px;background:currentColor;transform:rotate(45deg);border-radius:5px;top:8px;left:3px}
 .close::after{transform:rotate(-45deg)}
 textarea{field-sizing:content}
+select option{color:var(--black)!important}select:invalid{color:#6c6c6c!important}
 </style>

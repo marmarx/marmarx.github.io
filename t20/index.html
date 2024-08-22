@@ -3,7 +3,7 @@
 <head>
 <title>Ficha T20 Mobile - v1.0</title>
 <meta name="author" content="Marco Martins">
-<meta name="viewport" content="width=device-width, initial-scale=0.9">
+<meta name="viewport" content="width=device-width, initial-scale=0.95">
 <meta name="theme-color" content="#b72a2b">
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 <link rel="icon" type="image/png" href="src/favicon.png">
@@ -161,7 +161,7 @@ a:hover{background-color:#1e90ff;color:var(--white)}
 .def_info:before,.attack_info:before{top:-16px;left:25px;border-width:8px;border-style:solid;border-color:transparent transparent rgba(0,0,0,.3) transparent;content:"";position:absolute}
 .def_hide{margin:0 auto!important;max-height:0;opacity:0;visibility:hidden;padding:0 10px!important}
 .def_input{text-align:center;padding:1.6em .8em .5em;font-size:1em}
-#char_attack input,#char_ac input{font-size:1em}
+#char_attack input,#char_ac input{font-size:1em}#char_attack .w6{max-width:140px}
 #char_ac label{margin:.3em 0;padding:0;width:100%;text-align:center;left:0}
 .def_half,.def_quarter{float:left;padding:5px}.def_half{width:100%}.def_quarter{width:49.9999%}
 .def_half label,.def_quarter label{top:5px}
@@ -176,6 +176,7 @@ a:hover{background-color:#1e90ff;color:var(--white)}
 .equip_btns{margin:auto;margin-left:2em;max-height:40px;max-width:120px;padding-top:5px}.equip_btns > div{max-width:40px}
 .equip_btn{padding:0;min-width:33.3333%;width:33.3333%}
 .equip_btn:hover .trash,.equip_btn:hover .trash:before,.equip_btn:hover .trash:after{color:var(--white)}
+.overloaded{color:#ef1313;font-weight:500!important}
 
 .skills.attack_info{width:90%;margin:0 auto 35px}.skills.attack_info:before{left:65px}
 
@@ -190,7 +191,7 @@ input:checked+.slider{background-color:var(--menu);filter:var(--bright)}
 input:focus+.slider{box-shadow:0 0 1px var(--menu);filter:var(--bright)}
 input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:translateX(26px);transform:translateX(26px)}
 
-.w10,.w9,.w8,.w7,.w6,.w5,.w4,.w3,.w2,.w1{display:block;float:left}.mw400{max-width:400px}
+.w10,.w9,.w8,.w7,.w6,.w5,.w4,.w3,.w2,.w1{display:block;float:left}.mw400{max-width:400px}.mw450{max-width:450px}
 .w10{width:100%}.w9{width:90%}.w8{width:80%}.w7{width:70%}.w6{width:60%}.w5{width:50%}.w4{width:40%}.w3{width:30%}.w2{width:20%}.w1{width:10%}
 .pr{position:relative}.z1{z-index:1}.mwu{min-width:40px}
 .dif{display:inline-flex}.db{display:block}.df{display:flex}
@@ -331,10 +332,10 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
  </div>
 
  <div id="sec_skills" class="sec">
-  <h1 style="margin-bottom:45px">Perícias</h1>
+  <h1 style="margin-bottom:.6em">Perícias</h1>
   <div class="row"><div id="char_skills" class="db"></div></div>
   <div class="row"><div class="container db"><p class="item_subtitle tac">*somente treinado&#9;‡penalidade de armadura</p></div></div>
-  <h1 style="margin:2em 0 45px">Ofícios</h1>
+  <h1 style="margin:2em 0 .6em">Ofícios</h1>
   <div class="row"><div id="char_crafts" class="db"></div></div>
   <div class="row"><div class="container db"><p class="item_subtitle tac">*somente treinado</p></div></div>
  </div>
@@ -414,11 +415,37 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 
  <div id="sec_equip" class="sec">
   <h1>Equipamentos</h1>
-  <div class="row"><div id="char_equip" class="container db">
-  </div></div>
+  <div class="row"><div id="char_equip" class="container db"></div></div>
   <div class="row"><div class="container">
-   <button onclick="equip_add(1,'','','','','')">Adicionar equipamento</button>
+   <button id="equip_add" onclick="equip_add(1,'','','','','')">Adicionar equipamento</button>
   </div></div>
+
+  <h1 style="margin:2em 0 .6em">Moedas</h1>
+  <div class="row"><div class="container dif">
+   <div class="w3 dif"><div class="w5 dif"><p class="item_title ma">TO</p></div><div class="w5 dif"><input id="to" class="skill_input mwu tc" type="number" placeholder="0" autocomplete="off" onchange="coins(this)"></div></div>
+   <div class="w3 dif"><div class="w5 dif"><p class="item_title ma">T$</p></div><div class="w5 dif"><input id="ts" class="skill_input mwu tc" type="number" placeholder="0" autocomplete="off" onchange="coins(this)"></div></div>
+   <div class="w3 dif"><div class="w5 dif"><p class="item_title ma">TC</p></div><div class="w5 dif"><input id="tc" class="skill_input mwu tc" type="number" placeholder="0" autocomplete="off" onchange="coins(this)"></div></div>
+  </div></div>
+  <div class="row"><div class="container dif">
+   <p class="item_subtitle ma ms tc">Cada mil moedas, independentemente do tipo, ocupam 1 espaço.</p>
+  </div></div>
+
+  <h1 style="margin:2em 0 .6em">Capacidade de Carga</h1>
+  <div class="row"><div class="container mw450 dif">
+   <div class="w5 dif">
+    <div class="w5 dif"><p class="item_title ma">Atual</p></div>
+    <div class="w3 dif"><p id="carga" class="item_title ma" style="font-weight:300">0</p></div>
+   </div>
+   <div class="w5 dif">
+    <div class="w5 dif"><p class="item_title ma">Máximo</p></div>
+    <div class="w3 dif"><input id="carga_cap" class="skill_input mwu tc" type="number" placeholder="10" autocomplete="off" onchange="coins(this)"></div>
+   </div>
+  </div></div>
+  <div class="row"><div class="container dif">
+   <p class="item_subtitle ma ms tc">Você pode carregar 10 espaços +2 por ponto de Força (ou -1 por ponto de Força negativo). Se ultrapassar esse limite, fica <i>sobrecarregado</i> (veja Condições). Você não pode carregar mais do que o dobro do seu limite.</p>
+  </div></div>
+
+
  </div>
 
  <div id="sec_notes" class="sec">
@@ -501,7 +528,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
   <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Poderes</div></div></div>
   <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Magias</div></div></div>
   <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Condições</div></div></div>
-  <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Equipamento</div></div></div>
+  <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Equipamentos</div></div></div>
   <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Anotações</div></div></div>
   <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Configurações</div></div></div>
  </div>
@@ -541,7 +568,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 
 <script>
 const load = 1;var title = '';var chars = [];var loaded = 0;
-const data_ini = {'c_color':'#b72a2b','c_keyboard':0,'c_marker':0,'c_fullscreen':0,'c_nocturnal':0,'c_vibrate':0,'magias':[],'powers':[],'conditions':{'def':0,'attack':0,'dmg':0},'skills':skills,'crafts':crafts,'nível':0,'hab_for_val':10,'hab_for':0,'hab_des_val':10,'hab_des':0,'hab_con_val':10,'hab_con':0,'hab_int_val':10,'hab_int':0,'hab_sab_val':10,'hab_sab':0,'hab_car_val':10,'hab_car':0,'spell_hab':1,'defense':{'def_hab':2,'armor_bonus':0,'shield_bonus':0,'armor_penal':0,'shield_penal':0,'def_out':0},'attack':[],'equip':[]}
+const data_ini = {'c_color':'#b72a2b','c_keyboard':0,'c_marker':0,'c_fullscreen':0,'c_nocturnal':0,'c_vibrate':0,'magias':[],'powers':[],'conditions':{'def':0,'attack':0,'dmg':0},'skills':skills,'crafts':crafts,'nível':0,'hab_for_val':10,'hab_for':0,'hab_des_val':10,'hab_des':0,'hab_con_val':10,'hab_con':0,'hab_int_val':10,'hab_int':0,'hab_sab_val':10,'hab_sab':0,'hab_car_val':10,'hab_car':0,'spell_hab':1,'defense':{'def_hab':2,'armor_bonus':0,'shield_bonus':0,'armor_penal':0,'shield_penal':0,'def_out':0},'attack':[],'equip':[],'carga':{'to':0,'ts':0,'tc':0,'carga':0,'carga_cap':10}}
 var data = data_ini;
 
 
@@ -697,6 +724,7 @@ function diceroll(str,crit){
  for(j=0;j<sum.length;j++){soma+=sum[j]}
  print = '<span class="bold">'+soma+'</span>'+print;
  if(ctp){print_out(print+' ⟵ Acerto crítico!')}else{print_out(print)} //added line for crit text marking
+ return soma;
  }
 }
 
@@ -1142,25 +1170,39 @@ function cond_info(e,i){
 
 //-------------------------EQUIP FUNCTIONS------------------------//
 
-var peso = '<option disabled selected>Espaço por unidade</option>';
+
+
+var peso = '<option value="" disabled selected>Espaço por unidade</option>';
 for(var i=1;i<peso_item.length;i++){
- var str = ((i>1&&i<5)?' de':'') + ' espaço' + (i>5?'s':'')
+ var str = i>1?((i<5?' de':'') + ' espaço' + (i>5?'s':'')):'';
  peso += '<option value="'+i+'">'+peso_item[i]+str+'</option>'
 }
 
-var tipo = '<option disabled selected>Tipo de item</option>';
+var tipo = '<option value="" disabled selected>Tipo de item</option>';
 for(var i=1;i<tipo_item.length;i++){tipo += '<option value="'+i+'">'+tipo_item[i]+'</option>'}
 
 var carga = 0;
-var carga_cap = 0;
-function calc_peso(qte,weight,x){
- let peso = 0;
- if(weight==2){peso=1/8}
- else if(weight==3){peso=1/4}
- else if(weight==4){peso=1/2}
- else{peso = peso_item[weight]}
+
+function coins(e){
+ data.carga[e.id]=JSON.parse(e.value);
+ equip_calc();
+}
+
+function calc_cap_carga(){
+ data.carga.carga_cap = 10 + (data.hab_for>0?2:1)*data.hab_for;
+ document.getElementById('carga_cap').value = data.carga.carga_cap;
+}
+
+function calc_peso(qte,w,x){
+ let p = peso_item[w];
+ if(w==1){p='Não ocupa espaço'}
+ if(w==2){p=1/8}
+ if(w==3){p=1/4}
+ if(w==4){p=1/2}
+ 
  var result = 'Espaços totais ocupados';
- if(!isNaN(qte*peso)){result = qte*peso+' espaço'+(qte*peso>1?'s':'');data.equip[x][6]=qte*peso}
+ if(!isNaN(qte*p)){result = qte*p+' espaço'+(qte*p>1?'s':'');data.equip[x][6]=qte*p}
+ else{result = p;data.equip[x][6]=0}
  return result;
 }
 
@@ -1173,13 +1215,24 @@ function equip_calc(){
   e.children[0].children[1].innerHTML = (data.equip[i][2]?tipo_item[data.equip[i][2]]:'Tipo de item')+' • '+(data.equip[i][3]?data.equip[i][3]:'Valor do item')+' • '+calc_peso(data.equip[i][0],data.equip[i][4],i);
   carga += isNaN(data.equip[i][6])?0:data.equip[i][6];
  }
+ carga += (data.carga.to + data.carga.ts + data.carga.tc)/1000;
+ data.carga.carga = carga;
+ document.getElementById('carga').innerHTML = carga;
+ document.getElementById('to').value = data.carga.to;
+ document.getElementById('ts').value = data.carga.ts;
+ document.getElementById('tc').value = data.carga.tc;
+
+ if(data.carga.carga>data.carga.carga_cap){document.getElementById('carga').classList.add('overloaded')}
+ else{document.getElementById('carga').classList.remove('overloaded')}
+
+ if(data.carga.carga>2*data.carga.carga_cap){document.getElementById('equip_add').disabled = true}
+ else{document.getElementById('equip_add').disabled = false}
 }
 
 function equip_data(e,i){
  var el = e.parentNode.parentNode.parentNode.parentNode;
  var equips = document.getElementsByClassName('equip');
  var x = Array.prototype.indexOf.call(equips,el);
- console.log('x = '+x+' / i = '+i);
  data.equip[x][i]=(e.value==''?'':(!isNaN(e.value)?JSON.parse(e.value):e.value));
  equip_calc();
 }
@@ -1216,12 +1269,15 @@ function equip_add(qte,title,type,cost,weight,desc){
  content += '<div class="w7 ma" onclick="attack_info(this)"><p class="item_title">Nome do item</p><p class="item_subtitle">Tipo de item • Valor do item • Espaços totais ocupados</p></div>';
  content += '<div class="w3 equip_btns dif"><div class="third fakebtn equip_btn df m0 dn" onclick="equip_remov(this)"><div class="trash" style="transform:translateY(2px)"></div></div><button class="third equip_btn m0" onclick="qte_change(this,-1,1)">-</button><div class="third equip_btn mwu df"><input class="skill_input mwu tc" type="number" placeholder="Un." value="'+qte+'" autocomplete="off" onkeyup="regexqte(this)" onchange="equip_data(this,0)"></div><button class="third equip_btn m0" onclick="qte_change(this,1,0)">+</button></div>';
  content += '</div><div class="w10 attack_info def_hide">';
- content += '<div><div class="w10 dif"><input class="skill_input m3e" type="text" placeholder="Nome do item" value="'+title+'" autocomplete="off" onchange="equip_data(this,1)"></div></div>';
  content += '<div class="w10 dif">';
- content += '<div class="third m3e"><select class="skill_input" autocomplete="off" onchange="equip_data(this,2)">'+tipo+'</select></div>';
- content += '<div class="third m3e"><input class="skill_input" type="text" placeholder="Valor do item" value="'+cost+'" autocomplete="off" onchange="equip_data(this,3)"></div>';
- content += '<div class="third m3e"><select class="skill_input" autocomplete="off" onchange="equip_data(this,4)">'+peso+'</select></div>';
- content += '</div><div><div class="w10 dif"><textarea class="skill_input m3e" type="text" placeholder="Descrição e detalhes" autocomplete="off" onchange="equip_data(this,5)">'+desc+'</textarea></div></div>';
+ content += '<div class="w7 ma df"><input class="skill_input m3e" type="text" placeholder="Nome do item" value="'+title+'" autocomplete="off" onchange="equip_data(this,1)"></div>';
+ content += '<div class="w3 ma df"><input class="skill_input m3e" type="text" placeholder="Valor do item" value="'+cost+'" autocomplete="off" onchange="equip_data(this,3)"></div>';
+ content += '</div>';
+ content += '<div class="w10 dif">';
+ content += '<div class="w5 ma df"><select class="skill_input m3e" autocomplete="off" onchange="equip_data(this,2)" required>'+tipo+'</select></div>';
+ content += '<div class="w5 ma df"><select class="skill_input m3e" autocomplete="off" onchange="equip_data(this,4)" required>'+peso+'</select></div>';
+ content += '</div>';
+ content += '<div><div class="w10 dif"><textarea class="skill_input m3e" type="text" placeholder="Descrição e detalhes" autocomplete="off" onchange="equip_data(this,5)">'+desc+'</textarea></div></div>';
  content += '</div>';
 
  div.innerHTML = content;
@@ -1229,7 +1285,7 @@ function equip_add(qte,title,type,cost,weight,desc){
  if(title==''){data.equip.push([qte,,,,,,])}
  else{
   div.children[1].children[1].children[0].children[0].value=type;
-  div.children[1].children[1].children[2].children[0].value=weight
+  div.children[1].children[1].children[1].children[0].value=weight
  }
 }
 
@@ -1240,7 +1296,6 @@ function equip_kit(){
   equip_calc()
  }
 }
-equip_kit();
 
 //-------------------------CALCULATION FUNCTIONS------------------------//
 
@@ -1257,7 +1312,7 @@ function calc_spell_res(){
  document.getElementById('spell_res').innerHTML = 10 + Math.floor(JSON.parse(data.nível)/2) + JSON.parse(data['hab_'+habs[data.spell_hab]]);
  data_inner(document.getElementById('spell_res'));
 }
-function calc(){def_calc();calc_skills('skills');calc_skills('crafts');calc_spell_res()}
+function calc(){def_calc();calc_skills('skills');calc_skills('crafts');calc_spell_res();equip_calc();calc_cap_carga()}
 
 
 //-------------------------POWERS FUNCTIONS------------------------//
@@ -1524,15 +1579,6 @@ function config(){
  const key2 = document.getElementById('keyboard2');
  const colorpicker = document.getElementById('c_color');
  data.c_keyboard?key.classList.add('keyext'):key.classList.remove('keyext');
- if(data.c_nocturnal){
-  e.classList.add('invert');colorpicker.classList.add('invert');key.classList.add('invert');key2.classList.add('invert');
-  var l = document.getElementsByClassName('hpbar');for (let i of l){i.classList.add('hpinvert')}
-  var l = document.getElementsByClassName('slash');for (let i of l){i.classList.add('invert')}
- }else{
-  e.classList.remove('invert');colorpicker.classList.remove('invert');key.classList.remove('invert');key2.classList.remove('invert');
-  var l = document.getElementsByClassName('hpbar');for (let i of l){i.classList.remove('hpinvert')}
-  var l = document.getElementsByClassName('slash');for (let i of l){i.classList.remove('invert')}
- }
  if(data.c_marker){
   document.getElementById('spbar').classList.remove('dn');
   document.getElementById('epbar').classList.remove('dn');
@@ -1563,9 +1609,19 @@ function config(){
   if(menubtn.indexOf(4)<0){menubtn.splice(menubtn.indexOf(5),0,4)}
  }
 
- menucolor(data.c_color);
+ if(data.c_nocturnal){
+  e.classList.add('invert');colorpicker.classList.add('invert');key.classList.add('invert');key2.classList.add('invert');
+  var l = document.getElementsByClassName('hpbar');for (let i of l){i.classList.add('hpinvert')}
+  var l = document.getElementsByClassName('slash');for (let i of l){i.classList.add('invert')}
+ }else{
+  e.classList.remove('invert');colorpicker.classList.remove('invert');key.classList.remove('invert');key2.classList.remove('invert');
+  var l = document.getElementsByClassName('hpbar');for (let i of l){i.classList.remove('hpinvert')}
+  var l = document.getElementsByClassName('slash');for (let i of l){i.classList.remove('invert')}
+ }
+
  fullscreen(e);
  if(loaded){navig(allmenubtn[0])}else{navig(allmenubtn[allmenubtn.length-1])}
+ menucolor(data.c_color);
 }
 
 //-------------------------NAVIGATION FUNCTIONS------------------------//
@@ -1656,6 +1712,9 @@ function char_create(e){
   document.getElementById('char').value=title;
   document.getElementById('chardel').disabled = false;
   document.title = title + ' - T20';
+  equip_kit();
+  print_out('Rolagem de moedas iniciais:');data.carga['ts']=diceroll('4d6');document.getElementById('ts').value=data.carga['ts'];
+  document.getElementById('c_color').value = '#b72a2b';
   console.log('Character '+title+' was created');
  }
 }
@@ -1806,6 +1865,7 @@ function data_load(){
   if(!data.defense){data.defense=data_ini.defense}
   if(!data.attack){data.attack=data_ini.attack}
   if(!data.equip){data.equip=data_ini.equip}
+   if(!data.carga){data.defense=data_ini.carga}
   loaded=1;
  }
 }
@@ -1821,6 +1881,11 @@ function clear(){
  document.getElementById('char_powers').innerHTML = '';
  document.getElementById('char_attack').innerHTML = '';
  document.getElementById('char_equip').innerHTML = '';
+ document.getElementById('carga').innerHTML = 0;
+ document.getElementById('carga_cap').value = 10;
+ document.getElementById('to').value = 0;
+ document.getElementById('ts').value = 0;
+ document.getElementById('tc').value = 0;
  title='';
  data = data_ini;
 }
@@ -1838,6 +1903,9 @@ function import_char(evt){
    if(!data.skills){data.skills=skills}
    if(!data.crafts){data.crafts=crafts}
    if(!data.defense){data.defense=data_ini.defense}
+   if(!data.attack){data.attack=data_ini.attack}
+   if(!data.equip){data.defense=data_ini.equip}
+   if(!data.carga){data.defense=data_ini.carga}
    chars.push(data['char']);
    data_set();
    console.log('Character '+data['char']+' data imported');
