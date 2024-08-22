@@ -21,4 +21,5 @@ p{}
 .close{position:relative;display:block;width:22px;height:22px;border:2px solid;border-radius:40px}
 .close::after,.close::before{content:"";display:block;position:absolute;width:12px;height:2px;background:currentColor;transform:rotate(45deg);border-radius:5px;top:8px;left:3px}
 .close::after{transform:rotate(-45deg)}
+textarea{field-sizing:content}
 </style>
