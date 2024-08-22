@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Ficha T20 Mobile - v0.9</title>
+<title>Ficha T20 Mobile - v1.0</title>
 <meta name="author" content="Marco Martins">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#b72a2b">
@@ -1142,7 +1142,10 @@ function cond_info(e,i){
 //-------------------------EQUIP FUNCTIONS------------------------//
 
 var peso = '<option disabled selected>Espaço por unidade</option>';
-for(var i=1;i<peso_item.length;i++){peso += '<option value="'+i+'">'+peso_item[i]+'</option>'}
+for(var i=1;i<peso_item.length;i++){
+ var str = ((i>1&&i<5)?' de':'') + ' espaço' + (i>5?'s':'')
+ peso += '<option value="'+i+'">'+peso_item[i]+str+'</option>'
+}
 
 var tipo = '<option disabled selected>Tipo de item</option>';
 for(var i=1;i<tipo_item.length;i++){tipo += '<option value="'+i+'">'+tipo_item[i]+'</option>'}
@@ -1164,7 +1167,6 @@ function equip_calc(){
  carga = 0;
  var equips = document.getElementsByClassName('equip');
  for(var i=0;i<data.equip.length;i++){
-  console.log(equips.length);
   e = equips[i].children[0];
   e.children[0].children[0].innerHTML = data.equip[i][1]?data.equip[i][1]:'Nome do item';
   e.children[0].children[1].innerHTML = (data.equip[i][2]?tipo_item[data.equip[i][2]]:'Tipo de item')+' • '+(data.equip[i][3]?data.equip[i][3]:'Valor do item')+' • '+calc_peso(data.equip[i][0],data.equip[i][4],i);
@@ -1176,17 +1178,23 @@ function equip_data(e,i){
  var el = e.parentNode.parentNode.parentNode.parentNode;
  var equips = document.getElementsByClassName('equip');
  var x = Array.prototype.indexOf.call(equips,el);
+ console.log('x = '+x+' / i = '+i);
  data.equip[x][i]=(e.value==''?'':(!isNaN(e.value)?JSON.parse(e.value):e.value));
  equip_calc();
 }
 
 function qte_change(e,v,k){
- var el = e.parentNode.children[2].children[0];
- console.log(el.value);
+ var el = e.parentNode.parentNode.parentNode;
+ var equips = document.getElementsByClassName('equip');
+ var x = Array.prototype.indexOf.call(equips,el);
+
+ el = el.children[0].children[1].children[2].children[0];
  v += ((el.value==''||el.value==null)?0:JSON.parse(el.value));
  if(v==0&&k){e.classList.add('dn');e.parentNode.children[0].classList.remove('dn')}
  else{e.parentNode.children[1].classList.remove('dn');e.parentNode.children[0].classList.add('dn')}
+ data.equip[x][0]=v;
  el.value = v;
+ equip_calc();
 }
 
 function equip_remov(e){
@@ -1669,7 +1677,7 @@ function char_remove(){
   chars.splice(chars.indexOf(title),1);
   localStorage.removeItem(title+'_data');
   clear();
-  document.title = 'Ficha T20 Mobile - v0.9';
+  document.title = 'Ficha T20 Mobile - v1.0';
   document.getElementById('chardel').disabled = true;
  }
 }
