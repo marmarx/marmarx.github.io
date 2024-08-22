@@ -15,6 +15,8 @@
 <script type="text/javascript" src="db/spells.txt"></script>
 <script type="text/javascript" src="db/feats.txt"></script>
 <script type="text/javascript" src="db/geral.txt"></script>
+<script type="text/javascript" src="db/equips.txt"></script>
+<script type="text/javascript" src="db/icons.txt"></script>
 
 <style>
 @font-face{font-family:'tormenta20';src:url('src/Tormenta20.ttf') format('truetype');font-weight:normal;font-style:normal}
@@ -158,15 +160,16 @@ a:hover{background-color:#1e90ff;color:var(--white)}
 .def_info{background:rgba(0,0,0,.3);margin:10px auto 25px;padding:30px 10px;position:relative;max-height:1000px}
 .def_info:before,.attack_info:before{top:-16px;left:25px;border-width:8px;border-style:solid;border-color:transparent transparent rgba(0,0,0,.3) transparent;content:"";position:absolute}
 .def_hide{margin:0 auto!important;max-height:0;opacity:0;visibility:hidden;padding:0 10px!important}
-.def_info .w10{margin:1% 0}
 .def_input{text-align:center;padding:1.6em .8em .5em;font-size:1em}
 #char_attack input,#char_ac input{font-size:1em}
 #char_ac label{margin:.3em 0;padding:0;width:100%;text-align:center;left:0}
+.def_half,.def_quarter{float:left;padding:0 5px}.def_half{width:100%}.def_quarter{width:49.9999%}
+.def_info .w10{margin:1% 0}
 
 .attack,.equip{margin:1em auto}
 .attack .dice,.skills .dice{margin-right:0}.attack .trash{color:var(--white)}.attack .dice{width:30%}
 .attack_info{background:rgba(0,0,0,.5);margin:10px auto 0;padding:20px 25px;position:relative;color:var(--white)}
-.attack_info input,.attack_info select,.attack_info textarea{color:var(--black);background:#ffffffe8}.attack_info .w10{margin:5px 0}.attack_info textarea{min-height:unset}
+.attack_info input,.attack_info select,.attack_info textarea{color:var(--black);background:#ffffffe8}.attack_info .w10{margin:5px 0}.attack_info textarea{min-height:125px;field-sizing: content}
 .attack_info:before{border-color:transparent transparent rgba(0,0,0,.5) transparent}
 
 .equip_btns{margin:auto;margin-left:2em;max-height:40px;max-width:120px;padding-top:5px}.equip_btns > div{max-width:40px}
@@ -188,7 +191,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 
 .w10,.w9,.w8,.w7,.w6,.w5,.w4,.w3,.w2,.w1{display:block;float:left}.mw400{max-width:400px}
 .w10{width:100%}.w9{width:90%}.w8{width:80%}.w7{width:70%}.w6{width:60%}.w5{width:50%}.w4{width:40%}.w3{width:30%}.w2{width:20%}.w1{width:10%}
-.pr{position:relative}.z1{z-index:1}.mwu{min-width:unset}
+.pr{position:relative}.z1{z-index:1}.mwu{min-width:40px}
 .dif{display:inline-flex}.db{display:block}.df{display:flex}
 .ma{margin:auto}.m0{margin:0}.m0a{margin:0 auto}.ma0{margin:auto 0}.ms{margin-top:.4em!important}.mt0{margin-top:0}.ml{margin-left:2em}.m3e{margin:.1em .3em}
 .ha{height:auto}.tal{text-align:left}.tc,.tac{text-align:center!important}.tac{padding-left:0!important;padding-right:0!important}
@@ -216,6 +219,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 #dice_roller{width:60%;margin:0 20%}
 #keyboard{background:#403f3fdb}
 }
+@media (min-width:520px){.def_half{width:49.9999%}.def_quarter{width:24.9999%}}
 </style>
 </head>
 
@@ -273,7 +277,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
     <div class="w8"><p>Defesa</p></div>
     <div class="w3"><p id="ac" class="tac">10</p></div>
    </div>
-   <div id="char_ac" class="container db def_info def_hide">
+   <div id="char_ac" class="container db def_info mw400 def_hide">
     <div class="w10 dif"><div class="w3 m0a dif">
      <select id="def_hab" class="select tc" onchange="def_set(this);calc()">
       <option disabled=""></option><option value="1">for</option><option value="2" selected>des</option><option value="3">con</option><option value="4">int</option><option value="5">sab</option><option value="6">car</option>
@@ -298,24 +302,24 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
      <div class="w3 m0a dif"><p id="def_cond" class="p_skill tac">+0</p></div>
      <div class="w6 m0a dif"><p class="p_skill">Condições</p></div>
     </div>
-    <div class="w10 dif"><p class="p_skill tac">Armadura e Escudo</p></div>
-    <div class="w10 dif">
-     <div class="w5 m0a pr"><input id="armor" type="text" onchange="def_set(this);calc()" autocomplete="off" autocomplete="chrome-off"><label>Armadura</label></div>
-     <div class="w2 m0a pr"><input id="armor_bonus" class="def_input" inputmode="numeric" sign="1" onkeyup="regex(this)" onchange="def_set(this);calc()" autocomplete="off" autocomplete="chrome-off"><label class="def_label">Bônus</label></div>
-     <div class="w2 m0a pr"><input id="armor_penal" class="def_input" inputmode="numeric" sign="1" onkeyup="regex(this)" onchange="def_set(this);calc()" autocomplete="off" autocomplete="chrome-off"><label class="def_label">Penalidade</label></div>
-    </div>
-    <div class="w10 dif">
-     <div class="w5 m0a pr"><input id="shield" type="text" onchange="def_set(this);calc()" autocomplete="off" autocomplete="chrome-off"><label>Escudo</label></div>
-     <div class="w2 m0a pr"><input id="shield_bonus" class="def_input" inputmode="numeric" sign="1" onkeyup="regex(this)" onchange="def_set(this);calc()" autocomplete="off" autocomplete="chrome-off"><label class="def_label">Bônus</label></div>
-     <div class="w2 m0a pr"><input id="shield_penal" class="def_input" inputmode="numeric" sign="1" onkeyup="regex(this)" onchange="def_set(this);calc()" autocomplete="off" autocomplete="chrome-off"><label class="def_label">Penalidade</label></div>
-    </div>
+    <div class="w10 df"><div class="w8 ma mw400 df"><p class="p_skill tac">Armadura e Escudo</p></div></div>
+    <div class="w10 df"><div class="w10 mw400 ma db">
+     <div class="def_half pr"><input id="armor" type="text" onchange="def_set(this);calc()" autocomplete="off" autocomplete="chrome-off"><label>Armadura</label></div>
+     <div class="def_quarter m0a pr"><input id="armor_bonus" class="def_input" inputmode="numeric" sign="1" onkeyup="regex(this)" onchange="def_set(this);calc()" autocomplete="off" autocomplete="chrome-off"><label class="def_label">Bônus</label></div>
+     <div class="def_quarter m0a pr"><input id="armor_penal" class="def_input" inputmode="numeric" sign="1" onkeyup="regex(this)" onchange="def_set(this);calc()" autocomplete="off" autocomplete="chrome-off"><label class="def_label">Penalidade</label></div>
+    </div></div>
+    <div class="w10 df"><div class="w10 mw400 ma db">
+     <div class="def_half pr"><input id="shield" type="text" onchange="def_set(this);calc()" autocomplete="off" autocomplete="chrome-off"><label>Escudo</label></div>
+     <div class="def_quarter pr"><input id="shield_bonus" class="def_input" inputmode="numeric" sign="1" onkeyup="regex(this)" onchange="def_set(this);calc()" autocomplete="off" autocomplete="chrome-off"><label class="def_label">Bônus</label></div>
+     <div class="def_quarter pr"><input id="shield_penal" class="def_input" inputmode="numeric" sign="1" onkeyup="regex(this)" onchange="def_set(this);calc()" autocomplete="off" autocomplete="chrome-off"><label class="def_label">Penalidade</label></div>
+    </div></div>
     <div id="armor_penal" sign="1" style="height:50px"></div><div id="shield_penal" sign="1"></div>
    </div>
    <div class="container dif z1">
     <div class="w8" onclick="defense_info('char_rd')"><p>Redução de Dano</p></div>
     <div class="w3"><input id="rd" class="skill_input tac" inputmode="numeric" sign="1" onkeyup="regex(this)" onchange="def_set(this)" autocomplete="off" autocomplete="chrome-off"></div>
    </div>
-   <div id="char_rd" class="container db def_info def_hide"></div>
+   <div id="char_rd" class="container db def_info mw400 def_hide"></div>
   </div>
 
   <div class="row"><div id="char_attack" class="container db z1">
@@ -935,7 +939,7 @@ function attack_calc(){
  for (var i=0;i<at_skill.length;i++){
   var k = (data.attack[i][8]==0?'Luta_total':'Pontaria_total');
   at_skill[i].innerHTML=document.getElementById(k).innerHTML;
-  at_skname[i].innerHTML=k.slice(0, -6)+' e habilidade';
+  at_skname[i].innerHTML=k.slice(0, -6)+' e hab.';
  }
  var attacks = document.getElementsByClassName('attack');
  for (var i=0;i<attacks.length;i++){
@@ -995,7 +999,7 @@ function attack_add(bt){
  var content2 = '<div class="w10 dif"><div class="w8 m0a dif"><input class="skill_input" type="text" placeholder="Disparo Rápido • Arco Longo" autocomplete="off" autocomplete="chrome-off" onchange="attack_data(this,0)"></div><div class="w2 m0a dif" onclick="attack_remove(this)"><div class="trash"></div></div></div>';
  content2 +=  '<div class="w10 dif"><div class="w2 m3e dif"><p class="item_subtitle m0a">Ataque</p></div><div class="w2 dif m3e"><p class="item_subtitle m0a" style="transform:translateX(-2px)">Dano</p></div><div class="w6"></div></div>';
  content2 +=  '<div class="w10 dif"><div class="w2 m3e dif"><input class="skill_input tc" type="text" placeholder="-2/-2" autocomplete="off" autocomplete="chrome-off" onkeyup="regexb1(this)" onchange="attack_data(this,1)"></div><div class="w2 m3e dif"><input class="skill_input tc" type="text" placeholder="d8" autocomplete="off" autocomplete="chrome-off" onkeyup="regexb2(this)" onchange="attack_data(this,2)"></div><div class="w6 m3e dif"><p class="p_skill">Base</p></div></div>';
- content2 +=  '<div class="w10 dif"><div class="w2 m3e dif"><p name="at_skill" class="p_skill tc">+6</p></div><div class="w2 m3e dif"><select class="select skill_input tc" onchange="attack_data(this,3)">'+skill_habs+'</select></div><div class="w6 m3e dif"><p name="at_skname" class="p_skill">Pontaria e habilidade</p></div></div>';
+ content2 +=  '<div class="w10 dif"><div class="w2 m3e dif"><p name="at_skill" class="p_skill tc">+6</p></div><div class="w2 m3e dif"><select class="select skill_input tc" onchange="attack_data(this,3)">'+skill_habs+'</select></div><div class="w6 m3e dif"><p name="at_skname" class="p_skill">Pontaria e hab.</p></div></div>';
  content2 +=  '<div class="w10 dif"><div class="w2 m3e dif"><input class="skill_input tc" type="text" placeholder="+0" inputmode="numeric" autocomplete="off" autocomplete="chrome-off" onkeyup="regex(this)" onchange="attack_data(this,4)"></div><div class="w2 m3e dif"><input class="skill_input tc" type="text" placeholder="+0" inputmode="numeric" autocomplete="off" autocomplete="chrome-off" onkeyup="regexo(this)" onchange="attack_data(this,5)"></div><div class="w6 m3e dif"><p class="p_skill">Outro</p></div></div>';
  content2 +=  '<div class="w10 dif"><div class="w2 m3e dif"><p class="p_skill tc">+0</p></div><div class="w2 m3e dif"><p class="p_skill tc">+0</p></div><div class="w6 m3e dif"><p class="p_skill">Condições</p></div></div>';
  content2 +=  '<div class="w10 dif"><div class="w2 m3e dif"><input class="skill_input tc" type="text" placeholder="20" inputmode="numeric" autocomplete="off" autocomplete="chrome-off" onkeyup="regexc1(this)" onchange="attack_data(this,6)"></div><div class="w2 m3e dif"><input class="skill_input tc" type="text" placeholder="x3" autocomplete="off" autocomplete="chrome-off" onkeyup="regexc2(this)" onchange="attack_data(this,7)"></div><div class="w6 m3e dif"><p class="p_skill">Crítico</p></div></div>';
@@ -1059,7 +1063,7 @@ for (var i=0;i<e.length;i++){
  div.setAttribute('index',i);
  div.setAttribute('class','row');
 
- var content2 = '<div class="row"><div class="skills attack_info">';
+ var content2 = '<div class="row"><div class="skills attack_info mw400">';
  content2 += '<div class="w10 dif"><div class="w3 m0a dif"><select id="'+e[i][0]+'_hab" class="select tc" onchange="skill_hab(this,\''+k+'\');calc_skills(\''+k+'\')" skill="'+i+'" index="1">'+skill_habs+'</select></div><div class="w5 m0a dif"><p class="p_skill">Habilidade</p></div></div>';
  content2 += '<div class="w10 dif"><div class="w3 m0a dif"><select id="'+e[i][0]+'_hab2" class="select tc" onchange="skill_hab(this,\''+k+'\');calc_skills(\''+k+'\')" skill="'+i+'" index="2">'+skill_habs+'</select></div><div class="w5 m0a dif"><p class="p_skill">Hab secundária</p></div></div>';
  content2 += '<div class="w10 dif"><div class="w3 m0a dif"><p class="p_skill tac skill_lvl">+0</p></div><div class="w5 m0a dif"><p class="p_skill">1/2 do nível</p></div></div>';
@@ -1194,13 +1198,14 @@ function equip_remov(e){
 }
 
 function regexqte(e){e.value=/(\d)*$/.test(e.value)?e.value:e.value.slice(0,-1)}
+
 function equip_add(qte,title,type,cost,weight,desc){
  var div = document.createElement('div');
  div.setAttribute('class','w10 equip');
 
  var content = '<div class="w10 dif">';
  content += '<div class="w7 ma" onclick="attack_info(this)"><p class="item_title">Nome do item</p><p class="item_subtitle">Tipo de item • Valor do item • Espaços totais ocupados</p></div>';
- content += '<div class="w3 equip_btns dif"><div class="third fakebtn equip_btn df m0 dn" onclick="equip_remov(this)"><div class="trash" style="transform:translateY(2px)"></div></div><button class="third equip_btn m0" onclick="qte_change(this,-1,1)">-</button><div class="third equip_btn df"><input class="skill_input mwu tc" type="number" placeholder="Un." value="'+qte+'" autocomplete="off" onkeyup="regexqte(this)" onchange="equip_data(this,0)"></div><button class="third equip_btn m0" onclick="qte_change(this,1,0)">+</button></div>';
+ content += '<div class="w3 equip_btns dif"><div class="third fakebtn equip_btn df m0 dn" onclick="equip_remov(this)"><div class="trash" style="transform:translateY(2px)"></div></div><button class="third equip_btn m0" onclick="qte_change(this,-1,1)">-</button><div class="third equip_btn mwu df"><input class="skill_input mwu tc" type="number" placeholder="Un." value="'+qte+'" autocomplete="off" onkeyup="regexqte(this)" onchange="equip_data(this,0)"></div><button class="third equip_btn m0" onclick="qte_change(this,1,0)">+</button></div>';
  content += '</div><div class="w10 attack_info def_hide">';
  content += '<div><div class="w10 dif"><input class="skill_input m3e" type="text" placeholder="Nome do item" value="'+title+'" autocomplete="off" onchange="equip_data(this,1)"></div></div>';
  content += '<div class="w10 dif">';
@@ -1220,10 +1225,13 @@ function equip_add(qte,title,type,cost,weight,desc){
 }
 
 function equip_kit(){
- equip_add();
- console.log('here');
+ for(var i=0;i<kit.length;i++){
+  equip_add(kit[i][0],kit[i][1],kit[i][2],kit[i][3],kit[i][4],kit[i][5]);
+  data.equip.push(kit[i]);
+  equip_calc()
+ }
 }
-
+equip_kit();
 
 //-------------------------CALCULATION FUNCTIONS------------------------//
 
