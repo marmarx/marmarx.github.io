@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
 <title>Ficha T20 Mobile - v1.0</title>
 <meta name="author" content="Marco Martins">
@@ -10,13 +10,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="src/css.css">
-<script type="text/javascript" src="db/skills.txt"></script>
-<script type="text/javascript" src="db/conditions.txt"></script>
+<script type="text/javascript" src="db/icons.txt"></script>
+<script type="text/javascript" src="db/geral.txt"></script>
 <script type="text/javascript" src="db/spells.txt"></script>
 <script type="text/javascript" src="db/feats.txt"></script>
-<script type="text/javascript" src="db/geral.txt"></script>
+<script type="text/javascript" src="db/skills.txt"></script>
 <script type="text/javascript" src="db/equips.txt"></script>
-<script type="text/javascript" src="db/icons.txt"></script>
+<script type="text/javascript" src="db/conditions.txt"></script>
 
 <style>
 @font-face{font-family:'tormenta20';src:url('src/Tormenta20.ttf') format('truetype');font-weight:normal;font-style:normal}
@@ -411,6 +411,9 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
   </div>
   <div class="row"><div id="conditions" class="container db">
   </div></div>
+  <div class="row"><div class="container dif">
+   <p class="item_subtitle ma ms tc">As condições encontram-se descritas na página 394 do livro <i>Tormenta 20: Jogo do Ano</i>.</p>
+  </div></div>
  </div>
 
  <div id="sec_equip" class="sec">
@@ -479,10 +482,10 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
    <div class="w2 ma ml"><label class="switch"><input id="c_vibrate" type="checkbox" onclick="data_check(this);config()"><span class="slider"></span></label></div>
   </div></div>
 
-  <div class="row"><div class="container">
+  <!--<div class="row"><div class="container">
    <div class="w8"><p>Esconder Combate (para conjuradores)</p></div>
    <div class="w2 ma ml"><label class="switch"><input id="c_combat" type="checkbox" onclick="data_check(this);config()"><span class="slider"></span></label></div>
-  </div></div>
+  </div></div>-->
   <div class="row"><div class="container">
    <div class="w8"><p>Esconder Magias (para guerreiros)</p></div>
    <div class="w2 ma ml"><label class="switch"><input id="c_magic" type="checkbox" onclick="data_check(this);config()"><span class="slider"></span></label></div>
@@ -1166,6 +1169,9 @@ function cond_info(e,i){
  e.classList.toggle('checkmarked');
  e = e.children[0].children[1];
  e.innerHTML = data.conditions[i]?conditions[i][2]:'';
+}
+
+function create_cond(){
 }
 
 //-------------------------EQUIP FUNCTIONS------------------------//
@@ -1935,7 +1941,7 @@ function export_char(){
 }
 
 function reset(){localStorage.clear();chars=[];data={};title='';location.reload()}
-//navig(allmenubtn[menubtn[6]]);
-alert('Comece criando ou carregando um personagem digitando um nome de personagem, quaisquer edições feitas antes disso serão perdidas.');
+navig(allmenubtn[menubtn[5]]);
+//alert('Comece criando ou carregando um personagem digitando um nome de personagem, quaisquer edições feitas antes disso serão perdidas.');
 </script>
 </html>
