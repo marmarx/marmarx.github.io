@@ -199,7 +199,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 .w10{width:100%}.w9{width:90%}.w8{width:80%}.w7{width:70%}.w6{width:60%}.w5{width:50%}.w4{width:40%}.w3{width:30%}.w2{width:20%}.w1{width:10%}
 .pr{position:relative}.z1{z-index:1}.mwu{min-width:40px}
 .dif{display:inline-flex}.db{display:block}.df{display:flex}
-.ma{margin:auto}.m0{margin:0}.m0a{margin:0 auto}.ma0{margin:auto 0}.ms{margin-top:.4em!important}.mt0{margin-top:0}.ml{margin-left:2em}.m3e{margin:.1em .3em}
+.ma{margin:auto}.m0{margin:0}.m0a{margin:0 auto}.ma0{margin:auto 0}.ms{margin-top:.4em!important}.mt0{margin-top:0}.ml{margin-left:2em}.m3e{margin:.1em .3em}.mt{margin-top:1.5em}
 .ha{height:auto}.tal{text-align:left}.tc,.tac{text-align:center!important}.tac{padding-left:0!important;padding-right:0!important}
 .invert,.hpinvert:after{filter:invert(1)}
 
@@ -253,7 +253,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
     <div class="input"><select id="raça" onchange="data_add(this)" required></select><label>Raça</label></div>
     <div class="input"><select id="origem" onchange="data_add(this)" required></select><label>Origem</label></div>
     <div class="input"><select id="tamanho" onchange="data_add(this)" required></select><label>Tamanho</label></div>
-    <div class="input m0"><div id="deslocamento" class="fakeinput drop" onclick="show_list(this)" str="1"></div><label>Deslocamento</label><div class="dropdown dn"></div></div>
+    <div class="input m0"><div id="deslocamento" class="fakeinput drop" onclick="show_list(this)" str="1"></div><label>Deslocamento</label><div class="dropdown dn"></div><p class="item_subtitle m3e"></p></div>
    </div>
    <div class="half">
     <div class="row dif">
@@ -466,11 +466,10 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
   <div class="row"><div class="container t20box db">
    <p>Direitos referentes ao conteúdo Tormenta 20 reservados à seus criadores e à Editora Jambo.</p>
   </div></div>
-  <div class="row"><div class="container">
-   <p>Seus dados são armazenados <b>apenas</b> localmente, ou seja, nada é armazenado online. Use as opções de <b>importar</b> e <b>exportar</b> para transferir seu personagem entre dispositivos.</p>
-  </div>
-  <div class="container">
-   <p>Caso deseje exluir todos os dados, por favor, utilize o botão a seguir. Eles <b>não</b> poderão ser recuperados.</p>
+  <div class="row"><div class="container db">
+   <p>Seus dados são armazenados <b>apenas</b> localmente neste dispositivo, ou seja, nada é armazenado online ou em outro dispositivo.</p>
+   <p>Use as opções <b>importar</b> e <b>exportar</b> para transferir seu personagem entre dispositivos.</p>
+   <p class="mt">Caso deseje exluir todos os dados, por favor, utilize o botão a seguir. Eles <b>não</b> poderão ser recuperados.</p>
   </div><div class="container mw400">
    <button class="delete" onclick="reset()">Excluir todos os dados</button>
   </div></div>
@@ -744,7 +743,7 @@ print_out('4d6el (eliminate lower)');diceroll('4d6el',0);print_out('');
 print_out('5d4!kl2 (keep lower 2)');diceroll('5d4!kl2',0);print_out('');
 print_out('5d4!3eh2 (eliminate higher 2)');diceroll('5d4!3eh2',0);print_out('');
 
-//-------------------------DICE, HP, and MP KEYBOARD FUNCTIONS------------------------//
+//-------------------------HP, MP and DICE KEYBOARD FUNCTIONS------------------------//
 
 const keys = [[7,8,9,4,5,6,1,2,3,'AC',0,'dx'],['d10','d20','d100','d6','d8','d12','d2','d3','d4','AC','d','123'],[70,80,90,40,50,60,10,20,30,'AC',100,'123']];
 const xkeys = ['kh','eh','kl','el','#','!','+','-','backspace','enter'];
@@ -868,7 +867,7 @@ function key_send(){
 function open_key(){
  keyboard.classList.toggle('boardshow');
  document.getElementById('diceholder').classList.toggle('diceholder');
- document.querySelector(':root').style.setProperty('--drh',data.c_dice?'var(--drb)':'90%'); //'here'
+ document.querySelector(':root').style.setProperty('--drh',data.c_dice?'var(--drb)':'90%');
  console.log(keyboard.classList.contains('boardshow'));
  document.querySelector(':root').style.setProperty('--hph',keyboard.classList.contains('boardshow')?'256px':'120px');
  scroll_down('allrolls');
@@ -980,6 +979,7 @@ function attack_set(){
   e.children[6].children[1].children[0].value=data.attack[i][7]; //crit damage
   e.children[7].children[0].children[0].value=data.attack[i][8]; //range
   e.children[7].children[1].children[0].value=data.attack[i][9]; //dmg type
+  if(data.attack[i][10]){e.children[8].children[0].children[0].innerHTML=data.attack[i][10]}; //dmg type
  }
  attack_calc();
 }
@@ -1050,7 +1050,7 @@ function attack_add(bt){
  div.setAttribute('class','w10 attack');
  div.setAttribute('attack',data.attack.length);
 
- var content2 = '<div class="w10 dif"><div class="w8 m0a dif"><input class="skill_input" type="text" placeholder="Disparo Rápido • Arco Longo" autocomplete="off" autocomplete="chrome-off" onchange="attack_data(this,0)"></div><div class="w2 m0a dif" onclick="attack_remove(this)"><div class="trash"></div></div></div>';
+ var content2 = '<div class="w10 dif"><div class="w8 m0a dif"><input class="skill_input" type="text" placeholder="Disparo Rápido • Arco Longo (exemplo)" autocomplete="off" autocomplete="chrome-off" onchange="attack_data(this,0)"></div><div class="w2 m0a dif" onclick="attack_remove(this)"><div class="trash"></div></div></div>';
  content2 +=  '<div class="w10 dif"><div class="w2 m3e dif"><p class="item_subtitle m0a">Ataque</p></div><div class="w2 dif m3e"><p class="item_subtitle m0a" style="transform:translateX(-2px)">Dano</p></div><div class="w6"></div></div>';
  content2 +=  '<div class="w10 dif"><div class="w2 m3e dif"><input class="skill_input tc" type="text" placeholder="-2/-2" autocomplete="off" autocomplete="chrome-off" onkeyup="regexb1(this)" onchange="attack_data(this,1)"></div><div class="w2 m3e dif"><input class="skill_input tc" type="text" placeholder="d8" autocomplete="off" autocomplete="chrome-off" onkeyup="regexb2(this)" onchange="attack_data(this,2)"></div><div class="w6 m3e dif"><p class="p_skill">Base</p></div></div>';
  content2 +=  '<div class="w10 dif"><div class="w2 m3e dif"><p name="at_skill" class="p_skill tc">+6</p></div><div class="w2 m3e dif"><select class="select skill_input tc" onchange="attack_data(this,3)">'+skill_habs+'</select></div><div class="w6 m3e dif"><p name="at_skname" class="p_skill">Pontaria e hab.</p></div></div>';
@@ -1058,6 +1058,7 @@ function attack_add(bt){
  content2 +=  '<div class="w10 dif"><div class="w2 m3e dif"><p class="p_skill tc">+0</p></div><div class="w2 m3e dif"><p class="p_skill tc">+0</p></div><div class="w6 m3e dif"><p class="p_skill">Condições</p></div></div>';
  content2 +=  '<div class="w10 dif"><div class="w2 m3e dif"><input class="skill_input tc" type="text" placeholder="20" inputmode="numeric" autocomplete="off" autocomplete="chrome-off" onkeyup="regexc1(this)" onchange="attack_data(this,6)"></div><div class="w2 m3e dif"><input class="skill_input tc" type="text" placeholder="x3" autocomplete="off" autocomplete="chrome-off" onkeyup="regexc2(this)" onchange="attack_data(this,7)"></div><div class="w6 m3e dif"><p class="p_skill">Crítico</p></div></div>';
  content2 +=  '<div class="w10 dif"><div class="w2 m3e dif"><select name="at_range" class="select skill_input tc" onchange="attack_data(this,8)">'+range+'</select></div><div class="w2 m3e dif"><select class="select skill_input tc" onchange="attack_data(this,9)">'+dmg_type+'</select></div><div class="w6 m3e dif"><p class="p_skill">Alcance e tipo</p></div></div>';
+ content2 +=  '<div class="w10 dif"><div class="w10 m3e dif"><textarea class="skill_input m3e" type="text" placeholder="Poderes aplicados, melhoramentos de arma e outros detalhes" autocomplete="off" onchange="attack_data(this,10)">(um exemplo) As seguintes habilidades estão aplicadas nesse ataque:\n• Estilo de Disparo: +des no dano\n• Disparo Rápido: dois ataques -2/-2, ação completa</textarea></div></div></div>';
 
  var content = '<div class="w10 dif">';
  content += '<div class="w7 ma" onclick="attack_info(this)"><p class="item_title">Disparo Rápido • Arco Longo</p><p class="item_subtitle">d8+4 • 20/x3 • Médio • Perfuração</p></div>';
@@ -1069,7 +1070,7 @@ function attack_add(bt){
  div.children[1].children[7].children[0].children[0].value=2;
  div.children[1].children[7].children[1].children[0].value=2;
  document.getElementById('char_attack').appendChild(div);
- if(bt){data.attack.push(['Disparo Rápido • Arco Longo','-2/-2','d8',2,0,0,20,'x3',2,2])}
+ if(bt){data.attack.push(['Disparo Rápido • Arco Longo','-2/-2','d8',2,0,0,20,'x3',2,2,'(um exemplo) As seguintes habilidades estão aplicadas nesse ataque:\n• Estilo de Disparo: +des no dano\n• Disparo Rápido: dois ataques -2/-2, ação completa'])}
 }
 
 
@@ -1177,29 +1178,45 @@ function list_conditions(e,i){
  div.setAttribute('class','condition checkmark w10');
  div.setAttribute('onclick','toggle_condition(this)');
  var q = conditions[i][1]?' • '+conditions[i][1]:'';
- var content = '<div class="w10"><p class="item_title">'+conditions[i][0]+q+'</p><p class="item_subtitle"></p></div>';
+ var content = '<div class="w10"><p class="item_title">'+conditions[i][0]+q+'</p><p class="item_subtitle"></p><p class="item_subtitle"></p></div>';
  div.innerHTML = content;
  document.getElementById(e).appendChild(div);
 }
 
+function cond_info(e,i){
+ e.classList.toggle('checkmarked');
+ e = e.children[0];
+ var q = JSON.stringify(conditions[i][3]).length>2?'<b>Efeitos:</b> ':'';
+ for (var key in conditions[i][3]){
+  if(key!='Deslocamento'){q += key+' '+conditions[i][3][key]+' • '}
+ }
+ e.children[1].innerHTML = data.conditions[i]?conditions[i][2]:'';
+ e.children[2].innerHTML = data.conditions[i]?q.slice(0,-3):'';
+}
+
+const desloc = document.getElementById('deslocamento');
 function toggle_condition(e){
  var i = e.getAttribute('index');
  data.conditions[i] =! data.conditions[i];
  for (var key in conditions[i][3]){
-  data.cond[key] += conditions[i][3][key]*(data.conditions[i]?1:-1);
-  console.log(key +': '+conditions[i][3][key])
+  if(key=='Deslocamento'){
+   if(data.conditions[i]){data.cond[key].push(conditions[i][3][key])}
+   else{data.cond[key].splice(data.cond[key].indexOf(conditions[i][3][key]),1)}
+   document.getElementById('deslocamento').parentNode.children[3].innerHTML = '*'+data.cond[key][0].charAt(0).toUpperCase() + data.cond[key].join(', ').slice(1);
+  }
+  else{data.cond[key] += conditions[i][3][key]*(data.conditions[i]?1:-1)}
+  if(key=='Pontos de Vida'||key=='Pontos de Mana'){
+   var k = key=='Pontos de Vida'?'hp':'mp';
+   data[k] = data.conditions[i]?data[k]+conditions[i][3][key]:(data[k]>data[k+'max']+data.cond[key]?data[k+'max']+data.cond[key]:data[k]);
+   document.getElementById(k).innerHTML = data[k];
+  }
  }
  calc();
  cond_info(e,i);
 }
 
-function cond_info(e,i){
- e.classList.toggle('checkmarked');
- e = e.children[0].children[1];
- e.innerHTML = data.conditions[i]?conditions[i][2]:'';
-}
-
 function create_cond(){
+ 
 }
 
 //-------------------------EQUIP FUNCTIONS------------------------//
@@ -1686,10 +1703,7 @@ function filter(el){
  }
 }
 
-function show_list(e){
- e.focus();
- e = e.parentNode.children[2].classList.remove('dn');
-}
+function show_list(e){e.focus();e = e.parentNode.children[2].classList.remove('dn')}
 
 var cspell_level=[],cspell_class=[],cspell_school=[],cdivindade=[],cdeslocamento=[],cpower_type=[],cpower_cat=[];
 function set_check(e,array){
@@ -1698,6 +1712,7 @@ function set_check(e,array){
 
  if(e.getAttribute('value')==1){array.push(e.innerHTML)}else{array.splice(array.indexOf(e.innerHTML),1)}
  array.sort();
+
  e = e.parentNode.parentNode.children[0];
  e.innerHTML = array.join(', ');
 
