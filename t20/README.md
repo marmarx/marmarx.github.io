@@ -1,11 +1,11 @@
 # marmarx.github.io/t20
 
 To do:
-- review attack creation-related functions (simply if possible)
-- split feats among the following categories: racial, origin, class and general feats
+- split feats among the following categories: racial and origin, class and general feats
 - create equips database and add support to searching and adding vanilla equips
 
 Version history:<br>
+v1.2 - improved and simplified attack creation-related functions<br>
 v1.1 - added support to creating, editing, and managing user-specified conditions<br>
 v1.0 - added vanilla conditions and support to managing conditions<br>
 v0.9 - added equip section and support to create, edit, and manage equipment<br>
