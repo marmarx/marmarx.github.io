@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<title>Ficha T20 Mobile - v1.0</title>
+<title>Ficha T20 Mobile - v1.1</title>
 <meta name="author" content="Marco Martins">
 <meta name="viewport" content="width=device-width, initial-scale=0.95">
 <meta name="theme-color" content="#b72a2b">
@@ -553,13 +553,13 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 const load = 1;var title = '';var chars = [];var loaded = 0;
 const data_ini = {
  'c_color':'#b72a2b','c_keyboard':0,c_dice:false,'c_fullscreen':0,'c_nocturnal':0,'c_vibrate':0,
- 'magias':[],'powers':[],'conditions':[[],[]],'cond_user':[],'attack':[],'equip':[],cond:cond,'skills':skills,'crafts':crafts,
+ 'magias':[],'powers':[],'conditions':[[],[]],'cond_user':[],'attack':[],'equip':[],cond:structuredClone(cond),'skills':skills,'crafts':crafts,
  'nível':0,hp:0,hpmax:0,mp:0,mpmax:0,'spell_hab':1,
  'hab_for_val':10,'hab_for':0,'hab_des_val':10,'hab_des':0,'hab_con_val':10,'hab_con':0,'hab_int_val':10,'hab_int':0,'hab_sab_val':10,'hab_sab':0,'hab_car_val':10,'hab_car':0,
  'defense':{'def_hab':2,'armor_bonus':0,'shield_bonus':0,'armor_penal':0,'shield_penal':0,'def_out':0,'rd':0,'Ácido':0,'Eletricidade':0,'Fogo':0,'Frio':0,'Luz':0,'Trevas':0,'Mágico':0},
  'carga':{'to':0,'ts':0,'tc':0,'carga':0,'carga_cap':10}
 }
-var data = data_ini;
+var data = structuredClone(data_ini);
 
 
 //-------------------------DICE ROLLER FUNCTIONS------------------------//
@@ -1349,6 +1349,7 @@ function effect_change(e){
   if(value){data.cond_user[i][3][selects[k].value] = isNaN(value)?value:JSON.parse(value)}
  }
  if(data.conditions[1][i]){for(let key in data.cond_user[i][3]){data.cond[key] += data.cond_user[i][3][key]}calc_hab();calc()} //readd effects to active list
+ cond_details(e.parentNode.parentNode.parentNode.children[0].children[1],1,i,data.cond_user,0);
 }
 
 function effect_remove(e){
@@ -1359,8 +1360,10 @@ function effect_remove(e){
 
  if(data.conditions[1][i]){for(let key in data.cond_user[i][3]){data.cond[key] -= data.cond_user[i][3][key]}} //remove effects from active list
  delete data.cond_user[i][3][key];
+ let el = e.parentNode;
  e.remove();
  if(data.conditions[1][i]){for(let key in data.cond_user[i][3]){data.cond[key] += data.cond_user[i][3][key]}calc_hab();calc()} //readd effects to active list
+ cond_details(el.parentNode.parentNode.parentNode.children[0].children[1],1,i,data.cond_user,0);
 }
 
 //-------------------------EQUIP FUNCTIONS------------------------//
@@ -1917,7 +1920,7 @@ function char_remove(){
   chars.splice(chars.indexOf(title),1);
   localStorage.removeItem(title+'_data');
   clear();
-  document.title = 'Ficha T20 Mobile - v1.0';
+  document.title = 'Ficha T20 Mobile - v1.1';
   document.getElementById('chardel').disabled = true;
  }
 }
@@ -2001,12 +2004,15 @@ function data_set(){
    for (var i=0;i<data.magias.length;i++){list_spells('char_spells',data.magias[i])}
   }else if(key=='powers'){
    for (var i=0;i<data.powers.length;i++){list_powers('char_powers',data.powers[i])}
-  }else if(key=='conditions'){
-   for (var i=0;i<data.conditions[0].length;i++){if(data.conditions[0][i]){cond_info(document.getElementById('condition_'+i),i)}}
   }else if(key=='defense'){
    for (let i in data.defense){document.getElementById(i).value=data.defense[i]}
-  }else if(key=='skills'||key=='crafts'||key=='cond'){ //do nothing
-  }else if(key=='cond_user'){for (var i=0;i<data.cond_user.length;i++){list_conditions('cond_user',i,data.cond_user)}
+  }else if(key=='skills'||key=='crafts'||key=='cond'||key=='cond_user'){ //do nothing
+  }else if(key=='conditions'){
+   var conds = document.getElementById('conditions').getElementsByClassName('condmark');
+   for (var i=0;i<conds.length;i++){if(data.conditions[0][i]){conds[i].classList.add('condmarked');cond_info(conds[i].parentNode.children[1],conditions)}}
+   for (var i=0;i<data.cond_user.length;i++){list_conditions('cond_user',i,data.cond_user)}
+   conds = document.getElementById('cond_user').getElementsByClassName('condmark');
+   for (var i=0;i<conds.length;i++){if(data.conditions[1][i]){conds[i].classList.add('condmarked');cond_info(conds[i].parentNode.children[1],data.cond_user)}}
   }else if(key=='attack'){attack_set()
   }else if(key=='equip'){for(var i=0;i<data.equip.length;i++){equip_add(data.equip[i][0],data.equip[i][1],data.equip[i][2],data.equip[i][3],data.equip[i][4],data.equip[i][5])}equip_calc()
   }else{
@@ -2023,7 +2029,7 @@ function data_set(){
  document.getElementById('chardel').disabled = false;
  document.getElementById('sections').style.transform='';
  config();
- calc()
+ calc_hab();calc()
 }
 
 window.onload = function(){
@@ -2068,13 +2074,16 @@ function clear(){
  document.getElementById('ts').value = 0;
  document.getElementById('tc').value = 0;
  document.getElementById('cond_user').innerHTML = '';
- data.cond_user=[];
+ document.getElementById('conditions').innerHTML = '';
+ document.getElementById('deslocamento').parentNode.children[3].innerHTML = '';
+ for (var i=0;i<conditions.length;i++){list_conditions('conditions',i,conditions)}
  title='';
- data = data_ini;
+ data = structuredClone(data_ini);
+ calc();
 }
 
 function import_char(evt){
- data = data_ini;
+ data = structuredClone(data_ini);
  if(!window.FileReader) return; // Browser is not compatible
  var reader = new FileReader();
   reader.onload = function(evt) {
@@ -2089,6 +2098,9 @@ function import_char(evt){
    if(!data.attack){data.attack=data_ini.attack}
    if(!data.equip){data.defense=data_ini.equip}
    if(!data.carga){data.defense=data_ini.carga}
+   if(!data.conditions){data.conditions=[[],[]]}
+   if(!data.cond){data.cond=structuredClone(data_ini.cond)}
+   if(!data.cond_user){data.cond_user=structuredClone(data_ini.cond_user)}
    chars.push(data['char']);
    data_set();
    console.log('Character '+data['char']+' data imported');
@@ -2118,7 +2130,7 @@ function export_char(){
 }
 
 function reset(){localStorage.clear();chars=[];data={};title='';location.reload()}
-navig(allmenubtn[menubtn[5]]);
-//alert('Comece criando ou carregando um personagem digitando um nome de personagem, quaisquer edições feitas antes disso serão perdidas.');
+//navig(allmenubtn[menubtn[5]]);
+alert('Comece criando ou carregando um personagem digitando um nome de personagem, quaisquer edições feitas antes disso serão perdidas.');
 </script>
 </html>
