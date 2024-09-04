@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" autocomplete="off" autocomplete="chrome-off">
 <head>
 <title>Ficha T20 Mobile - v1.0</title>
 <meta name="author" content="Marco Martins">
@@ -8,7 +8,6 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 <link rel="icon" type="image/png" href="src/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="src/css.css">
 <script type="text/javascript" src="db/icons.js"></script>
 <script type="text/javascript" src="db/geral.js"></script>
@@ -42,7 +41,7 @@ td,th{text-align:center;padding:5px}
 tr:nth-child(even){background-color:rgba(0,0,0,.1)}
 
 .divider{width:70%;max-width:500px;height:2px;margin:2.5em auto;background:rgba(32,32,32,.2)}
-.t20box{margin:15px auto;border:30px solid transparent;padding:0 10px;background-color:var(--menu);color:var(--t20white);background-clip:padding-box;border-image:var(--backborder);max-width:600px}
+.t20box{margin:15px auto;border:30px solid transparent;padding:1em 2em;background-color:var(--menu);color:var(--t20white);background-clip:padding-box;border-image:var(--backborder);max-width:600px}
 
 h1,h2{text-align:center;margin:0 0 .6em;letter-spacing:4px;font-family:'tormenta20';color:var(--menu);font-size:3em;font-weight:500;filter:var(--bright)}
 h1{font-size:2.6em}h2{font-size:1.8em}
@@ -101,7 +100,7 @@ nav{position:fixed;left:0;bottom:0;height:70px;width:100%;background:var(--white
 .more_info{border-color:rgba(32,32,32,.4);margin:.5em 0;padding-top:10px;position:relative}/*padding:15px 10px 20px*/
 .item_subtitle{margin:0;font-size:.8em}.item_title{margin:auto 0;font-size:1em;font-weight:500;display:inline-flex}
 .item_action{margin-right:0}.item_action div{margin:auto}
-.hid{visibility:hidden;margin:0;max-height:0;overflow:hidden}
+.hid{visibility:hidden;margin:0;max-height:0;overflow:hidden;opacity:0}
 .nowrap{word-break:break-word;margin:0;font-size:1em}
 
 .input{position:relative;width:100%;margin:18px 0;color:var(--black)}
@@ -172,7 +171,7 @@ a:hover{background-color:#1e90ff;color:var(--white)}
 .def_info .w10{margin:1% 0}
 
 .attack,.equip{margin:1em auto}
-.attack .dice,.skills .dice{margin-right:0}.attack .trash{color:var(--white)}.attack .dice{width:30%}
+.attack .dice,.skills .dice{margin-right:0}.attack .trash,#cond_user .trash{color:var(--white)}.attack .dice{width:30%}
 .attack_info{background:rgba(0,0,0,.5);margin:10px auto 0;padding:20px 25px;position:relative;color:var(--white)}
 .attack_info input,.attack_info select,.attack_info textarea{color:var(--black);background:#ffffffe8}.attack_info .w10{margin:5px 0}.attack_info textarea{min-height:125px;field-sizing: content}
 .attack_info:before{border-color:transparent transparent rgba(0,0,0,.5) transparent}
@@ -198,8 +197,8 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 .w10,.w9,.w8,.w7,.w6,.w5,.w4,.w3,.w2,.w1{display:block;float:left}.mw400{max-width:400px}.mw450{max-width:450px}
 .w10{width:100%}.w9{width:90%}.w8{width:80%}.w7{width:70%}.w6{width:60%}.w5{width:50%}.w4{width:40%}.w3{width:30%}.w2{width:20%}.w1{width:10%}
 .pr{position:relative}.z1{z-index:1}.mwu{min-width:40px}
-.dif{display:inline-flex}.db{display:block}.df{display:flex}
-.ma{margin:auto}.m0{margin:0}.m0a{margin:0 auto}.ma0{margin:auto 0}.ms{margin-top:.4em!important}.mt0{margin-top:0}.ml{margin-left:2em}.m3e{margin:.1em .3em}.mt{margin-top:1.5em}
+.dif{display:inline-flex}.db{display:block}.df{display:flex}.dg{display:grid}
+.ma{margin:auto}.m0{margin:0}.m0a{margin:0 auto}.ma0{margin:auto 0}.ms{margin-top:.4em!important}.mt0{margin-top:0}.ml{margin-left:2em}.m3e{margin:.1em .3em}.mt{margin-top:1.5em!important}
 .ha{height:auto}.tal{text-align:left}.tc,.tac{text-align:center!important}.tac{padding-left:0!important;padding-right:0!important}
 .invert,.hpinvert:after{filter:invert(1)}
 
@@ -212,9 +211,13 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 .slash{border-bottom:1px solid var(--black);transform:rotate(-75deg);width:6%;height:100%;margin-top:30px}
 .hpcont{height:var(--hph)}
 
-.condition{position:relative;padding:.3em 1em .3em 50px;height:unset;text-indent:0;margin:5px 0}
-.condition:before{top:9px}.condition:after{transform:rotate(45deg);position:absolute;top:7px;left:13px}
+.cond_user,.conditions{position:relative;padding:.3em 1em;height:unset;text-indent:0;margin:5px 0}
+.cond_user:before,.conditions:before{top:9px}.cond_user:after,.conditions:after{transform:rotate(45deg);position:absolute;top:7px;left:13px}
 .cond-hide{max-height:0;opacity:0}.cond-show{max-height:unset;opacity:1}
+.condmark,.condmarked{position:relative;float:left;margin:13px auto;width:22px;height:22px;border:2px solid #dbdbdb;border-radius:4px;color:var(--black)!important}
+.condmarked::after{content:"";display:block;width:8px;height:13px;border:1px solid var(--menu);border-width:0 2px 2px 0;transform-origin:bottom left;transform:rotate(45deg) translate(-2.5px,-4px)}
+.cond_info{margin-bottom:2em}.cond_info:before{left:70px}
+.effect_add{background-color:#555555;color:white;border:2px solid #555555;font-weight:600;padding:0 4px;text-align:center;text-decoration:none;display:inline-block;font-size:85%;cursor:pointer}.effect_add:hover{background-color: white;color:var(--black)}
 
 @media (min-width:991px){
 .half{width:39.99999%;margin:0 5%}
@@ -242,7 +245,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
      <div class="dropdown dn"></div>
     </div>
    </div><div class="half">
-    <div class="input mt0"><input id="jogador" type="text" onchange="data_add(this)" autocomplete="off" autocomplete="chrome-off" required><label>Jogador</label></div>
+    <div class="input mt0"><input id="jogador" type="text" onchange="data_add(this)"  required><label>Jogador</label></div>
    </div>
   </div></div>
 
@@ -261,9 +264,9 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
      <div class="w1"></div>
      <div class="w3 input"><select id="nível" class="tc" onchange="data_add(this);calc()" required></select><label class="tac">Nível</label></div>
     </div>
-    <div class="input mt0"><input id="distincao" onchange="data_add(this)" required><label>Distinção de classe</label></div>
+    <div class="input mt0"><input id="distincao" onchange="data_add(this)" autocomplete="off" autocomplete="chrome-off" required><label>Distinção de classe</label></div>
     <div class="input mt0"><div id="divindade" class="fakeinput drop" onclick="show_list(this)" str="1"></div><label>Divindade</label><div class="dropdown dn"></div></div>
-    <div class="input"><input id="xp" type="number" onchange="data_add(this)" required><label>Experiência</label></div>
+    <div class="input"><input id="xp" type="number" onchange="data_add(this)" autocomplete="off" autocomplete="chrome-off" required><label>Experiência</label></div>
    </div>
   </div></div>
 
@@ -372,16 +375,16 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 
  <div id="sec_condition" class="sec">
   <h1>Condições</h1>
-  <div class="row"><div id="conditions" class="container db"></div></div>
+  <div class="row"><div id="conditions" class="container dg"></div></div>
   <div class="row"><div class="container dif">
    <p class="item_subtitle ma ms tc">As condições acima encontram-se descritas na página 394 do livro <i>Tormenta 20: Jogo do Ano</i>.</p>
   </div></div>
 
   <h1 style="margin:2em 0 .6em">Condições Customizadas</h1>
+  <div class="row"><div id="cond_user" class="container db"></div></div>
   <div class="row"><div class="container">
    <button onclick="cond_create()">Adicionar condição</button>
   </div></div>
-  <div class="row"><div id="user_conditions" class="container db"></div></div>
  </div>
 
  <div id="sec_equip" class="sec">
@@ -393,9 +396,9 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 
   <h1 style="margin:2em 0 .6em">Moedas</h1>
   <div class="row"><div class="container dif">
-   <div class="w3 dif"><div class="w5 dif"><p class="item_title ma">TO</p></div><div class="w5 dif"><input id="to" class="skill_input mwu tc" type="number" placeholder="0" autocomplete="off" onchange="coins(this)"></div></div>
-   <div class="w3 dif"><div class="w5 dif"><p class="item_title ma">T$</p></div><div class="w5 dif"><input id="ts" class="skill_input mwu tc" type="number" placeholder="0" autocomplete="off" onchange="coins(this)"></div></div>
-   <div class="w3 dif"><div class="w5 dif"><p class="item_title ma">TC</p></div><div class="w5 dif"><input id="tc" class="skill_input mwu tc" type="number" placeholder="0" autocomplete="off" onchange="coins(this)"></div></div>
+   <div class="w3 dif"><div class="w5 dif"><p class="item_title ma">TO</p></div><div class="w5 dif"><input id="to" class="skill_input mwu tc" type="number" placeholder="0" autocomplete="off" autocomplete="chrome-off" onchange="coins(this)"></div></div>
+   <div class="w3 dif"><div class="w5 dif"><p class="item_title ma">T$</p></div><div class="w5 dif"><input id="ts" class="skill_input mwu tc" type="number" placeholder="0" autocomplete="off" autocomplete="chrome-off" onchange="coins(this)"></div></div>
+   <div class="w3 dif"><div class="w5 dif"><p class="item_title ma">TC</p></div><div class="w5 dif"><input id="tc" class="skill_input mwu tc" type="number" placeholder="0" autocomplete="off" autocomplete="chrome-off" onchange="coins(this)"></div></div>
   </div></div>
   <div class="row"><div class="container dif">
    <p class="item_subtitle ma ms tc">Cada mil moedas, independentemente do tipo, ocupam 1 espaço.</p>
@@ -409,7 +412,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
    </div>
    <div class="w5 dif">
     <div class="w5 dif"><p class="item_title ma">Máximo</p></div>
-    <div class="w3 dif"><input id="carga_cap" class="skill_input mwu tc" type="number" placeholder="10" autocomplete="off" onchange="coins(this)"></div>
+    <div class="w3 dif"><input id="carga_cap" class="skill_input mwu tc" type="number" placeholder="10" autocomplete="off" autocomplete="chrome-off" onchange="coins(this)"></div>
    </div>
   </div></div>
   <div class="row"><div class="container dif">
@@ -550,7 +553,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 const load = 1;var title = '';var chars = [];var loaded = 0;
 const data_ini = {
  'c_color':'#b72a2b','c_keyboard':0,c_dice:false,'c_fullscreen':0,'c_nocturnal':0,'c_vibrate':0,
- 'magias':[],'powers':[],'conditions':[],'cond_user':[],'attack':[],'equip':[],cond:cond,'skills':skills,'crafts':crafts,
+ 'magias':[],'powers':[],'conditions':[[],[]],'cond_user':[],'attack':[],'equip':[],cond:cond,'skills':skills,'crafts':crafts,
  'nível':0,hp:0,hpmax:0,mp:0,mpmax:0,'spell_hab':1,
  'hab_for_val':10,'hab_for':0,'hab_des_val':10,'hab_des':0,'hab_con_val':10,'hab_con':0,'hab_int_val':10,'hab_int':0,'hab_sab_val':10,'hab_sab':0,'hab_car_val':10,'hab_car':0,
  'defense':{'def_hab':2,'armor_bonus':0,'shield_bonus':0,'armor_penal':0,'shield_penal':0,'def_out':0,'rd':0,'Ácido':0,'Eletricidade':0,'Fogo':0,'Frio':0,'Luz':0,'Trevas':0,'Mágico':0},
@@ -868,7 +871,6 @@ function open_key(){
  keyboard.classList.toggle('boardshow');
  document.getElementById('diceholder').classList.toggle('diceholder');
  document.querySelector(':root').style.setProperty('--drh',data.c_dice?'var(--drb)':'90%');
- console.log(keyboard.classList.contains('boardshow'));
  document.querySelector(':root').style.setProperty('--hph',keyboard.classList.contains('boardshow')?'256px':'120px');
  scroll_down('allrolls');
 }
@@ -918,8 +920,8 @@ function rd_calc(){
 }
 
 function def_calc(){
- document.getElementById('ac').innerHTML = 10+Math.floor(JSON.parse(data.nível)/2)+data.defense.armor_bonus+data.defense.shield_bonus+data.defense.def_out+data['hab_'+habs[data.defense.def_hab]] + (data.defense.def_hab2>0?data['hab_'+habs[data.defense.def_hab2]]:0)+data.cond['Defesa (outros)']+data.cond['Armadura (bonus)']+data.cond['Escudo (bonus)'];
- document.getElementById('def_cond').innerHTML = add_plus_sign(data.cond['Defesa (outros)']);
+ document.getElementById('ac').innerHTML = 10+Math.floor(JSON.parse(data.nível)/2)+data.defense.armor_bonus+data.defense.shield_bonus+data.defense.def_out+data['hab_'+habs[data.defense.def_hab]] + (data.defense.def_hab2>0?data['hab_'+habs[data.defense.def_hab2]]:0)+data.cond['Defesa']+data.cond['Armadura (bonus)']+data.cond['Escudo (bonus)'];
+ document.getElementById('def_cond').innerHTML = add_plus_sign(data.cond['Defesa']);
  document.getElementById('armor_bonus').value = add_plus_sign(data.defense.armor_bonus + data.cond['Armadura (bonus)']);
  document.getElementById('armor_penal').value = add_plus_sign(data.defense.armor_penal + data.cond['Armadura (penalidade)']);
  document.getElementById('shield_bonus').value = add_plus_sign(data.defense.shield_bonus + data.cond['Escudo (bonus)']);
@@ -1171,52 +1173,193 @@ function calc_skills(k){
 
 //-------------------------CONDITIONS FUNCTIONS------------------------//
 
-function list_conditions(e,i){
- var div = document.createElement('div');
- div.setAttribute('id','condition_'+i);
- div.setAttribute('index',i);
- div.setAttribute('class','condition checkmark w10');
- div.setAttribute('onclick','toggle_condition(this)');
- var q = conditions[i][1]?' • '+conditions[i][1]:'';
- var content = '<div class="w10"><p class="item_title">'+conditions[i][0]+q+'</p><p class="item_subtitle"></p><p class="item_subtitle"></p></div>';
- div.innerHTML = content;
- document.getElementById(e).appendChild(div);
+function cond_info(e,array){
+ let j = e.classList.contains('cond_user')?1:0;
+ let conds = j?'cond_user':'conditions';
+ conds = document.getElementsByClassName(conds);
+ let i = Array.prototype.indexOf.call(conds,e);
+ cond_details(e,j,i,array,1);
 }
 
-function cond_info(e,i){
- e.classList.toggle('checkmarked');
- e = e.children[0];
- var q = JSON.stringify(conditions[i][3]).length>2?'<b>Efeitos:</b> ':'';
- for (var key in conditions[i][3]){
-  if(key!='Deslocamento'){q += key+' '+conditions[i][3][key]+' • '}
+function cond_details(e,j,i,array,k){
+ var q = JSON.stringify(array[i][3]).length>2?'<b>Efeitos:</b> ':'';
+ for (var key in array[i][3]){if(key!='Deslocamento'){q += key+' '+(array[i][3][key]>0?'+':'')+array[i][3][key]+' • '}}
+
+ e.children[0].innerHTML = array[i][0]+(array[i][1]?' • '+array[i][1]:'');	//título e tipo
+ e.children[1].innerHTML = (array[i][4]?array[i][4]+' PM • ':'')+(array[i][5]?action[array[i][5]]+' • ':'')+(array[i][6]?duration[array[i][6]]:'');  //tipo, custo, ação
+ e.children[2].innerHTML = (data.conditions[j][i]||!k)?array[i][2]:(e.children[2].innerHTML?'':array[i][2]);	//desc
+ e.children[3].innerHTML = (data.conditions[j][i]||!k)?q.slice(0,-3):(e.children[3].innerHTML?'':q.slice(0,-3));	//efeitos
+
+ if(j&&k){
+  if(data.conditions[j][i]){e.parentNode.children[2].classList.remove('hid')}
+  else{e.parentNode.children[2].classList.toggle('hid')}
+  e = e.parentNode.parentNode.children[1].children[0];
+  if(!e.classList.contains('def_hide')){e.classList.add('def_hide')}
  }
- e.children[1].innerHTML = data.conditions[i]?conditions[i][2]:'';
- e.children[2].innerHTML = data.conditions[i]?q.slice(0,-3):'';
 }
 
-const desloc = document.getElementById('deslocamento');
-function toggle_condition(e){
- var i = e.getAttribute('index');
- data.conditions[i] =! data.conditions[i];
- for (var key in conditions[i][3]){
+function cond_change(e,k){
+ let value = e.value;
+ e = e.parentNode.parentNode.parentNode.parentNode.parentNode.children[0].children[1];
+
+ let conds = document.getElementsByClassName('cond_user');
+ let i = Array.prototype.indexOf.call(conds,e);
+ data.cond_user[i][k]=value;
+ cond_details(e,1,i,data.cond_user,0);
+}
+
+function cond_edit(e){e.parentNode.parentNode.children[1].children[0].classList.toggle('def_hide')}
+
+function toggle_condition(e,array){
+ const desloc = document.getElementById('deslocamento').parentNode.children[3];
+ e.classList.toggle('condmarked');
+
+ e = e.parentNode.children[1];
+ let j = e.classList.contains('cond_user')?1:0;
+ let conds = j?'cond_user':'conditions';
+ conds = document.getElementsByClassName(conds);
+ let i = Array.prototype.indexOf.call(conds,e);
+
+ data.conditions[j][i] =! data.conditions[j][i];
+ for (var key in array[i][3]){
   if(key=='Deslocamento'){
-   if(data.conditions[i]){data.cond[key].push(conditions[i][3][key])}
-   else{data.cond[key].splice(data.cond[key].indexOf(conditions[i][3][key]),1)}
-   document.getElementById('deslocamento').parentNode.children[3].innerHTML = '*'+data.cond[key][0].charAt(0).toUpperCase() + data.cond[key].join(', ').slice(1);
+   if(data.conditions[j][i]){data.cond[key].push(array[i][3][key])}
+   else{data.cond[key].splice(data.cond[key].indexOf(array[i][3][key]),1)}
+   if(data.cond[key].length){desloc.innerHTML = '*'+data.cond[key][0].charAt(0).toUpperCase() + data.cond[key].join(', ').slice(1)}
+   else{desloc.innerHTML = ''}
   }
-  else{data.cond[key] += conditions[i][3][key]*(data.conditions[i]?1:-1)}
+  else{data.cond[key] += array[i][3][key]*(data.conditions[j][i]?1:-1)}
+  if(key=='Tamanho'){document.getElementById('tamanho').value = JSON.parse(data.tamanho) + data.cond[key]}
   if(key=='Pontos de Vida'||key=='Pontos de Mana'){
    var k = key=='Pontos de Vida'?'hp':'mp';
-   data[k] = data.conditions[i]?data[k]+conditions[i][3][key]:(data[k]>data[k+'max']+data.cond[key]?data[k+'max']+data.cond[key]:data[k]);
+   data[k] = data.conditions[j][i]?data[k]+array[i][3][key]:(data[k]>data[k+'max']+data.cond[key]?data[k+'max']+data.cond[key]:data[k]);
    document.getElementById(k).innerHTML = data[k];
   }
  }
+ cond_info(e,array);
+ calc_hab();
  calc();
- cond_info(e,i);
 }
 
-function create_cond(){
- 
+var actions = '';
+for(let i in action){actions += '<option value="'+(i>0?i+'"':'" disabled selected')+'>'+action[i]+'</option>'}
+
+var durations = '';
+for(let i in duration){durations += '<option value="'+(i>0?i+'"':'" disabled selected')+'>'+duration[i]+'</option>'}
+
+var effects = '';
+for(let key in cond){effects += '<option value="'+(cond[key]=='disabled'?'" disabled':key+'"')+(key=='Selecione um efeito'?' selected':'')+'>'+key+'</option>'}
+
+function list_conditions(e,i,array){
+ j = e=='cond_user'?'data.cond_user':'conditions';
+
+ var div = document.createElement('div');
+ div.setAttribute('class','w10 pr ma db');
+
+ var content = '<div class="w10 dif">';
+ content += '<div class="w1 condmark" onclick="toggle_condition(this,'+j+')"></div>';
+ content += '<div class="w8 '+e+'" onclick="cond_info(this,'+j+')"><p class="item_title">'+array[i][0]+(array[i][1]?' • '+array[i][1]:'')+'</p>';
+ content += '<p class="item_subtitle">'+(array[i][4]?array[i][4]+' PM • ':'')+(array[i][5]?action[array[i][5]]+' • ':'')+(array[i][6]?duration[array[i][6]]:'')+'</p>';
+ content += '<p class="item_subtitle"></p><p class="item_subtitle"></p></div>';
+ if(e=='cond_user'){
+  content += '<div class="w1 ma hid" onclick="cond_edit(this)"><div class="pencilbox ma"><div class="pencil"></div></div></div></div>';
+  content += '<div class="w10">';
+  content += '<div class="w10 attack_info def_hide cond_info"><div class="w10 dif">';
+  content += '<div class="w8 ma dif"><input class="skill_input m3e" type="text" placeholder="Nome da condição" autocomplete="off" autocomplete="chrome-off" onchange="cond_change(this,0)"></div>';
+  content += '<div class="w2 ma dif" onclick="cond_remove(this)"><div class="trash"></div></div>';
+  content += '</div><div class="w10 dif">';
+  content += '<div class="w5 ma dif"><input class="skill_input m3e" type="text" placeholder="Tipo de condição" autocomplete="off" autocomplete="chrome-off" onchange="cond_change(this,1)"></div>';
+  content += '<div class="w5 ma dif"><select class="skill_input m3e" onchange="cond_change(this,5)" required>'+actions+'</select></div>';
+  content += '</div><div class="w10 dif">';
+  content += '<div class="w5 ma dif"><input class="skill_input m3e" type="Number" placeholder="Custo em PM" autocomplete="off" autocomplete="chrome-off" onkeyup="regexqte(this)" onchange="cond_change(this,4)"></div>';
+  content += '<div class="w5 ma dif"><select class="skill_input m3e" onchange="cond_change(this,6)" required>'+durations+'</select></div>';
+  content += '</div>';
+  content += '<div><div class="w10 m3e dif"><textarea class="skill_input m3e" type="text" placeholder="Descrição e detalhes" autocomplete="off" onchange="cond_change(this,2)"></textarea></div></div>';
+
+  content += '<div class="w10 mt tac"><div class="effect_add" onclick="effect_add(this)">+</div><p class="item_title ml">Efeitos dessa condição:</p></div><div>';
+  for(let key in array[i][3]){
+   content += '<div class="w10 dif">';
+   content += '<div class="w4 m3e"><select class="skill_input m3e" onchange="effect_change(this)" required>'+effects+'</select></div>';
+   content += '<div class="w4 m3e"><input class="skill_input m3e" placeholder="Modificador" autocomplete="off" autocomplete="chrome-off" onkeyup="regexb1(this)" onchange="effect_change(this)"></div>';
+   content += '<div class="w2 ma dif" onclick="effect_remove(this)"><div class="trash"></div></div>';
+   content += '</div>';
+  }
+  content += '</div></div></div>';
+ }
+ div.innerHTML = content;
+ document.getElementById(e).appendChild(div);
+
+ if(e=='cond_user'){
+  e = div.children[1].children[0].children[5];
+  var j = 0;
+  for(let key in array[i][3]){
+   e.children[j].children[0].children[0].value = key;
+   e.children[j].children[1].children[0].value = array[i][3][key];
+   j++;
+ }}
+}
+
+function cond_create(){
+ if(data.cond_user.length){data.cond_user.push(['Nome da Condição','Tipo de Condição','Descrição e detalhes',{},'Custo em',0,0])}
+ else{data.cond_user.push(['(um exemplo) Forma Selvagem Feroz','Druída','Você pode adquirir a forma de uma criatura selvagem. Você recebe Força +3, +2 na Defesa e uma arma natural que causa 1d8 pontos de dano.',{Força:3,Defesa:2},3,4,7])}
+ list_conditions('cond_user',data.cond_user.length-1,data.cond_user)
+}
+
+function cond_remove(e){
+ e = e.parentNode.parentNode.parentNode.parentNode.children[0].children[1];
+ let conds = document.getElementsByClassName('cond_user');
+ j = Array.prototype.indexOf.call(conds,e);
+ data.cond_user.splice(j,1);
+ e.parentNode.parentNode.remove();
+}
+
+function effect_add(e){
+ var div = document.createElement('div');
+ div.setAttribute('class','w10 dif');
+
+ content = '<div class="w4 m3e"><select class="skill_input m3e" onchange="effect_change(this)" required>'+effects+'</select></div>';
+ content += '<div class="w4 m3e"><input class="skill_input m3e" type="number" placeholder="Modificador" autocomplete="off" autocomplete="chrome-off" onkeyup="regexb1(this)" onchange="effect_change(this)"></div>';
+ content += '<div class="w2 ma dif" onclick="effect_remove(this)"><div class="trash"></div></div>';
+
+ div.innerHTML = content;
+ e.parentNode.parentNode.children[5].appendChild(div);
+}
+
+function effect_change(e){
+ e = e.parentNode.parentNode.parentNode;
+ let i = e.parentNode.parentNode.parentNode.children[0].children[1];
+ i = Array.prototype.indexOf.call(document.getElementsByClassName('cond_user'),i);
+
+ if(data.conditions[1][i]){for(let key in data.cond_user[i][3]){data.cond[key] -= data.cond_user[i][3][key]}} //remove effects from active list
+ data.cond_user[i][3] = {}; //clear effects from array
+ let selects = e.getElementsByTagName('select');
+ for(let k=0;k<selects.length;k++){ //readd effects to array
+  let value = selects[k].parentNode.parentNode.children[1].children[0];
+  if(selects[k].value=='Deslocamento'){
+   value.setAttribute('onkeyup','');
+   value.setAttribute('type','text');
+   value = value.value;
+  }else{
+   value.setAttribute('onkeyup','regexb1(this)');
+   if(isNaN(value.value)){value.value=''}
+   value.setAttribute('type','number');
+   value = value.value.replace('+','');
+  }
+  if(value){data.cond_user[i][3][selects[k].value] = isNaN(value)?value:JSON.parse(value)}
+ }
+ if(data.conditions[1][i]){for(let key in data.cond_user[i][3]){data.cond[key] += data.cond_user[i][3][key]}calc_hab();calc()} //readd effects to active list
+}
+
+function effect_remove(e){
+ e = e.parentNode;
+ let key = e.children[0].children[0].value;
+ let i = e.parentNode.parentNode.parentNode.parentNode.children[0].children[1];
+ i = Array.prototype.indexOf.call(document.getElementsByClassName('cond_user'),i);
+
+ if(data.conditions[1][i]){for(let key in data.cond_user[i][3]){data.cond[key] -= data.cond_user[i][3][key]}} //remove effects from active list
+ delete data.cond_user[i][3][key];
+ e.remove();
+ if(data.conditions[1][i]){for(let key in data.cond_user[i][3]){data.cond[key] += data.cond_user[i][3][key]}calc_hab();calc()} //readd effects to active list
 }
 
 //-------------------------EQUIP FUNCTIONS------------------------//
@@ -1319,11 +1462,11 @@ function equip_add(qte,title,type,cost,weight,desc){
 
  var content = '<div class="w10 dif">';
  content += '<div class="w7 ma" onclick="attack_info(this)"><p class="item_title">Nome do item</p><p class="item_subtitle">Tipo de item • Valor do item • Espaços totais ocupados</p></div>';
- content += '<div class="w3 equip_btns dif"><div class="third fakebtn equip_btn df m0 dn" onclick="equip_remov(this)"><div class="trash" style="transform:translateY(2px)"></div></div><button class="third equip_btn m0" onclick="qte_change(this,-1,1)">-</button><div class="third equip_btn mwu df"><input class="skill_input mwu tc" type="number" placeholder="Un." value="'+qte+'" autocomplete="off" onkeyup="regexqte(this)" onchange="equip_data(this,0)"></div><button class="third equip_btn m0" onclick="qte_change(this,1,0)">+</button></div>';
+ content += '<div class="w3 equip_btns dif"><div class="third fakebtn equip_btn df m0 dn" onclick="equip_remov(this)"><div class="trash" style="transform:translateY(2px)"></div></div><button class="third equip_btn m0" onclick="qte_change(this,-1,1)">-</button><div class="third equip_btn mwu df"><input class="skill_input mwu tc" type="number" placeholder="Un." value="'+qte+'" autocomplete="off" autocomplete="chrome-off" onkeyup="regexqte(this)" onchange="equip_data(this,0)"></div><button class="third equip_btn m0" onclick="qte_change(this,1,0)">+</button></div>';
  content += '</div><div class="w10 attack_info def_hide">';
  content += '<div class="w10 dif">';
- content += '<div class="w7 ma df"><input class="skill_input m3e" type="text" placeholder="Nome do item" value="'+title+'" autocomplete="off" onchange="equip_data(this,1)"></div>';
- content += '<div class="w3 ma df"><input class="skill_input m3e" type="text" placeholder="Valor do item" value="'+cost+'" autocomplete="off" onchange="equip_data(this,3)"></div>';
+ content += '<div class="w7 ma df"><input class="skill_input m3e" type="text" placeholder="Nome do item" value="'+title+'" autocomplete="off" autocomplete="chrome-off" onchange="equip_data(this,1)"></div>';
+ content += '<div class="w3 ma df"><input class="skill_input m3e" type="text" placeholder="Valor do item" value="'+cost+'" autocomplete="off" autocomplete="chrome-off" onchange="equip_data(this,3)"></div>';
  content += '</div>';
  content += '<div class="w10 dif">';
  content += '<div class="w5 ma df"><select class="skill_input m3e" autocomplete="off" onchange="equip_data(this,2)" required>'+tipo+'</select></div>';
@@ -1352,21 +1495,24 @@ function equip_kit(){
 //-------------------------CALCULATION FUNCTIONS------------------------//
 
 function add_plus_sign(v){v=v<0?v:'+'+v;return v}
-function calc_hab(e){
- var value = Math.floor((e.value-10)/2);
- e = e.parentNode.parentNode.parentNode.children[3].children[0];
- var str = e.id;
- e.innerHTML = add_plus_sign(value + data.cond[habis[habs.indexOf(str.substring(4).toLowerCase())]]);
- data_inner(e);
+function calc_hab(){
+ const hab = document.getElementsByClassName('hab');
+ for (let i=0;i<hab.length;i++){
+  var value = Math.floor((hab[i].value-10)/2);
+  var e = hab[i].parentNode.parentNode.parentNode.children[3].children[0];
+  value = value + data.cond[habis[habs.indexOf(e.id.substring(4).toLowerCase())]];
+  e.innerHTML = add_plus_sign(value);
+  data[e.id] = JSON.parse(value);
+ }
  calc();
 }
 function calc_spell_res(){
- var value = 10 + Math.floor(JSON.parse(data.nível)/2) + JSON.parse(data['hab_'+habs[data.spell_hab]]);
- document.getElementById('spell_res').innerHTML = value  + data.cond['CD Magias'];
+ var value = 10 + Math.floor(JSON.parse(data.nível)/2) + JSON.parse(data['hab_'+habs[data.spell_hab]]) + data.cond['CD Magias'];
+ document.getElementById('spell_res').innerHTML = value;
  data.spell_res=value;
  save_data()
 }
-function calc(){def_calc();calc_skills('skills');calc_skills('crafts');calc_spell_res();equip_calc();calc_cap_carga();rd_calc();save_data()}
+function calc(){def_calc();rd_calc();calc_skills('skills');calc_skills('crafts');calc_spell_res();equip_calc();calc_cap_carga();save_data()}
 
 
 //-------------------------POWERS FUNCTIONS------------------------//
@@ -1809,7 +1955,7 @@ function create_habs(){
   var div = document.createElement('div');
   div.setAttribute('class','w10 dif');
   var content = '<div class="w2 dif"><div class="hab_label">'+habs[i].toUpperCase()+'</div></div>';
-  content += '<div class="w4"><div class="input"><input id="hab_'+habs[i]+'_val" class="tc hab" inputmode="numeric" onkeyup="regex2(this)" onchange="data_add(this);calc_hab(this)" required></div></div>';
+  content += '<div class="w4"><div class="input"><input id="hab_'+habs[i]+'_val" class="tc hab" inputmode="numeric" onkeyup="regex2(this)" onchange="data_add(this);calc_hab()" autocomplete="off" autocomplete="chrome-off" required></div></div>';
   content += '<div class="w2 dif" onclick="startroll(\'hab_'+habs[i]+'\')"><div class="dice" data-dice="d20"></div></div>';
   content += '<div class="w2 dif"><p id="hab_'+habs[i]+'" class="ma0" sign="1">+0</p></div>';
   div.innerHTML = content;
@@ -1829,7 +1975,7 @@ function start_up(){
  for (var i=0;i<power_inputs.length;i++){create_checkbox(power_inputs[i])}
  for (var i=0;i<spells.length;i++){list_spells('all_spells',i)}
  for (var i=0;i<powers.length;i++){list_powers('all_powers',i)}
- for (var i=0;i<conditions.length;i++){list_conditions('conditions',i)}
+ for (var i=0;i<conditions.length;i++){list_conditions('conditions',i,conditions)}
  list_skills(skills,i,'skills');
  list_skills(crafts,i,'crafts');
  list_rd();
@@ -1841,7 +1987,7 @@ function start_up(){
 
 //-------------------------DATA MANAGEMENT FUNCTIONS------------------------//
 
-function data_add(e){data[e.id]=e.value}
+function data_add(e){data[e.id]=JSON.parse(e.value)}
 function data_array(e){data[e.id]=e.value}
 function data_check(e){data[e.id]=e.checked;loaded=0}
 function data_inner(e){var value = e.innerHTML.replace('+','');data[e.id]=JSON.parse(value)}
@@ -1855,11 +2001,11 @@ function data_set(){
   }else if(key=='powers'){
    for (var i=0;i<data.powers.length;i++){list_powers('char_powers',data.powers[i])}
   }else if(key=='conditions'){
-   for (var i=0;i<data.conditions.length;i++){if(data.conditions[i]){cond_info(document.getElementById('condition_'+i),i)}}
+   for (var i=0;i<data.conditions[0].length;i++){if(data.conditions[0][i]){cond_info(document.getElementById('condition_'+i),i)}}
   }else if(key=='defense'){
    for (let i in data.defense){document.getElementById(i).value=data.defense[i]}
   }else if(key=='skills'||key=='crafts'||key=='cond'){ //do nothing
-  }else if(key=='cond_user'){ //do something
+  }else if(key=='cond_user'){for (var i=0;i<data.cond_user.length;i++){list_conditions('cond_user',i,data.cond_user)}
   }else if(key=='attack'){attack_set()
   }else if(key=='equip'){for(var i=0;i<data.equip.length;i++){equip_add(data.equip[i][0],data.equip[i][1],data.equip[i][2],data.equip[i][3],data.equip[i][4],data.equip[i][5])}equip_calc()
   }else{
@@ -1899,7 +2045,7 @@ function data_load(){
   if(!data.defense){data.defense=data_ini.defense}
   if(!data.attack){data.attack=data_ini.attack}
   if(!data.equip){data.equip=data_ini.equip}
-   if(!data.carga){data.defense=data_ini.carga}
+  if(!data.carga){data.defense=data_ini.carga}
   loaded=1;
  }
 }

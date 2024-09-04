@@ -18,9 +18,14 @@ p{}
 .import::after,.import::before{content:"";display:block;position:absolute}
 .import::before{background:#424141;width:2px;height:14px;right:6px;bottom:5px}
 .import::after{width:6px;height:6px;border-right:2px solid;border-bottom:2px solid;right:4px;bottom:4px;transform:rotate(45deg)}
+.pencilbox{position:relative;border:2px var(--black) solid;width:15px;height:15px}
+.pencilbox:before{display:block;content:'';width:10px;height:11px;background:#fff;position:absolute;top:-2px;right:-2px}
+.pencil{position:relative;top:-15px;display:inline-block;width:25px;height:36px;margin-top:-4px;padding:0 7px;font-size:0;vertical-align:middle;cursor:pointer}
+.pencil:before{position:absolute;top:50%;left:50%;transform:translate(-2px,-3px) rotate(-45deg);width:3px;height:5px;background-color:var(--black);box-shadow:1px 0px 0px var(--black), 2px 0px 0px var(--black), 3px 0px 0px var(--black), -1px 0px 0px var(--black), -2px 0px 0px var(--black), -3px 0px 0px var(--black), -3.3px 0px 0px var(--black), 7px 0px 0px var(--black);content:''}
+.pencil:after{position:absolute;top:50%;left:50%;transform:translate(-9px,3px) rotate(-45deg);font-size:1px;border:solid 3em transparent;border-left-width:0;border-right-width:5em;border-right-color:var(--black);content:''}
 .close{position:relative;display:block;width:22px;height:22px;border:2px solid;border-radius:40px}
 .close::after,.close::before{content:"";display:block;position:absolute;width:12px;height:2px;background:currentColor;transform:rotate(45deg);border-radius:5px;top:8px;left:3px}
 .close::after{transform:rotate(-45deg)}
 textarea{field-sizing:content}
-select option{color:var(--black)!important}select:invalid{color:#6c6c6c!important}
+select option{color:var(--black)!important}option:disabled{color:unset!important}select:invalid{color:#6c6c6c!important}
 </style>
