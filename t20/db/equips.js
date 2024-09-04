@@ -1,5 +1,5 @@
-const alcance = ['Adjacente','Curto','Médio','Longo'];
-const tipo_dano = ['Corte','Impacto','Perfuração'];
+const alcance = ['Alcance','Adjacente','Curto','Médio','Longo'];
+const tipo_dano = ['Tipo','Corte','Impacto','Perfuração'];
 const tipo_item = ['Tipo de item','Equip. de Aventura','Arma Simples','Arma Marcial','Arma Exótica','Arma de Fogo','Armadura Leve','Armadura Pesada','Escudo','Alquimia','Alimentação','Animais','Esotéricos','Ferramentas','Item Mágico','Pergaminhos','Poções','Veículos','Vestuário','Outro'];
 const peso_item = ['Espaço por unidade','Não ocupa espaço','⅛','¼','½',1,2,3,4,5,6,7,8,9,10];
 

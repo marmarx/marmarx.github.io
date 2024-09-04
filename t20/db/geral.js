@@ -1,5 +1,5 @@
 const habs = ['spell_hab','for','des','con','int','sab','car'];
-const habis = ['','Força','Destreza','Constituição','Inteligência','Sabedoria','Carisma'];
+const habis = ['Habilidade','Força','Destreza','Constituição','Inteligência','Sabedoria','Carisma'];
 const nivel = ['nível',1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
 const tamanho = ['tamanho','Minúsculo','Pequeno','Médio','Grande','Enorme','Colossal'];
 const rd = ['Ácido', 'Eletricidade', 'Fogo', 'Frio', 'Luz', 'Trevas', 'Mágico'];

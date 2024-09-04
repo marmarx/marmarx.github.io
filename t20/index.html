@@ -12,6 +12,7 @@
 <script type="text/javascript" src="db/icons.js"></script>
 <script type="text/javascript" src="db/geral.js"></script>
 <script type="text/javascript" src="db/spells.js"></script>
+<script type="text/javascript" src="db/racial.js"></script>
 <script type="text/javascript" src="db/feats.js"></script>
 <script type="text/javascript" src="db/skills.js"></script>
 <script type="text/javascript" src="db/equips.js"></script>
@@ -335,7 +336,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
   <div class="row"><div id="char_attack" class="container db z1">
   </div></div>
   <div class="row"><div class="container">
-   <button onclick="attack_add(1)">Adicionar ataque</button>
+   <button onclick="attack_add()">Adicionar ataque</button>
   </div></div>
  </div>
 
@@ -349,10 +350,15 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
  </div>
 
  <div id="sec_feat" class="sec">
-  <h1>Poderes</h1>
+  <h1>Raça e Origem</h1>
   <div class="row"><div id="char_powers" class="container db"></div></div>
   <div class="row"><div class="container">
-   <button onclick="show('backdrop_power')">Buscar poderes</button>
+   <button onclick="show('backdrop_power')">Buscar poderes de raça e de origem</button>
+  </div></div>
+  <h1 style="margin:2em 0 .6em">Poderes de Classe</h1>
+  <div class="row"><div id="char_powers" class="container db"></div></div>
+  <div class="row"><div class="container">
+   <button onclick="show('backdrop_power')">Buscar poderes de classe e talentos</button>
   </div></div>
  </div>
 
@@ -953,12 +959,13 @@ function weap_roll(e){
  for (var i=0;i<k.length;i++){
   if(k.length>1){print_out((i+1)+'º ataque:')}
   diceroll('d20'+(k[i]<0?'':'+')+k[i],data.attack[x][6]);
+
   var p = 1;
-  if(roll[0]>=data.attack[x][6]){
-   p = JSON.parse(data.attack[x][7].replace('x',''));
-  }
+  var c = data.attack[x][6]?data.attack[x][6]:20;
+  if(roll[0]>=c){p = data.attack[x][7]?JSON.parse(data.attack[x][7].replace('x','')):2}
+
   var q = data.attack[x][2].indexOf('d');
-  q = q==0?1:JSON.parse(data.attack[x][2].slice(0,q));
+  q = q<1?1:JSON.parse(data.attack[x][2].slice(0,q));
   p = p*q;
   diceroll(p+e.slice(e.indexOf('d')).slice(0,e.indexOf(' ')),0);
  }
@@ -966,41 +973,22 @@ function weap_roll(e){
  openroller(document.getElementById('drawer'));
 }
 
-function attack_set(){
- for (var i=0;i<data.attack.length;i++){attack_add(0)}
- var attacks = document.getElementsByClassName('attack');
- for (var i=0;i<attacks.length;i++){
-  var e = attacks[i].children[1];
-  e.children[0].children[0].children[0].value=data.attack[i][0]; //title
-  e.children[2].children[0].children[0].value=data.attack[i][1]; //base attack
-  e.children[2].children[1].children[0].value=data.attack[i][2]; //base damage
-  e.children[3].children[1].children[0].value=data.attack[i][3]; //hab dmg
-  e.children[4].children[0].children[0].value=data.attack[i][4]; //outro attack
-  e.children[4].children[1].children[0].value=data.attack[i][5]; //outro damage
-  e.children[6].children[0].children[0].value=data.attack[i][6]; //crit attack
-  e.children[6].children[1].children[0].value=data.attack[i][7]; //crit damage
-  e.children[7].children[0].children[0].value=data.attack[i][8]; //range
-  e.children[7].children[1].children[0].value=data.attack[i][9]; //dmg type
-  if(data.attack[i][10]){e.children[8].children[0].children[0].innerHTML=data.attack[i][10]}; //dmg type
- }
- attack_calc();
-}
-
 function attack_calc(){
  var at_skill = document.getElementsByName('at_skill');
  var at_skname = document.getElementsByName('at_skname');
  for (var i=0;i<at_skill.length;i++){
-  var k = (data.attack[i][8]==0?'Luta_total':'Pontaria_total');
+  var k = (data.attack[i][8]==1?'Luta_total':'Pontaria_total');
   at_skill[i].innerHTML=document.getElementById(k).innerHTML;
   at_skname[i].innerHTML=k.slice(0, -6)+' e hab.';
  }
  var attacks = document.getElementsByClassName('attack');
  for (var i=0;i<attacks.length;i++){
-  attacks[i].children[0].children[0].children[0].innerHTML=(data.attack[i][0]?data.attack[i][0]:'Disparo Rápido • Arco Longo');
+  attacks[i].children[0].children[0].children[0].innerHTML=data.attack[i][0]?data.attack[i][0]:'Nome do Ataque';
   attacks[i].children[1].children[5].children[0].children[0].innerHTML=add_plus_sign(data.cond.Ataques); //condition attack
   attacks[i].children[1].children[5].children[1].children[0].innerHTML=add_plus_sign(data.cond.Dano); //condition damage
 
-  var k = (data.attack[i][3]?data['hab_'+habs[data.attack[i][3]]]:0)+data.cond.Dano;
+  var k = (data.attack[i][3]?data['hab_'+ habs[data.attack[i][3]]]:0)+data.cond.Dano;
+
   var o = 0;
   if(isNaN(data.attack[i][5])){
    o = data.attack[i][5][0]=='-'?data.attack[i][5]:'+'+data.attack[i][5];
@@ -1010,14 +998,14 @@ function attack_calc(){
    o = (o==0?'':(o>0?'+'+o:o));
   }
 
-  attacks[i].children[0].children[0].children[1].innerHTML=(data.attack[i][2]?data.attack[i][2]:'d8')+o+' • '+(data.attack[i][6]<20?data.attack[i][6]+'-20':20)+'/'+(data.attack[i][7]?data.attack[i][7]:'x2')+' • '+(data.attack[i][8]!==undefined?alcance[data.attack[i][8]]:'Médio')+' • '+(data.attack[i][9]!==undefined?tipo_dano[data.attack[i][9]]:'Perfuração');
+  attacks[i].children[0].children[0].children[1].innerHTML=(data.attack[i][2]?data.attack[i][2]:'d8')+o+' • '+(data.attack[i][6]&&data.attack[i][6]<20?data.attack[i][6]+'-20':20)+'/'+(data.attack[i][7]?data.attack[i][7]:'x2')+' • '+(data.attack[i][8]>0?alcance[data.attack[i][8]]:'Alcance')+' • '+(data.attack[i][9]>0?tipo_dano[data.attack[i][9]]:'Tipo de dano');
 
   var k = 0;
-  if(data.attack[i][1]!==undefined){k=base_split('-2/-2')}
-  if(isNaN(data.attack[i][1])){k=base_split(data.attack[i][1])}
+  if(data.attack[i][1]==''){k=[0]}
+  else if(isNaN(data.attack[i][1])){k=base_split(data.attack[i][1])}
   else{k=[data.attack[i][1]]}
 
-  for (var j=0;j<k.length;j++){k[j]=JSON.parse(k[j])+JSON.parse(at_skill[i].innerHTML.replace(/[+]/g,''))+(data.attack[i][4]!==undefined?data.attack[i][4]:0)+data.cond.Ataques;if(k[j]>=0){k[j]='+'+k[j]}}
+  for (var j=0;j<k.length;j++){k[j]=JSON.parse(k[j])+JSON.parse(at_skill[i].innerHTML.replace(/[+]/g,''))+(data.attack[i][4]?data.attack[i][4]:0)+data.cond.Ataques;if(k[j]>=0){k[j]='+'+k[j]}}
   attacks[i].children[0].children[1].children[1].innerHTML=k.join('/');
  }
  save_data()
@@ -1042,37 +1030,75 @@ function attack_data(e,i){
 
 function attack_info(e){e.parentNode.parentNode.children[1].classList.toggle('def_hide')}
 
-var dmg_type = '<option disabled selected></option>';
-for(var i=0;i<tipo_dano.length;i++){dmg_type += '<option value="'+i+'">'+tipo_dano[i]+'</option>'}
-var range = '<option disabled selected></option>';
-for(var i=0;i<alcance.length;i++){range += '<option value="'+i+'">'+alcance[i]+'</option>'}
+var dmg_type = '';
+for(var i=0;i<tipo_dano.length;i++){dmg_type += '<option value="'+(i>0?i+'">':'" disabled selected>')+tipo_dano[i]+'</option>'}
+var range = '';
+for(var i=0;i<alcance.length;i++){range += '<option value="'+(i>0?i+'">':'" disabled selected>')+alcance[i]+'</option>'}
+var skill_habis = '';
+for(var i=0;i<habis.length;i++){skill_habis += '<option value="'+(i>0?i+'">':'" disabled selected>')+habis[i]+'</option>'}
 
-function attack_add(bt){
+function attack_list(i){
  var div = document.createElement('div');
  div.setAttribute('class','w10 attack');
  div.setAttribute('attack',data.attack.length);
 
- var content2 = '<div class="w10 dif"><div class="w8 m0a dif"><input class="skill_input" type="text" placeholder="Disparo Rápido • Arco Longo (exemplo)" autocomplete="off" autocomplete="chrome-off" onchange="attack_data(this,0)"></div><div class="w2 m0a dif" onclick="attack_remove(this)"><div class="trash"></div></div></div>';
- content2 +=  '<div class="w10 dif"><div class="w2 m3e dif"><p class="item_subtitle m0a">Ataque</p></div><div class="w2 dif m3e"><p class="item_subtitle m0a" style="transform:translateX(-2px)">Dano</p></div><div class="w6"></div></div>';
- content2 +=  '<div class="w10 dif"><div class="w2 m3e dif"><input class="skill_input tc" type="text" placeholder="-2/-2" autocomplete="off" autocomplete="chrome-off" onkeyup="regexb1(this)" onchange="attack_data(this,1)"></div><div class="w2 m3e dif"><input class="skill_input tc" type="text" placeholder="d8" autocomplete="off" autocomplete="chrome-off" onkeyup="regexb2(this)" onchange="attack_data(this,2)"></div><div class="w6 m3e dif"><p class="p_skill">Base</p></div></div>';
- content2 +=  '<div class="w10 dif"><div class="w2 m3e dif"><p name="at_skill" class="p_skill tc">+6</p></div><div class="w2 m3e dif"><select class="select skill_input tc" onchange="attack_data(this,3)">'+skill_habs+'</select></div><div class="w6 m3e dif"><p name="at_skname" class="p_skill">Pontaria e hab.</p></div></div>';
- content2 +=  '<div class="w10 dif"><div class="w2 m3e dif"><input class="skill_input tc" type="text" placeholder="+0" inputmode="numeric" autocomplete="off" autocomplete="chrome-off" onkeyup="regex(this)" onchange="attack_data(this,4)"></div><div class="w2 m3e dif"><input class="skill_input tc" type="text" placeholder="+0" inputmode="numeric" autocomplete="off" autocomplete="chrome-off" onkeyup="regexo(this)" onchange="attack_data(this,5)"></div><div class="w6 m3e dif"><p class="p_skill">Outro</p></div></div>';
- content2 +=  '<div class="w10 dif"><div class="w2 m3e dif"><p class="p_skill tc">+0</p></div><div class="w2 m3e dif"><p class="p_skill tc">+0</p></div><div class="w6 m3e dif"><p class="p_skill">Condições</p></div></div>';
- content2 +=  '<div class="w10 dif"><div class="w2 m3e dif"><input class="skill_input tc" type="text" placeholder="20" inputmode="numeric" autocomplete="off" autocomplete="chrome-off" onkeyup="regexc1(this)" onchange="attack_data(this,6)"></div><div class="w2 m3e dif"><input class="skill_input tc" type="text" placeholder="x3" autocomplete="off" autocomplete="chrome-off" onkeyup="regexc2(this)" onchange="attack_data(this,7)"></div><div class="w6 m3e dif"><p class="p_skill">Crítico</p></div></div>';
- content2 +=  '<div class="w10 dif"><div class="w2 m3e dif"><select name="at_range" class="select skill_input tc" onchange="attack_data(this,8)">'+range+'</select></div><div class="w2 m3e dif"><select class="select skill_input tc" onchange="attack_data(this,9)">'+dmg_type+'</select></div><div class="w6 m3e dif"><p class="p_skill">Alcance e tipo</p></div></div>';
- content2 +=  '<div class="w10 dif"><div class="w10 m3e dif"><textarea class="skill_input m3e" type="text" placeholder="Poderes aplicados, melhoramentos de arma e outros detalhes" autocomplete="off" onchange="attack_data(this,10)">(um exemplo) As seguintes habilidades estão aplicadas nesse ataque:\n• Estilo de Disparo: +des no dano\n• Disparo Rápido: dois ataques -2/-2, ação completa</textarea></div></div></div>';
+ var content2 = '<div class="w10 dif"><div class="w8 m0a dif">';
+ content2 +=  '<input class="skill_input" type="text" placeholder="Nome do ataque" value="'+data.attack[i][0]+'" autocomplete="off" autocomplete="chrome-off" onchange="attack_data(this,0)">';
+ content2 +=  '</div><div class="w2 m0a dif" onclick="attack_remove(this)"><div class="trash"></div></div></div>';
+
+ content2 +=  '<div class="w10 dif"><div class="w3 m3e dif"><p class="item_subtitle m0a">Ataque</p></div><div class="w3 dif m3e"><p class="item_subtitle m0a" style="transform:translateX(-2px)">Dano</p></div><div class="w7"></div></div>';
+
+ content2 +=  '<div class="w10 dif"><div class="w3 m3e dif">';
+ content2 +=  '<input class="skill_input tc" type="text" placeholder="Modificador" value="'+data.attack[i][1]+'" autocomplete="off" autocomplete="chrome-off" onkeyup="regexb1(this)" onchange="attack_data(this,1)">';
+ content2 +=  '</div><div class="w3 m3e dif">';
+ content2 +=  '<input class="skill_input tc" type="text" placeholder="Dado" value="'+data.attack[i][2]+'" autocomplete="off" autocomplete="chrome-off" onkeyup="regexb2(this)" onchange="attack_data(this,2)">';
+ content2 +=  '</div><div class="w7 m3e dif"><p class="p_skill">Base</p></div></div>';
+
+ content2 +=  '<div class="w10 dif"><div class="w3 m3e dif"><p name="at_skill" class="p_skill tc">+6</p></div><div class="w3 m3e dif">';
+ content2 +=  '<select class="select skill_input tc" onchange="attack_data(this,3)" required>'+skill_habis+'</select>';
+ content2 +=  '</div><div class="w7 m3e dif"><p name="at_skname" class="p_skill">Pontaria e hab.</p></div></div>';
+
+ content2 +=  '<div class="w10 dif"><div class="w3 m3e dif">';
+ content2 +=  '<input class="skill_input tc" type="text" placeholder="+0" value="'+data.attack[i][4]+'" inputmode="numeric" autocomplete="off" autocomplete="chrome-off" onkeyup="regex(this)" onchange="attack_data(this,4)">';
+ content2 +=  '</div><div class="w3 m3e dif">';
+ content2 +=  '<input class="skill_input tc" type="text" placeholder="+0" value="'+data.attack[i][5]+'" inputmode="numeric" autocomplete="off" autocomplete="chrome-off" onkeyup="regexo(this)" onchange="attack_data(this,5)">';
+ content2 +=  '</div><div class="w7 m3e dif"><p class="p_skill">Outro</p></div></div>';
+
+ content2 +=  '<div class="w10 dif"><div class="w3 m3e dif"><p class="p_skill tc">+0</p></div><div class="w3 m3e dif"><p class="p_skill tc">+0</p></div><div class="w7 m3e dif"><p class="p_skill">Condições</p></div></div>';
+
+ content2 +=  '<div class="w10 dif"><div class="w3 m3e dif">';
+ content2 +=  '<input class="skill_input tc" type="text" placeholder="Margem" value="'+data.attack[i][6]+'" inputmode="numeric" autocomplete="off" autocomplete="chrome-off" onkeyup="regexc1(this)" onchange="attack_data(this,6)">';
+ content2 +=  '</div><div class="w3 m3e dif">';
+ content2 +=  '<input class="skill_input tc" type="text" placeholder="Multiplicador" value="'+data.attack[i][7]+'" autocomplete="off" autocomplete="chrome-off" onkeyup="regexc2(this)" onchange="attack_data(this,7)">';
+ content2 +=  '</div><div class="w7 m3e dif"><p class="p_skill">Crítico</p></div></div>';
+
+ content2 +=  '<div class="w10 dif"><div class="w3 m3e dif">';
+ content2 +=  '<select name="at_range" class="select skill_input tc" onchange="attack_data(this,8)" required>'+range+'</select>';
+ content2 +=  '</div><div class="w3 m3e dif">';
+ content2 +=  '<select class="select skill_input tc" onchange="attack_data(this,9)" required>'+dmg_type+'</select>';
+ content2 +=  '</div><div class="w7 m3e dif"><p class="p_skill">Alcance e tipo de dano</p></div></div>';
+
+ content2 +=  '<div class="w10 dif"><div class="w10 m3e dif">';
+ content2 +=  '<textarea class="skill_input m3e" type="text" placeholder="Poderes aplicados, melhoramentos de arma e outros detalhes" autocomplete="off" onchange="attack_data(this,10)">'+data.attack[i][10]+'</textarea>';
+ content2 +=  '</div></div></div>';
 
  var content = '<div class="w10 dif">';
- content += '<div class="w7 ma" onclick="attack_info(this)"><p class="item_title">Disparo Rápido • Arco Longo</p><p class="item_subtitle">d8+4 • 20/x3 • Médio • Perfuração</p></div>';
- content += '<div class="w3 dif" onclick="weap_roll(this)"><div class="dice dif">'+dices['d20']+'</div><p class="item_title">+4/+4</p></div>';
+ content += '<div class="w7 ma" onclick="attack_info(this)"><p class="item_title">Nome do Ataque</p><p class="item_subtitle"></p></div>';
+ content += '<div class="w3 dif" onclick="weap_roll(this)"><div class="dice dif">'+dices['d20']+'</div><p class="item_title"></p></div>';
  content += '</div><div class="w10 attack_info def_hide">'+content2+'</div>';
 
  div.innerHTML = content;
- div.children[1].children[3].children[1].children[0].value=2;
- div.children[1].children[7].children[0].children[0].value=2;
- div.children[1].children[7].children[1].children[0].value=2;
+ div.children[1].children[3].children[1].children[0].value=data.attack[i][3];
+ div.children[1].children[7].children[0].children[0].value=data.attack[i][8];
+ div.children[1].children[7].children[1].children[0].value=data.attack[i][9];
  document.getElementById('char_attack').appendChild(div);
- if(bt){data.attack.push(['Disparo Rápido • Arco Longo','-2/-2','d8',2,0,0,20,'x3',2,2,'(um exemplo) As seguintes habilidades estão aplicadas nesse ataque:\n• Estilo de Disparo: +des no dano\n• Disparo Rápido: dois ataques -2/-2, ação completa'])}
+ attack_calc();
+}
+
+function attack_add(){
+ if(data.attack.length){data.attack.push(['','','','','','','','','','',''])}
+ else{data.attack.push(['Disparo Rápido • Arco Longo','-2/-2','d8',2,0,0,20,'x3',2,2,'(um exemplo) As seguintes habilidades estão aplicadas nesse ataque:\n• Estilo de Disparo: +des no dano\n• Disparo Rápido: dois ataques -2/-2, ação completa'])}
+ attack_list(data.attack.length-1)
 }
 
 
@@ -2013,7 +2039,7 @@ function data_set(){
    for (var i=0;i<data.cond_user.length;i++){list_conditions('cond_user',i,data.cond_user)}
    conds = document.getElementById('cond_user').getElementsByClassName('condmark');
    for (var i=0;i<conds.length;i++){if(data.conditions[1][i]){conds[i].classList.add('condmarked');cond_info(conds[i].parentNode.children[1],data.cond_user)}}
-  }else if(key=='attack'){attack_set()
+  }else if(key=='attack'){for (var i=0;i<data.attack.length;i++){attack_list(i)}
   }else if(key=='equip'){for(var i=0;i<data.equip.length;i++){equip_add(data.equip[i][0],data.equip[i][1],data.equip[i][2],data.equip[i][3],data.equip[i][4],data.equip[i][5])}equip_calc()
   }else{
    var e=document.getElementById(key);
@@ -2130,7 +2156,7 @@ function export_char(){
 }
 
 function reset(){localStorage.clear();chars=[];data={};title='';location.reload()}
-//navig(allmenubtn[menubtn[5]]);
+//navig(allmenubtn[menubtn[3]]);
 alert('Comece criando ou carregando um personagem digitando um nome de personagem, quaisquer edições feitas antes disso serão perdidas.');
 </script>
 </html>
