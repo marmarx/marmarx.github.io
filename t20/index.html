@@ -1309,6 +1309,7 @@ function cond_remove(e){
  e = e.parentNode.parentNode.parentNode.parentNode.children[0].children[1];
  let conds = document.getElementsByClassName('cond_user');
  j = Array.prototype.indexOf.call(conds,e);
+ if(data.conditions[1][j]){toggle_condition(e,data.cond_user)}
  data.cond_user.splice(j,1);
  e.parentNode.parentNode.remove();
 }
