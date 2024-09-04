@@ -5,7 +5,7 @@ To do:
 - split feats among the following categories: racial, origin, class and general feats
 - create equips database and add support to searching and adding vanilla equips
 
-Version history:
+Version history:<be>
 v1.1 - added support to creating, editing, and managing user-specified conditions<br>
 v1.0 - added vanilla conditions and support to managing conditions<br>
 v0.9 - added equip section and support to create, edit, and manage equipment<br>
