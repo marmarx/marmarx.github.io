@@ -12,7 +12,6 @@
 <script type="text/javascript" src="db/icons.js"></script>
 <script type="text/javascript" src="db/geral.js"></script>
 <script type="text/javascript" src="db/spells.js"></script>
-<script type="text/javascript" src="db/racial.js"></script>
 <script type="text/javascript" src="db/feats.js"></script>
 <script type="text/javascript" src="db/skills.js"></script>
 <script type="text/javascript" src="db/equips.js"></script>
@@ -128,7 +127,7 @@ button:disabled,button:hover:disabled{border:2px solid #b0b0b0;color:#b0b0b0;bac
 
 a{color:currentColor;padding:12px 30px;text-decoration:none;display:block}
 a:hover{background-color:#1e90ff;color:var(--white)}
-.dropdown{position:absolute;background-color:var(--white);border:1px solid #000;z-index:1;width:100%;top:60px;max-height:250px;overflow-y:scroll}
+.dropdown{position:absolute;background-color:var(--white);border:1px solid #000;z-index:1;width:100%;top:60px;max-height:350px;overflow-y:scroll}
 .dn{display:none!important;border:0}.w0{width:0;visibility:hidden}
 
 #char_spells{margin:25px auto}
@@ -219,6 +218,8 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 .condmarked::after{content:"";display:block;width:8px;height:13px;border:1px solid var(--menu);border-width:0 2px 2px 0;transform-origin:bottom left;transform:rotate(45deg) translate(-2.5px,-4px)}
 .cond_info{margin-bottom:2em}.cond_info:before{left:70px}
 .effect_add{background-color:#555555;color:white;border:2px solid #555555;font-weight:600;padding:5px 13px;text-align:center;text-decoration:none;display:inline-block;font-size:85%;margin-right:15px}.effect_add:hover{background-color: white;color:var(--black)}
+
+.gray{color:#aaa}
 
 @media (min-width:991px){
 .half{width:39.99999%;margin:0 5%}
@@ -350,15 +351,10 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
  </div>
 
  <div id="sec_feat" class="sec">
-  <h1>Raça e Origem</h1>
+  <h1>Poderes</h1>
   <div class="row"><div id="char_powers" class="container db"></div></div>
   <div class="row"><div class="container">
-   <button onclick="show('backdrop_power')">Buscar poderes de raça e de origem</button>
-  </div></div>
-  <h1 style="margin:2em 0 .6em">Poderes de Classe</h1>
-  <div class="row"><div id="char_powers" class="container db"></div></div>
-  <div class="row"><div class="container">
-   <button onclick="show('backdrop_power')">Buscar poderes de classe e talentos</button>
+   <button onclick="show('backdrop_power')">Buscar poderes</button>
   </div></div>
  </div>
 
@@ -1540,7 +1536,7 @@ function calc(){def_calc();rd_calc();calc_skills('skills');calc_skills('crafts')
 
 //-------------------------POWERS FUNCTIONS------------------------//
 
-data['powers'] = [];
+data.powers = [];
 var powers_viz = [];
 
 function list_powers(e,i){
@@ -1552,8 +1548,12 @@ function list_powers(e,i){
  var p = powers[i][2]?' • '+powers[i][2]:'';
  var q = powers[i][4]?' • '+powers[i][4]:'';
  var m = powers[i][5]==1?'<div class="magic">'+magic+'</div>':'';
- var content = '<div class="spell_details"><div class="w10 dif"><div class="w9"><p class="item_title">'+powers[i][0]+'</p>'+m+'<p class="item_subtitle">'+powers[i][1]+p+q+'</p></div><div class="item_action w1 ma">';
- if(spell_action.includes(powers[i][3])){content += '<div class="ac_'+powers[i][3]+'"></div>'}
+
+ var content = '<div class="spell_details"><div class="w10 dif"><div class="w9">';
+ content += '<p class="item_title">'+powers[i][0]+'</p>'+m+'<p class="item_subtitle">'+powers[i][1]+p+q+'</p>';
+ content += powers[i][8]?'<p class="item_subtitle"><b>Pré-requisito:</b> '+powers[i][8]+'</p>':'';
+ content += '</div><div class="item_action w1 ma">';
+ content += spell_action.includes(powers[i][3])?'<div class="ac_'+powers[i][3]+'"></div>':'';
  content += '</div></div><div class="item_subtitle w10 ms"></div></div>';
  div.innerHTML = content;
  document.getElementById(e).appendChild(div);
@@ -1584,12 +1584,12 @@ function add_power(e){
  e.removeAttribute('id');
  e.classList.remove('more_info');
  document.getElementById('char_powers').appendChild(e);
- data['powers'][Object.keys(data['powers']).length] = JSON.parse(e.getAttribute('index'));
+ data.powers[Object.keys(data.powers).length] = JSON.parse(e.getAttribute('index'));
 }
 
 function remove_power(e){
  e = e.parentNode.parentNode.parentNode;
- data['powers'].splice(data['powers'].indexOf(e.getAttribute('index')),1);
+ data.powers.splice(data.powers.indexOf(e.getAttribute('index')),1);
  e.remove();
 }
 
@@ -1646,7 +1646,7 @@ function clear_powers_filters(){
 
 //-------------------------SPELLS FUNCTIONS------------------------//
 
-data['magias'] = [];
+data.magias = [];
 var spell_viz = [];
 function list_spells(e,i){
  var div = document.createElement('div');
@@ -1757,12 +1757,12 @@ function add_spell(e){
  e.id = '';
  e.classList.remove('more_info');
  document.getElementById('char_spells').appendChild(e);
- data['magias'][Object.keys(data['magias']).length] = JSON.parse(e.getAttribute('index'));
+ data.magias[Object.keys(data.magias).length] = JSON.parse(e.getAttribute('index'));
 }
 
 function remove_spell(e){
  e = e.parentNode.parentNode.parentNode;
- data['magias'].splice(data['magias'].indexOf(e.getAttribute('index')),1);
+ data.magias.splice(data.magias.indexOf(e.getAttribute('index')),1);
  e.remove();
 }
 
@@ -1962,7 +1962,9 @@ function create_select(array){
 }
 
 function create_checkbox(array){
- for(var j=1;j<array.length;j++){document.getElementById(array[0]).parentNode.children[2].innerHTML += '<a class="checkmark" onclick="set_check(this,c'+array[0]+')" value="0">'+array[j]+'</a>'}
+ let q = '';
+ for(var j=1;j<array.length;j++){q += '<a class="'+(JSON.stringify(array[j]).includes('—')?' gray">':'checkmark" onclick="set_check(this,c'+array[0]+')" value="0">')+array[j]+'</a>'}
+ document.getElementById(array[0]).parentNode.children[2].innerHTML = q;
 }
 
 function create_habs(){
@@ -2036,7 +2038,7 @@ function data_set(){
    else{e.value=data[key]}
   }
  }
- title=data['char'];
+ title=data.char;
  document.title = title + ' - T20';
  document.getElementById('chardel').disabled = false;
  document.getElementById('sections').style.transform='';
@@ -2113,9 +2115,9 @@ function import_char(evt){
    if(!data.conditions){data.conditions=[[],[]]}
    if(!data.cond){data.cond=structuredClone(data_ini.cond)}
    if(!data.cond_user){data.cond_user=structuredClone(data_ini.cond_user)}
-   chars.push(data['char']);
+   chars.push(data.char);
    data_set();
-   console.log('Character '+data['char']+' data imported');
+   console.log('Character '+data.char+' data imported');
   };
  reader.readAsText(evt.target.files[0]);
  loaded=1;
@@ -2142,7 +2144,7 @@ function export_char(){
 }
 
 function reset(){localStorage.clear();chars=[];data={};title='';location.reload()}
-//navig(allmenubtn[menubtn[3]]);
+//navig(allmenubtn[menubtn[6]]);
 alert('Comece criando ou carregando um personagem digitando um nome de personagem, quaisquer edições feitas antes disso serão perdidas.');
 </script>
 </html>

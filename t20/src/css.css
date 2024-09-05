@@ -13,7 +13,7 @@ p{}
 .checkmark,.checkmarked{text-indent:10px;height:46px;color:var(--black)!important}
 .checkmark::before,.checkmarked::before,.checkmarked::after{content:"";display:block}
 .checkmark::before,.checkmarked::before{position:absolute;left:9px;width:22px;height:22px;border:2px solid #dbdbdb;border-radius:4px}
-.checkmarked::after{width:8px;height:13px;border:1px solid var(--menu);border-width:0 2px 2px 0;transform-origin:bottom left;transform:rotate(45deg) translate(-29.5px,-5px)}
+.checkmarked::after{width:8px;height:13px;border:1px solid var(--menu);border-width:0 2px 2px 0;transform-origin:bottom left;transform:rotate(45deg) translate(-27px,-2px)}
 .import{color:#424141;margin:auto;position:relative;display:block;width:18px;height:14px;border:2px solid;border-top:0;box-shadow:-6px -8px 0 -6px,6px -8px 0 -6px}
 .import::after,.import::before{content:"";display:block;position:absolute}
 .import::before{background:#424141;width:2px;height:14px;right:6px;bottom:5px}
