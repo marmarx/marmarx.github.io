@@ -567,7 +567,6 @@ const data_ini = {
 }
 var data = structuredClone(data_ini);
 
-
 //-------------------------DICE ROLLER FUNCTIONS------------------------//
 
 const keyels = ['d','+','-','!','eh','el','kh','kl'];
@@ -911,7 +910,6 @@ function set_focus(e){
  }
 }
 
-
 //-------------------------DEFENSE FUNCTIONS------------------------//
 
 function defense_info(e){document.getElementById(e).classList.toggle('def_hide')}
@@ -1101,7 +1099,6 @@ function attack_add(){
  attack_list(data.attack.length-1)
 }
 
-
 //-------------------------SKILLS FUNCTIONS------------------------//
 
 function regexo(e){e.value=/^([+-]|[0-9]|[d])*$/.test(e.value)?e.value:e.value.slice(0,-1)}
@@ -1195,7 +1192,6 @@ function calc_skills(k){
  }
  attack_calc();
 }
-
 
 //-------------------------CONDITIONS FUNCTIONS------------------------//
 
@@ -1394,8 +1390,6 @@ function effect_remove(e){
 
 //-------------------------EQUIP FUNCTIONS------------------------//
 
-
-
 var peso = '<option value="" disabled selected>Espaço por unidade</option>';
 for(var i=1;i<peso_item.length;i++){
  var str = i>1?((i<5?' de':'') + ' espaço' + (i>5?'s':'')):'';
@@ -1544,7 +1538,6 @@ function calc_spell_res(){
 }
 function calc(){def_calc();rd_calc();calc_skills('skills');calc_skills('crafts');calc_spell_res();equip_calc();calc_cap_carga();save_data()}
 
-
 //-------------------------POWERS FUNCTIONS------------------------//
 
 data['powers'] = [];
@@ -1650,7 +1643,6 @@ function clear_powers_filters(){
  var e = document.getElementById('power_name');e.value='';
  filter_powers_name(e);
 }
-
 
 //-------------------------SPELLS FUNCTIONS------------------------//
 
@@ -1773,8 +1765,6 @@ function remove_spell(e){
  data['magias'].splice(data['magias'].indexOf(e.getAttribute('index')),1);
  e.remove();
 }
-
-
 
 //-------------------------CONFIG FUNCTIONS------------------------//
 
@@ -1908,7 +1898,6 @@ window.addEventListener('click',function(e){
 });
 document.addEventListener('touchstart',e=>{if(data.c_vibrate){navigator.vibrate(75)}})
 
-
 //-------------------------CHARACTERS FUNCTIONS------------------------//
 
 function char_create(e){
@@ -1961,8 +1950,6 @@ function char_list(el){
  for(var i=0;i<chars.length;i++){el.innerHTML += '<a onclick="char_set(this)">'+chars[i]+'</a>'}
 }
 
-
-
 //-------------------------STARTER FUNCTIONS------------------------//
 
 function create_select(array){
@@ -2013,7 +2000,6 @@ function start_up(){
  dice = document.getElementsByClassName('dice');
  for (var i=0;i<dice.length;i++){dice[i].innerHTML = dices[dice[i].getAttribute("data-dice")]}
 }
-
 
 //-------------------------DATA MANAGEMENT FUNCTIONS------------------------//
 
