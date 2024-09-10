@@ -4,7 +4,7 @@ Tarefas pendentes:
 - adicionar suporte para imprimir/exportar PDF
 
 Tarefas canceladas:
-- adicionar suporte para retro-adição entre: weap/armor <--> equip // motivo: pode confundir o usuário
+- adicionar suporte para retro-gerenciamento de: armas/armaduras e equipamentos // motivo: pode confundir o usuário
 
 Histórico de versões:<br>
 - v1.3 - criado banco de dados para equipamentos, armas e armaduras; adicionado suporte para navegar, filtrar e selecionar no banco criado; automatização da condição/estado de sobrecarga e aumento do tamanho do inventário por meio da adição de mochilas e alforjes
