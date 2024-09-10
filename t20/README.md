@@ -7,7 +7,7 @@ Tarefas canceladas:
 - adicionar suporte para retro-adição entre: weap/armor <--> equip | motivo: pode confundir o usuário
 
 Histórico de versões:<br>
-v1.3 - criado banco de dados para equipamentos, armas e armaduras; adicionado suporte para navegar, filtrar e selecionar no banco criado; automatização da condição/estado de sobrecarga e aumento do tamanho do inventário por meio da adição de mochilas e alforjes<br>
+- v1.3 - criado banco de dados para equipamentos, armas e armaduras; adicionado suporte para navegar, filtrar e selecionar no banco criado; automatização da condição/estado de sobrecarga e aumento do tamanho do inventário por meio da adição de mochilas e alforjes<br>
 v1.2 - funções relacionadas à criação de ataques aprimoradas e simplificadas; bug menor corrigido ao filtrar poderes<br>
 v1.1 - adicionado suporte para criar, editar e gerenciar condições especificadas pelo usuário<br>
 v1.0 - adicionadas condições básicas e suporte para gerenciar condições<br>
