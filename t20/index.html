@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<title>Ficha T20 Mobile - v1.2</title>
+<title>Ficha T20 Mobile - v1.3</title>
 <meta name="author" content="Marco Martins">
 <meta name="viewport" content="width=device-width, initial-scale=0.95">
 <meta name="theme-color" content="#b72a2b">
@@ -42,12 +42,12 @@ tr:nth-child(even){background-color:rgba(0,0,0,.1)}
 
 .divider{width:70%;max-width:500px;height:2px;margin:2.5em auto;background:rgba(32,32,32,.2)}
 .t20box{margin:15px auto;border:30px solid transparent;padding:1em 2em;background-color:var(--menu);color:var(--t20white);background-clip:padding-box;border-image:var(--backborder);max-width:600px}
+.t20box h2{color:var(--yellow);font-weight:400!important}
 
 h1,h2{text-align:center;margin:0 0 .6em;letter-spacing:4px;font-family:'tormenta20';color:var(--menu);font-size:3em;font-weight:500;filter:var(--bright)}
 h1{font-size:2.6em}h2{font-size:1.8em}
 p,li{line-height:1.8em;letter-spacing:.8px;text-align:justify;font-size:1.2em;font-weight:500;margin:.5em 0;color:currentColor}
-ul{margin:2em}b,.bold{font-weight:bold}i,.italic{font-style:italic}
-.t20box *{font-weight:var(--t20weight)!important}.t20box h2{color:var(--yellow);font-weight:400!important}
+ul{margin:2em}b,.bold{font-weight:bold!important}i,.italic{font-style:italic!important}
 
 #sections{width:var(--menulen);position:relative;display:flex}
 .sec{width:100%;max-width:100%;min-height:100%;float:left;padding:35px 15px 125px 15px}
@@ -127,7 +127,7 @@ button:disabled,button:hover:disabled{border:2px solid #b0b0b0;color:#b0b0b0;bac
 
 a{color:currentColor;padding:12px 30px;text-decoration:none;display:block}
 a:hover{background-color:#1e90ff;color:var(--white)}
-.dropdown{position:absolute;background-color:var(--white);border:1px solid #000;z-index:1;width:100%;top:60px;max-height:350px;overflow-y:scroll}
+.dropdown,.dropequip{position:absolute;background-color:var(--white);color:var(--black);border:1px solid #000;z-index:1;width:100%;top:60px;max-height:350px;overflow-y:scroll;z-index:2}
 .dn{display:none!important;border:0}.w0{width:0;visibility:hidden}
 
 #char_spells{margin:25px auto}
@@ -169,6 +169,7 @@ a:hover{background-color:#1e90ff;color:var(--white)}
 .def_half,.def_quarter{float:left;padding:5px}.def_half{width:100%}.def_quarter{width:49.9999%}
 .def_half label,.def_quarter label{top:5px}
 .def_info .w10{margin:1% 0}
+.def_half .dropequip{margin:2px 0}
 
 .attack,.equip{margin:1em auto}
 .attack .dice,.skills .dice{margin-right:0}.attack .trash,#cond_user .trash{color:var(--white)}.attack .dice{width:30%}
@@ -180,6 +181,7 @@ a:hover{background-color:#1e90ff;color:var(--white)}
 .equip_btn{padding:0;min-width:33.3333%;width:33.3333%}
 .equip_btn:hover .trash,.equip_btn:hover .trash:before,.equip_btn:hover .trash:after{color:var(--white)}
 .overloaded{color:#ef1313;font-weight:500!important}
+.dropequip{top:calc(100% - 2px);width:calc(100% - .6em);margin:.1em .3em}
 
 .skills.attack_info{width:90%;margin:0 auto 35px}.skills.attack_info:before{left:65px}
 
@@ -316,12 +318,12 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
     </div>
     <div class="w10 df"><div class="w8 ma mw400 df"><p class="p_skill tac">Armadura e Escudo</p></div></div>
     <div class="w10 df"><div class="w10 mw400 ma db">
-     <div class="def_half pr"><input id="armor" type="text" onchange="def_set(this);calc()" autocomplete="off" autocomplete="chrome-off"><label>Armadura</label></div>
+     <div class="def_half pr"><input id="armor" type="text" onchange="def_set(this);calc()" onkeyup="filter(this)" onblur="list_remove(this,event)" onfocus="list_move(this,event,armor_list)" autocomplete="off" autocomplete="chrome-off"><label>Armadura</label></div>
      <div class="def_quarter m0a pr"><input id="armor_bonus" class="def_input" inputmode="numeric" sign="1" onkeyup="regex(this)" onchange="def_set(this);calc()" autocomplete="off" autocomplete="chrome-off"><label class="def_label">Bônus</label></div>
      <div class="def_quarter m0a pr"><input id="armor_penal" class="def_input" inputmode="numeric" sign="1" onkeyup="regex(this)" onchange="def_set(this);calc()" autocomplete="off" autocomplete="chrome-off"><label class="def_label">Penalidade</label></div>
     </div></div>
     <div class="w10 df"><div class="w10 mw400 ma db">
-     <div class="def_half pr"><input id="shield" type="text" onchange="def_set(this);calc()" autocomplete="off" autocomplete="chrome-off"><label>Escudo</label></div>
+     <div class="def_half pr"><input id="shield" type="text" onchange="def_set(this);calc()" onkeyup="filter(this)" onblur="list_remove(this,event)" onfocus="list_move(this,event,armor_list)" autocomplete="off" autocomplete="chrome-off"><label>Escudo</label></div>
      <div class="def_quarter pr"><input id="shield_bonus" class="def_input" inputmode="numeric" sign="1" onkeyup="regex(this)" onchange="def_set(this);calc()" autocomplete="off" autocomplete="chrome-off"><label class="def_label">Bônus</label></div>
      <div class="def_quarter pr"><input id="shield_penal" class="def_input" inputmode="numeric" sign="1" onkeyup="regex(this)" onchange="def_set(this);calc()" autocomplete="off" autocomplete="chrome-off"><label class="def_label">Penalidade</label></div>
     </div></div>
@@ -396,6 +398,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
    <button id="equip_add" onclick="equip_add(1,'','','','','')">Adicionar equipamento</button>
   </div></div>
 
+
   <h1 style="margin:2em 0 .6em">Moedas</h1>
   <div class="row"><div class="container dif">
    <div class="w3 dif"><div class="w5 dif"><p class="item_title ma">TO</p></div><div class="w5 dif"><input id="to" class="skill_input mwu tc" type="number" placeholder="0" autocomplete="off" autocomplete="chrome-off" onchange="coins(this)"></div></div>
@@ -417,11 +420,12 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
     <div class="w3 dif"><input id="carga_cap" class="skill_input mwu tc" type="number" placeholder="10" autocomplete="off" autocomplete="chrome-off" onchange="coins(this)"></div>
    </div>
   </div></div>
-  <div class="row"><div class="container dif">
-   <p class="item_subtitle ma ms tc">Você pode carregar 10 espaços +2 por ponto de Força (ou -1 por ponto de Força negativo). Se ultrapassar esse limite, fica <i>sobrecarregado</i> (veja Condições). Você não pode carregar mais do que o dobro do seu limite.</p>
+  <div class="row"><div class="container df">
+   <p class="item_subtitle ma ms tc">Você pode carregar 10 espaços +2 por ponto de Força (ou -1 por ponto de Força negativo). Se ultrapassar esse limite, fica <i>sobrecarregado</i> (veja Limites de Carga na página 141). Você não pode carregar mais do que o dobro do seu limite.</p>
   </div></div>
-
-
+  <div class="row mt"><div class="container df">
+   <p class="item_subtitle ma ms tc"><b>Observação:</b> ao criar um personagem você começa com um Traje do Viajante, uma Mochila, um Saco de Dormir, uma arma simples e, se tiver proficiência, uma arma marcial à sua escolha, e uma armadura leve (exceto <i>Arcanistas</i>) ou uma Brunea e/ou um escudo leve se tiver as respectivas proficiências, além de T$ 4d6 (veja Equipamento Inicial na página 140).</p>
+  </div></div>
  </div>
 
  <div id="sec_notes" class="sec">
@@ -938,6 +942,31 @@ function list_rd(){
  }
 }
 
+var armor_list = armor_list();
+function armor_list(){
+ let div = document.createElement('div');
+ div.setAttribute('class','dropequip');
+ for(var i=armor_start;i<armor_end;i++){div.innerHTML += '<a onclick="armor_choose(this,'+i+')" tabindex="0">'+equip[i][0]+'</a>'}
+ return div;
+}
+
+function armor_choose(e,i){
+ e = e.parentNode.parentNode;
+ e.children[2].remove(); //remove dropdown
+ prev_focus = null;
+
+ e = e.parentNode;
+ e.children[0].children[0].value = equip[i][0];
+ e.children[1].children[0].value = equip[i][11];
+ e.children[2].children[0].value = equip[i][12];
+
+ data.defense[e.children[0].children[0].id] = equip[i][0];
+ data.defense[e.children[1].children[0].id] = equip[i][11];
+ data.defense[e.children[2].children[0].id] = equip[i][12];
+
+ def_calc();
+}
+
 //-------------------------ATTACK FUNCTIONS------------------------//
 
 function weap_roll(e){
@@ -1036,8 +1065,8 @@ function attack_list(i){
  div.setAttribute('class','w10 attack');
  div.setAttribute('attack',data.attack.length);
 
- var content2 = '<div class="w10 dif"><div class="w8 m0a dif">';
- content2 +=  '<input class="skill_input" type="text" placeholder="Nome do ataque" value="'+data.attack[i][0]+'" autocomplete="off" autocomplete="chrome-off" onchange="attack_data(this,0)">';
+ var content2 = '<div class="w10 dif"><div class="w8 m0a pr dif">';
+ content2 +=  '<input class="skill_input m3e" type="text" placeholder="Nome do ataque" value="'+data.attack[i][0]+'" autocomplete="off" autocomplete="chrome-off" onchange="attack_data(this,0)" onkeyup="filter(this)" onblur="list_remove(this,event)" onfocus="list_move(this,event,weap_list)">';
  content2 +=  '</div><div class="w2 m0a dif" onclick="attack_remove(this)"><div class="trash"></div></div></div>';
 
  content2 +=  '<div class="w10 dif"><div class="w3 m3e dif"><p class="item_subtitle m0a">Ataque</p></div><div class="w3 dif m3e"><p class="item_subtitle m0a" style="transform:translateX(-2px)">Dano</p></div><div class="w7"></div></div>';
@@ -1093,6 +1122,40 @@ function attack_add(){
  if(data.attack.length){data.attack.push(['','','','','','','','','','',''])}
  else{data.attack.push(['Disparo Rápido • Arco Longo','-2/-2','d8',2,0,0,20,'x3',2,2,'(um exemplo) As seguintes habilidades estão aplicadas nesse ataque:\n• Estilo de Disparo: +des no dano\n• Disparo Rápido: dois ataques -2/-2, ação completa'])}
  attack_list(data.attack.length-1)
+}
+
+var weap_list = weap_list();
+function weap_list(){
+ let div = document.createElement('div');
+ div.setAttribute('class','dropequip');
+ for(var i=weap_start;i<weap_end;i++){div.innerHTML += '<a onclick="weap_choose(this,'+i+')" tabindex="0">'+equip[i][0]+'</a>'}
+ return div;
+}
+
+function weap_choose(e,i){
+ e = e.parentNode.parentNode;
+ e.children[1].remove(); //remove dropdown
+ prev_focus = null;
+
+ e.children[0].value = equip[i][0];
+ e = e.parentNode.parentNode;
+ e.children[2].children[0].children[0].value = equip[i][5];
+ e.children[2].children[1].children[0].value = equip[i][6];
+ e.children[6].children[0].children[0].value = equip[i][7];
+ e.children[6].children[1].children[0].value = equip[i][8];
+ e.children[7].children[0].children[0].value = equip[i][9];
+ e.children[7].children[1].children[0].value = equip[i][10];
+
+ e = e.parentNode;
+ var attacks = document.getElementsByClassName('attack');
+ let x = Array.prototype.indexOf.call(attacks,e);
+
+ data.attack[x][0] = equip[i][0];
+ data.attack[x][1] = equip[i][5];
+ data.attack[x][2] = equip[i][6];
+ data.attack[x].splice(6,4,equip[i][7],equip[i][8],equip[i][9],equip[i][10]);
+
+ attack_calc();
 }
 
 //-------------------------SKILLS FUNCTIONS------------------------//
@@ -1403,7 +1466,7 @@ function coins(e){
 }
 
 function calc_cap_carga(){
- data.carga.carga_cap = 10 + (data.hab_for>0?2:1)*data.hab_for;
+ data.carga.carga_cap = 10 + (data.hab_for>0?2:1)*data.hab_for + (data.equip.flat().includes('Mochila de Aventureiro')?2:0) + (data.equip.flat().includes('Alforge')?10:0);
  document.getElementById('carga_cap').value = data.carga.carga_cap;
 }
 
@@ -1436,11 +1499,20 @@ function equip_calc(){
  document.getElementById('ts').value = data.carga.ts;
  document.getElementById('tc').value = data.carga.tc;
 
- if(data.carga.carga>data.carga.carga_cap){document.getElementById('carga').classList.add('overloaded')}
- else{document.getElementById('carga').classList.remove('overloaded')}
+ calc_cap_carga();
+
+ let sobrecarga = document.getElementById('conditions').children[31].children[0].children[0];
+ if(data.carga.carga>data.carga.carga_cap){
+  document.getElementById('carga').classList.add('overloaded');
+  if(!data.conditions[0][31]){toggle_condition(sobrecarga,conditions)}  //activate condition 31
+ }else{
+  document.getElementById('carga').classList.remove('overloaded');
+  if(data.conditions[0][31]){toggle_condition(sobrecarga,conditions)}  //deactivate condition 31
+ }
 
  if(data.carga.carga>2*data.carga.carga_cap){document.getElementById('equip_add').disabled = true}
  else{document.getElementById('equip_add').disabled = false}
+
  save_data()
 }
 
@@ -1472,6 +1544,7 @@ function equip_remov(e){
  var x = Array.prototype.indexOf.call(equips,e);
  e.remove();
  data.equip.splice(x,1);
+ equip_calc();
 }
 
 function regexqte(e){e.value=/(\d)*$/.test(e.value)?e.value:e.value.slice(0,-1)}
@@ -1485,7 +1558,7 @@ function equip_add(qte,title,type,cost,weight,desc){
  content += '<div class="w3 equip_btns dif"><div class="third fakebtn equip_btn df m0 dn" onclick="equip_remov(this)"><div class="trash" style="transform:translateY(2px)"></div></div><button class="third equip_btn m0" onclick="qte_change(this,-1,1)">-</button><div class="third equip_btn mwu df"><input class="skill_input mwu tc" type="number" placeholder="Un." value="'+qte+'" autocomplete="off" autocomplete="chrome-off" onkeyup="regexqte(this)" onchange="equip_data(this,0)"></div><button class="third equip_btn m0" onclick="qte_change(this,1,0)">+</button></div>';
  content += '</div><div class="w10 attack_info def_hide">';
  content += '<div class="w10 dif">';
- content += '<div class="w7 ma df"><input class="skill_input m3e" type="text" placeholder="Nome do item" value="'+title+'" autocomplete="off" autocomplete="chrome-off" onchange="equip_data(this,1)"></div>';
+ content += '<div class="w7 ma pr df"><input class="skill_input m3e" type="text" placeholder="Nome do item" value="'+title+'" autocomplete="off" autocomplete="chrome-off" onkeyup="filter(this)" onblur="list_remove(this,event)" onfocus="list_move(this,event,equip_list)" onchange="equip_data(this,1)"></div>';
  content += '<div class="w3 ma df"><input class="skill_input m3e" type="text" placeholder="Valor do item" value="'+cost+'" autocomplete="off" autocomplete="chrome-off" onchange="equip_data(this,3)"></div>';
  content += '</div>';
  content += '<div class="w10 dif">';
@@ -1506,10 +1579,61 @@ function equip_add(qte,title,type,cost,weight,desc){
 
 function equip_kit(){
  for(var i=0;i<kit.length;i++){
-  equip_add(kit[i][0],kit[i][1],kit[i][2],kit[i][3],kit[i][4],kit[i][5]);
-  data.equip.push(kit[i]);
+  data.equip.push(equip[kit[i]].slice(0,5));
+  data.equip[i].unshift(1);
+  equip_add(1,data.equip[i][1],data.equip[i][2],data.equip[i][3],data.equip[i][4],data.equip[i][5]);
   equip_calc()
  }
+}
+
+var equip_list = equip_list();
+function equip_list(){
+ let div = document.createElement('div');
+ div.setAttribute('class','dropequip');
+ for(var i=0;i<equip.length;i++){div.innerHTML += '<a onclick="equip_choose(this,'+i+')" tabindex="0">'+equip[i][0]+'</a>'}
+ return div;
+}
+
+function equip_choose(e,i){
+ e = e.parentNode.parentNode;
+ e.children[1].remove(); //remove dropdown
+ prev_focus = null;
+
+ e = e.parentNode.parentNode;
+ e.children[0].children[0].children[0].value = equip[i][0];
+ e.children[0].children[1].children[0].value = equip[i][2];
+ e.children[1].children[0].children[0].value = equip[i][1];
+ e.children[1].children[1].children[0].value = equip[i][3];
+ e.children[2].children[0].children[0].innerHTML = equip[i][4];
+
+ e = e.parentNode;
+ let equips = document.getElementsByClassName('equip');
+ let x = Array.prototype.indexOf.call(equips,e);
+ 
+ data.equip[x] = equip[i].slice(0,5);
+ data.equip[x].unshift(JSON.parse(e.children[0].children[1].children[2].children[0].value));
+
+ equip_calc();
+}
+
+//-------------------------LISTS FUNCTIONS------------------------//
+
+var prev_focus;
+function list_move(e,ev,list){
+ if(prev_focus!=e){
+  prev_focus=e;
+  e.parentNode.appendChild(list);
+  let a = e.parentNode.children[1].getElementsByTagName("a");
+  for(var i=0;i<a.length;i++){a[i].style.display=""}
+  if(e.value){filter(e)}
+ }
+}
+
+function list_remove(e,ev){
+ let k = (e.id=="armor"||e.id=="shield")?2:1;
+ e = e.parentNode.children[k];
+ if(!ev.target.parentNode.contains(ev.relatedTarget)&&e){e.remove()}
+ prev_focus = null;
 }
 
 //-------------------------CALCULATION FUNCTIONS------------------------//
@@ -1532,7 +1656,7 @@ function calc_spell_res(){
  data.spell_res=value;
  save_data()
 }
-function calc(){def_calc();rd_calc();calc_skills('skills');calc_skills('crafts');calc_spell_res();equip_calc();calc_cap_carga();save_data()}
+function calc(){def_calc();rd_calc();calc_skills('skills');calc_skills('crafts');calc_spell_res();calc_cap_carga();save_data()}
 
 //-------------------------POWERS FUNCTIONS------------------------//
 
@@ -1859,12 +1983,20 @@ document.getElementById('sections').addEventListener('touchend',e=>{touchendX=e.
 function hide(e,el){if(el==e.target){el.classList.toggle('invisible');if(el.id=="backdrop_spell"){clear_spell_filters()};if(el.id=="backdrop_power"){clear_powers_filters()}}}
 function show(el){document.getElementById(el).classList.toggle('invisible')}
 
-function filter(el){
- var filter = el.value.toUpperCase();
- var a = el.parentNode.children[2].getElementsByTagName("a");
- for (var i=1;i<a.length;i++){
+function filter(e){
+ let k = (e.id=="armor"||e.id=="shield"||e.id=="char")?2:1;
+ let filter = e.value.toUpperCase();
+ let a = e.parentNode.children[k].getElementsByTagName("a");
+ for(let i=0;i<a.length;i++){
   txtValue = a[i].textContent || a[i].innerText;
-  if(txtValue.toUpperCase().indexOf(filter)>-1){a[i].style.display=""}
+  txtValue.replaceAll('<b>','').replaceAll('</b>','');
+  if(txtValue.toUpperCase().indexOf(filter)>-1){
+   let result = [...txtValue.matchAll(new RegExp(filter,'gi'))].map(z => z.index);
+   txtValue = txtValue.split('');
+   for(let i=result.length;i>0;){i--;txtValue.splice(result[i]+filter.length,0,'</b>');txtValue.splice(result[i],0,'<b>')}
+   a[i].innerHTML = txtValue.join('');
+   a[i].style.display="";
+  }
   else{a[i].style.display="none"}
  }
 }
@@ -1935,7 +2067,7 @@ function char_remove(){
   chars.splice(chars.indexOf(title),1);
   localStorage.removeItem(title+'_data');
   clear();
-  document.title = 'Ficha T20 Mobile - v1.2';
+  document.title = 'Ficha T20 Mobile - v1.3';
   document.getElementById('chardel').disabled = true;
  }
 }
@@ -2144,7 +2276,6 @@ function export_char(){
 }
 
 function reset(){localStorage.clear();chars=[];data={};title='';location.reload()}
-//navig(allmenubtn[menubtn[6]]);
 alert('Comece criando ou carregando um personagem digitando um nome de personagem, quaisquer edições feitas antes disso serão perdidas.');
 </script>
 </html>
