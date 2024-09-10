@@ -1,7 +1,7 @@
 <!DOCTYPE>
 <html>
 <head>
-<title>Ficha T20 (v1.3)</title>
+<title>Ficha T20 - v1.3</title>
 <meta name="author" content="Marco Martins">
 <meta name="viewport" content="width=device-width, minimum-scale=0.1">
 <link href="https://fonts.googleapis.com/css2?family=Lora&family=Source+Sans+Pro:wght@200;400;600&display=swap" rel="stylesheet">
@@ -23,7 +23,7 @@ bg{font-size:110%;font-weight:bold}
 b,i,sm,bg{color:inherit;word-break:break-all}
 input[type="checkbox"]{height:unset!important;background:#fff}
 
-body{background:#525659;display:inline-flex;width:100vw;min-height:100vh;padding:25px;box-sizing:border-box}
+body{background:#525659;display:inline-flex;width:100vw;min-height:100vh;padding:25px;box-sizing:border-box;page-break-after:auto}
 #paper{background-color:#fffdf1;background-image:url("img/noisy.png");min-width:900px;width:55%;padding:50px 30px;margin:auto}
 .left,.right{margin:10;height:fit-content}
 .left{width:59.9999%}
@@ -217,27 +217,25 @@ p:empty{margin:2px}
 .bold{font-weight:bold}
 .dice{background:#fff url("img/dice.png") center/contain no-repeat;cursor:pointer;margin:1% 0}
 #weapons .dice{margin:1% 10px 1% 0}
-#pgdivider{width:calc(100% + 60px);height:25px;left:-30px;margin:50px 0;background:#525659}
+#pgdivider{width:calc(100% + 60px);height:25px;left:-30px;margin:50px 0;background:#525659;page-break-after:always}
 
 @media print{
-::-webkit-input-placeholder{color:transparent}
-:-moz-placeholder{color:transparent}
-::-moz-placeholder{color:transparent}
-:-ms-input-placeholder{color:transparent}
-::placeholder{opacity:0}
+::-webkit-input-placeholder,:-moz-placeholder,::-moz-placeholder,:-ms-input-placeholder{color:transparent}::placeholder{opacity:0}
 /*input[value="0"],.c2[value="-"],.c2[value="0"],.c4[value="0"],.c8[value="0"],input:disabled{color:#fff}*/
-#pg1{min-height:1080px}
-body,#paper{background:#fff!important}
+body,#paper{background:#fff!important;padding:0}
+#paper{width:210mm}
+#paper,#pg1{min-height:297mm}
 button,.ofic{display:none!important}
 #habis_list{min-height:650px}
 #spells_list{min-height:450px}
 #equips_list{min-height:400px}
 #anot{min-height:309px}
 .full-height{min-height:245px}
-#pgdivider,#roller,#skill-box .dice,.rice{display:none}
 #weapons .dice{background:none}
-#paper{width:210mm;min-height:297mm}
+#pgdivider,#roller,#skill-box .dice,.rice,#habi_overlay,#equip_overlay,#spell_overlay,#cond_overlay,script{display:none}
 }
+@page{size:A4;margin-top:25mm}
+
 @media only screen and (max-width: 800px){#roller{display:none}}
 </style>
 </head>
@@ -1972,6 +1970,8 @@ window.onload = function(){
  if(load&&localStorage.getItem('chars')!==null){chars = JSON.parse(localStorage.getItem('chars'))}
  add_svg();
 }
+
+//window.print();
 
 </script>
 </html>
