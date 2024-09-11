@@ -265,14 +265,14 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 
   <div class="row"><div class="container db">
    <div class="half">
-    <div class="input"><select id="raça" onchange="data_add(this)" required></select><label>Raça</label></div>
+    <div class="input"><select id="raça" onchange="data_add(this);race(this)" required></select><label>Raça</label></div>
     <div class="input"><select id="origem" onchange="data_add(this)" required></select><label>Origem</label></div>
     <div class="input"><select id="tamanho" onchange="data_add(this)" required></select><label>Tamanho</label></div>
     <div class="input m0"><div id="deslocamento" class="fakeinput drop" onclick="show_list(this)" str="1"></div><label>Deslocamento</label><div class="dropdown dn"></div><p class="item_subtitle m3e"></p></div>
    </div>
    <div class="half">
     <div class="row dif">
-     <div class="w10 input"><select id="classe" onchange="data_add(this)" required></select><label>Classe</label></div>
+     <div class="w10 input"><div id="classe" class="fakeinput drop" onclick="show_list(this)" str="1"></div><label>Classe</label><div class="dropdown dn"></div></div>
      <div class="w1"></div>
      <div class="w3 input"><select id="nível" class="tc" onchange="data_add(this);calc()" required></select><label class="tac">Nível</label></div>
     </div>
@@ -2029,7 +2029,7 @@ function filter(e){
 
 function show_list(e){e.focus();e = e.parentNode.children[2].classList.remove('dn')}
 
-var cspell_level=[],cspell_class=[],cspell_school=[],cdivindade=[],cdeslocamento=[],cpower_type=[],cpower_cat=[];
+var cspell_level=[],cspell_class=[],cspell_school=[],cclasse=[],cdivindade=[],cdeslocamento=[],cpower_type=[],cpower_cat=[];
 function set_check(e,array){
  e.classList.toggle('checkmarked');
  e.setAttribute('value',e.getAttribute('value')==1?0:1)
@@ -2146,6 +2146,7 @@ function start_up(){
  const menuicon = document.getElementsByClassName('menuicon');
  for (var i=0;i<menuicon.length;i++){menuicon[i].innerHTML = icons[i]}
  for (var i=0;i<inputs.length;i++){create_select(inputs[i])}
+ create_checkbox(classe);
  create_checkbox(divindade);
  create_checkbox(deslocamento);
  for (var i=0;i<spell_inputs.length;i++){create_checkbox(spell_inputs[i])}
@@ -2322,5 +2323,6 @@ const hints = [
 ['drawer',1,'Clique na barra cinza para abrir e fechar os marcadores de PVs e PMs, e o rolador de dados.'],
 ['drawer',1,'Role o menu horizontalmente para acessar as demais sessões.']
 ];
+
 </script>
 </html>
