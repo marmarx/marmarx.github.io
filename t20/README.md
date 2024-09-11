@@ -12,6 +12,7 @@ v1.4
 - adicionados dicas iniciais de uso para usuários novos
 - alteração da classe de valores de dados explodidos (serão mostrados em verde agora)
 - PV e PM serão calculados automaticamente mediante a alteração de foco entre inputs
+- adicionado suporte para escolha livre de perícia utilizada para atacar - Bardos precisam atacar com atuação :)
 - adicionada a habilidade de imprimir a ficha em PDF <i>(em construção)</i>
 - correção do modo noturno na alteração do plano fundo (correção de bug)
 - correção de outros bugs e outros melhoramentos menores
