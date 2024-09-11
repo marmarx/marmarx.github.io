@@ -23,7 +23,7 @@
 
 *,*:before,*:after{margin:0;padding:0;transition:all .6s ease-in-out,display 0s;font-family:'Open Sans', sans-serif;word-wrap:normal;word-break:keep-all;box-sizing:border-box}
 html,body{overflow-x:hidden;width:100vw;min-height:100vh}
-body{background-repeat:repeat;background-blend-mode:lighten;background-attachment:fixed;background-image:url("src/back.jpg");background-color:rgba(255,255,255,var(--opc));background-size:20em}
+body:before{content:'';width:100vw;height:100vh;position:fixed;background-repeat:repeat;background-blend-mode:lighten;background-attachment:fixed;background-image:url("src/back.jpg");background-color:rgba(255,255,255,var(--opc));background-size:20em}
 ::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:transparent;background:#f1f1f1}::-webkit-scrollbar-thumb{background:#bbb}::-webkit-scrollbar-thumb:hover{background:#999}::-webkit-scrollbar:horizontal,::-webkit-scrollbar-thumb:horizontal{display:}
 body::-webkit-scrollbar{display:none}
 br{content:'';display:block;margin:6px 0;line-height:2.2em}
@@ -220,6 +220,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 .effect_add{background-color:#555555;color:white;border:2px solid #555555;font-weight:600;padding:5px 13px;text-align:center;text-decoration:none;display:inline-block;font-size:85%;margin-right:15px}.effect_add:hover{background-color: white;color:var(--black)}
 
 .gray{color:#aaa}
+.config{line-height:.4em;margin:.5em 0}
 
 @media (min-width:1300px){
 .half{width:39.99999%;margin:0 5%}
@@ -275,6 +276,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
   <div class="divider"></div>
 
   <div class="row"><div class="container db mw400">
+   <button onclick="" disabled>Imprimir</button>
    <label for="file"><input id="file" type="file" onchange="import_char(event)">Importar</input></label>
    <button onclick="export_char()">Exportar</button>
    <button id="chardel" class="delete" onclick="char_remove()" disabled>Deletar</button>
@@ -441,7 +443,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
    <div class="w2 ma ml tc"><label class="switch"><input id="c_keyboard" type="checkbox" onclick="data_check(this);config()"><span class="slider"></span></label></div>
   </div></div>
   <div class="row"><div class="container">
-   <div class="w8"><p style="line-height:1.4em">Esconder rolador de dados</p><p class="item_subtitle" style="line-height:1.4em">(prefiro dados físicos!)</p></div>
+   <div class="w8 config"><p class="m0">Esconder rolador de dados</p><p class="item_subtitle">(prefiro dados físicos!)</p></div>
    <div class="w2 ma ml tc"><label class="switch"><input id="c_dice" type="checkbox" onclick="data_check(this);config()"><span class="slider"></span></label></div>
   </div></div>
   <div class="row"><div class="container">
@@ -457,7 +459,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
    <div class="w2 ma ml tc"><label class="switch"><input id="c_vibrate" type="checkbox" onclick="data_check(this);config()"><span class="slider"></span></label></div>
   </div></div>
   <div class="row"><div class="container">
-   <div class="w8"><p style="line-height:1.4em">Esconder Magias</p><p class="item_subtitle" style="line-height:1.4em">(para guerreiros)</p></div>
+   <div class="w8 config"><p class="m0">Esconder Magias</p><p class="item_subtitle">(para guerreiros)</p></div>
    <div class="w2 ma ml tc"><label class="switch"><input id="c_magic" type="checkbox" onclick="data_check(this);config()"><span class="slider"></span></label></div>
   </div></div>
 
