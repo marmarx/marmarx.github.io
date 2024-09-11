@@ -94,7 +94,7 @@ nav{position:fixed;left:0;bottom:0;height:70px;width:100%;background:var(--white
 .menutext{font-size:.625em;font-weight:600;color:#717171;margin-top:.2em;padding:.1em 0 .5em}.menuseltext{font-weight:700}
 
 #spells_list,#powers_list{display:block}
-.spell,.power{cursor:pointer;border:1px solid transparent;border-radius:10px}
+.spells,.powers,.user_powers{cursor:pointer;border:1px solid transparent;border-radius:10px}
 .more_info{border-color:rgba(32,32,32,.4);margin:.5em 0;padding-top:10px;position:relative}/*padding:15px 10px 20px*/
 .item_subtitle{margin:0;font-size:.8em}.item_title{margin:auto 0;font-size:1em;font-weight:500;display:inline-flex}
 .item_action{margin-right:0}.item_action div{margin:auto}
@@ -141,7 +141,7 @@ a:hover{background-color:#1e90ff;color:var(--white)}
 .spell_add,.spell_delete{width:60%;margin:20px 20%} /*width:fit-content;margin:10px;position:absolute;top:0;right:0*/
 .spell_add{border-color:var(--green);color:var(--green);background:transparent}
 .spell_add:hover,.spell_add:focus{background:var(--green);color:#fff}
-#all_spells .spell_delete,#char_spells .spell_add,#all_powers .spell_delete,#char_powers .spell_add{display:none}
+#all_spells .spell_delete,#char_spells .spell_add,#all_powers .spell_delete,#powers .spell_add,#user_powers .spell_add{display:none}
 
 #habilidades .input{margin:8px 0}
 .hab_label{transform:rotate(180deg);margin:auto;writing-mode:vertical-lr}
@@ -363,9 +363,14 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 
  <div id="sec_feat" class="sec">
   <h1>Poderes</h1>
-  <div class="row"><div id="char_powers" class="container db"></div></div>
+  <div class="row"><div id="powers" class="container db"></div></div>
   <div class="row"><div class="container">
    <button onclick="show('backdrop_power')">Buscar poderes</button>
+  </div></div>
+  <h1 style="margin:2em 0 .6em">Poderes Personalizados</h1>
+  <div class="row"><div id="user_powers" class="container db"></div></div>
+  <div class="row"><div class="container">
+   <button onclick="user_power()">Adicionar poder personalizado</button>
   </div></div>
  </div>
 
@@ -557,7 +562,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
  <div class="overlay">
   <div class="row"><div class="container t20box db">
    <h2>Buscar por...</h2>
-   <div class="input"><input id="spell_name" type="text" onkeyup="filter_s if(key=='skills'||key=='crafts')pell_name(this)" autocomplete="off" autocomplete="chrome-off" required><label>Nome</label></div>
+   <div class="input"><input id="spell_name" type="text" onkeyup="filter_spell_name(this)" autocomplete="off" autocomplete="chrome-off" required><label>Nome</label></div>
    <div class="input"><div id="spell_class" class="fakeinput drop" onclick="show_list(this)" tabindex="1"></div><label>Classificação</label><div class="dropdown dn"></div></div>
    <div class="input"><div id="spell_level" class="fakeinput drop" onclick="show_list(this)" tabindex="2"></div><label>Nível</label><div class="dropdown dn"></div></div>
    <div class="input"><div id="spell_school" class="fakeinput drop" onclick="show_list(this)" tabindex="3"></div><label>Escola</label><div class="dropdown dn"></div></div>
@@ -572,7 +577,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 const load = 1;var title = '';var chars = [];var loaded = 0;
 const data_ini = {
  'c_color':'#b72a2b','c_keyboard':0,c_dice:false,'c_fullscreen':0,'c_nocturnal':0,'c_vibrate':0,
- 'magias':[],'powers':[],'conditions':[[],[]],'cond_user':[],'attack':[],'equip':[],cond:structuredClone(cond),'skills':skills,'crafts':crafts,
+ 'magias':[],'powers':[],user_powers:[],'conditions':[[],[]],'cond_user':[],'attack':[],'equip':[],cond:structuredClone(cond),'skills':skills,'crafts':crafts,
  'nível':0,hp:0,hpmax:0,mp:0,mpmax:0,'spell_hab':1,
  'hab_for_val':10,'hab_for':0,'hab_des_val':10,'hab_des':0,'hab_con_val':10,'hab_con':0,'hab_int_val':10,'hab_int':0,'hab_sab_val':10,'hab_sab':0,'hab_car_val':10,'hab_car':0,
  'defense':{'def_hab':2,'armor_bonus':0,'shield_bonus':0,'armor_penal':0,'shield_penal':0,'def_out':0,'rd':0,'Ácido':0,'Eletricidade':0,'Fogo':0,'Frio':0,'Luz':0,'Trevas':0,'Mágico':0},
@@ -1037,7 +1042,6 @@ function attack_calc(){
   else if(isNaN(data.attack[i][1])){k=base_split(data.attack[i][1])}
   else{k=[data.attack[i][1]]}
 
-  console.log(at_skill[i]);
   for (var j=0;j<k.length;j++){
    k[j]=JSON.parse(k[j])+JSON.parse(document.getElementById(skills[data.attack[i][11]][0]+'_total').innerHTML.replace(/[+]/g,''))+(data.attack[i][4]?data.attack[i][4]:0)+data.cond.Ataques;
    k[j]=(k[j]>=0?'+':'')+k[j];
@@ -1678,70 +1682,78 @@ function calc_spell_res(){
 }
 function calc(){def_calc();rd_calc();calc_skills('skills');calc_skills('crafts');calc_spell_res();calc_cap_carga();save_data()}
 
+//-------------------------USER DEFINED POWERS FUNCTIONS------------------------//
+
+function user_power(){
+ data.user_powers.push(['Nome do poder','Tipo de poder','Categoria','padrão','Subcategoria',data.user_powers.length-1,'adicionado pelo usuário','Descrição']);
+ list_powers('user_powers',data.user_powers.length-1,data.user_powers);
+}
+
 //-------------------------POWERS FUNCTIONS------------------------//
 
 data.powers = [];
 var powers_viz = [];
 
-function list_powers(e,i){
+function list_powers(e,i,arr){
  var div = document.createElement('div');
- div.setAttribute('id','power_'+i);
- div.setAttribute('class','power w10');
- div.setAttribute('onclick','power_info(this)');
+ document.getElementById(e).appendChild(div);
+ e = e.replace('all_','');
+ let k = (e=='user_powers'?'data.':'')+e;
+
+ div.setAttribute('class',e+' w10');
+ div.setAttribute('onclick','power_info(this,\''+e+'\','+k+')');
  div.setAttribute('index',i);
- var p = powers[i][2]?' • '+powers[i][2]:'';
- var q = powers[i][4]?' • '+powers[i][4]:'';
- var m = powers[i][5]==1?'<div class="magic">'+magic+'</div>':'';
+ var p = arr[i][2]?' • '+arr[i][2]:'';
+ var q = arr[i][4]?' • '+arr[i][4]:'';
+ var m = arr[i][5]==1?'<div class="magic">'+magic+'</div>':'';
 
  var content = '<div class="spell_details"><div class="w10 dif"><div class="w9">';
- content += '<p class="item_title">'+powers[i][0]+'</p>'+m+'<p class="item_subtitle">'+powers[i][1]+p+q+'</p>';
- content += powers[i][8]?'<p class="item_subtitle"><b>Pré-requisito:</b> '+powers[i][8]+'</p>':'';
+ content += '<p class="item_title">'+arr[i][0]+'</p>'+m+'<p class="item_subtitle">'+arr[i][1]+p+q+'</p>';
+ content += arr[i][8]?'<p class="item_subtitle"><b>Pré-requisito:</b> '+arr[i][8]+'</p>':'';
  content += '</div><div class="item_action w1 ma">';
- content += spell_action.includes(powers[i][3])?'<div class="ac_'+powers[i][3]+'"></div>':'';
+ content += spell_action.includes(arr[i][3])?'<div class="ac_'+arr[i][3]+'"></div>':'';
  content += '</div></div><div class="item_subtitle w10 ms"></div></div>';
  div.innerHTML = content;
- document.getElementById(e).appendChild(div);
- powers_viz.push([1,1,1,0]);
+ if(!e.includes('user')){powers_viz.push([1,1,1])}
 }
 
-function power_info(e){
+function power_info(e,id,arr){
  var i = e.getAttribute('index');
  e.classList.toggle('more_info');
  e = e.children[0].children[1];
 
- if(powers_viz[i][3]){
-  powers_viz[i][3] = 0;
-  e.innerHTML = '';
- } else {
-  powers_viz[i][3] = 1;
-  var content = '<p class="nowrap">'+powers[i][7]+'</p>';
-  content += '<p class="nowrap"><i>Publicação:</i> '+powers[i][6]+'</p>';
-  content += '</div></div><button class="spell_add" onclick="add_power(this)">Adicionar poder</div><button class="delete spell_delete" onclick="remove_power(this)">Remover poder</div>';
+ if(e.innerHTML){e.innerHTML = ''} else {
+  var content = '<p class="nowrap">'+arr[i][7]+'</p>';
+  content += '<p class="nowrap"><i>Publicação:</i> '+arr[i][6]+'</p>';
+  content += '<button class="spell_add" onclick="add_power(this)">Adicionar poder</button>';
+  content += '<button class="delete spell_delete" onclick="remove_power(this,\''+id+'\')">Remover poder</button>';
   e.innerHTML = content;
  }
 }
 
 function add_power(e){
- e = e.parentNode;
- e.innerHTML = '';
- e = e.parentNode.parentNode.cloneNode(true);
- e.removeAttribute('id');
+ e = e.parentNode.parentNode.parentNode.cloneNode(true);
  e.classList.remove('more_info');
- document.getElementById('char_powers').appendChild(e);
- data.powers[Object.keys(data.powers).length] = JSON.parse(e.getAttribute('index'));
+ e.children[0].children[1].innerHTML = '';
+ document.getElementById('powers').appendChild(e);
+ data.powers.push(JSON.parse(e.getAttribute('index')));
 }
 
-function remove_power(e){
+function remove_power(e,id){
+ console.log(id);
  e = e.parentNode.parentNode.parentNode;
- data.powers.splice(data.powers.indexOf(e.getAttribute('index')),1);
+ let pows = document.getElementById(id).getElementsByClassName(id);
+ let x = Array.prototype.indexOf.call(pows,e);
+ console.log(x);
+ data[id].splice(x,1);
  e.remove();
 }
 
 function filter_powers(){
+ let e = document.getElementById('all_powers').getElementsByClassName('powers');
  for (var i=0;i<powers.length;i++){
-  var e = document.getElementById('power_'+i);
-  if(powers_viz[i][0]&&powers_viz[i][1]&&powers_viz[i][2]){e.style.display=""}
-  else{e.style.display="none"}
+  if(powers_viz[i][0]&&powers_viz[i][1]&&powers_viz[i][2]){e[i].style.display=""}
+  else{e[i].style.display="none"}
  }
 }
 
@@ -1767,13 +1779,13 @@ function filter_powers_name(el){
 }
 
 function clear_powers_filters(){
- for (var i=0;i<powers.length;i++){if(powers_viz[i][3]){
-   var e = document.getElementById('powers_'+i);
-   e.classList.remove('more_info');
-   e.children[0].children[1].innerHTML = '';
-   powers_viz[i][3] = 0;
- }}
- for (var i=0;i<powers.length;i++){powers_viz[i]=[1,1,1,0]}
+ let e = document.getElementById('all_powers').getElementsByClassName('more_info');
+ while(e.length){
+  e[0].children[0].children[1].innerHTML = '';
+  e[0].classList.remove('more_info');
+ }
+
+ for (var i=0;i<powers.length;i++){powers_viz[i]=[1,1,1]}
  cpower_type=[],cpower_cat=[];
 
  e = document.getElementById('power_type');e.innerHTML='';
@@ -1784,7 +1796,7 @@ function clear_powers_filters(){
  var d = e.parentNode.children[2].getElementsByClassName('checkmark');
  for(var i=0;i<d.length;i++){d[i].classList.remove("checkmarked");d[i].setAttribute('value',0)}
 
- var e = document.getElementById('power_name');e.value='';
+ e = document.getElementById('power_name');e.value='';
  filter_powers_name(e);
 }
 
@@ -1794,16 +1806,17 @@ data.magias = [];
 var spell_viz = [];
 function list_spells(e,i){
  var div = document.createElement('div');
- div.setAttribute('id','spell_'+i);
- div.setAttribute('class','spell w10');
+ document.getElementById(e).appendChild(div);
+ e = e.replace('all_','');
+
+ div.setAttribute('class',e+' w10');
  div.setAttribute('onclick','spell_info(this)');
  div.setAttribute('index',i);
  var content = '<div class="spell_details"><div class="w10 dif"><div class="w9"><p class="item_title">'+spells[i][0]+'</p><p class="item_subtitle">'+spell_pm_cost[spells[i][2]-1]+' PM • '+spells[i][1]+' • '+spells[i][3]+' '+spells[i][2]+'</p></div><div class="item_action w1 ma">';
  if(spell_action.includes(spells[i][4])){content += '<div class="ac_'+spells[i][4]+'"></div>'}
  content += '</div></div><div class="item_subtitle w10 ms"></div></div>';
  div.innerHTML = content;
- document.getElementById(e).appendChild(div);
- spell_viz.push([1,1,1,1,0]);
+ spell_viz.push([1,1,1,1]);
 }
 
 function spell_info(e){
@@ -1811,11 +1824,7 @@ function spell_info(e){
  e.classList.toggle('more_info');
  e = e.children[0].children[1];
 
- if(spell_viz[i][4]){
-  spell_viz[i][4] = 0;
-  e.innerHTML = '';
- } else {
-  spell_viz[i][4] = 1;
+ if(e.innerHTML){e.innerHTML = ''} else {
   var content = '';
 
   if(spells[i][4]){content += '<p class="nowrap"><b>Ação:</b> '+spells[i][4]+'</p>'} //!spell_action.includes(spells[i][4])
@@ -1834,16 +1843,17 @@ function spell_info(e){
    content += ': </b><span>'+spells[i][j+1]+'</span></p>';
   }
   if(spells[i][12]){content += '<p class="nowrap"><i>Publicação:</i> '+spells[i][12]+'</p>'}
-  content += '</div></div><button class="spell_add" onclick="add_spell(this)">Adicionar magia</div><button class="delete spell_delete" onclick="remove_spell(this)">Remover magia</div>';
+  content += '<button class="spell_add" onclick="add_spell(this)">Adicionar magia</button>';
+  content += '<button class="delete spell_delete" onclick="remove_spell(this)">Remover magia</button>';
   e.innerHTML = content;
  }
 }
 
 function filter_spells(){
+ let e = document.getElementById('all_spells').getElementsByClassName('spells');
  for (var i=0;i<spells.length;i++){
-  var e = document.getElementById('spell_'+i);
-  if(spell_viz[i][0]&&spell_viz[i][1]&&spell_viz[i][2]&&spell_viz[i][3]){e.style.display=""}
-  else{e.style.display="none"}
+  if(spell_viz[i][0]&&spell_viz[i][1]&&spell_viz[i][2]&&spell_viz[i][3]){e[i].style.display=""}
+  else{e[i].style.display="none"}
  }
 }
 
@@ -1869,13 +1879,13 @@ function filter_spell_name(el){
 }
 
 function clear_spell_filters(){
- for (var i=0;i<spells.length;i++){if(spell_viz[i][4]){
-  var e = document.getElementById('spell_'+i);
-  e.classList.remove('more_info');
-  e.children[0].children[1].innerHTML = '';
-  spell_viz[i][4] = 0;
- }}
- for (var i=0;i<spells.length;i++){spell_viz[i]=[1,1,1,1,0]}
+ let e = document.getElementById('all_spells').getElementsByClassName('more_info');
+ while(e.length){
+  e[0].children[0].children[1].innerHTML = '';
+  e[0].classList.remove('more_info');
+ }
+
+ for (var i=0;i<spells.length;i++){spell_viz[i]=[1,1,1,1]}
  cspell_level=[],cspell_class=[],cspell_school=[];
 
  e = document.getElementById('spell_level');e.innerHTML='';
@@ -1890,23 +1900,24 @@ function clear_spell_filters(){
  var d = e.parentNode.children[2].getElementsByClassName('checkmark');
  for(var i=0;i<d.length;i++){d[i].classList.remove("checkmarked");d[i].setAttribute('value',0)}
 
- var e = document.getElementById('spell_name');e.value='';
+ e = document.getElementById('spell_name');e.value='';
  filter_spell_name(e);
 }
 
 function add_spell(e){
- e = e.parentNode;
- e.innerHTML = '';
- e = e.parentNode.parentNode.cloneNode(true);
- e.id = '';
+ e = e.parentNode.parentNode.parentNode.cloneNode(true);
+ e.removeAttribute('id');
  e.classList.remove('more_info');
+ e.children[0].children[1].innerHTML = '';
  document.getElementById('char_spells').appendChild(e);
- data.magias[Object.keys(data.magias).length] = JSON.parse(e.getAttribute('index'));
+ data.magias.push(JSON.parse(e.getAttribute('index')));
 }
 
 function remove_spell(e){
  e = e.parentNode.parentNode.parentNode;
- data.magias.splice(data.magias.indexOf(e.getAttribute('index')),1);
+ let pows = document.getElementById('char_spells').getElementsByClassName('spells');
+ let x = Array.prototype.indexOf.call(pows,e);
+ data.magias.splice(x,1);
  e.remove();
 }
 
@@ -2152,7 +2163,7 @@ function start_up(){
  for (var i=0;i<spell_inputs.length;i++){create_checkbox(spell_inputs[i])}
  for (var i=0;i<power_inputs.length;i++){create_checkbox(power_inputs[i])}
  for (var i=0;i<spells.length;i++){list_spells('all_spells',i)}
- for (var i=0;i<powers.length;i++){list_powers('all_powers',i)}
+ for (var i=0;i<powers.length;i++){list_powers('all_powers',i,powers)}
  for (var i=0;i<conditions.length;i++){list_conditions('conditions',i,conditions)}
  list_skills(skills,i,'skills');
  list_skills(crafts,i,'crafts');
@@ -2177,7 +2188,7 @@ function data_set(){
   if(key=='magias'){
    for (var i=0;i<data.magias.length;i++){list_spells('char_spells',data.magias[i])}
   }else if(key=='powers'){
-   for (var i=0;i<data.powers.length;i++){list_powers('char_powers',data.powers[i])}
+   for (var i=0;i<data.powers.length;i++){list_powers('powers',data.powers[i])}
   }else if(key=='defense'){
    for (let i in data.defense){document.getElementById(i).value=data.defense[i]}
   }else if(key=='skills'||key=='crafts'||key=='cond'||key=='cond_user'){ //do nothing
@@ -2239,7 +2250,7 @@ function clear(){
  var fakeinput = document.getElementsByClassName('fakeinput');
  for (var i=0;i<fakeinput.length;i++){fakeinput[i].innerHTML=''}
  document.getElementById('char_spells').innerHTML = '';
- document.getElementById('char_powers').innerHTML = '';
+ document.getElementById('powers').innerHTML = '';
  document.getElementById('char_attack').innerHTML = '';
  document.getElementById('char_equip').innerHTML = '';
  document.getElementById('carga').innerHTML = 0;
