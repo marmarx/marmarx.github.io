@@ -6,7 +6,7 @@ const power_cat = ['power_cat',
 const power_inputs = [power_type,power_cat];
 
 const powers = [
-['Alta Arcana','Classe','Arcanista, Bárbaro, Clérigo','','','0','Jogo do Ano','No 20º nível, seu domínio das artes arcanas é total. O custo em PM de suas magias arcanas é reduzido à metade (após aplicar aprimoramentos e quaisquer outros efeitos que reduzam custo).','20º nível de arcanista'],
+['Alta Arcana','Classe','Arcanista','','','0','Jogo do Ano','No 20º nível, seu domínio das artes arcanas é total. O custo em PM de suas magias arcanas é reduzido à metade (após aplicar aprimoramentos e quaisquer outros efeitos que reduzam custo).','20º nível de arcanista'],
 ['Arcano de Batalha','Classe','Arcanista','','','0','Jogo do Ano','Quando lança uma magia, você soma seu atributo-chave na rolagem de dano.',''],
 ['Aumento de Atributo','Classe','Arcanista','','','0','Jogo do Ano','Você recebe +1 em um atributo. Você pode escolher este poder várias vezes, mas apenas uma vez por patamar para um mesmo atributo.',''],
 ['Caldeirão do Bruxo','Classe','Arcanista','','','0','Jogo do Ano','Você pode criar poções, como se tivesse o poder geral Preparar Poção. Se tiver ambos, pode criar poções de até 5º círculo.','Bruxo, treinado em Ofício (alquimista)'],
