@@ -1,6 +1,7 @@
 # marmarx.github.io/t20
 
 Tarefas pendentes:
+- adicionar suporte para inserir poderes personalizados
 - adicionar suporte para imprimir/exportar PDF
 
 Tarefas canceladas:
@@ -9,7 +10,7 @@ Tarefas canceladas:
 <b>Histórico de versões:</b>
 
 v1.4
-- adicionados dicas iniciais de uso para usuários novos
+- adicionadas dicas iniciais de uso para usuários novos
 - alteração da classe de valores de dados explodidos (serão mostrados em verde agora)
 - PV e PM serão calculados automaticamente mediante a alteração de foco entre inputs
 - adicionado suporte para escolha livre de perícia utilizada para atacar - Bardos precisam atacar com atuação :)
