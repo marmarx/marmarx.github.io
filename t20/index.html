@@ -1706,7 +1706,7 @@ function change_power(e,i){
  e = e.parentNode.parentNode.parentNode.parentNode.parentNode;
  let x = Array.prototype.indexOf.call(document.getElementById('user_powers').getElementsByClassName('user_powers'),e)
  data.user_powers[x][i] = value;
- calc_power()
+ calc_power(e,x)
 }
 
 function power_magic(e){
@@ -1714,19 +1714,19 @@ function power_magic(e){
  e = e.parentNode.parentNode.parentNode.parentNode;
  let x = Array.prototype.indexOf.call(document.getElementById('user_powers').getElementsByClassName('user_powers'),e)
  data.user_powers[x][5] = !data.user_powers[x][5];
- calc_power()
+ calc_power(e,x)
 }
 
-function calc_power(){
- let powe = document.getElementById('user_powers').getElementsByClassName('user_powers');
- for(let i=0;i<powe.length;i++){
-  powe[i].children[0].children[0].children[0].children[0].innerHTML = data.user_powers[i][0];
-  powe[i].children[0].children[0].children[0].children[1].innerHTML = data.user_powers[i][5]?magic:'';
-  powe[i].children[0].children[0].children[0].children[2].innerHTML = (data.user_powers[i][1]?power_typ[data.user_powers[i][1]]:'Tipo de poder') + (data.user_powers[i][2]?' • '+data.user_powers[i][2]:'') + (data.user_powers[i][4]?' • '+data.user_powers[i][4]:'');
-  let ac = data.user_powers[i][3]?action[data.user_powers[i][3]].replace('Ação ','').replace('de ','').toLowerCase():'';
-  powe[i].children[0].children[0].children[2].innerHTML = spell_action.includes(ac)?'<div class="ac_'+ac+'"></div>':'';
-  powe[i].children[0].children[1].children[0].innerHTML = data.user_powers[i][7];
- }
+function calc_power(e,i){
+ e.children[0].children[0].children[0].children[0].innerHTML = data.user_powers[i][0];
+ e.children[0].children[0].children[0].children[1].innerHTML = data.user_powers[i][5]?magic:'';
+ let p = (data.user_powers[i][1]?power_typ[data.user_powers[i][1]]:'Tipo de poder')
+ let q = (data.user_powers[i][2]?' • '+data.user_powers[i][2]:'')
+ let m = (data.user_powers[i][4]?' • '+data.user_powers[i][4]:'')
+ e.children[0].children[0].children[0].children[2].innerHTML = p+q+m;
+ let ac = data.user_powers[i][3]?action[data.user_powers[i][3]].replace('Ação ','').replace('de ','').toLowerCase():'';
+ e.children[0].children[0].children[2].innerHTML = spell_action.includes(ac)?'<div class="ac_'+ac+'"></div>':'';
+ e.children[0].children[1].children[0].innerHTML = data.user_powers[i][7];
 }
 
 var power_types = '';
@@ -2278,7 +2278,9 @@ function data_set(){
   if(key=='magias'){
    for (var i=0;i<data.magias.length;i++){list_spells('char_spells',data.magias[i])}
   }else if(key=='powers'){
-   for (var i=0;i<data.powers.length;i++){list_powers('powers',data.powers[i])}
+   for (var i=0;i<data.powers.length;i++){list_powers('powers',data.powers[i],powers)}
+  }else if(key=='user_powers'){
+   for (var i=0;i<data.user_powers.length;i++){list_powers('user_powers',i,data.user_powers)}
   }else if(key=='defense'){
    for (let i in data.defense){document.getElementById(i).value=data.defense[i]}
   }else if(key=='skills'||key=='crafts'||key=='cond'||key=='cond_user'){ //do nothing
@@ -2317,17 +2319,26 @@ function save_data(){
  localStorage.setItem('chars',JSON.stringify(chars));
  if(title){localStorage.setItem(title+'_data',JSON.stringify(data))}
 }
+
+function check_empty(){
+ if(!data.magias){data.magias=[]}
+ if(!data.powers){data.powers=[]}
+ if(!data.user_powers){data.user_powers=[]}
+ if(!data.skills){data.skills=skills}
+ if(!data.crafts){data.crafts=crafts}
+ if(!data.defense){data.defense=structuredClone(data_ini.defense)}
+ if(!data.attack){data.attack=[]}
+ if(!data.equip){data.equip=[]}
+ if(!data.carga){data.carga=structuredClone(data_ini.carga)}
+ if(!data.conditions){data.conditions=[[],[]]}
+ if(!data.cond){data.cond=structuredClone(data_ini.cond)}
+ if(!data.cond_user){data.cond_user=[]}
+}
+
 function data_load(){
  if(localStorage.getItem(title+'_data')){
   data = JSON.parse(localStorage.getItem(title+'_data'));
-  if(!data.magias){data.magias=[]}
-  if(!data.powers){data.powers=[]}
-  if(!data.skills){data.skills=skills}
-  if(!data.crafts){data.crafts=crafts}
-  if(!data.defense){data.defense=data_ini.defense}
-  if(!data.attack){data.attack=data_ini.attack}
-  if(!data.equip){data.equip=data_ini.equip}
-  if(!data.carga){data.defense=data_ini.carga}
+  check_empty();
   loaded=1;
  }
 }
@@ -2341,6 +2352,7 @@ function clear(){
  for (var i=0;i<fakeinput.length;i++){fakeinput[i].innerHTML=''}
  document.getElementById('char_spells').innerHTML = '';
  document.getElementById('powers').innerHTML = '';
+ document.getElementById('user_powers').innerHTML = '';
  document.getElementById('char_attack').innerHTML = '';
  document.getElementById('char_equip').innerHTML = '';
  document.getElementById('carga').innerHTML = 0;
@@ -2365,17 +2377,7 @@ function import_char(evt){
    if(evt.target.readyState!=2) return;
    if(evt.target.error){alert('Error while reading file');return}
    data = JSON.parse(evt.target.result);
-   if(!data.magias){data.magias=[]}
-   if(!data.powers){data.powers=[]}
-   if(!data.skills){data.skills=skills}
-   if(!data.crafts){data.crafts=crafts}
-   if(!data.defense){data.defense=data_ini.defense}
-   if(!data.attack){data.attack=data_ini.attack}
-   if(!data.equip){data.defense=data_ini.equip}
-   if(!data.carga){data.defense=data_ini.carga}
-   if(!data.conditions){data.conditions=[[],[]]}
-   if(!data.cond){data.cond=structuredClone(data_ini.cond)}
-   if(!data.cond_user){data.cond_user=structuredClone(data_ini.cond_user)}
+   check_empty();
    chars.push(data.char);
    data_set();
    console.log('Character '+data.char+' data imported');
