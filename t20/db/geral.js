@@ -5,6 +5,7 @@ const tamanho = ['tamanho','Minúsculo','Pequeno','Médio','Grande','Enorme','Co
 const rd = ['Ácido', 'Eletricidade', 'Fogo', 'Frio', 'Luz', 'Trevas', 'Mágico'];
 const action = ['Ação para ativar','Ação Livre','Ação de Movimento','Ação Padrão','Ação Completa','Reação'];
 const duration = ['Duração','Instantânea','Até seu próximo turno','Sustentada','Cena','Dia','Semana','O tempo que quiser','Permanente'];
+const power_typ = ['Tipo de poder','Raça','Origem','Classe','Distinção de Classe','Geral'];
 
 const deslocamento = [
 'deslocamento',

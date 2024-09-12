@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<title>Ficha T20 Mobile - v1.4</title>
+<title>Ficha T20 Mobile - v1.4.5</title>
 <meta name="author" content="Marco Martins">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
 <meta name="theme-color" content="#b72a2b">
@@ -24,6 +24,7 @@
 *,*:before,*:after{margin:0;padding:0;transition:all .6s ease-in-out,display 0s;font-family:'Open Sans', sans-serif;word-wrap:normal;word-break:keep-all;box-sizing:border-box}
 html,body{overflow-x:hidden;width:100vw;min-height:100vh}
 body:before{content:'';width:100vw;height:100vh;position:fixed;background-repeat:repeat;background-blend-mode:lighten;background-attachment:fixed;background-image:url("src/back.jpg");background-color:rgba(255,255,255,var(--opc));background-size:20em}
+
 ::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:transparent;background:#f1f1f1}::-webkit-scrollbar-thumb{background:#bbb}::-webkit-scrollbar-thumb:hover{background:#999}::-webkit-scrollbar:horizontal,::-webkit-scrollbar-thumb:horizontal{display:}
 body::-webkit-scrollbar{display:none}
 br{content:'';display:block;margin:6px 0;line-height:2.2em}
@@ -95,11 +96,13 @@ nav{position:fixed;left:0;bottom:0;height:70px;width:100%;background:var(--white
 
 #spells_list,#powers_list{display:block}
 .spells,.powers,.user_powers{cursor:pointer;border:1px solid transparent;border-radius:10px}
-.more_info{border-color:rgba(32,32,32,.4);margin:.5em 0;padding-top:10px;position:relative}/*padding:15px 10px 20px*/
+.more_info{margin:.5em 0;padding-top:10px;position:relative}/*border-color:rgba(32,32,32,.4);padding:15px 10px 20px*/
 .item_subtitle{margin:0;font-size:.8em}.item_title{margin:auto 0;font-size:1em;font-weight:500;display:inline-flex}
 .item_action{margin-right:0}.item_action div{margin:auto}
 .hid{visibility:hidden;margin:0;max-height:0;overflow:hidden;opacity:0}
 .nowrap{word-break:break-word;margin:0;font-size:1em}
+.a_power{color:var(--white)!important;background:none!important}
+.a_power:before{background:var(--white)}
 
 .input{position:relative;width:100%;margin:18px 0;color:var(--black)}
 .fakeinput,input,select,textarea{border:1px solid #b0b0b0;border-radius:5px;font-size:1.1em;line-height:1.2em;-webkit-appearance:none;padding:1.6em 1.3em .5em;background:var(--transwhite);color:currentColor}
@@ -123,8 +126,8 @@ input,select,.fakeinput{min-width:70px}
 button:disabled,button:hover:disabled{border:2px solid #b0b0b0;color:#b0b0b0;background:var(--transwhite);cursor:no-drop}
 .fakebtn{padding:0}
 
-a{color:currentColor;padding:12px 30px;text-decoration:none;display:block}
-a:hover{background-color:#1e90ff;color:var(--white)}
+a{color:currentColor;padding:12px 30px;text-decoration:none;display:block;line-height:1.5em}
+a:hover{background-color:#1e90ff;color:var(--white)!important}
 .dropdown,.dropequip{position:absolute;background-color:var(--white);color:var(--black);border:1px solid #000;z-index:1;width:100%;top:60px;max-height:350px;overflow-y:scroll;z-index:2}
 .dn{display:none!important;border:0}.w0{width:0;visibility:hidden}
 
@@ -142,6 +145,7 @@ a:hover{background-color:#1e90ff;color:var(--white)}
 .spell_add{border-color:var(--green);color:var(--green);background:transparent}
 .spell_add:hover,.spell_add:focus{background:var(--green);color:#fff}
 #all_spells .spell_delete,#char_spells .spell_add,#all_powers .spell_delete,#powers .spell_add,#user_powers .spell_add{display:none}
+.powe{}
 
 #habilidades .input{margin:8px 0}
 .hab_label{transform:rotate(180deg);margin:auto;writing-mode:vertical-lr}
@@ -170,14 +174,14 @@ a:hover{background-color:#1e90ff;color:var(--white)}
 .def_half .dropequip{margin:2px 0}
 
 .attack,.equip{margin:1em auto}
-.attack .dice,.skills .dice{margin-right:0}.attack .trash,#cond_user .trash{color:var(--white)}.attack .dice{width:30%}
+.attack .dice,.skills .dice{margin-right:0}.attack .dice{width:30%}
 .attack_info{background:var(--transblack);margin:10px auto 0;padding:20px 25px;position:relative;color:var(--white)}
 .attack_info input,.attack_info select,.attack_info textarea{color:var(--black);background:#ffffffe8}.attack_info .w10{margin:5px 0}.attack_info textarea{min-height:125px;field-sizing: content}
-.attack_info:before{border-color:transparent transparent rgba(0,0,0,.5) transparent}
 
 .equip_btns{margin:auto;margin-left:2em;max-height:40px;max-width:120px;padding-top:5px}.equip_btns > div{max-width:40px}
 .equip_btn{padding:0;min-width:33.3333%;width:33.3333%}
-.equip_btn:hover .trash,.equip_btn:hover .trash:before,.equip_btn:hover .trash:after{color:var(--white)}
+.equip_btn .trash{color:var(--black)}.equip_btn:hover .trash{color:var(--white)}
+.equip_btn .trash,.equip_btn .trash:before,.equip_btn .trash:after{transition:all .5s}
 .overloaded{color:#ef1313;font-weight:500!important}
 .dropequip{top:calc(100% - 2px);width:calc(100% - .6em);margin:.1em .3em}
 
@@ -198,7 +202,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 .w10{width:100%}.w9{width:90%}.w8{width:80%}.w7{width:70%}.w6{width:60%}.w5{width:50%}.w4{width:40%}.w3{width:30%}.w2{width:20%}.w1{width:10%}
 .pr{position:relative}.z1{z-index:1}.mwu{min-width:40px}
 .dif{display:inline-flex}.db{display:block}.df{display:flex}.dg{display:grid}
-.ma{margin:auto}.m0{margin:0}.m0a{margin:0 auto}.ma0{margin:auto 0}.ms{margin-top:.4em!important}.mt0{margin-top:0}.ml{margin-left:2em}.m3e{margin:.1em .3em}.mt{margin-top:1.5em!important}
+.ma{margin:auto}.m0{margin:0}.m0a{margin:0 auto}.ma0{margin:auto 0}.ms{margin-top:.4em!important}.mt0{margin-top:0}.ml{margin-left:2em}.m3e{margin:.1em .3em}.mt{margin-top:1.5em!important}.mt1{margin-top:1em!important}
 .ha{height:auto}.tal{text-align:left}.tc,.tac{text-align:center!important}.tac{padding-left:0!important;padding-right:0!important}
 .invert,.hpinvert{-webkit-filter:invert(1);-moz-filter:invert(1);-o-filter:invert(1);-ms-filter:invert(1);filter:invert(1)}.hpinvert{color:#fff}.hpinvert .slash{border-color:#fff}
 
@@ -245,7 +249,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 </style>
 </head>
 
-<body>
+<body class="body1">
 <div id="sections">
  <div id="sec_char" class="sec">
   <h1>Personagem</h1>
@@ -370,7 +374,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
   <h1 style="margin:2em 0 .6em">Poderes Personalizados</h1>
   <div class="row"><div id="user_powers" class="container db"></div></div>
   <div class="row"><div class="container">
-   <button onclick="user_power()" disabled>Adicionar poder personalizado</button>
+   <button onclick="user_power()">Adicionar poder personalizado</button>
   </div></div>
  </div>
 
@@ -497,7 +501,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
    <p>Seus dados são armazenados <b>apenas</b> localmente neste dispositivo, ou seja, nada é armazenado online ou em outro dispositivo.</p>
    <p class="mt">Use as opções <b>importar</b> e <b>exportar</b> para transferir seu personagem entre dispositivos.</p>
    <p class="mt">Caso deseje exluir todos os dados, por favor, utilize o botão a seguir. Eles <b>não</b> poderão ser recuperados.</p>
-  </div><div class="container mw400">
+  </div><div class="container mw400 mt">
    <button class="delete" onclick="reset()">Excluir todos os dados</button>
   </div></div>
  </div>
@@ -1685,9 +1689,48 @@ function calc(){def_calc();rd_calc();calc_skills('skills');calc_skills('crafts')
 //-------------------------USER DEFINED POWERS FUNCTIONS------------------------//
 
 function user_power(){
- data.user_powers.push(['Nome do poder','Tipo de poder','Categoria','padrão','Subcategoria',data.user_powers.length-1,'adicionado pelo usuário','Descrição']);
+ data.user_powers.push(['Nome do poder',0,'Categoria',3,'Subcategoria',0,0,'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat'])
  list_powers('user_powers',data.user_powers.length-1,data.user_powers);
 }
+
+function edit_power(e){
+ event.stopPropagation();
+ e = e.parentNode.parentNode;
+ if(!e.children[1].innerHTML){power_info(e,'user_powers',data.user_powers)}
+ e = e.parentNode.children[1].children[0];
+ e.classList.toggle('def_hide');
+}
+
+function change_power(e,i){
+ let value = e.value;
+ e = e.parentNode.parentNode.parentNode.parentNode.parentNode;
+ let x = Array.prototype.indexOf.call(document.getElementById('user_powers').getElementsByClassName('user_powers'),e)
+ data.user_powers[x][i] = value;
+ calc_power()
+}
+
+function power_magic(e){
+ e.classList.toggle('checkmarked');
+ e = e.parentNode.parentNode.parentNode.parentNode;
+ let x = Array.prototype.indexOf.call(document.getElementById('user_powers').getElementsByClassName('user_powers'),e)
+ data.user_powers[x][5] = !data.user_powers[x][5];
+ calc_power()
+}
+
+function calc_power(){
+ let powe = document.getElementById('user_powers').getElementsByClassName('user_powers');
+ for(let i=0;i<powe.length;i++){
+  powe[i].children[0].children[0].children[0].children[0].innerHTML = data.user_powers[i][0];
+  powe[i].children[0].children[0].children[0].children[1].innerHTML = data.user_powers[i][5]?magic:'';
+  powe[i].children[0].children[0].children[0].children[2].innerHTML = (data.user_powers[i][1]?power_typ[data.user_powers[i][1]]:'Tipo de poder') + (data.user_powers[i][2]?' • '+data.user_powers[i][2]:'') + (data.user_powers[i][4]?' • '+data.user_powers[i][4]:'');
+  let ac = data.user_powers[i][3]?action[data.user_powers[i][3]].replace('Ação ','').replace('de ','').toLowerCase():'';
+  powe[i].children[0].children[0].children[2].innerHTML = spell_action.includes(ac)?'<div class="ac_'+ac+'"></div>':'';
+  powe[i].children[0].children[1].children[0].innerHTML = data.user_powers[i][7];
+ }
+}
+
+var power_types = '';
+for(let i in power_typ){power_types += '<option value="'+(i>0?i+'"':'" disabled selected')+'>'+power_typ[i]+'</option>'}
 
 //-------------------------POWERS FUNCTIONS------------------------//
 
@@ -1701,33 +1744,66 @@ function list_powers(e,i,arr){
  let k = (e=='user_powers'?'data.':'')+e;
 
  div.setAttribute('class',e+' w10');
- div.setAttribute('onclick','power_info(this,\''+e+'\','+k+')');
+ //div.setAttribute('onclick','power_info(this,\''+e+'\','+k+')');
  div.setAttribute('index',i);
  var p = arr[i][2]?' • '+arr[i][2]:'';
  var q = arr[i][4]?' • '+arr[i][4]:'';
- var m = arr[i][5]==1?'<div class="magic">'+magic+'</div>':'';
 
- var content = '<div class="spell_details"><div class="w10 dif"><div class="w9">';
- content += '<p class="item_title">'+arr[i][0]+'</p>'+m+'<p class="item_subtitle">'+arr[i][1]+p+q+'</p>';
+ let content = '<div class="spell_details" onclick="power_info(this,\''+e+'\','+k+')"><div class="w10 dif"><div class="w'+(e=='user_powers'?8:9)+'">';
+ content += '<p class="item_title">'+arr[i][0]+'</p><div class="magic">'+(arr[i][5]?magic:'')+'</div>';
+ content += '<p class="item_subtitle">'+power_typ[arr[i][1]]+p+q+'</p>';
  content += arr[i][8]?'<p class="item_subtitle"><b>Pré-requisito:</b> '+arr[i][8]+'</p>':'';
- content += '</div><div class="item_action w1 ma">';
- content += spell_action.includes(arr[i][3])?'<div class="ac_'+arr[i][3]+'"></div>':'';
- content += '</div></div><div class="item_subtitle w10 ms"></div></div>';
- div.innerHTML = content;
+ content += '</div>';
+ content += e=='user_powers'?'<div class="w1 ma powe" onclick="edit_power(this)"><div class="pencilbox ma"><div class="pencil"></div></div></div>':'';
+ let ac = arr[i][3]?action[arr[i][3]].replace('Ação ','').replace('de ','').toLowerCase():'';
+ content += '<div class="item_action w1 ma">'+(spell_action.includes(ac)?'<div class="ac_'+ac+'"></div>':'')+'</div>';
+ content += '</div><div class="item_subtitle w10 pr ms"></div></div>';
+
  if(!e.includes('user')){powers_viz.push([1,1,1])}
+ else{
+  let content2 = '<div class="w10 mt1"><div class="w10 attack_info cond_info def_hide">';
+  content2 += '<div class="w10 dif">';
+  content2 += '<div class="w8 ma dif"><input class="skill_input m3e" type="text" placeholder="Nome do poder" autocomplete="off" onchange="change_power(this,0)"></div>';
+  content2 += '<div class="w2 ma dif" onclick="remove_power(this,\''+e+'\')"><div class="trash"></div></div>'
+  content2 += '</div>';
+
+  content2 += '<div class="w10 dif">';
+  content2 += '<div class="w5 ma dif"><select class="skill_input m3e" onchange="change_power(this,1)" required>'+power_types+'</select></div>';
+  content2 += '<div class="w5 ma dif"><input class="skill_input m3e" type="text" placeholder="Categoria" autocomplete="off" onchange="change_power(this,2)"></div>';
+  content2 += '</div>';
+
+  content2 += '<div class="w10 dif">';
+  content2 += '<div class="w5 ma dif"><select class="skill_input m3e" onchange="change_power(this,3)" required>'+actions+'</select></div>';
+  content2 += '<div class="w5 ma dif"><input class="skill_input m3e" type="text" placeholder="Subcategoria" autocomplete="off" onchange="change_power(this,4)"></div>';
+  content2 += '</div>';
+
+  content2 += '<div><div class="w10 dif"><textarea class="skill_input m3e" type="text" placeholder="Descrição e detalhes" autocomplete="off" onchange="change_power(this,7)"></textarea></div></div>';
+  content2 += '<div class="w10 dif pr"><a class="checkmark a_power" onclick="power_magic(this)">Marque se essa habilidade for mágica</a></div>';
+
+  content2 += '</div></div>';
+  content += content2;
+ }
+ div.innerHTML = content;
 }
 
 function power_info(e,id,arr){
- var i = e.getAttribute('index');
+ e = e.parentNode;
+ let k = id=='user_powers'?0:1;
+ let i = k?e.getAttribute('index'):Array.prototype.indexOf.call(document.getElementById(id).getElementsByClassName(id),e);
+
  e.classList.toggle('more_info');
  e = e.children[0].children[1];
 
- if(e.innerHTML){e.innerHTML = ''} else {
+ if(e.innerHTML){
+  e.innerHTML = '';
+  if(!k){e.parentNode.parentNode.children[1].children[0].classList.add('def_hide')}
+ } else {
   var content = '<p class="nowrap">'+arr[i][7]+'</p>';
-  content += '<p class="nowrap"><i>Publicação:</i> '+arr[i][6]+'</p>';
-  content += '<button class="spell_add" onclick="add_power(this)">Adicionar poder</button>';
-  content += '<button class="delete spell_delete" onclick="remove_power(this,\''+id+'\')">Remover poder</button>';
-  e.innerHTML = content;
+  if(k){
+   content += '<p class="nowrap"><i>Publicação:</i> '+arr[i][6]+'</p><button class="spell_add" onclick="add_power(this)">Adicionar poder</button>';
+   content += '<button class="delete spell_delete" onclick="remove_power(this,\''+id+'\')">Remover poder</button>';
+  }
+  e.innerHTML = content
  }
 }
 
@@ -1740,11 +1816,10 @@ function add_power(e){
 }
 
 function remove_power(e,id){
- console.log(id);
  e = e.parentNode.parentNode.parentNode;
+ if(id=='user_powers'){e = e.parentNode}
  let pows = document.getElementById(id).getElementsByClassName(id);
  let x = Array.prototype.indexOf.call(pows,e);
- console.log(x);
  data[id].splice(x,1);
  e.remove();
 }
@@ -1757,16 +1832,31 @@ function filter_powers(){
  }
 }
 
+
+
 function filter_powers_other(e){
- var k = e.getAttribute('tabindex');
- var filter = e.innerHTML;
- if(!filter){filter=JSON.stringify(power_inputs[k-1])}
+ let k = e.getAttribute('tabindex');
+ let filter;
+
+  if(k==1){
+   filter = e.innerHTML.split(', ');
+   for(let i in filter){filter[i]=power_typ.indexOf(filter[i])}
+  }else{
+   filter = e.innerHTML;
+  }
+
+ if(!filter||filter[0]<0){filter=[1,2,3,4,5]+JSON.stringify(power_cat)}
+ console.log(filter);
+
  for (var i=0;i<powers.length;i++){
   if(filter.indexOf(powers[i][k])>-1){powers_viz[i][k]=1}
   else{powers_viz[i][k]=0}
  }
  filter_powers();
 }
+
+// if(!e.innerHTML){filter=[1,2,3,4,5]}
+// if(!filter){filter=JSON.stringify(power_inputs[k-1])}
 
 function filter_powers_name(el){
  var filter = el.value.toUpperCase();
@@ -2104,7 +2194,7 @@ function char_remove(){
   chars.splice(chars.indexOf(title),1);
   localStorage.removeItem(title+'_data');
   clear();
-  document.title = 'Ficha T20 Mobile - v1.4';
+  document.title = 'Ficha T20 Mobile - v1.4.5';
   document.getElementById('chardel').disabled = true;
  }
 }
