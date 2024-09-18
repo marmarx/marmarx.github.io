@@ -2463,7 +2463,7 @@ const hints = [
 
 //-------------------------REGEX FUNCTIONS------------------------//
 
-function regex_inj(e){e.value=/[<>\[\]\{\}\$#&]+/.test(e.value)?e.value:e.value.slice(0,-1)}
+function regex_inj(e){e.value=/[<>\[\]\{\}\$#&]+/.test(e.value)?e.value.slice(0,-1):e.value}
 function regexo(e){e.value=/^([+-]|[0-9]|[d])*$/.test(e.value)?e.value:e.value.slice(0,-1)}
 function regexb1(e){e.value=/^([+-]|[0-9]|\/)*$/.test(e.value)?e.value:e.value.slice(0,-1)}
 function regexb2(e){e.value=='d'?'d':e.value=/^([d]|[0-9])*$/.test(e.value)?e.value:e.value.slice(0,-1)}
