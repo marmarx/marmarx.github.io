@@ -1,7 +1,7 @@
 # marmarx.github.io/t20
 
 Tarefas pendentes:
-- adicionar suporte para inserir poderes personalizados
+- adicionar teclado de dados para definir rolagens de ataque
 - adicionar suporte para imprimir/exportar PDF
 
 Tarefas canceladas:
@@ -9,8 +9,16 @@ Tarefas canceladas:
 
 <b>Histórico de versões:</b>
 
+v1.5
+- adicionada os modificadores "ra" (reroll above) e "rb" (reroll below) no teclado e rolagens de dados - para habilidades como Destruidor de Guerreiros
+- adicionado suporte para inserir poderes personalizados
+- adicionada seleção de ação para ataques e tempo de recarga de armas
+- adicionado regexp em todos os inputs para evitar injeção de código
+- correção de comportamento sobreposto do teclado
+- correção de bugs e outros melhoramentos menores
+
 v1.4
-- adicionadas dicas iniciais de uso para usuários novos
+- adicionados dicas iniciais de uso para usuários novos
 - alteração da classe de valores de dados explodidos (serão mostrados em verde agora)
 - PV e PM serão calculados automaticamente mediante a alteração de foco entre inputs
 - adicionado suporte para escolha livre de perícia utilizada para atacar - Bardos precisam atacar com atuação :)
