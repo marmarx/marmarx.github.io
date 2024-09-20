@@ -34,7 +34,7 @@ const conditions = [
 ['Pasmo','Mental','O personagem não pode fazer ações.',{}],
 ['Petrificado','Metamorfose','O personagem fica inconsciente e recebe redução de dano 8.',{'RD':8}],
 ['Sangrando','','No início de seus turnos, o personagem deve fazer um teste de Constituição (CD 15). Se passar, estabiliza e remove essa condição. Se falhar, perde 1d6 pontos de vida e continua sangrando.',{}],
-['Sobrecarregado','Movimento','O personagem sofre penalidade de armadura –5 e seu deslocamento é reduzido –3m. Para remover essa condição, reduza o peso carregado em itens.',{'Defesa':-5,'Deslocamento':'reduzido em 3m'}],
+['Sobrecarregado','Movimento','O personagem sofre penalidade de armadura –5 e seu deslocamento é reduzido –3m. Para remover essa condição, reduza o peso carregado em itens.',{'Armadura (penalidade)':-5,'Deslocamento':'reduzido em 3m'}],
 ['Surdo','Sentidos','O personagem não pode fazer testes de Percepção para ouvir e sofre –5 em testes de Iniciativa. Além disso, é considerado em condição ruim para lançar magias.',{'Iniciativa':-5}],
 ['Surpreendido','','Não ciente de seus inimigos. O personagem fica desprevenido e não pode fazer ações.',{}],
 ['Vulnerável','','O personagem sofre –2 na Defesa.',{'Defesa':-2}]
