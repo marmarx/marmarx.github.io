@@ -1971,7 +1971,9 @@ window.onload = function(){
  add_svg();
 }
 
-//window.print();
-if(!JSON.parse(localStorage.chars).length){alert('Comece criando ou carregando um personagem, para isso entre com um nome de personagem, quaisquer edições feitas antes disso serão perdidas.')}
+let printPDF = 0;
+//read GET
+if(!JSON.parse(localStorage.chars).length||printPDF){alert('Comece criando ou carregando um personagem, para isso entre com um nome de personagem, quaisquer edições feitas antes disso serão perdidas.')}
+if(printPDF){window.print()}
 </script>
 </html>
