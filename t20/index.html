@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<title>Ficha T20 Mobile - v1.4.6</title>
+<title>Ficha T20 Mobile - v1.5</title>
 <meta name="author" content="Marco Martins">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
 <meta name="theme-color" content="#b72a2b">
@@ -63,7 +63,7 @@ ul{margin:2em}b,.bold{font-weight:bold!important}i,.italic{font-style:italic!imp
 #diceholder{position:relative;width:100%;height:calc(100% - var(--hph) - 105px);overflow:hidden}.diceholder{height:calc(100% - var(--hph) - 137px - 105px)!important}
 .rot{color:var(--rot)}.grun{color:var(--grun)}
 .magic{display:inline-block;position:absolute;padding:4px 0 0 4px}
-.strike{text-decoration:line-through}
+.strike{opacity:.5}
 
 .fakefocus{outline:1px auto #141414}
 .fakefocus:after{content:'';animation:blink 1s step-end infinite;border-left:2px solid #000}
@@ -581,7 +581,8 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 </body>
 
 <script>
-const load = 1;var title = '';var chars = [];var loaded = 0;
+const load = 1;
+var title = '', chars = [], loaded = 0;
 const data_ini = {
  'nível':0,hp:0,hpmax:0,mp:0,mpmax:0,'spell_hab':1,
  'hab_for_val':10,'hab_for':0,'hab_des_val':10,'hab_des':0,'hab_con_val':10,'hab_con':0,'hab_int_val':10,'hab_int':0,'hab_sab_val':10,'hab_sab':0,'hab_car_val':10,'hab_car':0,
@@ -594,23 +595,42 @@ var data = structuredClone(data_ini);
 
 //-------------------------DICE ROLLER FUNCTIONS------------------------//
 
-const keyels = ['d','+','-','!','ra','rb','eh','el','kh','kl'];
-var roll=[];
+const keyels = ['d','!','rra','rrb','eh','el','kh','kl'];
+//const keylen = [3,2,2,2,2,2,2,2];
+//const keypos = [0,3,5,5,7,7,7,7];
 
-function getIndicesOf(str){
- let index, indices = [];
- str = str.toLowerCase();
- for(i=0;i<keyels.length;i++){
-  let startIndex = 0;
-  while ((index = str.indexOf(keyels[i],startIndex)) > -1){
-   indices.push([index,keyels[i].length]);
-   startIndex = index + keyels[i].length;
-  }
+//Array.prototype.move = function(from,to,len=1){this.splice(to,0,...this.splice(from,len))}
+function fix_str(str){
+ let str2 = [];
+ str = str.replaceAll(' ','').replaceAll('+','_+_').replaceAll('-','_-_').split('_');	//splits string into smaller strings inside arrays
+ for(let i=0;i<str.length;i++){
+  if(str[i]!='+'&&str[i]!='-'){
+   if(isNaN(str[i][0])){str[i]=1+str[i]}	//add 1 in front of d if empty
+   if(isNaN(str[i][str[i].length-1])){str[i]+='_'}	//add _ to end if no number
+   for(let j=0;j<keyels.length;j++){str[i] = str[i].replaceAll(keyels[j],'_'+keyels[j]+'_')}	//places keysel in between _s
+   while(str[i].includes('__')){
+    let pos = str[i].indexOf('__')-1;
+    let arg = (str[i][pos]=='!'||str[i][pos]=='a')?'max':1;
+    str[i] = str[i].slice(0,pos+2) + arg + str[i].slice(pos+2);		//replaces __ for 1 or max
+   }
+   if(str[i][str[i].length-1]=="_"){str[i]=str[i].substring(0,str[i].length-1)}	//remove last _
+   str[i] = str[i].split('_');	//transform string to array
+   while(str[i].indexOf('max')>0){str[i][str[i].indexOf('max')] = str[i][2]}	//replaces max for number
+   //while(str[i].length<9){str[i].push(undefined)}	//fill in array with undefined
+   for(let j=0;j<str[i].length;j++){if(!isNaN(str[i][j])){str[i][j]=JSON.parse(str[i][j])}}	//parse numbers
+
+   //for(let j=keyels.length-1;j==2;j--){if(str[i].includes(keyels[j])){str[i].move(str[i].indexOf(keyels[j]),keypos[j],keylen[j])}}	//change position in array
+
+   str2[i] = {num:str[i][0]};	//builds associative object with array contents, position becomes unimportant
+   for(let j=1;j<str[i].length;j+=2){str2[i][str[i][j]] = str[i][j+1]}
+  }else{str2[i] = {sign:str[i][0]}}
  }
- return indices;
+ return [str2,str.join('').replaceAll(',','').replaceAll('+',' + ').replaceAll('-',' - ')]
 }
 
 function roll_dice(num,max,exp=max+1,rra=max+1,rrb=-1){
+ rrb = (rrb<exp-1)?rrb:exp-2;
+ console.log('[num,max,exp,rra,rrb]');console.log([num,max,exp,rra,rrb]);
  let roll = [];
  let rolled = '';
  for(k=0;k<num;k++){
@@ -624,129 +644,75 @@ function roll_dice(num,max,exp=max+1,rra=max+1,rrb=-1){
  return roll;
 }
 
-var soma = 0;
-function diceroll(str,crit){
- str += ' ';
+var soma,roll;
+function diceroll(str,crit=0){
  let repeat = 1;
  if(str.includes("#")){
   repeat = str.slice(0,str.indexOf('#'));
-  str = str.slice(str.indexOf('#')+1,-1) + ' ';
+  str = str.slice(str.indexOf('#')+1,-1);
  }
 
- indexes = getIndicesOf(str);
- indexes.sort(function sortFunction(a,b){if(a[0]===b[0]){return 0}else{return (a[0]<b[0])?-1:1}});
- if(indexes[0]){indexes.unshift([0,0])}
- indexes.push([-1,1]);
-
- let subkeys = [],subarrays = [];
- for(i=0;i<indexes.length-1;i++){
-  if(i){subkeys.push(str.slice(indexes[i][0],indexes[i][0]+indexes[i][1]))}
-  subarrays.push(str.slice(indexes[i][0]+indexes[i][1],indexes[i+1][0]));
- }
-
- let max = subarrays[1];
- for(i=0;i<subarrays.length;i++){
-  if(subarrays[i]==''){
-   if(subkeys[i]=='d'){subarrays[i]='1'}
-   if(subkeys[i-1]=='!'){subarrays[i]=max}
-   if(subkeys[i-1]=='eh'||subkeys[i-1]=='el'||subkeys[i-1]=='kh'||subkeys[i-1]=='kl'){subarrays[i]='1'}
-   if(subkeys[i-1]=='ra'){subarrays[i]=max}
-   if(subkeys[i-1]=='rb'){subarrays[i]='1'}
-  }
- }
- if(!indexes[0]){subarrays.unshift('1')}
+ [subarrays,str] = fix_str(str);
+ console.log('str');console.log(str);
+ console.log('subarrays');console.log(subarrays);
 
  for(var reroll=0;reroll<repeat;reroll++){
- soma = 0;
- roll=[];
- let dices=[];
- let sum=[];
- let alg='+';
- let print=' ⟵';
+  soma = 0;
+  roll=[];
+  let dices='', sum=[], alg='+', print=' ⟵',ctp = 0;
+  for(i=0;i<subarrays.length;i++){
+   if(subarrays[i].d){
+    roll[i] = roll_dice(subarrays[i].num,subarrays[i].d,subarrays[i]['!'],subarrays[i].rra,subarrays[i].rrb);	//rolling dices
 
- for(i=0;i<subkeys.length;i++){
-  if(subkeys[i]=='d'){
-   if(subkeys[i+1]=='!'){
-    roll.push(roll_dice(subarrays[i],subarrays[i+1],subarrays[i+2]));
-    dices = subarrays[i]+'d'+subarrays[i+1]+'!'+subarrays[i+2];
-    crit = subarrays[i+2];		//added line for explosion coloring and text marking
-   }else{
-    roll.push(roll_dice(subarrays[i],subarrays[i+1],subarrays[i+1]+1))
-    dices = subarrays[i]+'d'+subarrays[i+1];
-    crit = crit>0?crit:subarrays[i+1];		//added line for crit coloring and text marking
-   }
-   roll[roll.length-1] = roll[roll.length-1].sort(function(a,b){return b-a});
+    dices = subarrays[i].num;
+    for(let j in keyels){if(subarrays[i][keyels[j]]){dices+=keyels[j]+subarrays[i][keyels[j]]}};	//joining str for printout
 
-   if(subkeys[i+1]=='eh'||subkeys[i+1]=='el'||subkeys[i+1]=='kh'||subkeys[i+1]=='kl'){
-    if(subkeys[i+1]=='eh'){
-     var start = subarrays[i+2];
-     var end = roll[roll.length-1].length;
-    }
-    if(subkeys[i+1]=='el'){
-     var start = 0;
-     var end = roll[roll.length-1].length-subarrays[i+2];
-    }
-    if(subkeys[i+1]=='kh'){
-     var start = 0;
-     var end = subarrays[i+2];
-    }
-    if(subkeys[i+1]=='kl'){
-     var start = roll[roll.length-1].length-subarrays[i+2];
-     var end = roll[roll.length-1].length;
-    }
-    dices += subkeys[i+1] + subarrays[i+2];
+    crit = subarrays[i]['!']?subarrays[i]['!']:subarrays[i].d;	//determining crit (max or !)
+    roll[i] = roll[i].sort(function(a,b){return b-a});  //sorting rolls
+    console.log(roll[i]);
 
-   }else if(subkeys[i+2]=='eh'||subkeys[i+2]=='el'||subkeys[i+2]=='kh'||subkeys[i+2]=='kl'){
-    if(subkeys[i+2]=='eh'){
-     var start = subarrays[i+3];
-     var end = roll[roll.length-1].length;
-    }
-    if(subkeys[i+2]=='el'){
-     var start = 0;
-     var end = roll[roll.length-1].length-subarrays[i+3];
-    }
-    if(subkeys[i+2]=='kh'){
-     var start = 0;
-     var end = subarrays[i+3];
-    }
-    if(subkeys[i+2]=='kl'){
-     var start = roll[roll.length-1].length-subarrays[i+3];
-     var end = roll[roll.length-1].length;
-    }
-    dices += subkeys[i+2] + subarrays[i+3];
+    let start=0,end=roll[i].length;		//determining with dice removals start and end points
+    if(subarrays[i].rra){roll[i].forEach(function(el){if(el>=subarrays[i].rra){start++}})}
+    else if(subarrays[i].rrb){roll[i].forEach(function(el){if(el<=subarrays[i].rrb){end--}})}
+    console.log('start = '+start+' / end = '+end);
 
-   } else {
-    var start = 0;
-    var end = roll[roll.length-1].length;
+    if(subarrays[i].eh){start+=subarrays[i].eh}		//changing start and end based on eh, el, kh, kl
+    else if(subarrays[i].el){end-=subarrays[i].el}
+    else if(subarrays[i].kh){end=start+subarrays[i].kh}
+    else if(subarrays[i].kl){start=end-subarrays[i].kl}
+    console.log('start = '+start+' / end = '+end);
+
+    for(j=start;j<end;j++){	//summing roll values
+     if(alg=='+'){sum.push(roll[i][j])}
+     if(alg=='-'){sum.push(-roll[i][j])}
+    }
+
+    for(j=0;j<roll[i].length;j++){	//marking dice rolls crits and removals
+     let classe = '';
+     print += j?', ':' [';
+     if(j<start||j>end-1){classe+=' strike'}
+     if(roll[i][j]==1){classe+=' bold rot';ctp=-1}
+     if(roll[i][j]>=crit){classe+=' bold grun';ctp=1}
+     print += '<span class="'+classe+'">'+roll[i][j]+'</span>';
+    }
+    print += '] ' + dices;
+
+   }else if(subarrays[i].sign){alg=subarrays[i].sign;print+=' '+alg+' '}	 //+ or -, no d
+    else{	//contant number, no d
+    if(alg=='+'){sum.push(subarrays[i].num)}
+    if(alg=='-'){sum.push(-subarrays[i].num)}
+    print+=' '+subarrays[i].num+' ';
    }
 
-   for(j=start;j<end;j++){
-    if(alg=='+'){sum.push(roll[roll.length-1][j])}
-    if(alg=='-'){sum.push(-roll[roll.length-1][j])}
-   }
-   for(j=0;j<roll[roll.length-1].length;j++){
-    let classe = '';
-    if(j){print += ', '}
-    else{print += ' ['}
-    if(j<start||j>end-1){classe+=' strike'}
-    if(roll[roll.length-1][j]==1){classe+=' bold rot';var ctp=str.includes('d20')?' ⟵ Falha crítica!':''}
-    if(roll[roll.length-1][j]>=crit){classe+=' bold grun';var ctp=str.includes('d20')?' ⟵ Acerto crítico!':''}
-    print += '<span class="'+classe+'">'+roll[roll.length-1][j]+'</span>';
-   }
-   print += '] ' + dices;
-  } else if(subkeys[i]=='+'||subkeys[i]=='-'){
-   if(subkeys[i+1]=='+'||subkeys[i+1]=='-'||i==subkeys.length-1){
-    if(subkeys[i]=='+'){sum.push(JSON.parse(subarrays[i+1]))}
-    if(subkeys[i]=='-'){sum.push(-JSON.parse(subarrays[i+1]))}
-    print+=' '+subkeys[i]+' '+subarrays[i+1];
-   } else {alg=subkeys[i];print+=' '+subkeys[i]+' '}
   }
- }
+  if((str.match(/d/g) || []).length==1&&str.match(/d20/g)&&ctp){ctp = ctp>0?' ⟵ Acerto crítico!':' ⟵ Falha crítica!'}
+  else{ctp=''}
 
- for(j=0;j<sum.length;j++){soma+=sum[j]}
- print = '<span class="bold">'+soma+'</span>'+print+(ctp?ctp:'');
- print_out(print)
+  for(j=0;j<sum.length;j++){soma+=sum[j]}
+  print = '<span class="bold">'+soma+'</span>'+print+ctp;
+  print_out(print);
  }
+ console.log('--------');
 }
 
 function scroll_down(e){setTimeout(function(){e=document.getElementById(e);e.scroll({top:e.scrollHeight,behavior:"smooth"})},700)}
@@ -761,27 +727,32 @@ function startroll(e){
  value = document.getElementById(e).innerHTML;
  if(e.includes('hab')){print_out('Teste de '+habis[habs.indexOf(e.replace('hab_',''))])}
  if(e.includes('total')){print_out('Teste de '+e.slice(0,-6))}
- if(e.includes('dice')){print_out(value);diceroll(value,0)}
- else{diceroll('d20'+value,0);openroller(document.getElementById('drawer'))}
+ if(e.includes('dice')){print_out(value);diceroll(value)}
+ else{diceroll('d20'+value);openroller(document.getElementById('drawer'))}
  print_out('');
 }
 
-print_out('d20+2');diceroll('d20+2',0);print_out('');
-print_out('2d20-2');diceroll('2d20-2',0);print_out('');
-print_out('2#d12+1');diceroll('2#d12+1',0);print_out('');
-print_out('2d10+2d8-2');diceroll('2d10+2d8-2',0);print_out('');
-print_out('3d8! (explosão)');diceroll('3d8!',0);print_out('');
-print_out('3d8!5 (explosão em 5+)');diceroll('3d8!5',0);print_out('');
-print_out('4d6kh3 (keep higher 3)');diceroll('4d6kh3',0);print_out('');
-print_out('4d6el (eliminate lower)');diceroll('4d6el',0);print_out('');
-print_out('5d4!kl2 (keep lower 2)');diceroll('5d4!kl2',0);print_out('');
-print_out('5d4!3eh2 (eliminate higher 2)');diceroll('5d4!3eh2',0);print_out('');
-print_out('5d4eh2!3');diceroll('5d4eh2!3',0);print_out('');
+print_out('d20+2');diceroll('d20+2');print_out('');
+print_out('2d20-2');diceroll('2d20-2');print_out('');
+print_out('2#d12+1');diceroll('2#d12+1');print_out('');
+print_out('2d10+2d8-2');diceroll('2d10+2d8-2');print_out('');
+print_out('3d8! (explosão)');diceroll('3d8!');print_out('');
+print_out('3d8!5 (explosão em 5+)');diceroll('3d8!5');print_out('');
+print_out('4d6kh3 (keep higher 3)');diceroll('4d6kh3');print_out('');
+print_out('4d6el (eliminate lower)');diceroll('4d6el');print_out('');
+print_out('5d4!kl2 (keep lower 2)');diceroll('5d4!kl2');print_out('');
+print_out('5d4eh2!3 (eliminate higher 2)');diceroll('5d4eh2!3');print_out('');
+
+/*
+let xxx = ['4d3!rrb + 4d4!rra + 4d6!rrbel + 4d3!rrael + 4d4!rrbeh + 2 + 4d6!rraeh + 4d3!rrbkh + 4d4!rrakh + 4d6!rrbkl + 4d3!rrakl'];
+//let xxx = ['5d6rraeh2','5d6rrael2','5d6rrakh2','5d6rrakl2','5d6rrbeh2','5d6rrbel2','5d6rrbkh2','5d6!5rrbkl2','5d6!5rraeh2','5d6!5rrael2','5d6!5rrakh2','5d6rra!5kl2','5d6rrbeh2!5','5d6rrb!5el2','5d6rrbkh2!5','5d6!5rrbkl2'];
+for(let i=0;i<xxx.length;i++){print_out(xxx[i]);diceroll(xxx[i]);print_out('')}
+*/
 
 //-------------------------HP, MP and DICE KEYBOARD FUNCTIONS------------------------//
 
 const keys = [[7,8,9,4,5,6,1,2,3,'AC',0,'dx'],['d10','d20','d100','d6','d8','d12','d2','d3','d4','AC','d','123'],[70,80,90,40,50,60,10,20,30,'AC',100,'123']];
-const xkeys = ['kh','kl','eh','el','ra','rb','#','!','+','-','backspace','enter'];
+const xkeys = ['rra','rrb','kh','kl','eh','el','#','!','+','-','backspace','enter'];
 const ykeys = ['max PV','max PM',125,150,175,200,250,300];
 const keyboard = document.getElementById('keyboard');
 
@@ -863,6 +834,7 @@ function keyprint(e){
   if(focused.innerHTML=='0'&&k!='+'&&k!='-'){focused.innerHTML='';printed_keys=[]} //user is replacing a zero with a number
   focused.innerHTML += k;
   printed_keys.push(k);
+  console.log(printed_keys);
   keysend.classList.remove('keyhide');
  }
 }
@@ -1019,7 +991,7 @@ function weap_roll(e){
   var q = data.attack[x][2].indexOf('d');
   q = q<1?1:JSON.parse(data.attack[x][2].slice(0,q));
   p = p*q;
-  diceroll(p+e.slice(e.indexOf('d')).slice(0,e.indexOf(' ')),0);
+  diceroll(p+e.slice(e.indexOf('d')).slice(0,e.indexOf(' ')));
  }
  print_out('');print_out('');
  openroller(document.getElementById('drawer'));
@@ -2228,7 +2200,7 @@ function char_remove(){
   chars.splice(chars.indexOf(title),1);
   localStorage.removeItem(title+'_data');
   clear();
-  document.title = 'Ficha T20 Mobile - v1.4.6';
+  document.title = 'Ficha T20 Mobile - v1.5';
   document.getElementById('chardel').disabled = true;
  }
 }
