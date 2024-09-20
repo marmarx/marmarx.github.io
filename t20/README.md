@@ -10,7 +10,7 @@ Tarefas canceladas:
 <b>Histórico de versões:</b>
 
 v1.5
-- adicionada os modificadores "ra" (reroll above) e "rb" (reroll below) no teclado e rolagens de dados - para habilidades como Destruidor de Guerreiros
+- adicionada os modificadores "rra" (reroll above) e "rrb" (reroll below) no teclado e rolagens de dados - para habilidades como Destruidor de Guerreiros
 - adicionado suporte para inserir poderes personalizados
 - adicionada seleção de ação para ataques e tempo de recarga de armas
 - adicionado regexp em todos os inputs para evitar injeção de código
