@@ -1972,6 +1972,6 @@ window.onload = function(){
 }
 
 //window.print();
-alert('Comece criando ou carregando um personagem, para isso entre com um nome de personagem, quaisquer edições feitas antes disso serão perdidas.');
+if(!JSON.parse(localStorage.chars).length){alert('Comece criando ou carregando um personagem, para isso entre com um nome de personagem, quaisquer edições feitas antes disso serão perdidas.')}
 </script>
 </html>
