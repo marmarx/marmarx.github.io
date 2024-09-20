@@ -177,9 +177,11 @@ a:hover{background-color:#1e90ff;color:var(--white)!important}
 .def_half .dropequip{margin:2px 0}
 
 .attack,.equip{margin:1em auto}
-.attack .dice{width:45%}.skills .dice{margin-right:0}
+.attack .dice{width:45%;max-width:45px;justify-content:flex-end}.skills .dice{margin-right:0}
 .attack_info{background:var(--transblack);margin:10px auto 0;padding:20px 25px;position:relative;color:var(--white)}
 .attack_info input,.attack_info select,.attack_info textarea{color:var(--black);background:#ffffffe8}.attack_info .w10{margin:5px 0}.attack_info textarea{min-height:125px;field-sizing: content}
+.w5at{width:100%;margin:auto;float:left}.w5at:nth-child(2){padding:10px}
+@media (min-width:900px){.w5at{width:49.9999%}.w5at:nth-child(2){padding:0}.attack .dice{justify-content:unset;width:90%}}
 
 .equip_btns{margin:auto;margin-left:2em;max-height:40px;max-width:120px;padding-top:5px}.equip_btns > div{max-width:40px}
 .equip_btn{padding:0;min-width:33.3333%;width:33.3333%}
@@ -204,7 +206,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 .w10,.w9,.w8,.w7,.w6,.w5,.w4,.w3,.w2,.w1{display:block;float:left}.mw400{max-width:400px}.mw450{max-width:450px}
 .w10{width:100%}.w9{width:90%}.w8{width:80%}.w7{width:70%}.w6{width:60%}.w5{width:50%}.w4{width:40%}.w3{width:30%}.w2{width:20%}.w1{width:10%}
 .pr{position:relative}.z1{z-index:1}.mwu{min-width:40px}
-.dif{display:inline-flex}.db{display:block}.df{display:flex}.dg{display:grid}
+.dif{display:inline-flex}.db{display:block}.df{display:flex}.dfw{display:flex;flex-wrap:wrap;flex-direction:row-reverse}.dg{display:grid}.mh51{min-height:51px}
 .ma{margin:auto}.m0{margin:0}.m0a{margin:0 auto}.ma0{margin:auto 0}.ms{margin-top:.4em!important}.mt0{margin-top:0}.ml{margin-left:2em}.m3e{margin:.1em .3em}.mt{margin-top:1.5em!important}.mt1{margin-top:1em!important}.ma3{margin:auto .3em;min-height:47px}
 .ha{height:auto}.tal{text-align:left}.tc,.tac{text-align:center!important}.tac{padding-left:0!important;padding-right:0!important}
 .invert,.hpinvert{-webkit-filter:invert(1);-moz-filter:invert(1);-o-filter:invert(1);-ms-filter:invert(1);filter:invert(1)}.hpinvert{color:#fff}.hpinvert .slash{border-color:#fff}
@@ -233,7 +235,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 .hint:before{content:'';border:8px solid transparent;border-color:transparent transparent var(--transblack) transparent}
 
 .hint0{margin-top:-7px;left:10%}.hint0:before{left:10%;top:-16px}
-.hint1{margin-top:12px;right:15%}.hint1:before{right:24%;top:-16px}
+.hint1{margin-top:11%;right:20%;width:60%}.hint1:before{right:25%;top:-16px}
 .hint2,.hint3{width:43%}.hint2:before,.hint3:before{bottom:-16px;transform:rotate(180deg)}
 .hint2{bottom:115px;right:5%}.hint2:before{right:10%}
 .hint3{bottom:80px;left:5%}.hint3:before{left:10%}
@@ -325,11 +327,11 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
      <div class="w6 m0a dif"><p class="p_skill">Outro</p></div>
     </div>
     <div class="w10 dif">
-     <div class="w3 m0a dif"><p class="p_skill tac skill_lvl">+0</p></div>
+     <div class="w3 m0a mh51 dif"><p class="p_skill tac skill_lvl">+0</p></div>
      <div class="w6 m0a dif"><p class="p_skill">1/2 do nível</p></div>
     </div>
     <div class="w10 dif">
-     <div class="w3 m0a dif"><p id="def_cond" class="p_skill tac">+0</p></div>
+     <div class="w3 m0a mh51 dif"><p id="def_cond" class="p_skill tac">+0</p></div>
      <div class="w6 m0a dif"><p class="p_skill">Condições</p></div>
     </div>
     <div class="w10 df"><div class="w8 ma mw400 df"><p class="p_skill tac">Armadura e Escudo</p></div></div>
@@ -630,7 +632,6 @@ function fix_str(str){
 
 function roll_dice(num,max,exp=max+1,rra=max+1,rrb=-1){
  rrb = (rrb<exp-1)?rrb:exp-2;
- console.log('[num,max,exp,rra,rrb]');console.log([num,max,exp,rra,rrb]);
  let roll = [];
  let rolled = '';
  for(k=0;k<num;k++){
@@ -653,8 +654,6 @@ function diceroll(str,crit=0){
  }
 
  [subarrays,str] = fix_str(str);
- console.log('str');console.log(str);
- console.log('subarrays');console.log(subarrays);
 
  for(var reroll=0;reroll<repeat;reroll++){
   soma = 0;
@@ -669,18 +668,15 @@ function diceroll(str,crit=0){
 
     crit = subarrays[i]['!']?subarrays[i]['!']:subarrays[i].d;	//determining crit (max or !)
     roll[i] = roll[i].sort(function(a,b){return b-a});  //sorting rolls
-    console.log(roll[i]);
 
     let start=0,end=roll[i].length;		//determining with dice removals start and end points
     if(subarrays[i].rra){roll[i].forEach(function(el){if(el>=subarrays[i].rra){start++}})}
     else if(subarrays[i].rrb){roll[i].forEach(function(el){if(el<=subarrays[i].rrb){end--}})}
-    console.log('start = '+start+' / end = '+end);
 
     if(subarrays[i].eh){start+=subarrays[i].eh}		//changing start and end based on eh, el, kh, kl
     else if(subarrays[i].el){end-=subarrays[i].el}
     else if(subarrays[i].kh){end=start+subarrays[i].kh}
     else if(subarrays[i].kl){start=end-subarrays[i].kl}
-    console.log('start = '+start+' / end = '+end);
 
     for(j=start;j<end;j++){	//summing roll values
      if(alg=='+'){sum.push(roll[i][j])}
@@ -712,7 +708,6 @@ function diceroll(str,crit=0){
   print = '<span class="bold">'+soma+'</span>'+print+ctp;
   print_out(print);
  }
- console.log('--------');
 }
 
 function scroll_down(e){setTimeout(function(){e=document.getElementById(e);e.scroll({top:e.scrollHeight,behavior:"smooth"})},700)}
@@ -838,7 +833,6 @@ function keyprint(e){
   if(focused.innerHTML=='0'&&k!='+'&&k!='-'){focused.innerHTML='';printed_keys=[]} //user is replacing a zero with a number
   focused.innerHTML += k;
   printed_keys.push(k);
-  console.log(printed_keys);
   keysend.classList.remove('keyhide');
  }
 }
@@ -969,17 +963,20 @@ function armor_choose(e,i){
  data.defense[e.children[1].children[0].id] = equip[i][11];
  data.defense[e.children[2].children[0].id] = equip[i][12];
 
- def_calc();
+ calc();
 }
 
 //-------------------------ATTACK FUNCTIONS------------------------//
 
 function weap_roll(e){
- e = e.parentNode.parentNode;
+ e = e.parentNode.parentNode.parentNode;
  var attacks = document.getElementsByClassName('attack');
  var x = Array.prototype.indexOf.call(attacks,e);
 
- var k = base_split(e.children[0].children[1].children[1].innerHTML);
+ console.log(e);
+ var k = base_split(e.children[0].children[1].children[0].children[1].innerHTML);
+ console.log(k);
+
  print_out('');
  print_out('Ataque'+(k.length>1?'s':'')+' com '+data.attack[x][0]+':');
 
@@ -1031,9 +1028,10 @@ function attack_calc(){
    k[j]=JSON.parse(k[j])+(data.attack[i][11]?JSON.parse(document.getElementById(skills[data.attack[i][11]][0]+'_total').innerHTML.replace(/[+]/g,'')):0)+(data.attack[i][4]?data.attack[i][4]:0)+data.cond.Ataques;
    k[j]=(k[j]>=0?'+':'')+k[j];
   }
-  attacks[i].children[0].children[2].children[1].innerHTML=k.join('/');
+  console.log(attacks[i]);
+  attacks[i].children[0].children[1].children[0].children[1].innerHTML=k.join('/');
   let ac = data.attack[i][12]?action[data.attack[i][12]].replace('Ação ','').replace('de ','').toLowerCase():'';
-  attacks[i].children[0].children[1].innerHTML = spell_action.includes(ac)?'<div class="ac_'+ac+'"></div>':'';
+  attacks[i].children[0].children[1].children[1].innerHTML = spell_action.includes(ac)?'<div class="ac_'+ac+'"></div>':'';
  }
  save_data()
 }
@@ -1121,8 +1119,10 @@ function attack_list(i){
 
  let content = '<div class="w10 dif">';
  content += '<div class="w7 ma" onclick="attack_info(this)"><p class="item_title">Nome do Ataque</p><p class="item_subtitle"></p></div>';
- content += '<div class="item_action w1 ma"></div>';
- content += '<div class="w2 dif" onclick="weap_roll(this)"><div class="dice dif">'+dices['d20']+'</div><p class="item_title"></p></div>';
+ content += '<div class="w3 dfw">';
+ content += '<div class="w5at dif" onclick="weap_roll(this)"><div class="dice dif">'+dices['d20']+'</div><p class="w5 item_title"></p></div>';
+ content += '<div class="w5at"></div>';
+ content += '</div>';
 
 
  content += '</div><div class="w10 attack_info def_hide">'+content2+'</div>';
@@ -1220,17 +1220,17 @@ for (var i=0;i<e.length;i++){
  div.setAttribute('class','row');
 
  var content2 = '<div class="row"><div class="skills attack_info mw400">';
- content2 += '<div class="w10 dif"><div class="w3 m0a dif"><select id="'+e[i][0]+'_hab" class="select tc" onchange="skill_hab(this,\''+k+'\');calc_skills(\''+k+'\')" skill="'+i+'" index="1">'+skill_habs+'</select></div><div class="w5 m0a dif"><p class="p_skill">Habilidade</p></div></div>';
- content2 += '<div class="w10 dif"><div class="w3 m0a dif"><select id="'+e[i][0]+'_hab2" class="select tc" onchange="skill_hab(this,\''+k+'\');calc_skills(\''+k+'\')" skill="'+i+'" index="2">'+skill_habs+'</select></div><div class="w5 m0a dif"><p class="p_skill">Hab secundária</p></div></div>';
- content2 += '<div class="w10 dif"><div class="w3 m0a dif"><p class="p_skill tac skill_lvl">+0</p></div><div class="w5 m0a dif"><p class="p_skill">1/2 do nível</p></div></div>';
- content2 += '<div class="w10 dif"><div class="w3 m0a dif"><p id="'+e[i][0]+'_train" class="p_skill tac">+0</p></div><div class="w5 m0a dif"><p class="p_skill" index="4">Treinamento</p></div></div>';
- content2 += '<div class="w10 dif"><div class="w3 m0a dif"><input id="'+e[i][0]+'_out" class="skill_input tac" inputmode="numeric" onkeyup="regex(this)" onchange="skill_outro(this,\''+k+'\');calc_skills(\''+k+'\')" skill="'+i+'" index="5" autocomplete="off"></input></div><div class="w5 m0a dif"><p class="p_skill">Outro</p></div></div>';
+ content2 += '<div class="w10 dif"><div class="w3 m0a mh51 dif"><select id="'+e[i][0]+'_hab" class="select tc" onchange="skill_hab(this,\''+k+'\');calc_skills(\''+k+'\')" skill="'+i+'" index="1">'+skill_habs+'</select></div><div class="w5 m0a dif"><p class="p_skill">Habilidade</p></div></div>';
+ content2 += '<div class="w10 dif"><div class="w3 m0a mh51 dif"><select id="'+e[i][0]+'_hab2" class="select tc" onchange="skill_hab(this,\''+k+'\');calc_skills(\''+k+'\')" skill="'+i+'" index="2">'+skill_habs+'</select></div><div class="w5 m0a dif"><p class="p_skill">Hab secundária</p></div></div>';
+ content2 += '<div class="w10 dif"><div class="w3 m0a mh51 dif"><p class="p_skill tac skill_lvl">+0</p></div><div class="w5 m0a dif"><p class="p_skill">1/2 do nível</p></div></div>';
+ content2 += '<div class="w10 dif"><div class="w3 m0a mh51 dif"><p id="'+e[i][0]+'_train" class="p_skill tac">+0</p></div><div class="w5 m0a dif"><p class="p_skill" index="4">Treinamento</p></div></div>';
+ content2 += '<div class="w10 dif"><div class="w3 m0a mh51 dif"><input id="'+e[i][0]+'_out" class="skill_input tac" inputmode="numeric" onkeyup="regex(this)" onchange="skill_outro(this,\''+k+'\');calc_skills(\''+k+'\')" skill="'+i+'" index="5" autocomplete="off"></input></div><div class="w5 m0a dif"><p class="p_skill">Outro</p></div></div>';
 
  content2 += '<div class="w10 dif">';
- if(e[i][6]){content2 += '<div class="w3 m0a dif"><p id="'+e[i][0]+'_penal" class="p_skill tac">+0</p></div><div class="w5 m0a dif"><p class="p_skill" index="6">Penalidade</p></div>'}
+ if(e[i][6]){content2 += '<div class="w3 m0a mh51 dif"><p id="'+e[i][0]+'_penal" class="p_skill tac">+0</p></div><div class="w5 m0a dif"><p class="p_skill" index="6">Penalidade</p></div>'}
  content2 += '</div>';
 
- content2 += '<div class="w10 dif"><div class="w3 m0a dif"><p id="'+e[i][0]+'_cond" class="p_skill tac">+0</p></div><div class="w5 m0a dif"><p class="p_skill">Condições</p></div></div>';
+ content2 += '<div class="w10 dif"><div class="w3 m0a mh51 dif"><p id="'+e[i][0]+'_cond" class="p_skill tac">+0</p></div><div class="w5 m0a dif"><p class="p_skill">Condições</p></div></div>';
  content2 += '</div></div>';
 
  var content = '<div class="row"><div class="container skills">';
@@ -1255,7 +1255,7 @@ function calc_skills(k){
   var e = document.getElementById(data[k][i][0]).children[0].children[0];
   if(data[k][i][3]&&!data[k][i][4]){e.children[2].classList.add('dn');e.children[3].classList.add('dn')}
   else{e.children[2].classList.remove('dn');e.children[3].classList.remove('dn')}
-  var total = data['hab_'+habs[data[k][i][1]]] + (data[k][i][2]>0?data['hab_'+habs[data[k][i][2]]]:0) + Math.floor(data.nível/2) + JSON.parse(data[k][i][4])*(data.nível<7?2:data.nível<14?4:6) + JSON.parse(data[k][i][5]) + JSON.parse(data[k][i][6])*(data.defense.armor_penal + data.defense.shield_penal)+data.cond['Perícias (todas)']+data.cond[data[k][i][0]];
+  var total = data['hab_'+habs[data[k][i][1]]] + (data[k][i][2]>0?data['hab_'+habs[data[k][i][2]]]:0) + Math.floor(data.nível/2) + JSON.parse(data[k][i][4])*(data.nível<7?2:data.nível<14?4:6) + JSON.parse(data[k][i][5]) + JSON.parse(data[k][i][6])*(data.defense.armor_penal + data.defense.shield_penal)+data.cond['Perícias (todas)']+data.cond[data[k][i][0]] + data.cond['Armadura (penalidade)'] + data.cond['Escudo (penalidade)'];
   document.getElementById(data[k][i][0]+'_total').innerHTML = add_plus_sign(total);
   e = e.children[0].children[0];
   if(data[k][i][4]&&!e.classList.contains('markedbox')){e.classList.add('markedbox')}
@@ -1264,7 +1264,7 @@ function calc_skills(k){
   document.getElementById(data[k][i][0]+"_hab2").value = data[k][i][2];
   document.getElementById(data[k][i][0]+"_out").value = add_plus_sign(data[k][i][5]);
   document.getElementById(data[k][i][0]+"_cond").innerHTML = add_plus_sign(data.cond['Perícias (todas)']+data.cond[data[k][i][0]]);
-  if(data[k][i][6]){document.getElementById(data[k][i][0]+"_penal").innerHTML = add_plus_sign(data.defense.armor_penal + data.defense.shield_penal)}
+  if(data[k][i][6]){document.getElementById(data[k][i][0]+"_penal").innerHTML = add_plus_sign(data.defense.armor_penal + data.defense.shield_penal + data.cond['Armadura (penalidade)'] + data.cond['Escudo (penalidade)'])}
  }
  attack_calc();
 }
@@ -1414,7 +1414,7 @@ function list_conditions(e,i,array){
 
 function cond_create(){
  if(data.cond_user.length){data.cond_user.push(['Nome da Condição','Tipo de Condição','Descrição e detalhes',{},'Custo em',0,0])}
- else{data.cond_user.push(['(um exemplo) Forma Selvagem Feroz','Druída','Você pode adquirir a forma de uma criatura selvagem. Você recebe Força +3, +2 na Defesa e uma arma natural que causa 1d8 pontos de dano.',{Força:3,Defesa:2},3,4,7])}
+ else{data.cond_user.push(['Forma Selvagem Feroz (exemplo)','Druída','Você pode adquirir a forma de uma criatura selvagem. Você recebe Força +3, +2 na Defesa e uma arma natural que causa 1d8 pontos de dano.',{Força:3,Defesa:2},3,4,7])}
  list_conditions('cond_user',data.cond_user.length-1,data.cond_user)
 }
 
@@ -2244,7 +2244,7 @@ function create_habs(){
   div.setAttribute('class','w10 dif');
   var content = '<div class="w2 dif"><div class="hab_label">'+habs[i].toUpperCase()+'</div></div>';
   content += '<div class="w4"><div class="input"><input id="hab_'+habs[i]+'_val" class="tc hab" inputmode="numeric" onkeyup="regex2(this)" onchange="data_add(this);calc_hab()" autocomplete="off" required></div></div>';
-  content += '<div class="w2 dif" onclick="startroll(\'hab_'+habs[i]+'\')"><div '+(i==1?'id="dice1" ':'')+'class="dice" data-dice="d20"></div></div>';
+  content += '<div class="w2 dif"'+(i==1?'id="dice1" ':'')+'onclick="startroll(\'hab_'+habs[i]+'\')"><div class="dice" data-dice="d20"></div></div>';
   content += '<div class="w2 dif"><p id="hab_'+habs[i]+'" class="ma0" sign="1">+0</p></div>';
   div.innerHTML = content;
   e.appendChild(div);
