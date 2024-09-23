@@ -207,7 +207,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 .w10{width:100%}.w9{width:90%}.w8{width:80%}.w7{width:70%}.w6{width:60%}.w5{width:50%}.w4{width:40%}.w3{width:30%}.w2{width:20%}.w1{width:10%}
 .pr{position:relative}.z1{z-index:1}.mwu{min-width:40px}
 .dif{display:inline-flex}.db{display:block}.df{display:flex}.dfw{display:flex;flex-wrap:wrap;flex-direction:row-reverse}.dg{display:grid}.mh51{min-height:51px}
-.ma{margin:auto}.m0{margin:0}.m0a{margin:0 auto}.ma0{margin:auto 0}.ms{margin-top:.4em!important}.mt0{margin-top:0}.ml{margin-left:2em}.m3e{margin:.1em .3em}.mt{margin-top:1.5em!important}.mt1{margin-top:1em!important}.ma3{margin:auto .3em;min-height:47px}
+.ma{margin:auto}.m0{margin:0}.m0a{margin:0 auto}.ma0{margin:auto 0}.ms{margin-top:.4em!important}.mt0{margin-top:0}.ml{margin-left:2em}.m3e{margin:.1em .3em}.mt{margin-top:1.5em!important}.mt1{margin-top:1em!important}.ma3{margin:auto .3em;min-height:47px}.mt4{margin-top:.4em}
 .ha{height:auto}.tal{text-align:left}.tc,.tac{text-align:center!important}.tac{padding-left:0!important;padding-right:0!important}
 .invert,.hpinvert{-webkit-filter:invert(1);-moz-filter:invert(1);-o-filter:invert(1);-ms-filter:invert(1);filter:invert(1)}.hpinvert{color:#fff}.hpinvert .slash{border-color:#fff}
 
@@ -231,16 +231,17 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 .gray{color:#aaa}
 .config{line-height:.4em;margin:.5em 0}
 .hint,.hint:before{position:absolute}
-.hint{background:var(--transblack);padding:1.2em 1.6em;width:70%;font-size:.9em;z-index:999;color:var(--white);text-align:justify}
+.hint{width:43%;background:var(--transblack);padding:1.2em 1.6em;font-size:.9em;z-index:999;color:var(--white);text-align:justify}
 .hint:before{content:'';border:8px solid transparent;border-color:transparent transparent var(--transblack) transparent}
 
-.hint0{margin-top:-7px;left:10%}.hint0:before{left:10%;top:-16px}
-.hint1{margin-top:11%;right:20%;width:60%}.hint1:before{right:25%;top:-16px}
-.hint2,.hint3{width:43%}.hint2:before,.hint3:before{bottom:-16px;transform:rotate(180deg)}
-.hint2{bottom:115px;right:5%}.hint2:before{right:10%}
-.hint3{bottom:80px;left:5%}.hint3:before{left:10%}
+.hint0{position:relative;width:90%;margin:-7px auto}.hint0:before{left:10%;top:-16px}.hint0p{height:78px;overflow:visible}
+.hint1:before,.hint2:before{bottom:-16px;transform:rotate(180deg)}
+.hint1{bottom:115px;right:5%}.hint1:before{right:10%}
+.hint2{bottom:80px;left:5%}.hint2:before{left:10%}
+.hint3{margin-top:11%;right:20%;width:60%}.hint3:before{right:25%;top:-16px}
 
 @media (min-width:1300px){
+.hint0{width:180%;margin-left:5%}.hint1{width:60%}
 .half{width:39.99999%;margin:0 5%}
 .third{width:33.33333%}
 .container{width:85%}
@@ -259,7 +260,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
  <div id="sec_char" class="sec">
   <h1>Personagem</h1>
   <div class="row"><div class="container db">
-   <div class="half">
+   <div class="half hint0p">
     <div class="input mt0">
      <input id="char" class="drop" type="text" onclick="char_list(this)" onkeyup="regex_inj(this);char_list(this);filter(this)" autocomplete="off" required>
      <label>Personagem</label>
@@ -294,7 +295,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
   <div class="divider"></div>
 
   <div class="row"><div class="container db mw400">
-   <button onclick="" disabled>Imprimir</button>
+   <button onclick="printPDF()">Imprimir</button>
    <label for="file"><input id="file" type="file" onchange="import_char(event)">Importar</input></label>
    <button onclick="export_char()">Exportar</button>
    <button id="chardel" class="delete" onclick="char_remove()" disabled>Deletar</button>
@@ -598,35 +599,26 @@ var data = structuredClone(data_ini);
 //-------------------------DICE ROLLER FUNCTIONS------------------------//
 
 const keyels = ['d','!','rra','rrb','eh','el','kh','kl'];
-//const keylen = [3,2,2,2,2,2,2,2];
-//const keypos = [0,3,5,5,7,7,7,7];
 
-//Array.prototype.move = function(from,to,len=1){this.splice(to,0,...this.splice(from,len))}
 function fix_str(str){
  let str2 = [];
- str = str.replaceAll(' ','').replaceAll('+','_+_').replaceAll('-','_-_').split('_');	//splits string into smaller strings inside arrays
- for(let i=0;i<str.length;i++){
-  if(str[i]!='+'&&str[i]!='-'){
-   if(isNaN(str[i][0])){str[i]=1+str[i]}	//add 1 in front of d if empty
-   if(isNaN(str[i][str[i].length-1])){str[i]+='_'}	//add _ to end if no number
-   for(let j=0;j<keyels.length;j++){str[i] = str[i].replaceAll(keyels[j],'_'+keyels[j]+'_')}	//places keysel in between _s
-   while(str[i].includes('__')){
-    let pos = str[i].indexOf('__')-1;
-    let arg = (str[i][pos]=='!'||str[i][pos]=='a')?'max':1;
-    str[i] = str[i].slice(0,pos+2) + arg + str[i].slice(pos+2);		//replaces __ for 1 or max
+ str = str.replaceAll(' ','').replaceAll('+','_+_').replaceAll('-','_-_').split('_');
+ for(let i in str){
+  if(str[i]=='+'||str[i]=='-'){str2[i] = {sign:str[i][0]}}
+  else{
+   str[i] = str[i].match(/[+\-]*\d+|[+\-]|d|!|kh|kl|eh|el|rra|rrb/g) || [];	//split string into array
+   if(isNaN(str[i][0])){str[i].unshift(1)}					//add 1 if string starts with 'd'
+   str2[i] = {num:JSON.parse(str[i][0])};					//start building associative object with array contents, position becomes unimportant
+   for(let j=1;j<str[i].length;j+=2){
+    if(isNaN(str[i][j])&&isNaN(str[i][j+1])){
+     if(str[i][j]=='!'||str[i][j]=='rra'){str[i].splice(j+1,0,str[i][2])}	//verifies if ! and rra have defined values, otherwise make max
+     else{str[i].splice(j+1,0,1)}						//verifies if rrb, kh, kl, eh, and el have defined values, otherwise make 1
+    }
+    str2[i][str[i][j]] = JSON.parse(str[i][j+1]);				//finishes building associative object
    }
-   if(str[i][str[i].length-1]=="_"){str[i]=str[i].substring(0,str[i].length-1)}	//remove last _
-   str[i] = str[i].split('_');	//transform string to array
-   while(str[i].indexOf('max')>0){str[i][str[i].indexOf('max')] = str[i][2]}	//replaces max for number
-   //while(str[i].length<9){str[i].push(undefined)}	//fill in array with undefined
-   for(let j=0;j<str[i].length;j++){if(!isNaN(str[i][j])){str[i][j]=JSON.parse(str[i][j])}}	//parse numbers
-
-   //for(let j=keyels.length-1;j==2;j--){if(str[i].includes(keyels[j])){str[i].move(str[i].indexOf(keyels[j]),keypos[j],keylen[j])}}	//change position in array
-
-   str2[i] = {num:str[i][0]};	//builds associative object with array contents, position becomes unimportant
-   for(let j=1;j<str[i].length;j+=2){str2[i][str[i][j]] = str[i][j+1]}
-  }else{str2[i] = {sign:str[i][0]}}
+  }
  }
+ console.log(str2);
  return [str2,str.join('').replaceAll(',','').replaceAll('+',' + ').replaceAll('-',' - ')]
 }
 
@@ -650,11 +642,12 @@ function diceroll(str,crit=0){
  let repeat = 1;
  if(str.includes("#")){
   repeat = str.slice(0,str.indexOf('#'));
-  str = str.slice(str.indexOf('#')+1,-1);
+  str = str.slice(str.indexOf('#')+1);
  }
 
  [subarrays,str] = fix_str(str);
 
+ let total_sum = 0;
  for(var reroll=0;reroll<repeat;reroll++){
   soma = 0;
   roll=[];
@@ -707,7 +700,9 @@ function diceroll(str,crit=0){
   for(j=0;j<sum.length;j++){soma+=sum[j]}
   print = '<span class="bold">'+soma+'</span>'+print+ctp;
   print_out(print);
+  total_sum += soma;
  }
+ return total_sum;
 }
 
 function scroll_down(e){setTimeout(function(){e=document.getElementById(e);e.scroll({top:e.scrollHeight,behavior:"smooth"})},700)}
@@ -739,20 +734,13 @@ print_out('5d4!kl2 (keep lower 2)');diceroll('5d4!kl2');print_out('');
 print_out('5d4eh2!3 (eliminate higher 2)');diceroll('5d4eh2!3');print_out('');
 print_out('5d4rra (reroll 4)');diceroll('5d4rra');print_out('');
 print_out('6d6rrb2 (reroll 2-)');diceroll('6d6rrb2');print_out('');
-print_out('4d8!rrb2 (explosão,reroll 2-');diceroll('4d8!rrb2');print_out('');
+print_out('4d8!rrb2 (explosão em 8,reroll 2-)');diceroll('4d8!rrb2');print_out('');
 print_out('6d10!8rrb2el+3 (explosão 8+, reroll 2-, eliminar o menor)');diceroll('6d10!8rrb2el+3');print_out('');
-
-/*
-let xxx = ['4d3!rrb + 4d4!rra + 4d6!rrbel + 4d3!rrael + 4d4!rrbeh + 2 + 4d6!rraeh + 4d3!rrbkh + 4d4!rrakh + 4d6!rrbkl + 4d3!rrakl'];
-//let xxx = ['5d6rraeh2','5d6rrael2','5d6rrakh2','5d6rrakl2','5d6rrbeh2','5d6rrbel2','5d6rrbkh2','5d6!5rrbkl2','5d6!5rraeh2','5d6!5rrael2','5d6!5rrakh2','5d6rra!5kl2','5d6rrbeh2!5','5d6rrb!5el2','5d6rrbkh2!5','5d6!5rrbkl2'];
-for(let i=0;i<xxx.length;i++){print_out(xxx[i]);diceroll(xxx[i]);print_out('')}
-*/
 
 //-------------------------HP, MP and DICE KEYBOARD FUNCTIONS------------------------//
 
-const keys = [[7,8,9,4,5,6,1,2,3,'AC',0,'dx'],['d10','d20','d100','d6','d8','d12','d2','d3','d4','AC','d','123'],[70,80,90,40,50,60,10,20,30,'AC',100,'123']];
+const keys = [[7,8,9,4,5,6,1,2,3,'AC',0,'dx'],['d10','d20','d100','d6','d8','d12','d2','d3','d4','AC','d','123']];
 const xkeys = ['rra','rrb','kh','kl','eh','el','#','!','+','-','backspace','enter'];
-const ykeys = ['max PV','max PM',125,150,175,200,250,300];
 const keyboard = document.getElementById('keyboard');
 
 var skeys,zkeys,keysend;
@@ -794,10 +782,7 @@ function bars(){
 
 function keyshift(e){
  e.classList.toggle('nkey');
- var k = [[0,1],[0,2]]
- var j = focused.id=='dice-input'?0:1;
- for (var i=0;i<skeys.length;i++){skeys[i].innerHTML = keys[k[j][Number(e.classList.contains('nkey'))]][i]}
- if(j&&!Number(e.classList.contains('nkey'))){e.innerHTML='x10'}
+ for (var i=0;i<skeys.length;i++){skeys[i].innerHTML = keys[Number(e.classList.contains('nkey'))][i]}
 }
 
 function max_hp(e){
@@ -826,48 +811,43 @@ function keydel(){
 
 function keyprint(e){
  var k = e.innerHTML;
- if(k.includes('max')){
-  if(k.includes('PV')){max_hp(document.getElementById('hp'))}
-  if(k.includes('PM')){max_hp(document.getElementById('mp'))}
- }else{
-  if(focused.innerHTML=='0'&&k!='+'&&k!='-'){focused.innerHTML='';printed_keys=[]} //user is replacing a zero with a number
-  focused.innerHTML += k;
-  printed_keys.push(k);
-  keysend.classList.remove('keyhide');
- }
+ if(focused.innerHTML=='0'&&k!='+'&&k!='-'){focused.innerHTML='';printed_keys=[]} //user is replacing a zero with a number
+ focused.innerHTML += k;
+ printed_keys.push(k);
+ keysend.classList.remove('keyhide');
 }
 
 function calc_hp(e){
- var str = [[],[]];j = 0,math = '';
- if(printed_keys[0]=='+'||printed_keys[0]=='-'){printed_keys.unshift(0)}
-
- for (var i=0;i<printed_keys.length;i++){
-  if(printed_keys[i]=='+'||printed_keys[i]=='-'){if(!math){math=printed_keys[i];j=1}else{str[0]=JSON.parse(str[0])+(math=='+'?1:-1)*JSON.parse(str[1]);str[1]=[];math=printed_keys[i]}}
-  else{str[j] += printed_keys[i]}
+ let str = e.innerHTML;
+ if(e.innerHTML.includes('d')){
+  let a = e.id.includes('hp')?'vida':'mana';
+  let b = e.id.includes('max')?' máximos':'';
+  print_out('Rolagem para pontos de '+a+b);
+  str=diceroll(str);
+ }else{
+  if(isNaN(str[0])){str=data[e.id]+str}
+  let total = 0;
+  str = str.match(/[+\-]*\d+/g) || [];
+  while(str.length){total += parseFloat(str.shift())}
+  str=total;
  }
- if(math){str[0]=JSON.parse(str[0])+(math=='+'?1:-1)*JSON.parse(str[1])}
-
- if(str[0][0]){
-  str = JSON.parse(str[0]);
-  var bt = e.id.includes('hp')?'Pontos de Vida':'Pontos de Mana';
-  if(e.id.includes('max')){
-   data[e.id] = str;
-   data[e.id.replace('max','')] = (str>data[e.id]+data.cond[bt])?data[e.id]+data.cond[bt]:data[e.id.replace('max','')];
-   e.parentNode.children[0].innerHTML = data[e.id.replace('max','')]
-  }else{
-   data[e.id] = (str>data[e.id+'max']+data.cond[bt])?data[e.id+'max']+data.cond[bt]:str;
-  }
-  e.innerHTML = data[e.id];
-  printed_keys=[data[e.id]];
-  bars();
+ let a = 'Pontos de ' + (e.id.includes('hp')?'Vida':'Mana');
+ if(e.id.includes('max')){
+  data[e.id] = str;
+  data[e.id.replace('max','')] = (str>data[e.id]+data.cond[a])?data[e.id]+data.cond[a]:data[e.id.replace('max','')];
+  e.parentNode.children[0].innerHTML = data[e.id.replace('max','')]
+ }else{
+  data[e.id] = (str>data[e.id+'max']+data.cond[a])?data[e.id+'max']+data.cond[a]:str;
  }
+ e.innerHTML=data[e.id];
+ printed_keys=[data[e.id]];
+ bars();
 }
 
 function key_send(){
  if(!focused.innerHTML){set_focus(focused);keysend.classList.remove('keyhide')}
- var str = focused.innerHTML;
- if(focused.id=='dice-input'&&str.indexOf('d')<str.length-1){startroll('dice-input');keyac()}
- else if(focused.id!='dice-input'){calc_hp(focused)}
+ if(focused.id=='dice-input'){startroll('dice-input');keyac()}
+ else{calc_hp(focused)}
  keysend.classList.add('keyhide');
 }
 
@@ -901,9 +881,7 @@ function set_focus(e){
 
   document.getElementById('shiftkey').classList.remove('nkey');
   for (var i=0;i<skeys.length;i++){skeys[i].innerHTML = keys[0][i]}
-  document.getElementById('shiftkey').innerHTML = (focused.id=='dice-input'?'dx':'x10');
 
-  for (var i=0;i<ykeys.length;i++){zkeys[i].innerHTML = (!data.c_keyboard||focused.id=='dice-input')?xkeys[i]:ykeys[i]}
   if(focused.innerHTML){keysend.classList.remove('keyhide')}
   else{keysend.classList.add('keyhide')}
  }
@@ -1017,7 +995,8 @@ function attack_calc(){
    o = (o==0?'':(o>0?'+'+o:o));
   }
 
-  attacks[i].children[0].children[0].children[1].innerHTML=(data.attack[i][2]?data.attack[i][2]:'d8')+o+' • '+(data.attack[i][6]&&data.attack[i][6]<20?data.attack[i][6]+'-20':20)+'/'+(data.attack[i][7]?data.attack[i][7]:'x2')+' • '+(data.attack[i][8]>0?alcance[data.attack[i][8]]:'Alcance')+' • '+(data.attack[i][9]>0?tipo_dano[data.attack[i][9]]:'Tipo de dano')+(data.attack[i][13]>1?' • '+action[data.attack[i][13]]+' para regarregar':'');
+  let p = data.attack[i][13]>1?'</br>'+action[data.attack[i][12]].replace('para ativar','')+' para atacar • '+action[data.attack[i][13]]+' para regarregar':' • '+action[data.attack[i][12]].replace('para ativar','para atacar');
+  attacks[i].children[0].children[0].children[1].innerHTML=(data.attack[i][2]?data.attack[i][2]:'d8')+o+' • '+(data.attack[i][6]&&data.attack[i][6]<20?data.attack[i][6]+'-20':20)+'/'+(data.attack[i][7]?data.attack[i][7]:'x2')+' • '+(data.attack[i][8]>0?alcance[data.attack[i][8]]:'Alcance')+' • '+(data.attack[i][9]>0?tipo_dano[data.attack[i][9]]:'Tipo de dano')+p;
 
   var k = 0;
   if(data.attack[i][1]==''){k=[0]}
@@ -1118,7 +1097,7 @@ function attack_list(i){
  content2 +=  '</div></div></div>';
 
  let content = '<div class="w10 dif">';
- content += '<div class="w7 ma" onclick="attack_info(this)"><p class="item_title">Nome do Ataque</p><p class="item_subtitle"></p></div>';
+ content += '<div class="w7 ma" onclick="attack_info(this)"><p class="item_title">Nome do Ataque</p><p class="item_subtitle mt4"></p></div>';
  content += '<div class="w3 dfw">';
  content += '<div class="w5at dif" onclick="weap_roll(this)"><div class="dice dif">'+dices['d20']+'</div><p class="w5 item_title"></p></div>';
  content += '<div class="w5at"></div>';
@@ -1346,10 +1325,8 @@ function toggle_condition(e,array){
 
 var actions = '';
 for(let i in action){actions += '<option value="'+(i>0?i+'"':'" disabled selected')+'>'+action[i]+'</option>'}
-
 var durations = '';
 for(let i in duration){durations += '<option value="'+(i>0?i+'"':'" disabled selected')+'>'+duration[i]+'</option>'}
-
 var effects = '';
 for(let key in cond){effects += '<option value="'+(cond[key]=='disabled'?'" disabled':key+'"')+(key=='Selecione um efeito'?' selected':'')+'>'+key+'</option>'}
 
@@ -1614,6 +1591,7 @@ function equip_kit(){
   equip_add(1,data.equip[i][1],data.equip[i][2],data.equip[i][3],data.equip[i][4],data.equip[i][5]);
   equip_calc()
  }
+ print_out('Rolagem de moedas (T$) iniciais:');data.carga['ts']=diceroll('4d6');document.getElementById('ts').value=data.carga['ts'];
 }
 
 var equip_list = equip_list();
@@ -1863,9 +1841,6 @@ function filter_powers_other(e){
  }
  filter_powers();
 }
-
-// if(!e.innerHTML){filter=[1,2,3,4,5]}
-// if(!filter){filter=JSON.stringify(power_inputs[k-1])}
 
 function filter_powers_name(el){
  var filter = el.value.toUpperCase();
@@ -2180,7 +2155,6 @@ function char_create(e){
   document.getElementById('chardel').disabled = false;
   document.title = title + ' - T20';
   equip_kit();
-  print_out('Rolagem de moedas iniciais:');diceroll('4d6');data.carga['ts']=soma;document.getElementById('ts').value=data.carga['ts'];
   document.getElementById('c_color').value = '#b72a2b';
   console.log('Character '+title+' was created');
  }
@@ -2244,7 +2218,7 @@ function create_habs(){
   div.setAttribute('class','w10 dif');
   var content = '<div class="w2 dif"><div class="hab_label">'+habs[i].toUpperCase()+'</div></div>';
   content += '<div class="w4"><div class="input"><input id="hab_'+habs[i]+'_val" class="tc hab" inputmode="numeric" onkeyup="regex2(this)" onchange="data_add(this);calc_hab()" autocomplete="off" required></div></div>';
-  content += '<div class="w2 dif"'+(i==1?'id="dice1" ':'')+'onclick="startroll(\'hab_'+habs[i]+'\')"><div class="dice" data-dice="d20"></div></div>';
+  content += '<div class="w2 dif" onclick="startroll(\'hab_'+habs[i]+'\')"><div class="dice" data-dice="d20"></div></div>';
   content += '<div class="w2 dif"><p id="hab_'+habs[i]+'" class="ma0" sign="1">+0</p></div>';
   div.innerHTML = content;
   e.appendChild(div);
@@ -2432,10 +2406,18 @@ function showhint(arr,j){
 
 const hints = [
 ['char',2,'Comece criando ou carregando um personagem, para isso entre com um nome de personagem e clique na opção "Cliqui para criar", quaisquer edições feitas antes disso serão perdidas.'],
-['dice1',0,'Clique no dado para rolar o referido teste sempre que quiser, o rolador de dados mostrará o resultado.'],
 ['drawer',1,'Clique na barra cinza para abrir e fechar os marcadores de PVs e PMs, e o rolador de dados.'],
 ['drawer',1,'Role o menu horizontalmente para acessar as demais sessões.']
+//['dice1',2,'Clique no dado para rolar o referido teste sempre que quiser, o rolador de dados mostrará o resultado.']
 ];
+
+//-------------------------PRINT PDF FUNCTIONS------------------------//
+
+function printPDF(){
+ //build GET
+ let get = '?';
+ window.open('https://marmarx.github.io/t20web'+get);
+}
 
 //-------------------------REGEX FUNCTIONS------------------------//
 
