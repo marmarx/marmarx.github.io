@@ -1494,7 +1494,7 @@ function equip_calc(){
  for(var i=0;i<data.equip.length;i++){
   e = equips[i].children[0];
   e.children[0].children[0].innerHTML = data.equip[i][1]?data.equip[i][1]:'Nome do item';
-  e.children[0].children[1].innerHTML = (data.equip[i][2]?tipo_item[data.equip[i][2]]:'Tipo de item')+' • '+(data.equip[i][3]?data.equip[i][3]:'Valor do item')+' • '+calc_peso(data.equip[i][0],data.equip[i][4],i);
+  e.children[0].children[1].innerHTML = (data.equip[i][2]?tipo_item[data.equip[i][2]]:'Tipo de item')+' • '+(data.equip[i][3]?data.equip[i][3]:'Valor do item')+' • '+(data.equip[i][4]?calc_peso(data.equip[i][0],data.equip[i][4],i):'Espaços totais ocupados');
   carga += isNaN(data.equip[i][6])?0:data.equip[i][6];
  }
  carga += (data.carga.to + data.carga.ts + data.carga.tc)/1000;
@@ -1725,8 +1725,8 @@ function list_powers(e,i,arr){
 
  let p = [];
  p.push(power_typ[arr[i][1]]);
- if(arr[i][2]){p.push(arr[i][2])}else if(e=='user_powers'){p.push(Categoria)}
- if(arr[i][4]){p.push(arr[i][4])}else if(e=='user_powers'){p.push(Subcategoria)}
+ if(arr[i][2]){p.push(arr[i][2])}else if(e=='user_powers'){p.push('Categoria')}
+ if(arr[i][4]){p.push(arr[i][4])}else if(e=='user_powers'){p.push('Subcategoria')}
 
  let content = '<div class="spell_details" onclick="power_info(this,\''+e+'\','+k+')"><div class="w10 dif"><div class="w'+(e=='user_powers'?8:9)+'">';
  content += '<p class="item_title">'+arr[i][0]+'</p><div class="magic">'+(arr[i][5]?magic:'')+'</div>';
