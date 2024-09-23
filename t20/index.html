@@ -134,8 +134,8 @@ a:hover{background-color:#1e90ff;color:var(--white)!important}
 
 #char_spells{margin:25px auto}
 .backdrop,.overlay{width:100%;left:0;top:0;inherit!important}
-.backdrop{height:100%;position:fixed;top:0;background:hsl(0 0% 10%/.3)}
-.overlay{height:100%;position:absolute;background:var(--overlay);margin-top:100px;overflow-x:hidden;overflow-y:scroll;padding:50px 25px 150px;bottom:0;box-shadow:0 0 20px rgb(0 0 0 / 10%)}
+.backdrop{height:100%;position:fixed;top:0;background:hsl(0 0% 10%/.3);z-index:999}
+.overlay{height:calc(100% - 100px);position:absolute;background:var(--overlay);margin-top:100px;overflow-x:hidden;overflow-y:scroll;padding:50px 25px;bottom:0;box-shadow:0 0 20px rgb(0 0 0 / 10%)}
 .invisible{opacity:0;visibility:hidden;pointer-events:none;top:100%}
 #spell_overlay{height:200%}
 .spell_lvl:empty{opacity:0;visibility:hidden}
@@ -618,7 +618,6 @@ function fix_str(str){
    }
   }
  }
- console.log(str2);
  return [str2,str.join('').replaceAll(',','').replaceAll('+',' + ').replaceAll('-',' - ')]
 }
 
@@ -734,7 +733,7 @@ print_out('5d4!kl2 (keep lower 2)');diceroll('5d4!kl2');print_out('');
 print_out('5d4eh2!3 (eliminate higher 2)');diceroll('5d4eh2!3');print_out('');
 print_out('5d4rra (reroll 4)');diceroll('5d4rra');print_out('');
 print_out('6d6rrb2 (reroll 2-)');diceroll('6d6rrb2');print_out('');
-print_out('4d8!rrb2 (explosão em 8,reroll 2-)');diceroll('4d8!rrb2');print_out('');
+print_out('4d8!rrb2 (explosão em 8, reroll 2-)');diceroll('4d8!rrb2');print_out('');
 print_out('6d10!8rrb2el+3 (explosão 8+, reroll 2-, eliminar o menor)');diceroll('6d10!8rrb2el+3');print_out('');
 
 //-------------------------HP, MP and DICE KEYBOARD FUNCTIONS------------------------//
@@ -951,9 +950,7 @@ function weap_roll(e){
  var attacks = document.getElementsByClassName('attack');
  var x = Array.prototype.indexOf.call(attacks,e);
 
- console.log(e);
  var k = base_split(e.children[0].children[1].children[0].children[1].innerHTML);
- console.log(k);
 
  print_out('');
  print_out('Ataque'+(k.length>1?'s':'')+' com '+data.attack[x][0]+':');
@@ -1007,7 +1004,6 @@ function attack_calc(){
    k[j]=JSON.parse(k[j])+(data.attack[i][11]?JSON.parse(document.getElementById(skills[data.attack[i][11]][0]+'_total').innerHTML.replace(/[+]/g,'')):0)+(data.attack[i][4]?data.attack[i][4]:0)+data.cond.Ataques;
    k[j]=(k[j]>=0?'+':'')+k[j];
   }
-  console.log(attacks[i]);
   attacks[i].children[0].children[1].children[0].children[1].innerHTML=k.join('/');
   let ac = data.attack[i][12]?action[data.attack[i][12]].replace('Ação ','').replace('de ','').toLowerCase():'';
   attacks[i].children[0].children[1].children[1].innerHTML = spell_action.includes(ac)?'<div class="ac_'+ac+'"></div>':'';
@@ -1729,8 +1725,8 @@ function list_powers(e,i,arr){
 
  let p = [];
  p.push(power_typ[arr[i][1]]);
- if(arr[i][2]){p.push(arr[i][2])}else{p.push('Categoria')}
- if(arr[i][4]){p.push(arr[i][4])}else{p.push('Subategoria')}
+ if(arr[i][2]){p.push(arr[i][2])}else if(e=='user_powers'){p.push(Categoria)}
+ if(arr[i][4]){p.push(arr[i][4])}else if(e=='user_powers'){p.push(Subcategoria)}
 
  let content = '<div class="spell_details" onclick="power_info(this,\''+e+'\','+k+')"><div class="w10 dif"><div class="w'+(e=='user_powers'?8:9)+'">';
  content += '<p class="item_title">'+arr[i][0]+'</p><div class="magic">'+(arr[i][5]?magic:'')+'</div>';
