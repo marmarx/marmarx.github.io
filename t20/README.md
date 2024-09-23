@@ -38,7 +38,8 @@ v1.3
 - correção de bugs e outros melhoramentos menores
 
 v1.2
-- simplificação das funçãoes relacionadas à criação de ataques
+- simplificação das funções relacionadas à criação de ataques
+- marcador de PVs e PMs movido para sessão de rolagens - os marcadores devem estar disponíveis a qualquer momento, independente da sessão em que o usuário se encontre
 - correção de bug ao filtrar poderes
 
 v1.1
@@ -46,6 +47,7 @@ v1.1
 
 v1.0
 - adicionada seção de condições
+- adicionado um marcador de PVs e PMs em condições
 - listadas as condições básicas e suporte para ativar condições individualmente << Minimum Viable Product (MVP) >>
 
 v0.9
@@ -57,24 +59,34 @@ v0.8
 - adicionada seção de combate
 - adicionado suporte para criar, editar e gerenciar ataques
 - adicionado suporte para gerenciar estatísticas de defesa
+- alterado o rolador de dados para marcar críticos conforme a margem de ameaça do ataque/arma
 
 v0.7
 - criado banco de dados de poderes (classes, raças, origens e gerais)
 - adicionadas seção de talentos
 - adicionado suporte para pesquisar, adicionar e remover talentos
 
-v0.6:
+v0.6
 - adicionada seção de habilidades (for, des, con, int, sab, car)
 - adicionado suporte para editar e gerenciar estatísticas de habilidades
-- adicionado um rolador digital de dados, incluindo os seguintes modificadores de rolagem: '!' (explosão), 'kh' (keep high), 'kl' (keep low), 'eh' (eliminate high), 'el' (eliminate low), '#' (rolagens paralelas)
+- adicionado um rolador digital de dados, incluindo os seguintes modificadores de rolagem: '!' (explosão), 'kh' (keep high), 'kl' (keep low), 'eh' (eliminate high), 'el' (eliminate low), '#' (rolagens paralelas), críticos positivos e negativos serão marcados
 
-v0.5:
+v0.5
 - criado banco de dados de magias
 - adicionadas seção de magias
-- adicionado suporte para pesquisar, adicionar e remover magias (este era o propósito inicial deste projeto)
+- adicionado suporte para pesquisar, adicionar e remover magias << propósito inicial deste projeto >>
 
-v0.4:
+v0.4
+- adicionadas as seções de personagem, anotações e de configuração
+
+v0.3
+- produzida a borda T20 para elementos HTML (deu muito trabalho fazer ela cooperar com o CSS e produzir elementos responsivos)
+
+v0.2
+- adicionado suporte para salvar (automático), carregar, exportar e importar personagens
+
+v0.1
 - projeto criado
 - adicionadas as seções de personagem, anotações e de configuração
-- adicionado suporte para salvar, carregar, exportar e importar personagens
-- produzida a borda T20 para elementos HTML
+
+Observações: muitas coisas aconteceram nesse projeto, fui iniciar histórico de alterações apenas por volta de v0.8, então carece de detalhes :)
