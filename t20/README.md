@@ -3,6 +3,7 @@
 Tarefas pendentes:
 - adicionar teclado de dados para definir rolagens de ataque
 - adicionar suporte para imprimir/exportar PDF
+- adicionar log de alterações feitas pelo usuário (?)
 
 Tarefas canceladas:
 - adicionar suporte para retro-gerenciamento de: armas/armaduras e equipamentos // motivo: pode confundir o usuário
