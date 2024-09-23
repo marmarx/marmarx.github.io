@@ -12,6 +12,7 @@ Tarefas canceladas:
 v1.5.3
 - adicionada a possibilidade de rolar dados diretamente nos marcadores de vida e mana - útil quando se estiver tomando Essência de Mana ou recebendo Curar Ferimentos
 - melhoramentos na função de rolagem de dados (reduzido tempo de execusão)
+- correção de bugs e outros melhoramentos menores
 
 v1.5
 - adicionada os modificadores "rra" (reroll above) e "rrb" (reroll below) no teclado e rolagens de dados - para habilidades como Destruidor de Guerreiros
