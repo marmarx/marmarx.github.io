@@ -66,6 +66,7 @@ v0.7
 v0.6:
 - adicionada seção de habilidades (for, des, con, int, sab, car)
 - adicionado suporte para editar e gerenciar estatísticas de habilidades
+- adicionado um rolador digital de dados, incluindo os seguintes modificadores de rolagem: '!' (explosão), 'kh' (keep high), 'kl' (keep low), 'eh' (eliminate high), 'el' (eliminate low), '#' (rolagens paralelas)
 
 v0.5:
 - criado banco de dados de magias
