@@ -1,4 +1,4 @@
-const alcance = ['Alcance','Adjacente','Curto','Médio','Longo'];
+const alcance = ['Alcance do ataque','Adjacente','Curto','Médio','Longo'];
 const tipo_dano = ['Tipo de dano','Corte','Impacto','Perfuração','Estratégico'];
 const tipo_item = ['Tipo de item','Equip. de Aventura','Arma Simples','Arma Marcial','Arma Exótica','Arma de Fogo','Munição','Armadura Leve','Armadura Pesada','Escudo',
 'Alimentação','Alquímicos','Animais','Catalisadores','Esotéricos','Ferramentas','Item Mágico','Pergaminhos','Poções','Veículos','Venenos','Vestuário','Outro'];

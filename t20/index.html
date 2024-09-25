@@ -65,9 +65,8 @@ ul{margin:2em}b,.bold{font-weight:bold!important}i,.italic{font-style:italic!imp
 .magic{display:inline-block;position:absolute;padding:4px 0 0 4px}
 .strike{opacity:.5}
 
-.fakefocus{outline:1px auto #141414}
-.fakefocus:after{content:'';animation:blink 1s step-end infinite;border-left:2px solid #000}
-@keyframes blink{from,to{border-color:transparent}50%{border-color:#000}}
+.fakeinput:focus:after{content:'';animation:blink 1s step-end infinite;border-left:2px solid #000}
+@keyframes blink{from,to{border-color:#000}50%{border-color:transparent}}
 
 #keyboard{width:100%;height:206px;padding:3px;background:#403f3f;position:fixed;bottom:-206px;user-select:none;z-index:99}.keyboard{width:100%;max-width:500px}.boardshow{bottom:0!important}.keybar{float:left}
 .key{vertical-align:top;justify-content:center;align-items:center;display:inline-flex;cursor:pointer;border-radius:4px;margin:3px;max-width:120px;position:relative;padding:0;color:#fff;font-size:1.4em}
@@ -75,7 +74,7 @@ ul{margin:2em}b,.bold{font-weight:bold!important}i,.italic{font-style:italic!imp
 .keybar:nth-child(1){width:75%}.keybar:nth-child(2){width:25%}.hkey{display:none}
 .skey,.lkey{height:44px;width:calc(33.33% - 6px);background:rgba(255,255,255,0.2)}.xkey{width:calc(100% - 6px);height:44px;background:rgba(255,255,255,.1)}
 .keyext .keybar:nth-child(1){width:60%}.keyext .keybar:nth-child(2){width:40%}.keyext .hkey{display:inline-flex}
-.keyext .xkey{width:calc(50% - 6px);height:27.4px;font-size:1.1em}
+.keyext .xkey{width:calc(33.33% - 6px);font-size:1.1em}/*height:27.4px*/
 .enter{box-sizing:border-box;position:relative;display:block;width:22px;height:22px}
 .enter::after,.enter::before{content:"";display:block;box-sizing:border-box;position:absolute;left:3px}
 .enter::after{width:8px;height:8px;border-bottom:2px solid;border-left:2px solid;transform:rotate(45deg);bottom:3px}
@@ -169,7 +168,7 @@ a:hover{background-color:#1e90ff;color:var(--white)!important}
 .def_info:before{border-color:transparent transparent rgba(0,0,0,.3) transparent}
 .def_hide{margin:0 auto!important;max-height:0;opacity:0;visibility:hidden;padding:0 10px!important}
 .def_input{text-align:center;padding:1.6em .8em .5em;font-size:1em}
-#char_attack input,#char_ac input{font-size:1em}#char_attack .w6{max-width:140px}
+#char_attack .fakeinput,#char_attack input,#char_ac input{font-size:1em}#char_attack .w6{max-width:140px}
 #char_ac label{margin:.3em 0;padding:0;width:100%;text-align:center;left:0}
 .def_half,.def_quarter{float:left;padding:5px}.def_half{width:100%}.def_quarter{width:49.9999%}
 .def_half label,.def_quarter label{top:5px}
@@ -179,9 +178,11 @@ a:hover{background-color:#1e90ff;color:var(--white)!important}
 .attack,.equip{margin:1em auto}
 .attack .dice{width:45%;max-width:45px;justify-content:flex-end}.skills .dice{margin-right:0}
 .attack_info{background:var(--transblack);margin:10px auto 0;padding:20px 25px;position:relative;color:var(--white)}
-.attack_info input,.attack_info select,.attack_info textarea{color:var(--black);background:#ffffffe8}.attack_info .w10{margin:5px 0}.attack_info textarea{min-height:125px;field-sizing: content}
-.w5at{width:100%;margin:auto;float:left}.w5at:nth-child(2){padding:10px}
-@media (min-width:900px){.w5at{width:49.9999%}.w5at:nth-child(2){padding:0}.attack .dice{justify-content:unset;width:90%}}
+.attack_info .fakeinput,.attack_info input,.attack_info select,.attack_info textarea{color:var(--black);background:#ffffffe8}.attack_info .w10{margin:5px 0}
+.attack_info textarea{field-sizing:content;min-height:125px;max-height:unset;min-width:100%;max-width:100%}
+.attack_info .fakeinput{height:unset}.fakeinput:empty:not(:focus):before{content:attr(placeholder);color:#6c6c6c}
+.w5at{width:100%;margin:auto;float:left}.w5at:nth-child(2){margin:10px auto}
+@media (min-width:900px){.w5at{width:49.9999%}.w5at:nth-child(2){margin:auto}.attack .dice{justify-content:unset;width:90%}}
 
 .equip_btns{margin:auto;margin-left:2em;max-height:40px;max-width:120px;padding-top:5px}.equip_btns > div{max-width:40px}
 .equip_btn{padding:0;min-width:33.3333%;width:33.3333%}
@@ -255,7 +256,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 </style>
 </head>
 
-<body class="body1">
+<body>
 <div id="sections">
  <div id="sec_char" class="sec">
   <h1>Personagem</h1>
@@ -519,22 +520,22 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
   <div class="hpcont">
    <div id="hpbar" class="cont_bar">
     <div class="container hpbar hp">
-     <div class="fakeinput hp_input" id="hp" onclick="set_focus(this)" inner="1">0</div>
+     <div class="fakeinput hp_input" id="hp" onfocus="fakefocus()" onblur="fakeblur(this)" inner="1" tabindex="0">0</div>
      <div class="slash"></div>
-     <div class="fakeinput hp_input" id="hpmax" onclick="set_focus(this)" inner="1">0</div>
+     <div class="fakeinput hp_input" id="hpmax" onfocus="fakefocus()" onblur="fakeblur(this)" inner="1" tabindex="0">0</div>
     </div>
    </div>
    <div id="mpbar" class="cont_bar">
     <div class="container hpbar mp">
-     <div class="fakeinput hp_input" id="mp" onclick="set_focus(this)" inner="1">0</div>
+     <div class="fakeinput hp_input" id="mp" onfocus="fakefocus()" onblur="fakeblur(this)" inner="1" tabindex="0">0</div>
      <div class="slash"></div>
-     <div class="fakeinput hp_input" id="mpmax" onclick="set_focus(this)" inner="1">0</div>
+     <div class="fakeinput hp_input" id="mpmax" onfocus="fakefocus()" onblur="fakeblur(this)" inner="1" tabindex="0">0</div>
     </div>
    </div>
   </div>
   <div id="diceholder">
    <div id="allrolls"><div id="results"><p><b>Exemplos de rolagens:</b></p></div></div>
-   <div id="dice-input" class="fakeinput" onclick="set_focus(this)"></div>
+   <div id="dice-input" class="fakeinput" onfocus="fakefocus()" onblur="fakeblur(this)" tabindex="0"></div>
   </div>
 </div>
 
@@ -585,7 +586,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 
 <script>
 const load = 1;
-var title = '', chars = [], loaded = 0;
+var title = '', chars = [];
 const data_ini = {
  'nível':0,hp:0,hpmax:0,mp:0,mpmax:0,'spell_hab':1,
  'hab_for_val':10,'hab_for':0,'hab_des_val':10,'hab_des':0,'hab_con_val':10,'hab_con':0,'hab_int_val':10,'hab_int':0,'hab_sab_val':10,'hab_sab':0,'hab_car_val':10,'hab_car':0,
@@ -599,6 +600,7 @@ var data = structuredClone(data_ini);
 //-------------------------DICE ROLLER FUNCTIONS------------------------//
 
 const keyels = ['d','!','rra','rrb','eh','el','kh','kl'];
+const keyssp = /[+\-]*\d+|[+\-]|#|d|!|kh|kl|eh|el|rra|rrb/g;
 
 function fix_str(str){
  let str2 = [];
@@ -606,7 +608,7 @@ function fix_str(str){
  for(let i in str){
   if(str[i]=='+'||str[i]=='-'){str2[i] = {sign:str[i][0]}}
   else{
-   str[i] = str[i].match(/[+\-]*\d+|[+\-]|d|!|kh|kl|eh|el|rra|rrb/g) || [];	//split string into array
+   str[i] = str[i].match(keyssp) || [];						//split string into array
    if(isNaN(str[i][0])){str[i].unshift(1)}					//add 1 if string starts with 'd'
    str2[i] = {num:JSON.parse(str[i][0])};					//start building associative object with array contents, position becomes unimportant
    for(let j=1;j<str[i].length;j+=2){
@@ -738,12 +740,16 @@ print_out('6d10!8rrb2el+3 (explosão 8+, reroll 2-, eliminar o menor)');diceroll
 
 //-------------------------HP, MP and DICE KEYBOARD FUNCTIONS------------------------//
 
-const keys = [[7,8,9,4,5,6,1,2,3,'AC',0,'dx'],['d10','d20','d100','d6','d8','d12','d2','d3','d4','AC','d','123']];
-const xkeys = ['rra','rrb','kh','kl','eh','el','#','!','+','-','backspace','enter'];
+const spkeys = /\d+|d\d+|!|kh|kl|eh|el|rra|rrb|\+|\-/g;
+const keys = [[7,8,9,4,5,6,1,2,3,'AC',0,'dx'],['d12','d20','d100','d6','d8','d10','d2','d3','d4','AC','d','123']];
+const xkeys = ['rra','kh','eh','rrb','kl','el','+','#','!','-','backspace','enter'];
 const keyboard = document.getElementById('keyboard');
+
+function pvt(ev){ev.preventDefault()}
 
 var skeys,zkeys,keysend;
 function set_keyboard(){
+ keyboard.setAttribute('onmousedown','pvt(event)');
  e = keyboard.children[0];
 
  var div = document.createElement('div');
@@ -751,7 +757,7 @@ function set_keyboard(){
  var content = '';
  for (var i=0;i<keys[0].length;i++){
   if(keys[0][i]=='dx'){content += '<div id="shiftkey" class="key skey dkey" onclick="keyshift(this)">dx</div>'}
-  else if(keys[0][i]=='AC'){content += '<div class="key skey" onclick="keyac()">AC</div>'}
+  else if(keys[0][i]=='AC'){content += '<div id="keyac" class="key skey" onclick="keyac()">AC</div>'}
   else{content += '<div class="key skey" onclick="keyprint(this)">'+keys[0][i]+'</div>'}
  }
  div.innerHTML = content;
@@ -793,15 +799,16 @@ function max_hp(e){
 }
 
 var printed_keys = [];
-function keyac(){focused.innerHTML = '';printed_keys = [];keysend.classList.add('keyhide')}
+function keyac(){document.activeElement.innerHTML = '';printed_keys = [];keysend.classList.add('keyhide')}
 
 function keydel(){
- if(focused.innerHTML&&!printed_keys.length){for (var i=0;i<focused.innerHTML.length;i++){printed_keys.push(focused.innerHTML[i])}}
+ e = document.activeElement;
+ if(e.innerHTML&&!printed_keys.length){printed_keys = e.innerHTML.match(spkeys) || []}
  if(printed_keys.length>0){
-  var size = printed_keys[printed_keys.length-1].length;
-  var text = focused.innerHTML;
+  let size = printed_keys[printed_keys.length-1].length;
+  let text = e.innerHTML;
   text = text.slice(0,text.length-size);
-  focused.innerHTML = text;
+  e.innerHTML = text;
   printed_keys.splice(printed_keys.length-1,1);
   keysend.classList.remove('keyhide')
  }
@@ -810,8 +817,9 @@ function keydel(){
 
 function keyprint(e){
  var k = e.innerHTML;
- if(focused.innerHTML=='0'&&k!='+'&&k!='-'){focused.innerHTML='';printed_keys=[]} //user is replacing a zero with a number
- focused.innerHTML += k;
+ e = document.activeElement;
+ if(e.innerHTML=='0'&&k!='+'&&k!='-'){e.innerHTML='';printed_keys=[]} //user is replacing a zero with a number
+ e.innerHTML += k;
  printed_keys.push(k);
  keysend.classList.remove('keyhide');
 }
@@ -844,9 +852,16 @@ function calc_hp(e){
 }
 
 function key_send(){
- if(!focused.innerHTML){set_focus(focused);keysend.classList.remove('keyhide')}
- if(focused.id=='dice-input'){startroll('dice-input');keyac()}
- else{calc_hp(focused)}
+ let e = document.activeElement;
+ if(e.innerHTML){
+  if(e.id.search(/hp|mp/g)+1){calc_hp(e)}
+  if(e.id=='dice-input'){startroll(e.id);keyac()}
+  if(e.id==''){e.value=e.innerHTML;attack_data(e,e.getAttribute('tabindex'))}
+ }
+ if(keysend.classList.contains('keyhide')){document.activeElement.blur()}
+
+ //if(keysend.classList.contains('keyhide')){open_key();keysend.classList.remove('keyhide');}
+ //set_focus(document.activeElement);
  keysend.classList.add('keyhide');
 }
 
@@ -863,28 +878,30 @@ function openroller(e){
  keyboard.classList.remove('boardshow');
  document.querySelector(':root').style.setProperty('--hph','120px');
  document.getElementById('diceholder').classList.remove('diceholder');
- if(focused){focused.classList.remove('fakefocus')}
- focused = null;
 }
 
-var focused;
-function set_focus(e){
- if(focused){calc_hp(focused);focused.classList.remove('fakefocus')}
- if(focused&&focused!=e){if(focused.id!='dice-input'&&!focused.innerHTML.includes('+')&&!focused.innerHTML.includes('-')){data[focused.id]=JSON.parse(focused.innerHTML)}}
- if(!focused){open_key(e)}
- if(!focused||focused!=e){e.classList.add('fakefocus');focused=e}
- else{focused=undefined;open_key()}
- if(focused){
-  printed_keys = [];
-  if(focused.innerHTML){for (var i=0;i<focused.innerHTML.length;i++){printed_keys.push(focused.innerHTML[i])}}
-
-  document.getElementById('shiftkey').classList.remove('nkey');
-  for (var i=0;i<skeys.length;i++){skeys[i].innerHTML = keys[0][i]}
-
-  if(focused.innerHTML){keysend.classList.remove('keyhide')}
-  else{keysend.classList.add('keyhide')}
- }
+function fakeblur(e,i){
+ open_key();
+ if(e.id.search(/hp|mp/g)+1){calc_hp(e)}
+ if(e.id==''){e.value=e.innerHTML;attack_data(e,i)}
 }
+
+function fakefocus(){
+ open_key();
+ let e = document.activeElement;
+ printed_keys=[];
+ if(e.innerHTML){
+  keysend.classList.remove('keyhide');
+  printed_keys = e.innerHTML.match(spkeys) || [];
+ }else{keysend.classList.add('keyhide')}
+
+ document.getElementById('shiftkey').classList.remove('nkey');
+ for (var i=0;i<skeys.length;i++){skeys[i].innerHTML = keys[0][i]}
+
+ document.getElementById('keyac').innerHTML = e.id==''?'/':'AC';
+}
+
+
 
 //-------------------------DEFENSE FUNCTIONS------------------------//
 
@@ -945,20 +962,53 @@ function armor_choose(e,i){
 
 //-------------------------ATTACK FUNCTIONS------------------------//
 
-function weap_roll(e){
- e = e.parentNode.parentNode.parentNode;
- var attacks = document.getElementsByClassName('attack');
- var x = Array.prototype.indexOf.call(attacks,e);
+function base_split(str){
+ if(str.search(/[#drabekl]/g)>-1){
+  let n = str.includes('#')?str.slice(0,str.indexOf('#')):1;
+  n = n?n:1;
+  let s = str.match(/[+-]/g) || 0;
+  let m = (s?str.slice(str.indexOf(s)):'0').replace('+','');
+  let k = [];
+  for (let i=0;i<n;i++){k.push([m])}
+  return k;
+ }
+ else{return str.replace(/[+]/g,'').split('/')}
+}
 
- var k = base_split(e.children[0].children[1].children[0].children[1].innerHTML);
+function weap_roll(e){
+ let k = base_split(e.children[1].innerHTML);
+
+ e = e.parentNode.parentNode.parentNode;
+ let attacks = document.getElementsByClassName('attack');
+ let x = Array.prototype.indexOf.call(attacks,e);
+
+ let n;
+ if(data.attack[x][1].search(/[#drabekl]/g)>-1){
+  let str = data.attack[x][1];
+  n = str.includes('#')?str.slice(0,str.indexOf('#')):1;
+  n = n?n:1;
+  str = str.slice(str.indexOf('#')+1);
+
+  let p = 0;
+  if(str.search(/[+-]/g)>-1){
+   let q = str.indexOf('+')>0?str.indexOf('+'):(str.indexOf('-'));
+   p = JSON.parse(str.slice(q).replace('+',''));
+   str = str.slice(0,q);
+  }
+  p += (data.attack[x][11]?JSON.parse(document.getElementById(skills[data.attack[x][11]][0]+'_total').innerHTML.replace(/[+]/g,'')):0)+(data.attack[x][4]?data.attack[x][4]:0)+data.cond.Ataques;
+  if(p){str += p>0?'+'+p:p}
+  k = [];
+  for(let i=0;i<n;i++){k.push(str)}
+ }else{n = k.length}
 
  print_out('');
- print_out('Ataque'+(k.length>1?'s':'')+' com '+data.attack[x][0]+':');
+ print_out('Ataque'+(n>1?'s':'')+' com '+data.attack[x][0]+':');
 
  e = e.children[0].children[0].children[1].innerHTML;
- for (var i=0;i<k.length;i++){
-  if(k.length>1){print_out((i+1)+'º ataque:')}
-  diceroll('d20'+(k[i]<0?'':'+')+k[i],data.attack[x][6]);
+ for (var i=0;i<n;i++){
+  if(n>1){print_out((i+1)+'º ataque:')}
+  if(k[i].search(/[drabekl]/g)<0){diceroll('d20'+(k[i]<0?'':'+')+k[i],data.attack[x][6])}
+  else{diceroll(k[i],data.attack[x][6])}
 
   var p = 1;
   var c = data.attack[x][6]?data.attack[x][6]:20;
@@ -974,16 +1024,16 @@ function weap_roll(e){
 }
 
 function attack_calc(){
- var at_skill = document.getElementsByName('at_skill');
- var attacks = document.getElementsByClassName('attack');
- for (var i=0;i<attacks.length;i++){
+ let at_skill = document.getElementsByName('at_skill');
+ let attacks = document.getElementsByClassName('attack');
+ for (let i=0;i<attacks.length;i++){
   attacks[i].children[0].children[0].children[0].innerHTML=data.attack[i][0]?data.attack[i][0]:'Nome do Ataque';
   attacks[i].children[1].children[5].children[0].children[0].innerHTML=add_plus_sign(data.cond.Ataques); //condition attack
   attacks[i].children[1].children[5].children[1].children[0].innerHTML=add_plus_sign(data.cond.Dano); //condition damage
 
-  var k = (data.attack[i][3]?data['hab_'+ habs[data.attack[i][3]]]:0)+data.cond.Dano;
+  let k = (data.attack[i][3]?data['hab_'+ habs[data.attack[i][3]]]:0)+data.cond.Dano;
 
-  var o = 0;
+  let o = 0;
   if(isNaN(data.attack[i][5])){
    o = data.attack[i][5][0]=='-'?data.attack[i][5]:'+'+data.attack[i][5];
    o += (k==0?'':(k>0?'+'+k:k));
@@ -995,23 +1045,22 @@ function attack_calc(){
   let p = data.attack[i][13]>1?'</br>'+action[data.attack[i][12]].replace('para ativar','')+' para atacar • '+action[data.attack[i][13]]+' para regarregar':' • '+action[data.attack[i][12]].replace('para ativar','para atacar');
   attacks[i].children[0].children[0].children[1].innerHTML=(data.attack[i][2]?data.attack[i][2]:'d8')+o+' • '+(data.attack[i][6]&&data.attack[i][6]<20?data.attack[i][6]+'-20':20)+'/'+(data.attack[i][7]?data.attack[i][7]:'x2')+' • '+(data.attack[i][8]>0?alcance[data.attack[i][8]]:'Alcance')+' • '+(data.attack[i][9]>0?tipo_dano[data.attack[i][9]]:'Tipo de dano')+p;
 
-  var k = 0;
+  k = 0;
   if(data.attack[i][1]==''){k=[0]}
-  else if(isNaN(data.attack[i][1])){k=base_split(data.attack[i][1])}
-  else{k=[data.attack[i][1]]}
+  else if(!isNaN(data.attack[i][1])){k=[data.attack[i][1]]}
+  else{k=base_split(data.attack[i][1])}
 
   for (var j=0;j<k.length;j++){
    k[j]=JSON.parse(k[j])+(data.attack[i][11]?JSON.parse(document.getElementById(skills[data.attack[i][11]][0]+'_total').innerHTML.replace(/[+]/g,'')):0)+(data.attack[i][4]?data.attack[i][4]:0)+data.cond.Ataques;
    k[j]=(k[j]>=0?'+':'')+k[j];
   }
   attacks[i].children[0].children[1].children[0].children[1].innerHTML=k.join('/');
+
   let ac = data.attack[i][12]?action[data.attack[i][12]].replace('Ação ','').replace('de ','').toLowerCase():'';
   attacks[i].children[0].children[1].children[1].innerHTML = spell_action.includes(ac)?'<div class="ac_'+ac+'"></div>':'';
  }
  save_data()
 }
-
-function base_split(str){return str.replace(/[+]/g,'').split('/')}
 
 function attack_remove(e){
  e = e.parentNode.parentNode.parentNode;
@@ -1054,8 +1103,8 @@ function attack_list(i){
  content2 +=  '<div class="w4"></div></div>';
 
  content2 +=  '<div class="w10 dif">';
- content2 +=  '<div class="w3 ma3 dif"><input class="skill_input tc" type="text" placeholder="Modificador" value="'+data.attack[i][1]+'" autocomplete="off" onkeyup="regexb1(this)" onchange="attack_data(this,1)"></div>';
- content2 +=  '<div class="w3 ma3 dif"><input class="skill_input tc" type="text" placeholder="Dado" value="'+data.attack[i][2]+'" autocomplete="off" onkeyup="regexb2(this)" onchange="attack_data(this,2)"></div>';
+ content2 +=  '<div class="w3 ma3 dif"><div class="fakeinput skill_input tc" placeholder="Dados" onfocus="fakefocus()" onblur="fakeblur(this,1)" tabindex="1">'+data.attack[i][1]+'</div></div>';
+ content2 +=  '<div class="w3 ma3 dif"><div class="fakeinput skill_input tc" placeholder="Dados" onfocus="fakefocus()" onblur="fakeblur(this,2)" tabindex="2">'+data.attack[i][2]+'</div></div>';
  content2 +=  '<div class="w4 ma3 dif"><p class="p_skill">Base</p></div></div>';
 
  content2 +=  '<div class="w10 dif">';
@@ -1066,7 +1115,7 @@ function attack_list(i){
  content2 +=  '<div class="w10 dif">';
  content2 +=  '<div class="w3 ma3 dif"><input class="skill_input tc" type="text" placeholder="+0" value="'+data.attack[i][4]+'" inputmode="numeric" autocomplete="off" onkeyup="regex(this)" onchange="attack_data(this,4)"></div>';
  content2 +=  '<div class="w3 ma3 dif"><input class="skill_input tc" type="text" placeholder="+0" value="'+data.attack[i][5]+'" inputmode="numeric" autocomplete="off" onkeyup="regexo(this)" onchange="attack_data(this,5)"></div>';
- content2 +=  '<div class="w4 ma3 dif"><p class="p_skill">Outro</p></div></div>';
+ content2 +=  '<div class="w4 ma3 dif"><p class="p_skill">Outro bônus</p></div></div>';
 
  content2 +=  '<div class="w10 dif">';
  content2 +=  '<div class="w3 ma3 dif"><p class="p_skill tc">+0</p></div>';
@@ -1099,7 +1148,6 @@ function attack_list(i){
  content += '<div class="w5at"></div>';
  content += '</div>';
 
-
  content += '</div><div class="w10 attack_info def_hide">'+content2+'</div>';
 
  div.innerHTML = content;
@@ -1114,9 +1162,15 @@ function attack_list(i){
 }
 
 function attack_add(){
- if(data.attack.length){data.attack.push(['','','','','','','','','','','','',0,0])} //['','','','','','','','','','','','',,]
- else{data.attack.push(['Disparo Rápido • Arco Longo (exemplo)','-2/-2','d8',2,0,0,20,'x3',2,2,'As seguintes habilidades estão aplicadas nesse ataque:\n• Estilo de Disparo: +des no dano\n• Disparo Rápido: dois ataques -2/-2, ação completa',23,5,2])}
+ if(data.attack.length){data.attack.push(['','','','','','','','','','','','',0,0])}
  attack_list(data.attack.length-1)
+}
+
+function attack_add_start(){
+ data.attack.push(['Espada Montante • Ataque Extra (exemplo)','+0/+0','2d6',1,0,0,19,'x2',1,1,"A seguinte habilidade foi aplicada neste ataque:\n• Ataque Extra (2 PMs): uma ataque adicional por rodada\n\nAs bases de ataque e de dano podem ser escritas de forma simples como '+0' ou '+0/+0' para dois ataques e '2d6', ou, conforme o próximo exemplo de ataque, de forma complexa como '2#2d20kh' para dois ataques rolando dois dados cada e mantendo o maior e '2d6rrb2' para rerolar resultados 1 e 2.",18,4,1]);
+ attack_list(data.attack.length-1);
+ data.attack.push(['Esp. Montante • Extra Preciso Destruidor (exemplo)','2#2d20kh','2d6rrb2',1,0,0,19,'x2',1,1,"As seguintes habilidades foram aplicadas neste ataque:\n• Ataque Extra (2 PMs): uma ataque adicional por rodada\n• Preciso (1 PM): rola dois dados no ataque e usa o melhor\n• Destruidor: pode rolar novamente quaisquer resultados 1 e 2 na rolagem de dano\n\nAs bases de ataque e de dano podem ser escritas de forma simples como '+0' ou '+0/+0' para dois ataques e '2d6' conforme o exemplo anterior, ou, conforme este exemplo de ataque, de forma complexa como '2#2d20kh' para dois ataques rolando dois dados cada e mantendo o maior e '2d6rrb2' para rerolar resultados 1 e 2.",18,4,1]);
+ attack_list(data.attack.length-1);
 }
 
 var weap_list = weap_list();
@@ -1816,18 +1870,17 @@ function filter_powers(){
  }
 }
 
-
-
 function filter_powers_other(e){
  let k = e.getAttribute('tabindex');
  let filter;
 
-  if(k==1){
-   filter = e.innerHTML.split(', ');
-   for(let i in filter){filter[i]=power_typ.indexOf(filter[i])}
-  }else{
-   filter = e.innerHTML;
-  }
+ if(k==1){
+  filter = e.innerHTML.split(', ');
+  for(let i in filter){filter[i]=power_typ.indexOf(filter[i])}
+ }else{
+  filter = e.innerHTML;
+ }
+ console.log(filter);
 
  if(!filter||filter[0]<0){filter=[1,2,3,4,5]+JSON.stringify(power_cat)}
 
@@ -2018,6 +2071,7 @@ function fullscreen(e){
  }
 }
 
+var startTime;
 function config(){
  const colorpicker = document.getElementById('c_color');
  data.c_keyboard?keyboard.classList.add('keyext'):keyboard.classList.remove('keyext');
@@ -2052,7 +2106,6 @@ function config(){
  }
 
  fullscreen(document.documentElement);
- if(loaded){navig(allmenubtn[0])}else{navig(allmenubtn[allmenubtn.length-1])}
  menucolor(data.c_color);
 }
 keyboard.classList.add('keyext');
@@ -2242,13 +2295,14 @@ function start_up(){
  dice = document.getElementsByClassName('dice');
  for (var i=0;i<dice.length;i++){dice[i].innerHTML = dices[dice[i].getAttribute("data-dice")]}
  if(!JSON.parse(localStorage.chars).length){hints.forEach(showhint)}
+ attack_add_start();
 }
 
 //-------------------------DATA MANAGEMENT FUNCTIONS------------------------//
 
 function data_add(e){data[e.id]=JSON.parse(e.value)}
 function data_array(e){data[e.id]=e.value}
-function data_check(e){data[e.id]=e.checked;loaded=0}
+function data_check(e){data[e.id]=e.checked}
 function data_inner(e){var value = e.innerHTML.replace('+','');data[e.id]=JSON.parse(value)}
 function data_str(e){data[e.id]=e.innerHTML}
 
@@ -2319,13 +2373,12 @@ function data_load(){
  if(localStorage.getItem(title+'_data')){
   data = JSON.parse(localStorage.getItem(title+'_data'));
   check_empty();
-  loaded=1;
  }
 }
 
 function clear(){
  var input = document.getElementsByTagName("input");
- for (var i=0;i<input.length;i++){input[i].value=''}
+ for (var i=0;i<input.length;i++){input[i].value=(input[i].id=="c_color"?'#b72a2b':'')}
  var select = document.getElementsByTagName("select");
  for (var i=0;i<select.length;i++){option = select[i].options;option[0].selected = true}
  var fakeinput = document.getElementsByClassName('fakeinput');
@@ -2363,7 +2416,6 @@ function import_char(evt){
    console.log('Character '+data.char+' data imported');
   };
  reader.readAsText(evt.target.files[0]);
- loaded=1;
 }
 
 function export_char(){
