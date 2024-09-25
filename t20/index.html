@@ -681,8 +681,8 @@ function diceroll(str,crit=0){
      let classe = '';
      print += j?', ':' [';
      if(j<start||j>end-1){classe+=' strike'}
-     if(roll[i][j]==1){classe+=' bold rot';ctp=-1}
-     if(roll[i][j]>=crit){classe+=' bold grun';ctp=1}
+     if(roll[i][j]==1){classe+=' bold rot';if(!classe.includes('strike')){ctp=-1}}
+     if(roll[i][j]>=crit){classe+=' bold grun';if(!classe.includes('strike')){ctp=1}}
      print += '<span class="'+classe+'">'+roll[i][j]+'</span>';
     }
     print += '] ' + dices;
