@@ -1,14 +1,20 @@
 # marmarx.github.io/t20
 
 Tarefas pendentes:
-- adicionar teclado de dados para definir rolagens de ataque
 - adicionar suporte para imprimir/exportar PDF
 - adicionar log de alterações feitas pelo usuário (?)
+- filtar e personalizar poderes (?)
+- magias personalizadas (?)
+- filtrar e personalizar magias (?)
 
 Tarefas canceladas:
 - adicionar suporte para retro-gerenciamento de: armas/armaduras e equipamentos // motivo: pode confundir o usuário
 
 <b>Histórico de versões:</b>
+
+v1.5.5
+- adicionada a possibilidade de usar o teclado de dados para definir rolagens de ataque
+- correção de bugs e outros melhoramentos menores
 
 v1.5.3
 - adicionada a possibilidade de rolar dados diretamente nos marcadores de vida e mana - útil quando se estiver tomando Essência de Mana ou recebendo Curar Ferimentos
