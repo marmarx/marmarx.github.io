@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<title>Ficha T20 Mobile - v1.5.5</title>
+<title>Ficha T20 Mobile - v1.5.6</title>
 <meta name="author" content="Marco Martins">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
 <meta name="theme-color" content="#b72a2b">
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 <link rel="icon" type="image/png" href="src/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="src/css.css">
@@ -16,6 +17,7 @@
 <script type="text/javascript" src="db/skills.js"></script>
 <script type="text/javascript" src="db/equips.js"></script>
 <script type="text/javascript" src="db/conditions.js"></script>
+<script type="text/javascript" src="js/list_worker.js"></script>
 
 <style>
 @font-face{font-family:'tormenta20';src:url('src/Tormenta20.ttf') format('truetype');font-weight:normal;font-style:normal}
@@ -128,7 +130,7 @@ button:disabled,button:hover:disabled{border:2px solid #b0b0b0;color:#b0b0b0;bac
 
 a{color:currentColor;padding:12px 30px;text-decoration:none;display:block;line-height:1.5em}
 a:hover{background-color:#1e90ff;color:var(--white)!important}
-.dropdown,.dropequip{position:absolute;background-color:var(--white);color:var(--black);border:1px solid #000;z-index:1;width:100%;top:60px;max-height:350px;overflow-y:scroll;z-index:2}
+.dropdown,.dropequip{position:absolute;background-color:var(--white);color:var(--black);border:1px solid #000;width:100%;top:60px;max-height:350px;overflow-y:scroll;z-index:2}
 .dn{display:none!important;border:0}.w0{width:0;visibility:hidden}
 
 #char_spells{margin:25px auto}
@@ -338,12 +340,12 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
     </div>
     <div class="w10 df"><div class="w8 ma mw400 df"><p class="p_skill tac">Armadura e Escudo</p></div></div>
     <div class="w10 df"><div class="w10 mw400 ma db">
-     <div class="def_half pr"><input id="armor" type="text" onchange="def_set(this);calc()" onkeyup="regex_inj(this);filter(this)" onblur="list_remove(this,event)" onfocus="list_move(this,event,armor_list)" autocomplete="off"><label>Armadura</label></div>
+     <div class="def_half pr"><input id="armor" type="text" onchange="def_set(this);calc()" onkeyup="regex_inj(this);filter(this)" onblur="list_remove(this,event)" onfocus="list_move(this,event,1)" autocomplete="off"><label>Armadura</label></div>
      <div class="def_quarter m0a pr"><input id="armor_bonus" class="def_input" inputmode="numeric" sign="1" onkeyup="regex(this)" onchange="def_set(this);calc()" autocomplete="off"><label class="def_label">Bônus</label></div>
      <div class="def_quarter m0a pr"><input id="armor_penal" class="def_input" inputmode="numeric" sign="1" onkeyup="regex(this)" onchange="def_set(this);calc()" autocomplete="off"><label class="def_label">Penalidade</label></div>
     </div></div>
     <div class="w10 df"><div class="w10 mw400 ma db">
-     <div class="def_half pr"><input id="shield" type="text" onchange="def_set(this);calc()" onkeyup="regex_inj(this);filter(this)" onblur="list_remove(this,event)" onfocus="list_move(this,event,armor_list)" autocomplete="off"><label>Escudo</label></div>
+     <div class="def_half pr"><input id="shield" type="text" onchange="def_set(this);calc()" onkeyup="regex_inj(this);filter(this)" onblur="list_remove(this,event)" onfocus="list_move(this,event,1)" autocomplete="off"><label>Escudo</label></div>
      <div class="def_quarter pr"><input id="shield_bonus" class="def_input" inputmode="numeric" sign="1" onkeyup="regex(this)" onchange="def_set(this);calc()" autocomplete="off"><label class="def_label">Bônus</label></div>
      <div class="def_quarter pr"><input id="shield_penal" class="def_input" inputmode="numeric" sign="1" onkeyup="regex(this)" onchange="def_set(this);calc()" autocomplete="off"><label class="def_label">Penalidade</label></div>
     </div></div>
@@ -582,8 +584,6 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
  </div>
 </div>
 
-</body>
-
 <script>
 const load = 1;
 var title = '', chars = [];
@@ -757,7 +757,7 @@ function set_keyboard(){
  var content = '';
  for (var i=0;i<keys[0].length;i++){
   if(keys[0][i]=='dx'){content += '<div id="shiftkey" class="key skey dkey" onclick="keyshift(this)">dx</div>'}
-  else if(keys[0][i]=='AC'){content += '<div id="keyac" class="key skey" onclick="keyac()">AC</div>'}
+  else if(keys[0][i]=='AC'){content += '<div id="keyac" class="key skey" onclick="keyac(this)">AC</div>'}
   else{content += '<div class="key skey" onclick="keyprint(this)">'+keys[0][i]+'</div>'}
  }
  div.innerHTML = content;
@@ -799,7 +799,10 @@ function max_hp(e){
 }
 
 var printed_keys = [];
-function keyac(){document.activeElement.innerHTML = '';printed_keys = [];keysend.classList.add('keyhide')}
+function keyac(e){
+ if(e.innerHTML=='/'){keyprint(e)}
+ else{document.activeElement.innerHTML = '';printed_keys = [];keysend.classList.add('keyhide')}
+}
 
 function keydel(){
  e = document.activeElement;
@@ -898,7 +901,7 @@ function fakefocus(){
  document.getElementById('shiftkey').classList.remove('nkey');
  for (var i=0;i<skeys.length;i++){skeys[i].innerHTML = keys[0][i]}
 
- document.getElementById('keyac').innerHTML = e.id==''?'/':'AC';
+ document.getElementById('keyac').innerHTML = (e.id==''&&e.getAttribute('tabindex')==1)?'/':'AC';
 }
 
 
@@ -933,14 +936,6 @@ function list_rd(){
   div.innerHTML = '<div class="w3 m0a dif"><input id="'+rd[i]+'" class="skill_input tac" inputmode="numeric" onkeyup="regex(this)" onchange="def_set(this);rd_calc()" autocomplete="off"></div><div class="w6 m0a dif"><p class="p_skill">'+rd[i]+'</p></div></div>';
   document.getElementById('char_rd').appendChild(div);
  }
-}
-
-var armor_list = armor_list();
-function armor_list(){
- let div = document.createElement('div');
- div.setAttribute('class','dropequip');
- for(var i=armor_start;i<armor_end;i++){div.innerHTML += '<a onclick="armor_choose(this,'+i+')" tabindex="0">'+equip[i][0]+'</a>'}
- return div;
 }
 
 function armor_choose(e,i){
@@ -1094,7 +1089,7 @@ function attack_list(i){
  div.setAttribute('attack',data.attack.length);
 
  let content2 = '<div class="w10 dif"><div class="w8 m0a pr dif">';
- content2 +=  '<input class="skill_input m3e" type="text" placeholder="Nome do ataque" value="'+data.attack[i][0]+'" autocomplete="off" onchange="attack_data(this,0)" onkeyup="regex_inj(this);filter(this)" onblur="list_remove(this,event)" onfocus="list_move(this,event,weap_list)">';
+ content2 +=  '<input class="skill_input m3e" type="text" placeholder="Nome do ataque" value="'+data.attack[i][0]+'" autocomplete="off" onchange="attack_data(this,0)" onkeyup="regex_inj(this);filter(this)" onblur="list_remove(this,event)" onfocus="list_move(this,event,2)">';
  content2 +=  '</div><div class="w2 m0a dif" onclick="attack_remove(this)"><div class="trash"></div></div></div>';
 
  content2 +=  '<div class="w10 dif">';
@@ -1173,14 +1168,6 @@ function attack_add_start(){
  attack_list(data.attack.length-1);
 }
 
-var weap_list = weap_list();
-function weap_list(){
- let div = document.createElement('div');
- div.setAttribute('class','dropequip');
- for(var i=weap_start;i<weap_end;i++){div.innerHTML += '<a onclick="weap_choose(this,'+i+')" tabindex="0">'+equip[i][0]+'</a>'}
- return div;
-}
-
 function weap_choose(e,i){
  e = e.parentNode.parentNode;
  e.children[1].remove(); //remove dropdown
@@ -1188,8 +1175,9 @@ function weap_choose(e,i){
 
  e.children[0].value = equip[i][0];
  e = e.parentNode.parentNode;
- e.children[2].children[0].children[0].value = equip[i][5];
- e.children[2].children[1].children[0].value = equip[i][6];
+ console.log(e.children[2].children[0].children[0]);
+ e.children[2].children[0].children[0].innerHTML = equip[i][5];
+ e.children[2].children[1].children[0].innerHTML = equip[i][6];
  e.children[3].children[0].children[0].value = '';
  e.children[3].children[1].children[0].value = '';
  e.children[6].children[0].children[0].value = equip[i][7];
@@ -1198,7 +1186,7 @@ function weap_choose(e,i){
  e.children[7].children[1].children[0].value = equip[i][10];
  e.children[8].children[0].children[0].value = '';
  e.children[8].children[1].children[0].value = '';
- e.children[9].children[0].children[0].innerHTML = '';
+ e.children[9].children[0].children[0].value = equip[i][4];
 
  e = e.parentNode;
  var attacks = document.getElementsByClassName('attack');
@@ -1615,7 +1603,7 @@ function equip_add(qte,title,type,cost,weight,desc){
  content += '<div class="w3 equip_btns dif"><div class="third fakebtn equip_btn df m0 dn" onclick="equip_remov(this)"><div class="trash" style="transform:translateY(2px)"></div></div><button class="third equip_btn m0" onclick="qte_change(this,-1,1)">-</button><div class="third equip_btn mwu df"><input class="skill_input mwu tc" type="number" placeholder="Un." value="'+qte+'" autocomplete="off" onkeyup="regexqte(this)" onchange="equip_data(this,0)"></div><button class="third equip_btn m0" onclick="qte_change(this,1,0)">+</button></div>';
  content += '</div><div class="w10 attack_info def_hide">';
  content += '<div class="w10 dif">';
- content += '<div class="w7 ma pr df"><input class="skill_input m3e" type="text" placeholder="Nome do item" value="'+title+'" autocomplete="off" onkeyup="regex_inj(this);filter(this)" onblur="list_remove(this,event)" onfocus="list_move(this,event,equip_list)" onchange="equip_data(this,1)"></div>';
+ content += '<div class="w7 ma pr df"><input class="skill_input m3e" type="text" placeholder="Nome do item" value="'+title+'" autocomplete="off" onkeyup="regex_inj(this);filter(this)" onblur="list_remove(this,event)" onfocus="list_move(this,event,0)" onchange="equip_data(this,1)"></div>';
  content += '<div class="w3 ma df"><input class="skill_input m3e" type="text" placeholder="Valor do item" value="'+cost+'" autocomplete="off" onkeyup="regex_inj(this)" onchange="equip_data(this,3)"></div>';
  content += '</div>';
  content += '<div class="w10 dif">';
@@ -1644,14 +1632,6 @@ function equip_kit(){
  print_out('Rolagem de moedas (T$) iniciais:');data.carga['ts']=diceroll('4d6');document.getElementById('ts').value=data.carga['ts'];
 }
 
-var equip_list = equip_list();
-function equip_list(){
- let div = document.createElement('div');
- div.setAttribute('class','dropequip');
- for(var i=0;i<equip.length;i++){div.innerHTML += '<a onclick="equip_choose(this,'+i+')" tabindex="0">'+equip[i][0]+'</a>'}
- return div;
-}
-
 function equip_choose(e,i){
  e = e.parentNode.parentNode;
  e.children[1].remove(); //remove dropdown
@@ -1674,16 +1654,56 @@ function equip_choose(e,i){
  equip_calc();
 }
 
+//-------------------------WEB WORKER FUNCTIONS------------------------//
+
+function start_worker(list,i,arr,min,max){
+ if(list[i]==undefined){
+  let worker = new Worker("./js/list_worker.js");
+  worker.postMessage([i,arr,min,max]);
+  worker.addEventListener('message',(ev) => {
+   list[i] = document.createElement('div');
+   list[i].setAttribute('class','dropequip');
+   list[i].innerHTML = ev.data;
+  });
+ }
+}
+
+function create_list(list,i,arr,min,max){
+ if(list[i]==undefined){
+  list[i] = document.createElement('div');
+  list[i].setAttribute('class','dropequip');
+  list[i].innerHTML = worker_list(i,arr,min,max);
+ }
+}
+
+var list = [];
+if(!window.Worker){
+ console.log("Running web worker on a second thread");
+ start_worker(list,0,equip,0,equip.length);		//all equips
+ start_worker(list,1,equip,armor_start,armor_end);	//armors and shields
+ start_worker(list,2,equip,weap_start,weap_end);	//weapons
+ start_worker(list,3,powers,0,powers.length);		//all powers
+ start_worker(list,4,spells,0,spells.length);		//all powers
+}else{
+ console.log("Web worker isn't supported");
+ create_list(list,0,equip,0,equip.length);
+ create_list(list,1,equip,armor_start,armor_end);
+ create_list(list,2,equip,weap_start,weap_end);
+ create_list(list,3,powers,0,powers.length);
+ create_list(list,4,spells,0,spells.length);
+}
+
+
 //-------------------------LISTS FUNCTIONS------------------------//
 
 var prev_focus;
-function list_move(e,ev,list){
+function list_move(e,ev,i){
  if(prev_focus!=e){
   prev_focus=e;
-  e.parentNode.appendChild(list);
+  e.parentNode.appendChild(list[i]);
   let a = e.parentNode.children[1].getElementsByTagName("a");
   for(var i=0;i<a.length;i++){a[i].style.display=""}
-  if(e.value){filter(e)}
+  filter(e);
  }
 }
 
@@ -1762,6 +1782,30 @@ function calc_power(e,i){
  e.children[0].children[1].children[0].innerHTML = data.user_powers[i][7];
 }
 
+function feat_choose(e,i){
+ e = e.parentNode.parentNode;
+ e.children[1].remove(); //remove dropdown
+ prev_focus = null;
+
+ e = e.parentNode.parentNode;
+ e.children[0].children[0].children[0].value = powers[i][0];	//nome
+ e.children[1].children[0].children[0].value = powers[i][1];	//tipo (select)
+ e.children[1].children[1].children[0].value = powers[i][2];	//categoria
+ e.children[2].children[0].children[0].value = powers[i][3]?powers[i][3]+1:1;	//ação (select)
+ e.children[2].children[1].children[0].value = powers[i][4];	//subcategoria
+ e.children[3].children[0].children[0].value = powers[i][7];	//desc (text area)
+ if(powers[i][5]){e.children[4].children[0].classList.add('checkmarked')}	//magic?
+ else{e.children[4].children[0].classList.remove('checkmarked')}
+
+ e = e.parentNode.parentNode;
+ let user_powers = document.getElementsByClassName('user_powers');
+ let x = Array.prototype.indexOf.call(user_powers,e);
+ 
+ data.user_powers[x] = powers[i];
+ data.user_powers[x][6] = 'Editado de '+data.user_powers[x][6];
+ calc_power(e,x);
+}
+
 var power_types = '';
 for(let i in power_typ){power_types += '<option value="'+(i>0?i+'"':'" disabled selected')+'>'+power_typ[i]+'</option>'}
 
@@ -1796,7 +1840,7 @@ function list_powers(e,i,arr){
  else{
   content += '<div class="w10 mt1"><div class="w10 attack_info cond_info def_hide">';
   content += '<div class="w10 dif">';
-  content += '<div class="w8 ma dif"><input class="skill_input m3e" type="text" placeholder="Nome do poder" value="'+(arr[i][0]=='Nome do poder'?'':arr[i][0])+'" autocomplete="off" onkeyup="regex_inj(this)" onchange="change_power(this,0)"></div>';
+  content += '<div class="w8 pr ma dif"><input class="skill_input m3e" type="text" placeholder="Nome do poder" value="'+(arr[i][0]=='Nome do poder'?'':arr[i][0])+'" autocomplete="off"  onkeyup="regex_inj(this);filter(this)" onblur="list_remove(this,event)" onfocus="list_move(this,event,3)" onchange="change_power(this,0)"></div>';
   content += '<div class="w2 ma dif" onclick="remove_power(this,\''+e+'\')"><div class="trash"></div></div>'
   content += '</div>';
 
@@ -1880,7 +1924,6 @@ function filter_powers_other(e){
  }else{
   filter = e.innerHTML;
  }
- console.log(filter);
 
  if(!filter||filter[0]<0){filter=[1,2,3,4,5]+JSON.stringify(power_cat)}
 
@@ -2227,7 +2270,7 @@ function char_remove(){
   chars.splice(chars.indexOf(title),1);
   localStorage.removeItem(title+'_data');
   clear();
-  document.title = 'Ficha T20 Mobile - v1.5.5';
+  document.title = 'Ficha T20 Mobile - v1.5.6';
   document.getElementById('chardel').disabled = true;
  }
 }
@@ -2480,4 +2523,5 @@ function regex2(e){e.value=/^(0|[1-9]\d*)$/.test(e.value)?e.value:e.value.slice(
 function regexqte(e){e.value=/(\d)*$/.test(e.value)?e.value:e.value.slice(0,-1)}
 
 </script>
+</body>
 </html>
