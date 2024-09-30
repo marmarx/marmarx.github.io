@@ -2,15 +2,18 @@
 
 Tarefas pendentes:
 - adicionar suporte para imprimir/exportar PDF
-- adicionar log de alterações feitas pelo usuário (?)
-- filtar e personalizar poderes (?)
 - magias personalizadas (?)
 - filtrar e personalizar magias (?)
 
 Tarefas canceladas:
-- adicionar suporte para retro-gerenciamento de: armas/armaduras e equipamentos // motivo: pode confundir o usuário
+- adicionar log de alterações feitas pelo usuário >> motivo: não há necessidade
+- adicionar suporte para retro-gerenciamento de: armas/armaduras e equipamentos >> motivo: pode confundir o usuário
 
 <b>Histórico de versões:</b>
+
+v1.5.6
+- adicionado Web Worker para reduzir tempo de carregamento da página na montagem de listas
+- adicionado suporte para filter e personalizar poderes existentes
 
 v1.5.5
 - adicionada a possibilidade de usar o teclado de dados para definir rolagens de ataque
