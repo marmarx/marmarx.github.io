@@ -12,8 +12,8 @@ Tarefas canceladas:
 <b>Histórico de versões:</b>
 
 v1.5.6
-- adicionado Web Worker para reduzir tempo de carregamento da página na montagem de listas
-- adicionado suporte para filter e personalizar poderes existentes
+- adicionado Web Worker para reduzir tempo de carregamento da página na montagem de listas de seleção e listas de magias e poderes
+- adicionado suporte para filtrar e personalizar poderes existentes
 
 v1.5.5
 - adicionada a possibilidade de usar o teclado de dados para definir rolagens de ataque
