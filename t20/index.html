@@ -1432,8 +1432,19 @@ function equip_choose(e,i){
 
 //-------------------------WEB WORKER FUNCTIONS------------------------//
 
-function populate(){
- if(window.Worker&&typeof(Worker)!=="undefined"){
+function testWorker(){
+ try{
+  let url = './js/worker_tester.js';
+  let worker = new Worker(url);
+  worker.terminate();
+  URL.revokeObjectURL(url);
+  return true;
+ }
+ catch(e){return false}
+}
+
+function populate(sup){
+ if(window.Worker&&typeof(Worker)!=="undefined"&&sup){
   console.log('Web worker: populating all powers and spells');
   let powwok = new Worker("./js/power_worker.js");
   powwok.postMessage([powers,power_typ,magic,action,spell_action]);
@@ -1455,8 +1466,8 @@ function populate(){
 }
 
 var list = [];
-function create_lists(){
- if(window.Worker&&typeof(Worker)!=="undefined"){
+function create_lists(sup){
+ if(window.Worker&&typeof(Worker)!=="undefined"&&sup){
   console.log("Web worker: creating lists");
   let worker = new Worker("./js/list_worker.js");
   worker.postMessage([[equip,equip,equip,powers,spells],[0,armor_start,weap_start,0,0],[equip.length,armor_end,weap_end,powers.length,spells.length]]);
@@ -2118,8 +2129,9 @@ function start_up(){
  create_checkbox(deslocamento);
  for (var i=0;i<spell_inputs.length;i++){create_checkbox(spell_inputs[i])}
  for (var i=0;i<power_inputs.length;i++){create_checkbox(power_inputs[i])}
- populate();
- create_lists();
+ let supported = testWorker();
+ populate(supported);
+ create_lists(supported);
  for (var i=0;i<conditions.length;i++){list_conditions('conditions',i,conditions)}
  list_skills(skills,i,'skills');
  list_skills(crafts,i,'crafts');
