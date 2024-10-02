@@ -41,7 +41,7 @@
 
   <div class="row"><div class="container db">
    <div class="half">
-    <div class="input"><select id="raça" onchange="data_add(this);race(this)" required></select><label>Raça</label></div>
+    <div class="input"><select id="raça" onchange="data_add(this)" required></select><label>Raça</label></div>
     <div class="input"><select id="origem" onchange="data_add(this)" required></select><label>Origem</label></div>
     <div class="input"><select id="tamanho" onchange="data_add(this)" required></select><label>Tamanho</label></div>
     <div class="input m0"><div id="deslocamento" class="fakeinput drop" onclick="show_list(this)" str="1"></div><label>Deslocamento</label><div class="dropdown dn"></div><p class="item_subtitle m3e"></p></div>
@@ -78,19 +78,19 @@
    </div>
    <div id="char_ac" class="container db def_info mw400 def_hide">
     <div class="w10 dif"><div class="w3 m0a dif">
-     <select id="def_hab" class="select tc" onchange="def_set(this);calc()">
+     <select id="def_hab" class="select tc" onchange="def_set(this);def_calc()">
       <option disabled=""></option><option value="1">for</option><option value="2" selected>des</option><option value="3">con</option><option value="4">int</option><option value="5">sab</option><option value="6">car</option>
      </select>
      </div><div class="w6 m0a dif"><p class="p_skill">Habilidade</p>
     </div></div>
     <div class="w10 dif"><div class="w3 m0a dif">
-     <select id="def_hab2" class="select tc" onchange="def_set(this);calc()">
+     <select id="def_hab2" class="select tc" onchange="def_set(this);def_calc()">
       <option selected></option><option value="1">for</option><option value="2">des</option><option value="3">con</option><option value="4">int</option><option value="5">sab</option><option value="6">car</option>
      </select>
      </div><div class="w6 m0a dif"><p class="p_skill">Hab secundária</p>
     </div></div>
     <div class="w10 dif">
-     <div class="w3 m0a dif"><input id="def_out" class="skill_input tac" inputmode="numeric" onkeyup="regex(this)" onchange="def_set(this);calc()" autocomplete="off"></div>
+     <div class="w3 m0a dif"><input id="def_out" class="skill_input tac" inputmode="numeric" onkeyup="regex(this)" onchange="def_set(this);def_calc()" autocomplete="off"></div>
      <div class="w6 m0a dif"><p class="p_skill">Outro</p></div>
     </div>
     <div class="w10 dif">
@@ -103,14 +103,14 @@
     </div>
     <div class="w10 df"><div class="w8 ma mw400 df"><p class="p_skill tac">Armadura e Escudo</p></div></div>
     <div class="w10 df"><div class="w10 mw400 ma db">
-     <div class="def_half pr"><input id="armor" type="text" onchange="def_set(this);calc()" onkeyup="regex_inj(this);filter(this)" onblur="list_remove(this,event)" onfocus="list_move(this,event,1)" autocomplete="off"><label>Armadura</label></div>
-     <div class="def_quarter m0a pr"><input id="armor_bonus" class="def_input" inputmode="numeric" sign="1" onkeyup="regex(this)" onchange="def_set(this);calc()" autocomplete="off"><label class="def_label">Bônus</label></div>
-     <div class="def_quarter m0a pr"><input id="armor_penal" class="def_input" inputmode="numeric" sign="1" onkeyup="regex(this)" onchange="def_set(this);calc()" autocomplete="off"><label class="def_label">Penalidade</label></div>
+     <div class="def_half pr"><input id="armor" type="text" onchange="def_set(this)" onkeyup="regex_inj(this);filter(this)" onblur="list_remove(this,event)" onfocus="list_move(this,event,1)" autocomplete="off"><label>Armadura</label></div>
+     <div class="def_quarter m0a pr"><input id="armor_bonus" class="def_input" inputmode="numeric" sign="1" onkeyup="regex(this)" onchange="def_set(this);def_calc()" autocomplete="off"><label class="def_label">Bônus</label></div>
+     <div class="def_quarter m0a pr"><input id="armor_penal" class="def_input" inputmode="numeric" sign="1" onkeyup="regex(this)" onchange="def_set(this);calc_skills('skills')" autocomplete="off"><label class="def_label">Penalidade</label></div>
     </div></div>
     <div class="w10 df"><div class="w10 mw400 ma db">
-     <div class="def_half pr"><input id="shield" type="text" onchange="def_set(this);calc()" onkeyup="regex_inj(this);filter(this)" onblur="list_remove(this,event)" onfocus="list_move(this,event,1)" autocomplete="off"><label>Escudo</label></div>
-     <div class="def_quarter pr"><input id="shield_bonus" class="def_input" inputmode="numeric" sign="1" onkeyup="regex(this)" onchange="def_set(this);calc()" autocomplete="off"><label class="def_label">Bônus</label></div>
-     <div class="def_quarter pr"><input id="shield_penal" class="def_input" inputmode="numeric" sign="1" onkeyup="regex(this)" onchange="def_set(this);calc()" autocomplete="off"><label class="def_label">Penalidade</label></div>
+     <div class="def_half pr"><input id="shield" type="text" onchange="def_set(this)" onkeyup="regex_inj(this);filter(this)" onblur="list_remove(this,event)" onfocus="list_move(this,event,1)" autocomplete="off"><label>Escudo</label></div>
+     <div class="def_quarter pr"><input id="shield_bonus" class="def_input" inputmode="numeric" sign="1" onkeyup="regex(this)" onchange="def_set(this);def_calc()" autocomplete="off"><label class="def_label">Bônus</label></div>
+     <div class="def_quarter pr"><input id="shield_penal" class="def_input" inputmode="numeric" sign="1" onkeyup="regex(this)" onchange="def_set(this);calc_skills('skills')" autocomplete="off"><label class="def_label">Penalidade</label></div>
     </div></div>
     <div id="armor_penal" sign="1" style="height:50px"></div><div id="shield_penal" sign="1"></div>
    </div>
@@ -155,7 +155,7 @@
   <div class="row t20box">
    <div class="container">
     <div class="w8"><p>Atributo chave</p></div>
-    <div class="w3"><select id="spell_hab" class="select tc" onchange="data_add(this);calc()"></select></div>
+    <div class="w3"><select id="spell_hab" class="select tc" onchange="data_add(this);calc_spell_res()"></select></div>
    </div><div class="container">
     <div class="w8"><p class="tal">Teste de resistência</p></div>
     <div class="w3 dif"><p id="spell_res" class="ma" inner="1">10</p></div>
@@ -357,9 +357,9 @@
 const load = 1;
 var title = '', chars = [];
 const data_ini = {
- 'nível':0,hp:0,hpmax:0,mp:0,mpmax:0,'spell_hab':1,
+ char:'','nível':0,hp:0,hpmax:0,mp:0,mpmax:0,'spell_hab':1,
  'hab_for_val':10,'hab_for':0,'hab_des_val':10,'hab_des':0,'hab_con_val':10,'hab_con':0,'hab_int_val':10,'hab_int':0,'hab_sab_val':10,'hab_sab':0,'hab_car_val':10,'hab_car':0,
- 'magias':[],'powers':[],user_powers:[],'conditions':[[],[]],'cond_user':[],'attack':[],'equip':[],cond:structuredClone(cond),'skills':skills,'crafts':crafts,
+ 'magias':[],'user_spells':[],'powers':[],user_powers:[],'conditions':[[],[]],'cond_user':[],'attack':[],'equip':[],cond:structuredClone(cond),'skills':skills,'crafts':crafts,
  'defense':{'def_hab':2,'armor_bonus':0,'shield_bonus':0,'armor_penal':0,'shield_penal':0,'def_out':0,'rd':0,'Ácido':0,'Eletricidade':0,'Fogo':0,'Frio':0,'Luz':0,'Trevas':0,'Mágico':0},
  'carga':{'to':0,'ts':0,'tc':0,'carga':0,'carga_cap':10},
  'c_color':'#b72a2b','c_keyboard':0,c_dice:false,'c_fullscreen':0,'c_nocturnal':0,'c_vibrate':0
@@ -621,6 +621,7 @@ function calc_hp(e){
  e.innerHTML=data[e.id];
  printed_keys=[data[e.id]];
  bars();
+ save_data();
 }
 
 function key_send(){
@@ -678,14 +679,14 @@ function fakefocus(){
 //-------------------------DEFENSE FUNCTIONS------------------------//
 
 function defense_info(e){document.getElementById(e).classList.toggle('def_hide')}
-function def_set(e){e.value==''?data.defense[e.id]=0:(data.defense[e.id]=!isNaN(e.value)?JSON.parse(e.value):e.value)}
+function def_set(e){e.value==''?data.defense[e.id]=0:(data.defense[e.id]=!isNaN(e.value)?JSON.parse(e.value):e.value);save_data()}
 
 function rd_calc(){
  document.getElementById('rd').value = data.defense.rd + data.cond['RD (todas)'];
  for (var i=0;i<rd.length;i++){
   document.getElementById(rd[i]).value = data.defense[rd[i]] + data.cond[rd[i]];
  }
- save_data();
+ //save_data();
 }
 
 function def_calc(){
@@ -695,7 +696,7 @@ function def_calc(){
  document.getElementById('armor_penal').value = add_plus_sign(data.defense.armor_penal + data.cond['Armadura (penalidade)']);
  document.getElementById('shield_bonus').value = add_plus_sign(data.defense.shield_bonus + data.cond['Escudo (bonus)']);
  document.getElementById('shield_penal').value = add_plus_sign(data.defense.shield_penal + data.cond['Escudo (penalidade)']);
- save_data();
+ //save_data();
 }
 
 function list_rd(){
@@ -721,7 +722,7 @@ function armor_choose(e,i){
  data.defense[e.children[1].children[0].id] = equip[i][11];
  data.defense[e.children[2].children[0].id] = equip[i][12];
 
- calc();
+ def_calc();calc_skills('skills');save_data();
 }
 
 //-------------------------ATTACK FUNCTIONS------------------------//
@@ -747,7 +748,7 @@ function weap_roll(e){
  let x = Array.prototype.indexOf.call(attacks,e);
 
  let n;
- if(data.attack[x][1].search(/[#drabekl]/g)>-1){
+ if(isNaN(data.attack[x][1])&&data.attack[x][1].search(/[#drabekl]/g)>-1){
   let str = data.attack[x][1];
   n = str.includes('#')?str.slice(0,str.indexOf('#')):1;
   n = n?n:1;
@@ -823,7 +824,7 @@ function attack_calc(){
   let ac = data.attack[i][12]?action[data.attack[i][12]].replace('Ação ','').replace('de ','').toLowerCase():'';
   attacks[i].children[0].children[1].children[1].innerHTML = spell_action.includes(ac)?'<div class="ac_'+ac+'"></div>':'';
  }
- save_data()
+ //save_data();
 }
 
 function attack_remove(e){
@@ -832,6 +833,7 @@ function attack_remove(e){
  var x = Array.prototype.indexOf.call(attacks,e);
  data.attack.splice(x,1);
  e.remove();
+ save_data();
 }
 
 function attack_data(e,i){
@@ -839,6 +841,7 @@ function attack_data(e,i){
  var x = Array.prototype.indexOf.call(attacks,e.parentNode.parentNode.parentNode.parentNode);
  data.attack[x][i] = e.value==''?0:(isNaN(e.value)?e.value:JSON.parse(e.value.replace('+','')))
  attack_calc();
+ save_data();
 }
 
 function attack_info(e){e.parentNode.parentNode.children[1].classList.toggle('def_hide')}
@@ -926,8 +929,9 @@ function attack_list(i){
 }
 
 function attack_add(){
- if(data.attack.length){data.attack.push(['','','','','','','','','','','','',0,0])}
- attack_list(data.attack.length-1)
+ data.attack.push(['','','','','','','','','','','','',0,0]);
+ attack_list(data.attack.length-1);
+ save_data();
 }
 
 function attack_add_start(){
@@ -944,7 +948,6 @@ function weap_choose(e,i){
 
  e.children[0].value = equip[i][0];
  e = e.parentNode.parentNode;
- console.log(e.children[2].children[0].children[0]);
  e.children[2].children[0].children[0].innerHTML = equip[i][5];
  e.children[2].children[1].children[0].innerHTML = equip[i][6];
  e.children[3].children[0].children[0].value = '';
@@ -967,6 +970,7 @@ function weap_choose(e,i){
  data.attack[x].splice(6,4,equip[i][7],equip[i][8],equip[i][9],equip[i][10]);
 
  attack_calc();
+ save_data();
 }
 
 //-------------------------SKILLS FUNCTIONS------------------------//
@@ -985,18 +989,20 @@ function train(e,i,k){
  if(!data[k][i][4]){e.children[0].classList.remove('markedbox')}
  e = e.parentNode.parentNode.parentNode.id;
  calc_skills(k);
+ save_data();
 }
 
 function skill_outro(e,k){
  if(e.value.indexOf('+')>-1){e.value=e.value.slice(1)}
  data[k][e.getAttribute('skill')][5]=JSON.parse(e.value);
  e.value = add_plus_sign(e.value);
+ save_data();
 }
 
 var skill_habs = '<option disabled selected></option>';
 for(var i=1;i<habs.length;i++){skill_habs += '<option value="'+i+'">'+habs[i]+'</option>'}
 
-function skill_hab(e,k){data[k][e.getAttribute('skill')][e.getAttribute('index')]=JSON.parse(e.value)}
+function skill_hab(e,k){data[k][e.getAttribute('skill')][e.getAttribute('index')]=JSON.parse(e.value);save_data()}
 
 function list_skills(e,i,k){ //k='skills' or 'crafts'
 for (var i=0;i<e.length;i++){
@@ -1095,6 +1101,7 @@ function cond_change(e,k){
  let i = Array.prototype.indexOf.call(conds,e);
  data.cond_user[i][k]=value;
  cond_details(e,1,i,data.cond_user,0);
+ save_data();
 }
 
 function cond_edit(e){e.parentNode.parentNode.children[1].children[0].classList.toggle('def_hide')}
@@ -1127,7 +1134,6 @@ function toggle_condition(e,array){
  }
  cond_info(e,array);
  calc_hab();
- calc();
 }
 
 var actions = '';
@@ -1199,7 +1205,8 @@ function list_conditions(e,i,array){
 function cond_create(){
  if(data.cond_user.length){data.cond_user.push(['Nome da Condição','Tipo de Condição','Descrição e detalhes',{},'Custo em',0,0])}
  else{data.cond_user.push(['Forma Selvagem Feroz (exemplo)','Druída','Você pode adquirir a forma de uma criatura selvagem. Você recebe Força +3, +2 na Defesa e uma arma natural que causa 1d8 pontos de dano.',{Força:3,Defesa:2},3,4,7])}
- list_conditions('cond_user',data.cond_user.length-1,data.cond_user)
+ list_conditions('cond_user',data.cond_user.length-1,data.cond_user);
+ save_data();
 }
 
 function cond_remove(e){
@@ -1245,7 +1252,7 @@ function effect_change(e){
   }
   if(value){data.cond_user[i][3][selects[k].value] = isNaN(value)?value:JSON.parse(value)}
  }
- if(data.conditions[1][i]){for(let key in data.cond_user[i][3]){data.cond[key] += data.cond_user[i][3][key]}calc_hab();calc()} //readd effects to active list
+ if(data.conditions[1][i]){for(let key in data.cond_user[i][3]){data.cond[key] += data.cond_user[i][3][key]}calc_hab()} //readd effects to active list
  cond_details(e.parentNode.parentNode.parentNode.children[0].children[1],1,i,data.cond_user,0);
 }
 
@@ -1259,7 +1266,7 @@ function effect_remove(e){
  delete data.cond_user[i][3][key];
  let el = e.parentNode;
  e.remove();
- if(data.conditions[1][i]){for(let key in data.cond_user[i][3]){data.cond[key] += data.cond_user[i][3][key]}calc_hab();calc()} //readd effects to active list
+ if(data.conditions[1][i]){for(let key in data.cond_user[i][3]){data.cond[key] += data.cond_user[i][3][key]}calc_hab()} //readd effects to active list
  cond_details(el.parentNode.parentNode.parentNode.children[0].children[1],1,i,data.cond_user,0);
 }
 
@@ -1425,9 +1432,31 @@ function equip_choose(e,i){
 
 //-------------------------WEB WORKER FUNCTIONS------------------------//
 
+function populate(){
+ if(window.Worker&&typeof(Worker)!=="undefined"){
+  console.log('Web worker: populating all powers and spells');
+  let powwok = new Worker("./js/power_worker.js");
+  powwok.postMessage([powers,power_typ,magic,action,spell_action]);
+  powwok.addEventListener('message',(ev) => {
+   document.getElementById('all_powers').innerHTML = ev.data[0];
+   powers_viz = ev.data[1];
+  });
+  let spewok = new Worker("./js/spell_worker.js");
+  spewok.postMessage([spells,spell_pm_cost,spell_action]);
+  spewok.addEventListener('message',(ev) => {
+   document.getElementById('all_spells').innerHTML = ev.data[0];
+   spell_viz = ev.data[1];
+  });
+ }else{
+  console.log('Main thread: populating all powers and spells');
+  for (var i=0;i<powers.length;i++){list_powers('all_powers',i,powers)}
+  for (var i=0;i<spells.length;i++){list_spells('all_spells',i)}
+ }
+}
+
 var list = [];
 function create_lists(){
- if(window.Worker){
+ if(window.Worker&&typeof(Worker)!=="undefined"){
   console.log("Web worker: creating lists");
   let worker = new Worker("./js/list_worker.js");
   worker.postMessage([[equip,equip,equip,powers,spells],[0,armor_start,weap_start,0,0],[equip.length,armor_end,weap_end,powers.length,spells.length]]);
@@ -1465,6 +1494,26 @@ function list_remove(e,ev){
  prev_focus = null;
 }
 
+function filter(e){
+ let k = (e.id=="armor"||e.id=="shield"||e.id=="char")?2:1;
+ let filter = e.value.toUpperCase();
+ let a = e.parentNode.children[k].getElementsByTagName("a");
+ for(let i=0;i<a.length;i++){
+  txtValue = a[i].textContent || a[i].innerText;
+  txtValue.replaceAll('<b>','').replaceAll('</b>','');
+  if(txtValue.toUpperCase().indexOf(filter)>-1){
+   let result = [...txtValue.matchAll(new RegExp(filter,'gi'))].map(z => z.index);
+   txtValue = txtValue.split('');
+   let j=result.length;
+   for(;j>0;){j--;txtValue.splice(result[j]+filter.length,0,'</b>');txtValue.splice(result[j],0,'<b>')}
+
+   a[i].innerHTML = txtValue.join('');
+   a[i].style.display="";
+  }
+  else{a[i].style.display="none"}
+ }
+}
+
 //-------------------------CALCULATION FUNCTIONS------------------------//
 
 function add_plus_sign(v){v=v<0?v:'+'+v;return v}
@@ -1485,13 +1534,14 @@ function calc_spell_res(){
  data.spell_res=value;
  save_data()
 }
-function calc(){def_calc();rd_calc();calc_skills('skills');calc_skills('crafts');calc_spell_res();calc_cap_carga();save_data()}
+function calc(){def_calc();rd_calc();calc_skills('skills');calc_skills('crafts');calc_spell_res();calc_cap_carga()}	//
 
 //-------------------------USER DEFINED POWERS FUNCTIONS------------------------//
 
 function user_power(){
  data.user_powers.push(['Nome do poder',0,'',0,'',0,0,'Descrição e detalhes'])
  list_powers('user_powers',data.user_powers.length-1,data.user_powers);
+ save_data();
 }
 
 function edit_power(e){
@@ -1531,6 +1581,7 @@ function calc_power(e,i){
  let ac = data.user_powers[i][3]?action[data.user_powers[i][3]].replace('Ação ','').replace('de ','').toLowerCase():'';
  e.children[0].children[0].children[1].innerHTML = spell_action.includes(ac)?'<div class="ac_'+ac+'"></div>':'';
  e.children[0].children[1].children[0].innerHTML = data.user_powers[i][7];
+ save_data();
 }
 
 function feat_choose(e,i){
@@ -1646,6 +1697,7 @@ function add_power(e){
  e.children[0].children[1].innerHTML = '';
  document.getElementById('powers').appendChild(e);
  data.powers.push(JSON.parse(e.getAttribute('index')));
+ save_data();
 }
 
 function remove_power(e,id){
@@ -1655,6 +1707,7 @@ function remove_power(e,id){
  let x = Array.prototype.indexOf.call(pows,e);
  data[id].splice(x,1);
  e.remove();
+ save_data();
 }
 
 function filter_powers(){
@@ -1828,6 +1881,7 @@ function add_spell(e){
  e.children[0].children[1].innerHTML = '';
  document.getElementById('char_spells').appendChild(e);
  data.magias.push(JSON.parse(e.getAttribute('index')));
+ save_data();
 }
 
 function remove_spell(e){
@@ -1836,6 +1890,7 @@ function remove_spell(e){
  let x = Array.prototype.indexOf.call(pows,e);
  data.magias.splice(x,1);
  e.remove();
+ save_data();
 }
 
 //-------------------------CONFIG FUNCTIONS------------------------//
@@ -1937,25 +1992,6 @@ document.getElementById('sections').addEventListener('touchend',e=>{touchendX=e.
 
 function hide(e,el){if(el==e.target){el.classList.toggle('invisible');if(el.id=="backdrop_spell"){clear_spell_filters()};if(el.id=="backdrop_power"){clear_powers_filters()}}}
 function show(el){document.getElementById(el).classList.toggle('invisible')}
-
-function filter(e){
- let k = (e.id=="armor"||e.id=="shield"||e.id=="char")?2:1;
- let filter = e.value.toUpperCase();
- let a = e.parentNode.children[k].getElementsByTagName("a");
- for(let i=0;i<a.length;i++){
-  txtValue = a[i].textContent || a[i].innerText;
-  txtValue.replaceAll('<b>','').replaceAll('</b>','');
-  if(txtValue.toUpperCase().indexOf(filter)>-1){
-   let result = [...txtValue.matchAll(new RegExp(filter,'gi'))].map(z => z.index);
-   txtValue = txtValue.split('');
-   for(let i=result.length;i>0;){i--;txtValue.splice(result[i]+filter.length,0,'</b>');txtValue.splice(result[i],0,'<b>')}
-   a[i].innerHTML = txtValue.join('');
-   a[i].style.display="";
-  }
-  else{a[i].style.display="none"}
- }
-}
-
 function show_list(e){e.focus();e = e.parentNode.children[2].classList.remove('dn')}
 
 var cspell_level=[],cspell_class=[],cspell_school=[],cclasse=[],cdivindade=[],cdeslocamento=[],cpower_type=[],cpower_cat=[];
@@ -1997,17 +2033,19 @@ function char_create(e){
   document.getElementById('char').value=title;
   document.getElementById('chardel').disabled = false;
   document.title = title + ' - T20';
+  attack_add_start();
   equip_kit();
   document.getElementById('c_color').value = '#b72a2b';
   console.log('Character '+title+' was created');
+  save_data();
  }
 }
 
 function char_set(el){
  if(title){save_data()}
- el.parentNode.classList.add('dn');
  clear();
  title = el.innerHTML;
+ el.parentNode.classList.add('dn');
  data_load();
  document.title = title + ' - T20';
  document.getElementById('chardel').disabled = false;
@@ -2017,9 +2055,10 @@ function char_set(el){
 
 function char_remove(){
  if(title){
-  console.log('Character '+title+' was removed');
   chars.splice(chars.indexOf(title),1);
-  localStorage.removeItem(title+'_data');
+  localStorage.T20chars = chars;
+  localStorage.removeItem('T20data_'+title);
+  console.log('Character '+title+' was removed');
   clear();
   document.title = 'Ficha T20 Mobile - v1.5.6';
   document.getElementById('chardel').disabled = true;
@@ -2032,7 +2071,7 @@ function char_list(el){
  if(value||chars.length){el.classList.remove('dn')}
  if(!value&&!chars.length){el.classList.add('dn')}
  el.innerHTML = '';
- if(value&&JSON.parse(localStorage.chars).indexOf(value)){el.innerHTML = '<a onclick="char_create(this)" title="'+value+'">Clique para criar '+value+'</a>'}
+ if(value&&chars.indexOf(value)){el.innerHTML = '<a onclick="char_create(this)" title="'+value+'">Clique para criar '+value+'</a>'}
  for(var i=0;i<chars.length;i++){el.innerHTML += '<a onclick="char_set(this)">'+chars[i]+'</a>'}
 }
 
@@ -2079,27 +2118,8 @@ function start_up(){
  create_checkbox(deslocamento);
  for (var i=0;i<spell_inputs.length;i++){create_checkbox(spell_inputs[i])}
  for (var i=0;i<power_inputs.length;i++){create_checkbox(power_inputs[i])}
-
- if(window.Worker){
-  console.log('Web worker: populating all powers and spells');
-  let powwok = new Worker("./js/power_worker.js");
-  powwok.postMessage([powers,power_typ,magic,action,spell_action]);
-  powwok.addEventListener('message',(ev) => {
-   document.getElementById('all_powers').innerHTML = ev.data[0];
-   powers_viz = ev.data[1];
-  });
-  let spewok = new Worker("./js/spell_worker.js");
-  spewok.postMessage([spells,spell_pm_cost,spell_action]);
-  spewok.addEventListener('message',(ev) => {
-   document.getElementById('all_spells').innerHTML = ev.data[0];
-   spell_viz = ev.data[1];
-  });
- }else{
-  console.log('Main thread: populating all powers and spells');
-  for (var i=0;i<powers.length;i++){list_powers('all_powers',i,powers)}
-  for (var i=0;i<spells.length;i++){list_spells('all_spells',i)}
- }
- 
+ populate();
+ create_lists();
  for (var i=0;i<conditions.length;i++){list_conditions('conditions',i,conditions)}
  list_skills(skills,i,'skills');
  list_skills(crafts,i,'crafts');
@@ -2107,20 +2127,18 @@ function start_up(){
  set_keyboard();
  dice = document.getElementsByClassName('dice');
  for (var i=0;i<dice.length;i++){dice[i].innerHTML = dices[dice[i].getAttribute("data-dice")]}
- if(!JSON.parse(localStorage.chars).length){hints.forEach(showhint)}
- attack_add_start();
- create_lists();
+ chars = localStorage.T20chars?JSON.parse(localStorage.T20chars):[];
+ if(!chars.length){hints.forEach(showhint)}
  document.body.classList.remove('dn');
 }
 
 //-------------------------DATA MANAGEMENT FUNCTIONS------------------------//
 
-function data_add(e){data[e.id]=JSON.parse(e.value)}
-function data_array(e){data[e.id]=e.value}
-function data_check(e){data[e.id]=e.checked}
-function data_inner(e){var value = e.innerHTML.replace('+','');data[e.id]=JSON.parse(value)}
-function data_str(e){data[e.id]=e.innerHTML}
-
+function data_add(e){data[e.id]=JSON.parse(e.value);save_data()}
+function data_array(e){data[e.id]=e.value;save_data()}
+function data_check(e){data[e.id]=e.checked;save_data()}
+function data_inner(e){var value = e.innerHTML.replace('+','');data[e.id]=JSON.parse(value);save_data()}
+function data_str(e){data[e.id]=e.innerHTML;save_data()}
 
 function data_set(){
  for (const key in data){
@@ -2152,25 +2170,28 @@ function data_set(){
  }
  title=data.char;
  document.title = title + ' - T20';
+ document.getElementById('c_color').value = data.c_color?data.c_color:'#b72a2b';
  document.getElementById('chardel').disabled = false;
  document.getElementById('sections').style.transform='';
  config();
- calc_hab();calc()
+ calc_hab();
 }
 
 window.onload = function(){
  start_up();
- if(localStorage.getItem('chars')){chars = JSON.parse(localStorage.getItem('chars'))}
+ if(localStorage.T20chars){chars = JSON.parse(localStorage.T20chars)}
 }
 
 window.addEventListener('beforeunload',save_data);
 function save_data(){
- localStorage.setItem('chars',JSON.stringify(chars));
- if(title){localStorage.setItem(title+'_data',JSON.stringify(data))}
+ if(chars.length){localStorage.setItem('T20chars',JSON.stringify(chars))}
+ if(title){localStorage.setItem('T20data_'+title,JSON.stringify(data))}
+ console.log('Saved data in local storage');
 }
 
-function check_empty(){
+function check_empty(){		//backwards compatibility
  if(!data.magias){data.magias=[]}
+ if(!data.user_spells){data.user_spells=[]}
  if(!data.powers){data.powers=[]}
  if(!data.user_powers){data.user_powers=[]}
  if(!data.skills){data.skills=skills}
@@ -2185,56 +2206,63 @@ function check_empty(){
 }
 
 function data_load(){
- if(localStorage.getItem(title+'_data')){
-  data = JSON.parse(localStorage.getItem(title+'_data'));
+ if(localStorage.getItem('T20data_'+title)){
+  data = JSON.parse(localStorage.getItem('T20data_'+title));
   check_empty();
  }
 }
 
 function clear(){
- var input = document.getElementsByTagName("input");
- for (var i=0;i<input.length;i++){input[i].value=(input[i].id=="c_color"?'#b72a2b':'')}
- var select = document.getElementsByTagName("select");
- for (var i=0;i<select.length;i++){option = select[i].options;option[0].selected = true}
- var fakeinput = document.getElementsByClassName('fakeinput');
- for (var i=0;i<fakeinput.length;i++){fakeinput[i].innerHTML=''}
- document.getElementById('char_spells').innerHTML = '';
- document.getElementById('powers').innerHTML = '';
- document.getElementById('user_powers').innerHTML = '';
- document.getElementById('char_attack').innerHTML = '';
- document.getElementById('char_equip').innerHTML = '';
+ title='';
+
+ let inner = ['char_spells','user_spells','powers','user_powers','char_attack','char_equip','anot','cond_user','conditions','char_skills','char_crafts'];
+ inner.forEach(function(i){document.getElementById(i).innerHTML = ''});
+
+ let check = ['c_keyboard','c_dice','c_fullscreen','c_nocturnal','c_vibrate'];
+ check.forEach(function(i){document.getElementById(i).checked = false});
+
+ let val = ['to','ts','tc'];
+ val.forEach(function(i){document.getElementById(i).value = 0});
+
  document.getElementById('carga').innerHTML = 0;
  document.getElementById('carga_cap').value = 10;
- document.getElementById('to').value = 0;
- document.getElementById('ts').value = 0;
- document.getElementById('tc').value = 0;
- document.getElementById('cond_user').innerHTML = '';
- document.getElementById('conditions').innerHTML = '';
  document.getElementById('deslocamento').parentNode.children[3].innerHTML = '';
+
+ list_skills(skills,i,'skills');
+ list_skills(crafts,i,'crafts');
  for (var i=0;i<conditions.length;i++){list_conditions('conditions',i,conditions)}
- title='';
+
+ let input = document.getElementsByTagName("input");
+ for(let e of input){if(e.id!='file'){e.value=(e.id=="c_color"?'#b72a2b':'')}}
+ menucolor('#b72a2b');
+
+ let select = document.getElementsByTagName("select");
+ for(let e of select){option = e.options;option[0].selected = true}
+
+ let fakeinput = document.getElementsByClassName('fakeinput');
+ for(let e of fakeinput){e.innerHTML=(e.id.includes('hp')||e.id.includes('mp'))?0:''}
+
  data = structuredClone(data_ini);
- calc();
 }
 
-function import_char(evt){
- data = structuredClone(data_ini);
- if(!window.FileReader) return; // Browser is not compatible
- var reader = new FileReader();
-  reader.onload = function(evt) {
-   if(evt.target.readyState!=2) return;
-   if(evt.target.error){alert('Error while reading file');return}
-   data = JSON.parse(evt.target.result);
-   check_empty();
-   chars.push(data.char);
-   data_set();
-   console.log('Character '+data.char+' data imported');
-  };
- reader.readAsText(evt.target.files[0]);
+function import_char(e){
+ clear();
+ if(!window.FileReader) return; //Browser is not compatible
+ let reader = new FileReader();
+ reader.onload = function(e){
+  console.log('File loaded successfully');
+  data = JSON.parse(e.target.result);
+  check_empty();
+  chars.push(data.char);
+  data_set();
+  console.log('Character '+data.char+' data imported');
+ };
+ reader.onerror = function(){alert('Error reading file, please try again')}
+ reader.readAsText(e.target.files[0]);
 }
 
 function export_char(){
- var filename = title?'char_'+title:'unnamed_char' +'.txt';
+ var filename = (title?'char_'+title:'unnamed_char') +'.txt';
  var filedata = JSON.stringify(data);
  var file = new Blob([filedata], {type:'text/plain'});
  if (window.navigator.msSaveOrOpenBlob) // IE10+
@@ -2253,7 +2281,11 @@ function export_char(){
  console.log('Character '+title+' data exported');
 }
 
-function reset(){localStorage.clear();chars=[];data={};title='';location.reload()}
+function reset(){
+ for(let i in chars){localStorage.removeItem('T20data_'+chars[i])}
+ localStorage.removeItem('T20chars');
+ chars=[];data={};title='';location.reload()
+}
 
 //-------------------------HINT FUNCTIONS------------------------//
 

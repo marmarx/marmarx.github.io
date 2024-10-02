@@ -180,8 +180,7 @@ a:hover{background-color:#1e90ff;color:var(--white)!important}
 .switch input{opacity:0;width:0;height:0;margin:0;padding:0}
 .slider{position:absolute;cursor:pointer;top:calc(50% - 14px);left:0;right:0;bottom:0;background-color:#ccc;-webkit-transition:.4s;transition:.4s;border-radius:34px}
 .slider:before{position:absolute;content:"";height:24px;width:24px;left:4px;bottom:5.5px;background-color:#fff;-webkit-transition:.4s;transition:.4s;border-radius:50%}
-input:checked+.slider{background-color:var(--menu);filter:var(--bright)}
-input:focus+.slider{box-shadow:0 0 1px var(--menu);filter:var(--bright)}
+input:checked+.slider{background-color:var(--menu)}input:focus+.slider{box-shadow:0 0 1px var(--menu)}input:hover+.slider{filter:var(--bright)}
 input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:translateX(26px);transform:translateX(26px)}
 
 .w10,.w9,.w8,.w7,.w6,.w5,.w4,.w3,.w2,.w1{display:block;float:left}.mw400{max-width:400px}.mw450{max-width:450px}
@@ -226,7 +225,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 .half{width:39.99999%;margin:0 5%}
 .third{width:33.33333%}
 .container{width:85%}
-.overlay{max-width:800px;left:50%;margin-left:-400px;height:calc(100% - 200px)}
+.overlay{max-width:800px;left:50%;margin-left:-400px;height:100%;margin-top:0}
 /* .m0{margin:18px 0} */
 #sections{width:calc(var(--menulen)/2)} /* 450%*/
 #dice_roller{width:60%;margin:0 20%}
