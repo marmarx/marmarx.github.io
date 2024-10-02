@@ -1,0 +1,1 @@
+onmessage = function(ev){postMessage(1)}
