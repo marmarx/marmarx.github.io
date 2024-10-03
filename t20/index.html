@@ -2321,10 +2321,9 @@ const hints = [
 //-------------------------PRINT PDF FUNCTIONS------------------------//
 
 function printPDF(){
- console.log(data.char);
  if(data.char){
-  let get = '?char=' + data.char;
-  window.open('https://marmarx.github.io/t20web'+get);
+  console.log('Sending character '+data.char+' to print environment');
+  window.open('https://marmarx.github.io/t20web?char='+data.char);
  }
 }
 
