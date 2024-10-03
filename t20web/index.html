@@ -455,7 +455,9 @@ button,.ofic{display:none!important}
      </div>
      <div class="row">
       <div class="container ms">
-       <div class="half df"><div class="ma">Atributo chave:</div><div class="ma"><select name="shab" class="select" onchange="change_spell(this)"><option value="3">int</option><option value="4">sab</option><option value="5">car</option></select></div></div>
+       <div class="half df"><div class="ma">Atributo chave:</div><div class="ma"><select name="shab" class="select" onchange="change_spell(this)">
+	<option value="0">for</option><option value="1">des</option><option value="2">con</option><option value="3">int</option><option value="4">sab</option><option value="5">car</option>
+       </select></div></div>
        <div class="half df"><div class="ma">Teste de resistência</div><div id="res_test" class="ma"></div></div>
       </div>
      </div>
@@ -1946,6 +1948,45 @@ function read_localStorage(char){
  console.log('Reading '+char+' data');
  let data = JSON.parse(localStorage.getItem('T20data_'+char));
  console.log(data);
+ header.bname = data.char;		//str
+ header.bplayer = data.jogador;		//str
+ header.brace = data.raça;		//str	*	select > string
+ header.borigin = data.origem;		//str	*	select > string
+ header.bclass = data.classe+' '+data.distincao;		//str
+ header.blvl = data.nível;		//str	*	num > string
+ header.bdeity = data.divindade;	//str
+ header.btam = data.tamanho;		//num select
+ header.bdesloc = data.deslocamento;	//str
+ header.bexp = data.xp;			//str	*	num > string
+ header.shab = data.data.spell_hab-1;	//num select	*	1>6 > 0>5
+ header.TO = data.carga.to;		//num
+ header.TP = data.carga.ts;		//num
+ header.TC = data.carga.tc;		//num
+ header.anot = data.anot;		//str
+
+
+ habs = [data.hab_for_val,data.hab_des_val,data.hab_con_val,data.hab_int_val,data.hab_sab_val,data.hab_car_val];
+ pmpv.pva = data.hp;pmpv.pvt = data.hpmax;pmpv.pma = data.mp;pmpv.pmt = data.mpmax;
+
+ defense['Defesa (habilidade)'] = data.defense.def_hab-1;	//num select	*	1>6 > 0>5
+ defense['Defesa (outros)'] = data.defense.def_out;		//str
+ defense.Armadura = data.defense.armor;				//str
+ defense['Armadura (bonus)'] = data.defense.armor_bonus;	//str	*	num > str
+ defense['Armadura (penalidade)'] = data.defense.armor_penal	//str	*	num > str
+ defense.Escudo = data.defense.shield;				//str
+ defense['Escudo (bonus)'] = data.defense.shield_bonus;		//str	*	num > str
+ defense['Escudo (penalidade)'] = data.defense.shield_penal;	//str	*	num > str
+
+ let rd = ['rd','Ácido', 'Eletricidade', 'Fogo', 'Frio', 'Luz', 'Trevas', 'Mágico'];
+ rd.forEach(function(e){if(data.defense[e]){document.getElementById('condobs').innerHTML+='<li value="-1">RD'+(e=='rd'?'':' '+e)+': '+data.defense[e]+'</li>'}});
+
+ skills=[];data.skills.forEach(function(e){skills.push([e[0],e[1],e[4],e[5],e[3],e[6]])});		//web:	hab	train	outro	trainer?   penal?
+ oficios=[];data.crafts.forEach(function(e){if(e[4]){oficios.push([e[0],e[1],e[4],e[5],e[3],e[6]])}});	//mob:	hab1	hab2	req?	trained?   outro   penal?
+
+ 
+	
+ document.getElementById('svggradient').children[0].setAttribute('stop-color',data.c_color);
+ document.getElementById('svggradient').children[1].setAttribute('stop-color',data.c_color);
 }
 
 function readGet(){
@@ -1956,7 +1997,6 @@ function readGet(){
    let pair = pairs[i].split('=');
    request[pair[0]] = pair[1];
   }
-  console.log(request);
 
   let char = request.char;
   chars.push(char);
