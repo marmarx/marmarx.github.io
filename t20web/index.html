@@ -716,7 +716,7 @@ button,.ofic{display:none!important}
 
 <script>
 let tipo = '<option value="" disabled selected>Tipo de item</option>';
-for(var i=1;i<tipo_item.length;i++){tipo += '<option value="'+i+'">'+tipo_item[i]+'</option>'}
+for(var i=1;i<tipo_item.length;i++){tipo += '<option value="'+tipo_item[i]+'">'+tipo_item[i]+'</option>'}
 document.getElementById('item_tipo').innerHTML = tipo;
 	
 //-------------------------BASIC VARIABLES------------------------//
@@ -1981,7 +1981,7 @@ function read_localStorage(char){
  data.attack.forEach(function(e){weapons.push([e[0],e[14],e[15],e[6]+'/'+e[7],e[9],e[8]])});	//nome,ataque total,dano total,crit,tipo,alcance
 
  equips = [];
- data.equip.forEach(function(e){equips.push([e[1],e[2],e[3],pesos[e[4]],'',e[5],e[0]])});	//nome,tipo(select),valor,peso(select),onde conseguiu,descrição,qte
+ data.equip.forEach(function(e){equips.push([e[1],tipo_item[e[2]],e[3],pesos[e[4]],'',e[5],e[0]])});	//nome,tipo(select),valor,peso(select),onde conseguiu,descrição,qte
 
  //features = [];
  //data.powers.forEach(function(e){});
