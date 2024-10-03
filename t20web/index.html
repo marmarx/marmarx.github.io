@@ -1972,8 +1972,11 @@ window.onload = function(){
  readGet();
 }
 
+function read_localStorage(char){
+ console.log('here '+char);
+}
+
 function readGet(){
- console.log(location.href);
  if(location.href.includes('?char=')){
   let request = {};
   let pairs = location.href.search.substring(1).split('&');
@@ -1981,17 +1984,17 @@ function readGet(){
    let pair = pairs[i].split('=');
    request[pair[0]] = pair[1];
   }
-  console.log(request);
 
   let char = request.char;
   chars.push(char);
-
-  //read local Storage
+  read_localStorage(char);
 
   let e = document.getElementById('name-char');
   list_chars(e);
   e = e.parentNode.children[1].children[chars.indexOf(char)];
   set_char(e);
+  e.parentNode.classList.add('invisible');
+  save_data();
   window.print();
  }
  if(!JSON.parse(localStorage.chars).length){alert('Comece criando ou carregando um personagem, para isso entre com um nome de personagem, quaisquer edições feitas antes disso serão perdidas.')}
