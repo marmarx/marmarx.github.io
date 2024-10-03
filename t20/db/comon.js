@@ -7,3 +7,9 @@ const origem = ['origem','Acólito','Amigo dos Animais','Amnésico','Aristocrata
 const classe = ['classe','Arcanista','Bárbaro','Bardo','Bucaneiro','Caçador','Cavaleiro','Clérigo','Druida','Guerreiro','Inventor','Ladino','Lutador','Miragem','Místico','Nobre','Paladino','Samurai'];
 
 const divindade = ['divindade','Aharadak','Allihanna','Arsenal','Azgher','Hyninn','Kallyadranoch','Khalmyr','Lena','Lin-Wu','Marah','Megalokk','Nimb','Oceano','Sszzaas','Tanna-Toh','Tenebra','Thwor','Thyatis','Valkaria','Wynna','O Bem','O Mal','O Panteão'];
+
+var peso = '<option value="" disabled selected>Espaço por unidade</option>';
+for(var i=1;i<peso_item.length;i++){
+ var str = i>1?((i<5?' de':'') + ' espaço' + (i>5?'s':'')):'';
+ peso += '<option value="'+i+'">'+peso_item[i]+str+'</option>'
+}
