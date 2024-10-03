@@ -12,12 +12,12 @@
 <link rel="stylesheet" href="src/css.css">
 <link rel="stylesheet" href="src/style.css">
 <script defer type="text/javascript" src="db/icons.js"></script>
+<script type="text/javascript" src="db/equips.js"></script>
 <script type="text/javascript" src="db/comon.js"></script>
 <script type="text/javascript" src="db/geral.js"></script>
 <script defer type="text/javascript" src="db/spells.js"></script>
 <script defer type="text/javascript" src="db/feats.js"></script>
 <script type="text/javascript" src="db/skills.js"></script>
-<script type="text/javascript" src="db/equips.js"></script>
 <script type="text/javascript" src="db/conditions.js"></script>
 <script defer type="text/javascript" src="js/list_worker.js"></script>
 </head>
@@ -1274,12 +1274,6 @@ function effect_remove(e){
 }
 
 //-------------------------EQUIP FUNCTIONS------------------------//
-
-var peso = '<option value="" disabled selected>Espaço por unidade</option>';
-for(var i=1;i<peso_item.length;i++){
- var str = i>1?((i<5?' de':'') + ' espaço' + (i>5?'s':'')):'';
- peso += '<option value="'+i+'">'+peso_item[i]+str+'</option>'
-}
 
 var tipo = '<option value="" disabled selected>Tipo de item</option>';
 for(var i=1;i<tipo_item.length;i++){tipo += '<option value="'+i+'">'+tipo_item[i]+'</option>'}
