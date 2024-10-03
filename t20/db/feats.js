@@ -4,6 +4,7 @@ const power_cat = ['power_cat',
 '— Geral —','Poderes Concedidos','Poderes da Tormenta','Poderes de Combate','Poderes de Destino','Poderes de Magia',
 '— Raça —','Aggelus','Anão','Dahllan','Elfo','Goblin','Golem','Humano','Hynne','Kliren','Lefou','Medusa','Minotauro','Osteon','Qareen','Sereia/Tritão','Sílfide','Sulfure','Trog'];
 const power_inputs = [power_type,power_cat];
+const power_typ = ['Tipo de poder','Raça','Origem','Classe','Distinção de Classe','Geral'];
 
 const powers = [
 ['Alta Arcana',3,'Arcanista',,'',0,'Jogo do Ano','No 20º nível, seu domínio das artes arcanas é total. O custo em PM de suas magias arcanas é reduzido à metade (após aplicar aprimoramentos e quaisquer outros efeitos que reduzam custo).','20º nível de arcanista'],
