@@ -687,7 +687,7 @@ button,.ofic{display:none!important}
  </div></div>
  <div id="spell_plus"></div>
  <div style="margin:20px 0 0 auto;width:fit-content">
-  <button id="btn1" class="btn btn1" onclick="add_generic(this,spells);add_spell(spells.length-1)">Salvar</button>
+  <button id="btn1" class="btn btn1" onclick="add_generic(this,char_spells);add_spell(char_spells.length-1)">Salvar</button>
   <button id="btn3" class="btn btn3" onclick="this.parentNode.parentNode.parentNode.classList.add('invisible');document.getElementById('spell_plus').innerHTML=''">Cancelar</button>
  </div>
 </div></div>
@@ -748,7 +748,7 @@ const habs_names = ['Força','Destreza','Constituição','Inteligência','Sabedo
 const tamanhos = ['Tamanho','Minísculo','Pequeno','Médio','Grande','Enorme','Colosal'];
 const exp = [0,1000,3000,6000,10000,15000,21000,28000,36000,45000,55000,66000,78000,91000,105000,120000,136000,153000,171000,190000];
 var chars = [];
-var header, pmpv, defense, habs, weapons, spells, equips, features, skills, oficios, active_conditions, effects
+var header, pmpv, defense, habs, weapons, char_spells, equips, features, skills, oficios, active_conditions, effects
 
 function starter(){
 header = {bname:'',bplayer:'',brace:'',borigin:'',bclass:'',blvl:1,bdeity:'',btam:0,bdesloc:'',bexp:0,shab:3,TO:0,TP:0,TC:0,anot:''};
@@ -756,7 +756,7 @@ pmpv = {pvt:0,pva:0,pmt:0,pma:0};	//pvt,pva,pmt,pma
 defense = {'Defesa (habilidade)':1,'Defesa (outros)':0,'Armadura':'','Armadura (bonus)':0,'Armadura (penalidade)':0,'Escudo':'','Escudo (bonus)':0,'Escudo (penalidade)':0};
 habs = [10,10,10,10,10,10];		//for,des,con,int,sab,car
 weapons = [];
-spells = [];
+char_spells = [];
 equips = [];
 features = [];
 oficios = [];
@@ -1106,35 +1106,35 @@ function add_spell(index){
  var card = document.createElement('div');
  card.setAttribute('class','item_list');
 		
- var text = '<div class="verylarge"><bg>'+spells[index][0]+'</bg>';
- if(spells[index][1]||spells[index][2]||spells[index][3]||spells[index][9]){text += ' '}
- if(spells[index][1]){text += spells[index][1]}
- if(spells[index][1]&&spells[index][2]){text += ' '}
- if(spells[index][2]){text += spells[index][2]}
- if(spells[index][3]){text += ' <i>'+spells[index][3]+'</i>'}
- if(spells[index][9]){text += ' <sm>('+spells[index][9]+')</sm>'}
+ var text = '<div class="verylarge"><bg>'+char_spells[index][0]+'</bg>';
+ if(char_spells[index][1]||char_spells[index][2]||char_spells[index][3]||char_spells[index][9]){text += ' '}
+ if(char_spells[index][1]){text += char_spells[index][1]}
+ if(char_spells[index][1]&&char_spells[index][2]){text += ' '}
+ if(char_spells[index][2]){text += char_spells[index][2]}
+ if(char_spells[index][3]){text += ' <i>'+char_spells[index][3]+'</i>'}
+ if(char_spells[index][9]){text += ' <sm>('+char_spells[index][9]+')</sm>'}
 
- if(spells[index][2]||spells[index][4]||spells[index][5]||spells[index][6]||spells[index][7]||spells[index][8]){text += '<br><sm>'}
- if(spells[index][2]){var pmc=spells[index][2];pmc=(pmc==1?1:(pmc==2?3:(pmc==3?6:(pmc==4?10:15))));text += '<span class="nowrap"><b>Custo: </b> '+pmc+' PM</span>&nbsp;&nbsp;&nbsp;&nbsp;'}
- if(spells[index][4]){text += '<span class="nowrap"><b>Ação:</b> '+spells[index][4]+'</span>&nbsp;&nbsp;&nbsp;&nbsp;'}
- if(spells[index][5]){text += '<span class="nowrap"><b>Alcance:</b> '+spells[index][5]+'</span>&nbsp;&nbsp;&nbsp;&nbsp;'}
- if(spells[index][6]){text += '<span class="nowrap"><b>Área/Alvo:</b> '+spells[index][6]+'</span>&nbsp;&nbsp;&nbsp;&nbsp;'}
- if(spells[index][7]){text += '<span class="nowrap"><b>Duração:</b> '+spells[index][7]+'</span>&nbsp;&nbsp;&nbsp;&nbsp;'}
- if(spells[index][8]){text += '<span class="nowrap"><b>Resistência:</b> '+spells[index][8]+'</span>'}
- if(spells[index][2]||spells[index][4]||spells[index][5]||spells[index][6]||spells[index][7]||spells[index][8]){text += '</sm>'}
+ if(char_spells[index][2]||char_spells[index][4]||char_spells[index][5]||char_spells[index][6]||char_spells[index][7]||char_spells[index][8]){text += '<br><sm>'}
+ if(char_spells[index][2]){var pmc=char_spells[index][2];pmc=(pmc==1?1:(pmc==2?3:(pmc==3?6:(pmc==4?10:15))));text += '<span class="nowrap"><b>Custo: </b> '+pmc+' PM</span>&nbsp;&nbsp;&nbsp;&nbsp;'}
+ if(char_spells[index][4]){text += '<span class="nowrap"><b>Ação:</b> '+char_spells[index][4]+'</span>&nbsp;&nbsp;&nbsp;&nbsp;'}
+ if(char_spells[index][5]){text += '<span class="nowrap"><b>Alcance:</b> '+char_spells[index][5]+'</span>&nbsp;&nbsp;&nbsp;&nbsp;'}
+ if(char_spells[index][6]){text += '<span class="nowrap"><b>Área/Alvo:</b> '+char_spells[index][6]+'</span>&nbsp;&nbsp;&nbsp;&nbsp;'}
+ if(char_spells[index][7]){text += '<span class="nowrap"><b>Duração:</b> '+char_spells[index][7]+'</span>&nbsp;&nbsp;&nbsp;&nbsp;'}
+ if(char_spells[index][8]){text += '<span class="nowrap"><b>Resistência:</b> '+char_spells[index][8]+'</span>'}
+ if(char_spells[index][2]||char_spells[index][4]||char_spells[index][5]||char_spells[index][6]||char_spells[index][7]||char_spells[index][8]){text += '</sm>'}
 
- if(spells[index].length>10){text += '<div class="item_triag"></div><div class="item_detail">'}
- if(spells[index][10]){text += '<b>Descrição:</b><br>'+spells[index][10]+'<br>'}
- for(var i=11;i<spells[index].length;i+=2){
+ if(char_spells[index].length>10){text += '<div class="item_triag"></div><div class="item_detail">'}
+ if(char_spells[index][10]){text += '<b>Descrição:</b><br>'+char_spells[index][10]+'<br>'}
+ for(var i=11;i<char_spells[index].length;i+=2){
   text += '<br>';
-  if(spells[index][i]&&spells[index][i+1]){
-   if(spells[index][i]>0){text += '<b>+'+spells[index][i]+' PM: '}
+  if(char_spells[index][i]&&char_spells[index][i+1]){
+   if(char_spells[index][i]>0){text += '<b>+'+char_spells[index][i]+' PM: '}
    else{text += '<b>Truque: '}
-   text += '</b>'+spells[index][i+1];
+   text += '</b>'+char_spells[index][i+1];
   }
  }
- if(spells[index].length>10){text += '</div>'}
- text += '</div><div class="verysmall"><button class="rmv" onclick="rmv_item(this,'+index+',spells)">x</button></div>';
+ if(char_spells[index].length>10){text += '</div>'}
+ text += '</div><div class="verysmall"><button class="rmv" onclick="rmv_item(this,'+index+',char_spells)">x</button></div>';
 
  card.innerHTML = text;
  document.getElementById('spells_list').appendChild(card);
@@ -1155,7 +1155,7 @@ function set_spells(){
  var select = document.getElementById('spells').getElementsByTagName('select');
  select[0].selectedIndex = header['shab']-3;
  change_spell(select[0]);
- for(var i=0;i<spells.length;i++){add_spell(i)}
+ for(var i=0;i<char_spells.length;i++){add_spell(i)}
 }
 
 function change_spell(el){
@@ -1741,7 +1741,7 @@ function rmv_char(){
  let name = document.getElementById('name-char');
  let char = name.value;
  name.value = '';
- let storage = ['defense','equips','features','habs','header','oficios','skills','pmpv','spells','weapons','active_conditions','conditions'];
+ let storage = ['defense','equips','features','habs','header','oficios','skills','pmpv','char_spells','weapons','active_conditions','conditions'];
  storage.forEach(function(e){localStorage.removeItem(char+'_'+e)})
  chars.splice(chars.indexOf(char),1);
  clear();
@@ -1892,7 +1892,7 @@ function save_data(){
   localStorage.setItem(title+'_oficios',JSON.stringify(oficios));
   localStorage.setItem(title+'_conditions',JSON.stringify(conditions));
   localStorage.setItem(title+'_active_conditions',JSON.stringify(active_conditions));
-  localStorage.setItem(title+'_spells',JSON.stringify(spells));
+  localStorage.setItem(title+'_spells',JSON.stringify(char_spells));
   localStorage.setItem(title+'_equips',JSON.stringify(equips));
   localStorage.setItem(title+'_features',JSON.stringify(features));
  }
@@ -1910,7 +1910,7 @@ function load_data(){
   oficios = JSON.parse(localStorage.getItem(title+'_oficios'));
   conditions = JSON.parse(localStorage.getItem(title+'_conditions'));
   active_conditions = JSON.parse(localStorage.getItem(title+'_active_conditions'));
-  spells = JSON.parse(localStorage.getItem(title+'_spells'));
+  char_spells = JSON.parse(localStorage.getItem(title+'_spells'));
   equips = JSON.parse(localStorage.getItem(title+'_equips'));
   features = JSON.parse(localStorage.getItem(title+'_features'));
  }
