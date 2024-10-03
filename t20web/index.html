@@ -748,7 +748,7 @@ oficios = [];
 active_conditions = [];
 effects = {'Tamanho':'','Deslocamento':'','Pontos de Vida':0,'Pontos de Mana':0,'Força':0,'Destreza':0,'Constituição':0,'Inteligência':0,'Sabedoria':0,'Carisma':0,
 'Defesa (outros)':0,'Armadura (bonus)':0,'Armadura (penalidade)':0,'Escudo (bonus)':0,'Escudo (penalidade)':0,'Perícias (todas)':0,
-'Acrobacia':0,'Adestramento':0,'Atletismo':0,'Atuação':0,'Cavalgar':0,'Conhecimento':0,'Cura':0,'Diplomacia':0,'Enganação':0,'Fotitude':0,'Furtividade':0,'Guerra':0,'Iniciativa':0,'Intimidação':0,'Intuição':0,'Investigação':0,'Jogatina':0,'Ladinagem':0,'Luta':0,'Misticismo':0,'Nobreza':0,'Percepção':0,'Pilotagem':0,'Pontaria':0,'Reflexos':0,'Religião':0,'Sobrevivência':0,'Vontade':0};
+'Acrobacia':0,'Adestramento':0,'Atletismo':0,'Atuação':0,'Cavalgar':0,'Conhecimento':0,'Cura':0,'Diplomacia':0,'Enganação':0,'Fortitude':0,'Furtividade':0,'Guerra':0,'Iniciativa':0,'Intimidação':0,'Intuição':0,'Investigação':0,'Jogatina':0,'Ladinagem':0,'Luta':0,'Misticismo':0,'Nobreza':0,'Percepção':0,'Pilotagem':0,'Pontaria':0,'Reflexos':0,'Religião':0,'Sobrevivência':0,'Vontade':0};
 }
 
 var skills = [
@@ -761,7 +761,7 @@ var skills = [
 ['Cura',4,0,0,0,0],
 ['Diplomacia',5,0,0,0,0],
 ['Enganação',5,0,0,0,0],
-['Fotitude',2,0,0,0,0],
+['Fortitude',2,0,0,0,0],
 ['Furtividade',1,0,0,0,1],
 ['Guerra',3,0,0,1,0],
 ['Iniciativa',1,0,0,0,0],
@@ -1982,8 +1982,8 @@ function read_localStorage(char){
  let rd = ['rd','Ácido', 'Eletricidade', 'Fogo', 'Frio', 'Luz', 'Trevas', 'Mágico'];
  rd.forEach(function(e){if(data.defense[e]){document.getElementById('condobs').innerHTML+='<li value="-1">RD'+(e=='rd'?'':' '+e)+': '+data.defense[e]+'</li>'}});
 
- skills=[];data.skills.forEach(function(e){skills.push([e[0],e[1],e[4],e[5],e[3],e[6]])});		//web:	hab	train	outro	trainer?   penal?
- oficios=[];data.crafts.forEach(function(e){if(e[4]){oficios.push([e[0],e[1],e[4],e[5],e[3],e[6]])}});	//mob:	hab1	hab2	req?	trained?   outro   penal?
+ skills=[];data.skills.forEach(function(e){skills.push([e[0],e[1]-1,e[4],e[5],e[3],e[6]])});			//web:	hab	train	outro	req?   penal?
+ oficios=[];data.crafts.forEach(function(e){if(e[4]){oficios.push([e[0],e[1]-1,e[4],e[5],e[3],e[6]])}});	//mob:	hab1	hab2	req?	train   outro   penal?
 
  
 	
@@ -2008,11 +2008,11 @@ function readGet(){
   save_data();
 
   let e = document.getElementById('name-char');
+  e.value = char;
   list_chars(e);
   e = e.parentNode.children[1].children[chars.indexOf(char)];
   set_char(e);
   e.parentNode.classList.add('invisible');
-  save_data();
   window.print();
  }
  if(!JSON.parse(localStorage.chars).length){
