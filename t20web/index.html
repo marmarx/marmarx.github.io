@@ -1143,7 +1143,7 @@ function set_equips(){
 }
 function set_spells(){
  var select = document.getElementById('spells').getElementsByTagName('select');
- select[0].selectedIndex = header['shab']-3;
+ select[0].selectedIndex = header['shab'];
  change_spell(select[0]);
  for(var i=0;i<char_spells.length;i++){add_spell(i)}
 }
