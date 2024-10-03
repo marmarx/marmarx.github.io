@@ -1744,15 +1744,15 @@ function add_char(el){
 }
 
 function rmv_char(){
- var k = document.getElementById('name-char').value;
- document.getElementById('name-char').value = '';
+ let name = document.getElementById('name-char');
+ let char = name.value;
+ name.value = '';
  let storage = ['defense','equips','features','habs','header','oficios','skills','pmpv','spells','weapons','active_conditions','conditions'];
- storage.forEach(function(e){localStorage.removeItem(k+'_'+e)})
- k = chars.indexOf(k);
- chars.splice(k,1);
- localStorage.chars = chars;
+ storage.forEach(function(e){localStorage.removeItem(char+'_'+e)})
+ chars.splice(chars.indexOf(char),1);
  clear();
  title='';
+ save_data();
  load_data();
 }
 
@@ -1970,7 +1970,6 @@ function read_localStorage(char){
 }
 
 function readGet(){
- console.log('9:19');
  if(location.href.includes('?char=')){
   let request = {};
   let pairs = location.search.substring(1).split('&');
