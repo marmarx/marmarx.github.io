@@ -546,32 +546,7 @@ button,.ofic{display:none!important}
  <div class="row"><div class="container">
   <div class="half">
    <input type="text" placeholder="Título">
-   <select class="select" onchange="check_other(this,1)">
-    <option value="" disabled selected>Tipo de item</option>
-    <option value="Equip. de Aventura">Equip. de Aventura</option>
-    <option value="Arma Simples">Arma Simples</option>
-    <option value="Arma Marcial">Arma Marcial</option>
-    <option value="Arma Exótica">Arma Exótica</option>
-    <option value="Arma de Fogo">Arma de Fogo</option>
-    <option value="Munição">Munição</option>
-    <option value="Armadura Leve">Armadura Leve</option>
-    <option value="Armadura Pesada">Armadura Pesada</option>
-    <option value="Escudo">Escudo</option>
-    <option value="Alimentação">Alimentação</option>
-    <option value="Alquímicos">Alquímicos</option>
-    <option value="Animais">Animais</option>
-    <option value="Catalisadores">Catalisadores</option>
-    <option value="Esotéricos">Esotéricos</option>
-    <option value="Ferramentas">Ferramentas</option>
-    <option value="Item Mágico">Item Mágico</option>
-    <option value="Pergaminhos">Pergaminhos</option>
-    <option value="Poções">Poções</option>
-    <option value="Veículos">Veículos</option>
-    <option value="Venenos">Venenos</option>
-    <option value="Vestuário">Vestuário</option>
-    <option value="Outro">Outro</option>
-    <option value="Outro">Outro (escrever)</option>
-   </select>
+   <select id="item_tipo" class="select" onchange="check_other(this,1)"></select>
    <input class="invisible" type="text" placeholder="Escreva o tipo ('voltar' p/ voltar)" onchange="check_other(this,1)">
    <input type="text" placeholder="Preço: 1 T$">
    <input type="text" placeholder="Peso: 1 kg">
@@ -740,6 +715,10 @@ button,.ofic{display:none!important}
 </body>
 
 <script>
+let tipo = '<option value="" disabled selected>Tipo de item</option>';
+for(var i=1;i<tipo_item.length;i++){tipo += '<option value="'+i+'">'+tipo_item[i]+'</option>'}
+document.getElementById('item_tipo').innerHTML = tipo;
+	
 //-------------------------BASIC VARIABLES------------------------//
 
 const load=1;
@@ -1159,6 +1138,7 @@ function set_spells(){
 }
 
 function change_spell(el){
+ console.log(el);
  var lvl = header['blvl'];
  lvl = Math.floor(lvl/2);
  var hab = el.value;
