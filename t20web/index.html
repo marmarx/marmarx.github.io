@@ -1969,11 +1969,32 @@ window.onload = function(){
  set_skills();
  if(load&&localStorage.getItem('chars')!==null){chars = JSON.parse(localStorage.getItem('chars'))}
  add_svg();
+ readGet();
 }
 
-let printPDF = 0;
-//read GET
-if(!JSON.parse(localStorage.chars).length||printPDF){alert('Comece criando ou carregando um personagem, para isso entre com um nome de personagem, quaisquer edições feitas antes disso serão perdidas.')}
-if(printPDF){window.print()}
+function readGet(){
+ if(location.search.includes('?char=')){
+  let request = {};
+  let pairs = location.search.substring(1).split('&');
+  for (let i=0;i<pairs.length;i++){
+   let pair = pairs[i].split('=');
+   request[pair[0]] = pair[1];
+  }
+  console.log(request);
+
+  let char = request.char;
+  chars.push(char);
+
+  //read local Storage
+
+  let e = document.getElementById('name-char');
+  list_chars(e);
+  e = e.parentNode.children[1].children[chars.indexOf(char)];
+  set_char(e);
+  window.print();
+ }
+ if(!JSON.parse(localStorage.chars).length){alert('Comece criando ou carregando um personagem, para isso entre com um nome de personagem, quaisquer edições feitas antes disso serão perdidas.')}
+}
+
 </script>
 </html>
