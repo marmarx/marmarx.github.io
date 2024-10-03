@@ -2001,7 +2001,7 @@ function read_localStorage(char){
  data.attack.forEach(function(e){weapons.push([e[0],e[14],e[15],e[6]+'/'+e[7],e[9],e[8]])});	//nome,ataque total,dano total,crit,tipo,alcance
 
  equips = [];
- data.equips.forEach(function(e){equips.push([e[1],e[2],e[3],pesos[e[4]],'',e[5],e[0]])});	//nome,tipo(select),valor,peso(select),onde conseguiu,descrição,qte
+ data.equip.forEach(function(e){equips.push([e[1],e[2],e[3],pesos[e[4]],'',e[5],e[0]])});	//nome,tipo(select),valor,peso(select),onde conseguiu,descrição,qte
 
  //features = [];
  //data.powers.forEach(function(e){});
