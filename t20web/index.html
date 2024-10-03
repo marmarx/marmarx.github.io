@@ -1993,9 +1993,21 @@ function read_localStorage(char){
  equips = [];
  data.equip.forEach(function(e){equips.push([e[1],tipo_item[e[2]],e[3],pesos[e[4]],'',e[5],e[0]])});	//nome,tipo(select),valor,peso(select),onde conseguiu,descrição,qte
 
- //features = [];
- //data.powers.forEach(function(e){features.push([])});		//nome,tipo,
- //data.user_powers.forEach(function(e){features.push([])});
+ features = [];
+ data.powers.forEach(function(e){		//nome,tipo(sel),nível,desc	-	powers[e]
+  let p = [];
+  if(powers[e][1]){p.push(power_typ[powers[e][1]])};
+  if(powers[e][2]){p.push(powers[e][2])};
+  if(powers[e][4]){p.push(powers[e][4])};
+  features.push([powers[e][0],p.join(' • '),'',powers[e][7]])
+ });
+ data.user_powers.forEach(function(e){
+  let p = [];
+  if(e[1]){p.push(power_typ[e[1]])};
+  if(e[2]){p.push(e[2])};
+  if(e[4]){p.push(e[4])};
+  features.push([e[0],p.join(' • '),'',e[7]])
+ });
 
  //char_spells = [];
  //data.magias.forEach(function(e){});
