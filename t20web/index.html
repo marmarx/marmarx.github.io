@@ -248,7 +248,7 @@ button,.ofic{display:none!important}
     <div class="name border1">
      <input type="text" id="name-char" name="bname" class="dropdown" placeholder="Nome do personagem" onkeyup="filterFunction(this)" onclick="list_chars(this)" onchange="add_char(this)">
      <div id="name-dropdown" class="name-dropdown-content invisible"></div>
-     <div class="name_rmv"><div><button class="rmv" onclick="rmv_char()">x</button></div></div>
+     <div class="name_rmv" onclick="rmv_char()"><div><button class="rmv">x</button></div></div>
     </div>
     <div class="player border2"><input placeholder="Jogador" name="bplayer" onchange="change(this)"></div>
     <img class="logo" src="img/logo.png" alt="Tormenta 20" ondblclick="svg_esc()" onmousedown="svg_shape_color(event)"/>
@@ -1754,6 +1754,8 @@ function add_char(el){
 function rmv_char(){
  var k = document.getElementById('name-char').value;
  document.getElementById('name-char').value = '';
+ let storage = ['defense','equips','features','habs','header','oficios','skills','pmpv','spells','weapons','active_conditions','conditions'];
+ storage.forEach(function(e){localStorage.removeItem(k+'_'+e)})
  k = chars.indexOf(k);
  chars.splice(k,1);
  clear();
