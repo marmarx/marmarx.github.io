@@ -412,7 +412,7 @@ button,.ofic{display:none!important}
         <option selected disabled>Tamanho</option><option value="1">Min&iacute;sculo</option><option value="2">Pequeno</option><option value="3">M&eacute;dio</option><option value="4">Grande</option><option value="5">Enorme</option><option value="6">Colossal</option>
        </select>
       </div>
-      <div class="deslc border2"><input type="number" placeholder="Deslocamento" name="bdeslc" onchange="change(this)"></div>
+      <div class="deslc border2"><input type="text" placeholder="Deslocamento" name="bdeslc" onchange="change(this)" onkeyup="regex_inj(this)"></div>
       <div class="exp border2">
        <input type="number" id="expnow" placeholder="Experi&ecirc;ncia" name="bexp" onchange="change(this)">
        <input value="/" disabled>
@@ -824,6 +824,7 @@ var conditions = [
 //-------------------------DICE ROLLER FUNCTIONS------------------------//
 
 function dicerollRegex(e){e.value=/-?\d+|[d#!hlkerab]/.test(e.value)?e.value:e.value.slice(0,-1)}
+function regex_inj(e){e.value=/[<>\[\]\{\}\$#&]+/.test(e.value)?e.value.slice(0,-1):e.value}
 
 const keyels = ['d','!','rra','rrb','eh','el','kh','kl'];
 const keyssp = /[+\-]*\d+|[+\-]|#|d|!|kh|kl|eh|el|rra|rrb/g;
