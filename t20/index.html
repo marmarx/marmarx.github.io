@@ -2321,9 +2321,11 @@ const hints = [
 //-------------------------PRINT PDF FUNCTIONS------------------------//
 
 function printPDF(){
- //build GET
- let get = '?';
- window.open('https://marmarx.github.io/t20web'+get);
+ console.log(data.char);
+ if(data.char){
+  let get = '?char=' + data.char;
+  window.open('https://marmarx.github.io/t20web'+get);
+ }
 }
 
 //-------------------------REGEX FUNCTIONS------------------------//
