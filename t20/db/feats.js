@@ -1,4 +1,5 @@
 const power_type = ['power_type','Raça','Origem','Classe','Distinção de Classe','Geral'];
+const power_typ = ['Tipo de poder','Raça','Origem','Classe','Distinção de Classe','Geral'];
 const power_cat = ['power_cat',
 '— Classe —','Arcanista','Bárbaro','Bardo','Bucaneiro','Caçador','Cavaleiro','Clérigo','Druida','Guerreiro','Inventor','Ladino','Lutador','Nobre','Paladino',
 '— Geral —','Poderes Concedidos','Poderes da Tormenta','Poderes de Combate','Poderes de Destino','Poderes de Magia',
