@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="src/css.css">
 <link rel="stylesheet" href="src/style.css">
 <script defer type="text/javascript" src="db/icons.js"></script>
+<script type="text/javascript" src="db/comon.js"></script>
 <script type="text/javascript" src="db/geral.js"></script>
 <script defer type="text/javascript" src="db/spells.js"></script>
 <script defer type="text/javascript" src="db/feats.js"></script>
@@ -809,6 +810,7 @@ function attack_calc(){
 
   let p = data.attack[i][13]>1?'</br>'+action[data.attack[i][12]].replace('para ativar','')+' para atacar • '+action[data.attack[i][13]]+' para regarregar':' • '+action[data.attack[i][12]].replace('para ativar','para atacar');
   attacks[i].children[0].children[0].children[1].innerHTML=(data.attack[i][2]?data.attack[i][2]:'d8')+o+' • '+(data.attack[i][6]&&data.attack[i][6]<20?data.attack[i][6]+'-20':20)+'/'+(data.attack[i][7]?data.attack[i][7]:'x2')+' • '+(data.attack[i][8]>0?alcance[data.attack[i][8]]:'Alcance')+' • '+(data.attack[i][9]>0?tipo_dano[data.attack[i][9]]:'Tipo de dano')+p;
+  data.attack[i][15] = (data.attack[i][2]?data.attack[i][2]:'d8')+o;
 
   k = 0;
   if(data.attack[i][1]==''){k=[0]}
@@ -820,6 +822,7 @@ function attack_calc(){
    k[j]=(k[j]>=0?'+':'')+k[j];
   }
   attacks[i].children[0].children[1].children[0].children[1].innerHTML=k.join('/');
+  data.attack[i][14] = k.join('/');
 
   let ac = data.attack[i][12]?action[data.attack[i][12]].replace('Ação ','').replace('de ','').toLowerCase():'';
   attacks[i].children[0].children[1].children[1].innerHTML = spell_action.includes(ac)?'<div class="ac_'+ac+'"></div>':'';
@@ -1434,7 +1437,7 @@ function equip_choose(e,i){
 
 function testWorker(){
  try{
-  let url = './js/worker_tester.js';
+  let url = '/js/worker_tester.js';
   let worker = new Worker(url);
   worker.terminate();
   URL.revokeObjectURL(url);
@@ -1446,13 +1449,13 @@ function testWorker(){
 function populate(sup){
  if(window.Worker&&typeof(Worker)!=="undefined"&&sup){
   console.log('Web worker: populating all powers and spells');
-  let powwok = new Worker("./js/power_worker.js");
+  let powwok = new Worker("/js/power_worker.js");
   powwok.postMessage([powers,power_typ,magic,action,spell_action]);
   powwok.addEventListener('message',(ev) => {
    document.getElementById('all_powers').innerHTML = ev.data[0];
    powers_viz = ev.data[1];
   });
-  let spewok = new Worker("./js/spell_worker.js");
+  let spewok = new Worker("/js/spell_worker.js");
   spewok.postMessage([spells,spell_pm_cost,spell_action]);
   spewok.addEventListener('message',(ev) => {
    document.getElementById('all_spells').innerHTML = ev.data[0];
@@ -1469,7 +1472,7 @@ var list = [];
 function create_lists(sup){
  if(window.Worker&&typeof(Worker)!=="undefined"&&sup){
   console.log("Web worker: creating lists");
-  let worker = new Worker("./js/list_worker.js");
+  let worker = new Worker("/js/list_worker.js");
   worker.postMessage([[equip,equip,equip,powers,spells],[0,armor_start,weap_start,0,0],[equip.length,armor_end,weap_end,powers.length,spells.length]]);
   worker.addEventListener('message',(ev) => {
    for(let j=0;j<5;j++){
