@@ -1949,9 +1949,8 @@ function read_localStorage(char){
  let data = JSON.parse(localStorage.getItem('T20data_'+char));
  header.bname = data.char;		//str
  header.bplayer = data.jogador;		//str
- let raca = []
- header.brace = data.raça;		//str	*	select > string
- header.borigin = data.origem;		//str	*	select > string
+ header.brace = raca[data.raça];	//str	*	select > string
+ header.borigin = origem[data.origem];	//str	*	select > string
  header.bclass = data.classe+', '+data.distincao;		//str
  header.blvl = data.nível;		//str	*	num > string
  header.bdeity = data.divindade;	//str
@@ -1976,8 +1975,8 @@ function read_localStorage(char){
  defense['Escudo (bonus)'] = data.defense.shield_bonus;		//str	*	num > str
  defense['Escudo (penalidade)'] = data.defense.shield_penal;	//str	*	num > str
 
- let rd = ['rd','Ácido', 'Eletricidade', 'Fogo', 'Frio', 'Luz', 'Trevas', 'Mágico'];
- rd.forEach(function(e){if(data.defense[e]){document.getElementById('condobs').innerHTML+='<li value="-1">RD'+(e=='rd'?'':' '+e)+': '+data.defense[e]+'</li>'}});
+ if(data.defense['rd']){document.getElementById('condobs').innerHTML+='<li value="-1">RD: '+data.defense['rd']+'</li>'}
+ rd.forEach(function(e){if(data.defense[e]){document.getElementById('condobs').innerHTML+='<li value="-1">RD '+e+': '+data.defense[e]+'</li>'}});
 
  skills=[];data.skills.forEach(function(e){skills.push([e[0],e[1]-1,e[4],e[5],e[3],e[6]])});			//web:	hab	train	outro	req?   penal?
  oficios=[];data.crafts.forEach(function(e){if(e[4]){oficios.push([e[0],e[1]-1,e[4],e[5],e[3],e[6]])}});	//mob:	hab1	hab2	req?	train   outro   penal?
