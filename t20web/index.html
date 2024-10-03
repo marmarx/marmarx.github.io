@@ -549,7 +549,8 @@ button,.ofic{display:none!important}
    <select id="item_tipo" class="select" onchange="check_other(this,1)"></select>
    <input class="invisible" type="text" placeholder="Escreva o tipo ('voltar' p/ voltar)" onchange="check_other(this,1)">
    <input type="text" placeholder="Preço: 1 T$">
-   <input type="text" placeholder="Peso: 1 kg">
+   <select id="item_peso" class="select" onchange="check_other(this,4)"></select>
+   <input class="invisible" type="text" placeholder="Escreva o peso ('voltar' p/ voltar)" onchange="check_other(this,1)">
   </div>
   <div class="half">
    <textarea type="text" placeholder="Descrição"></textarea>
@@ -718,6 +719,15 @@ button,.ofic{display:none!important}
 let tipo = '<option value="" disabled selected>Tipo de item</option>';
 for(var i=1;i<tipo_item.length;i++){tipo += '<option value="'+tipo_item[i]+'">'+tipo_item[i]+'</option>'}
 document.getElementById('item_tipo').innerHTML = tipo;
+
+var peso = '<option value="" disabled selected>Espaço por unidade</option>';
+var pesos = ['Espaço por unidade'];
+for(var i=1;i<peso_item.length;i++){
+ var str = i>1?((i<5?' de':'') + ' espaço' + (i>5?'s':'')):'';
+ peso += '<option value="'+peso_item[i]+str+'">'+peso_item[i]+str+'</option>'
+ pesos.push(peso_item[i]+str);
+}
+document.getElementById('item_peso').innerHTML = peso;
 	
 //-------------------------BASIC VARIABLES------------------------//
 
