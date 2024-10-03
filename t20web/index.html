@@ -1149,12 +1149,17 @@ function set_spells(){
 }
 
 function change_spell(el){
+ console.log('here');
  console.log(el);
  var lvl = header['blvl'];
  lvl = Math.floor(lvl/2);
+ console.log(lvl);	
  var hab = el.value;
  hab = Math.floor(habs[hab]/2)-5 + Math.floor(effects[habs_names[hab]]/2);
+ console.log(hab);
  document.getElementById('res_test').innerHTML = 10 + hab + lvl;
+ console.log(el.name);
+ console.log(el.value);	
  header[el.name] = JSON.parse(el.value);
 }
 
@@ -1995,9 +2000,12 @@ function read_localStorage(char){
  data.equip.forEach(function(e){equips.push([e[1],tipo_item[e[2]],e[3],pesos[e[4]],'',e[5],e[0]])});	//nome,tipo(select),valor,peso(select),onde conseguiu,descrição,qte
 
  //features = [];
- //data.powers.forEach(function(e){});
- //data.user_powers.forEach(function(e){});
- 
+ //data.powers.forEach(function(e){features.push([])});		//nome,tipo,
+ //data.user_powers.forEach(function(e){features.push([])});
+
+ //char_spells = [];
+ //data.magias.forEach(function(e){});
+ //data.user_spells.forEach(function(e){});
 	
  document.getElementById('svggradient').children[0].setAttribute('stop-color',data.c_color);
  document.getElementById('svggradient').children[1].setAttribute('stop-color',data.c_color);
