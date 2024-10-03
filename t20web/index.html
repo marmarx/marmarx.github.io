@@ -1362,7 +1362,7 @@ function create_weap(el,k){
  el = document.getElementById(el);
  var card = document.createElement('div');
  card.setAttribute('class','row weap');
- card.innerHTML = '<div class="w0 dice" onclick="roll_weap(this)"></div><div class="w1"><input type="text" onchange="change_weap(this)"></div><div class="w2"><input type="text" onchange="change_weap(this)"></div><div class="w3"><input type="text" onchange="change_weap(this)"></div><div class="w4"><input type="text" onchange="change_weap(this)"></div><div class="w5"><select class="select" onchange="change_weap(this)"><option value="0" selected disabled>Tipo</option><option value="1">Corte</option><option value="2">Impacto</option><option value="3">Perfuração</option></select></div><div class="w6"><select class="select" onchange="change_weap(this)"><option value="0" selected disabled>Alcance</option><option value="1">Adjacente</option><option value="2">Curto</option><option value="3">M&eacute;dio</option><option value="4">Longo</option></select></div><div class="w7"><button class="rmv" onclick="rmv_weap(this)">x</button></div>';
+ card.innerHTML = '<div class="w0 dice" onclick="roll_weap(this)"></div><div class="w1"><input type="text" onchange="change_weap(this)"></div><div class="w2"><input type="text" onchange="change_weap(this)"></div><div class="w3"><input type="text" onchange="change_weap(this)"></div><div class="w4"><input type="text" onchange="change_weap(this)"></div><div class="w5"><select class="select" onchange="change_weap(this)"><option value="0" selected disabled>Tipo</option><option value="1">Corte</option><option value="2">Impacto</option><option value="3">Perfuração</option><option value="4">Estratégico</option></select></div><div class="w6"><select class="select" onchange="change_weap(this)"><option value="0" selected disabled>Alcance</option><option value="1">Adjacente</option><option value="2">Curto</option><option value="3">M&eacute;dio</option><option value="4">Longo</option></select></div><div class="w7"><button class="rmv" onclick="rmv_weap(this)">x</button></div>';
  el.appendChild(card);
  if(k){weapons.splice(weapons.lenght,0,[,,,,,])}
 }
@@ -1976,12 +1976,15 @@ function read_localStorage(char){
  defense['Escudo (bonus)'] = data.defense.shield_bonus;		//str	*	num > str
  defense['Escudo (penalidade)'] = data.defense.shield_penal;	//str	*	num > str
 
- if(data.defense['rd']){document.getElementById('condobs').innerHTML+='<li value="-1">RD: '+data.defense['rd']+'</li>'}
- rd.forEach(function(e){if(data.defense[e]){document.getElementById('condobs').innerHTML+='<li value="-1">RD '+e+': '+data.defense[e]+'</li>'}});
+ if(data.defense.rd){console.log('here');document.getElementById('condobs').innerHTML+='<li value="-1">RD: '+data.defense.rd+'</li>'}
+ rd.forEach(function(e){if(data.defense[e]){console.log('here2');document.getElementById('condobs').innerHTML+='<li value="-1">RD '+e+': '+data.defense[e]+'</li>'}});
+ console.log(document.getElementById('condobs').innerHTML);
 
  skills=[];data.skills.forEach(function(e){skills.push([e[0],e[1]-1,e[4],e[5],e[3],e[6]])});			//web:	hab	train	outro	req?   penal?
  oficios=[];data.crafts.forEach(function(e){if(e[4]){oficios.push([e[0],e[1]-1,e[4],e[5],e[3],e[6]])}});	//mob:	hab1	hab2	req?	train   outro   penal?
 
+ weapons = [];
+ data.attack.forEach(function(e){weapons.push([e[0],e[14],e[15],e[6]+'/'+e[7],e[9],e[8]])});	//nome,ataque,dano,crit,tipo,alcance
  
 	
  document.getElementById('svggradient').children[0].setAttribute('stop-color',data.c_color);
