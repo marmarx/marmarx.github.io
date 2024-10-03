@@ -1885,6 +1885,8 @@ function save_data(){
 
 function load_data(){
  clear();
+ console.log(header);
+ console.log(localStorage.getItem(title+'_header'));
  if(load&&localStorage.getItem(title+'_header')!==null){
   header = JSON.parse(localStorage.getItem(title+'_header'));
   pmpv = JSON.parse(localStorage.getItem(title+'_pmpv'));
