@@ -3,6 +3,7 @@
 <head>
 <title>Ficha T20 - v1.3</title>
 <meta name="author" content="Marco Martins">
+<link rel="icon" type="image/png" href="src/favicon.png">
 <meta name="viewport" content="width=device-width, minimum-scale=0.1">
 <link href="https://fonts.googleapis.com/css2?family=Lora&family=Source+Sans+Pro:wght@200;400;600&display=swap" rel="stylesheet">
 
@@ -1758,6 +1759,7 @@ function rmv_char(){
  storage.forEach(function(e){localStorage.removeItem(k+'_'+e)})
  k = chars.indexOf(k);
  chars.splice(k,1);
+ localStorage.chars = chars;
  clear();
  title='';
  load_data();
@@ -1774,8 +1776,6 @@ function clear(){
  document.getElementById('equips_list').innerHTML = '';
  document.getElementById('anot').value = '';
 }
-
-
 
 //-------------------------SVG BACK FUNCTIONS------------------------//
 
