@@ -1892,7 +1892,7 @@ function save_data(){
   localStorage.setItem(title+'_oficios',JSON.stringify(oficios));
   localStorage.setItem(title+'_conditions',JSON.stringify(conditions));
   localStorage.setItem(title+'_active_conditions',JSON.stringify(active_conditions));
-  localStorage.setItem(title+'_spells',JSON.stringify(char_spells));
+  localStorage.setItem(title+'_char_spells',JSON.stringify(char_spells));
   localStorage.setItem(title+'_equips',JSON.stringify(equips));
   localStorage.setItem(title+'_features',JSON.stringify(features));
  }
@@ -1910,7 +1910,7 @@ function load_data(){
   oficios = JSON.parse(localStorage.getItem(title+'_oficios'));
   conditions = JSON.parse(localStorage.getItem(title+'_conditions'));
   active_conditions = JSON.parse(localStorage.getItem(title+'_active_conditions'));
-  char_spells = JSON.parse(localStorage.getItem(title+'_spells'));
+  char_spells = JSON.parse(localStorage.getItem(title+'_char_spells'));
   equips = JSON.parse(localStorage.getItem(title+'_equips'));
   features = JSON.parse(localStorage.getItem(title+'_features'));
  }
