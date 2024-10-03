@@ -6,6 +6,7 @@
 <link rel="icon" type="image/png" href="img/favicon.png">
 <meta name="viewport" content="width=device-width, minimum-scale=0.1">
 <link href="https://fonts.googleapis.com/css2?family=Lora&family=Source+Sans+Pro:wght@200;400;600&display=swap" rel="stylesheet">
+<script defer type="text/javascript" src="../T20/db/geral.js"></script>
 
 <style>
 html{scroll-behavior:smooth}
@@ -961,7 +962,6 @@ function roll_weap(el){
  el = el.parentNode;
  print_out('Ataque com '+el.children[1].children[0].value);
  diceroll(el.children[2].children[0].value,0,0);
- console.log('roll = '+roll[0]);
  if(roll[0]>=JSON.parse(el.children[4].children[0].value)){
   print_out('Dano crítico!');
   diceroll('2#'+el.children[3].children[0].value,0,1);
@@ -1704,11 +1704,11 @@ function list_chars(el){
 }
 
 function set_char(el){
- if(title){save_data();console.log('saved '+title)}
+ if(title){save_data();console.log('Character '+title+' saved')}
  title = el.innerHTML;
  document.title = title + ' - T20';
  el.parentNode.parentNode.children[0].value = title;
- console.log('loaded '+title);
+ console.log('Character '+title+' loaded');
  title = title.replace(/[^a-zA-Z]/g, "");
  load_data();
 }
@@ -1885,8 +1885,6 @@ function save_data(){
 
 function load_data(){
  clear();
- console.log(header);
- console.log(localStorage.getItem(title+'_header'));
  if(load&&localStorage.getItem(title+'_header')!==null){
   header = JSON.parse(localStorage.getItem(title+'_header'));
   pmpv = JSON.parse(localStorage.getItem(title+'_pmpv'));
@@ -1947,14 +1945,14 @@ window.onload = function(){
 }
 
 function read_localStorage(char){
- console.log('Reading '+char+' data');
+ console.log('Reading '+char+'/'s data');
  let data = JSON.parse(localStorage.getItem('T20data_'+char));
- console.log(data);
  header.bname = data.char;		//str
  header.bplayer = data.jogador;		//str
+ let raca = []
  header.brace = data.raça;		//str	*	select > string
  header.borigin = data.origem;		//str	*	select > string
- header.bclass = data.classe+' '+data.distincao;		//str
+ header.bclass = data.classe+', '+data.distincao;		//str
  header.blvl = data.nível;		//str	*	num > string
  header.bdeity = data.divindade;	//str
  header.btam = data.tamanho;		//num select
@@ -1988,8 +1986,6 @@ function read_localStorage(char){
 	
  document.getElementById('svggradient').children[0].setAttribute('stop-color',data.c_color);
  document.getElementById('svggradient').children[1].setAttribute('stop-color',data.c_color);
- console.log('header');
- console.log(header);
 }
 
 function readGet(){
