@@ -850,14 +850,12 @@ function roll_dice(num,max,exp){
 }
 
 function diceroll(str,t,g){
- //console.log(str);
  if(t){print_out(str)}
  str += ' ';
  var repeat = 1;
  if(str.includes("#")){
   repeat = str.slice(0,str.indexOf('#'));
   str = str.slice(str.indexOf('#')+1,-1) + ' ';
-  console.log('repeat = '+repeat)
  }
 
  var indexes = [];
@@ -865,7 +863,6 @@ function diceroll(str,t,g){
  indexes.sort(function sortFunction(a,b){if(a[0]===b[0]){return 0}else{return (a[0]<b[0])?-1:1}});
  if(indexes[0]){indexes.splice(0,0,[0,0])}
  indexes.push([-1,1]);
- console.log(indexes);
 
  var subkeys = [];
  var subarrays = [];
@@ -882,8 +879,6 @@ function diceroll(str,t,g){
   }
  }
  if(!indexes[0]){subarrays.splice(0,0,'1')}
- console.log(subkeys);
- console.log(subarrays);
 
  for(var reroll=0;reroll<repeat;reroll++){
  var soma = 0;
@@ -973,9 +968,6 @@ function diceroll(str,t,g){
  for(j=0;j<sum.length;j++){soma+=sum[j]}
  print = '<span class="bold">'+soma+'</span>'+print;
 
- console.log(roll);
- console.log(sum);
- console.log('');
  print_out(print);
  }
 if(g){print_out('')}
@@ -994,7 +986,6 @@ function roll_weap(el){
  el = el.parentNode;
  print_out('Ataque com '+el.children[1].children[0].value);
  diceroll(el.children[2].children[0].value,0,0);
- console.log('roll = '+roll[0]);
  if(roll[0]>=JSON.parse(el.children[4].children[0].value)){
   print_out('Dano crítico!');
   diceroll('2#'+el.children[3].children[0].value,0,1);
