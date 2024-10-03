@@ -811,6 +811,7 @@ var conditions = [
 {name:'Pasmo',type:'Condição mental',obs:'Não pode realizar ações, apenas reações'},
 {name:'Petrificado',type:'Condição física',obs:'Adicione a condição inconsciente, recebe RD 8'},
 {name:'Sangrando',type:'Condição física',obs:'No início de seus turnos, o personagem deve fazer um teste de Constituição (CD 15). Se passar, estabiliza e remove essa condição. Se falhar, sofre 1d6 pontos de dano e continua sangrando.'},
+{name:'Sobrecarregado',type:'Movimento',obs:'Seu deslocamento é reduzido –3m.','Armadura (penalidade)':-5},
 {name:'Surdo',type:'Condição de sentidos',obs:'Não pode realizar testes de Percepção para ouvir. Considerado em condições ruins para lançar magias.','Iniciativa':-5},
 {name:'Surpreendido',type:'Condição de combate',obs:'Adicione a condição desprevinido. Não pode fazer ações, apenas reações.'},
 {name:'Vulnerável',type:'Condição de combate',obs:'','Defesa (outros)':-2}
@@ -1967,6 +1968,7 @@ window.onload = function(){
 
 function read_localStorage(char){
  console.log('here '+char);
+ 
 }
 
 function readGet(){
@@ -1991,7 +1993,11 @@ function readGet(){
   save_data();
   window.print();
  }
- if(!JSON.parse(localStorage.chars).length){alert('Comece criando ou carregando um personagem, para isso entre com um nome de personagem, quaisquer edições feitas antes disso serão perdidas.')}
+ if(!JSON.parse(localStorage.chars).length){
+  setTimeout(function(){
+   alert('Comece criando ou carregando um personagem, para isso entre com um nome de personagem, quaisquer edições feitas antes disso serão perdidas.')
+  },5000);
+ }
 }
 
 </script>
