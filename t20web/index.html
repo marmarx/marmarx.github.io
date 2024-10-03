@@ -1979,11 +1979,12 @@ function read_localStorage(char){
 function readGet(){
  if(location.href.includes('?char=')){
   let request = {};
-  let pairs = location.href.search.substring(1).split('&');
+  let pairs = location.href.substring(1).split('&');
   for (let i=0;i<pairs.length;i++){
    let pair = pairs[i].split('=');
    request[pair[0]] = pair[1];
   }
+  console.log(request);
 
   let char = request.char;
   chars.push(char);
