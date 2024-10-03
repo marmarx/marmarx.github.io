@@ -1966,7 +1966,6 @@ function read_localStorage(char){
  header.TC = data.carga.tc;		//num
  header.anot = data.anot;		//str
 
-
  habs = [data.hab_for_val,data.hab_des_val,data.hab_con_val,data.hab_int_val,data.hab_sab_val,data.hab_car_val];
  pmpv.pva = data.hp;pmpv.pvt = data.hpmax;pmpv.pma = data.mp;pmpv.pmt = data.mpmax;
 
@@ -2011,7 +2010,9 @@ function readGet(){
   e.value = char;
   list_chars(e);
   e = e.parentNode.children[1].children[chars.indexOf(char)];
+  load = 0;
   set_char(e);
+  load = 1;	 
   e.parentNode.classList.add('invisible');
   window.print();
  }
