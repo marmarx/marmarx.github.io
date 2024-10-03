@@ -946,6 +946,41 @@ function startroll(e){
  print_out('');
 }
 
+const demo = document.getElementById("results");
+function print_out(print){
+ let card = document.createElement('p');
+ card.innerHTML = print;
+ demo.appendChild(card);
+ roll_down();
+}
+function roll_down(){setTimeout(function(){demo.scrollTop=demo.scrollHeight},300)}
+
+function roll_weap(el){
+ el = el.parentNode;
+ print_out('Ataque com '+el.children[1].children[0].value);
+ diceroll(el.children[2].children[0].value,0,0);
+ console.log('roll = '+roll[0]);
+ if(roll[0]>=JSON.parse(el.children[4].children[0].value)){
+  print_out('Dano crítico!');
+  diceroll('2#'+el.children[3].children[0].value,0,1);
+ }else{
+  diceroll(el.children[3].children[0].value,0,1);
+ }
+}
+
+function roll_skill(el,ski){
+ el = el.parentNode;
+ let per = el.children[3].innerHTML;
+ if(per=='-'){}
+ else{
+  if(ski){print_out('Teste de '+el.children[2].innerHTML.replace(/[*‡]/g,''))}
+  else{print_out('Teste de '+el.children[2].children[0].value)}
+
+  if(per.includes('-')){diceroll('d20'+per,0,1)}
+  else{diceroll('d20+'+per,0,1)}
+ }
+}
+
 print_out('d20+2');diceroll('d20+2');print_out('');
 print_out('2d20-2');diceroll('2d20-2');print_out('');
 print_out('2#d12+1');diceroll('2#d12+1');print_out('');
