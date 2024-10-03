@@ -1278,6 +1278,12 @@ function effect_remove(e){
 var tipo = '<option value="" disabled selected>Tipo de item</option>';
 for(var i=1;i<tipo_item.length;i++){tipo += '<option value="'+i+'">'+tipo_item[i]+'</option>'}
 
+var peso = '<option value="" disabled selected>Espaço por unidade</option>';
+for(var i=1;i<peso_item.length;i++){
+ var str = i>1?((i<5?' de':'') + ' espaço' + (i>5?'s':'')):'';
+ peso += '<option value="'+i+'">'+peso_item[i]+str+'</option>'
+}
+
 var carga = 0;
 
 function coins(e){
