@@ -1149,17 +1149,11 @@ function set_spells(){
 }
 
 function change_spell(el){
- console.log('here');
- console.log(el);
  var lvl = header['blvl'];
  lvl = Math.floor(lvl/2);
- console.log(lvl);	
  var hab = el.value;
  hab = Math.floor(habs[hab]/2)-5 + Math.floor(effects[habs_names[hab]]/2);
- console.log(hab);
  document.getElementById('res_test').innerHTML = 10 + hab + lvl;
- console.log(el.name);
- console.log(el.value);	
  header[el.name] = JSON.parse(el.value);
 }
 
