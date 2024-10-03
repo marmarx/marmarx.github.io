@@ -203,7 +203,7 @@ input[type="radio"]:after{content:'';width:24px;height:24px;position:relative;to
 #header .svgback{width:90%;margin:0 5%;overflow:overlay}
 #spellsvg .bg,#equipsvg .bg{margin:0}
 
-#roller{position:fixed;bottom:0;right:0;width:20%;min-height:400px;background:#bdbcbc;overflow:hidden;font-size:1.1em}
+#roller{position:fixed;bottom:0;right:0;width:20%;min-height:400px;background:#bdbcbc;overflow:hidden;font-size:1em}
 #roller:hover{min-height:800px;width:25%}
 
 #dice,#results{position:absolute;width:100%}
@@ -1908,8 +1908,9 @@ window.onload = function(){
 }
 
 function read_localStorage(char){
- console.log('here '+char);
- 
+ console.log('Reading '+char+' data');
+ let import = JSON.parse(localStorage.getItem('T20data_'+char));
+ console.log(import);
 }
 
 function readGet(){
