@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="src/style.css">
 <script type="text/javascript" src="db/icons.js"></script>
 <script type="text/javascript" src="db/equips.js"></script>
-<script type="text/javascript" src="db/comon.js"></script>
+<script type="text/javascript" src="db/common.js"></script>
 <script type="text/javascript" src="db/geral.js"></script>
 <script type="text/javascript" src="db/spells.js"></script>
 <script type="text/javascript" src="db/feats.js"></script>
@@ -62,7 +62,7 @@
   <div class="divider"></div>
 
   <div class="row"><div class="container db mw400">
-   <button onclick="printPDF()" disabled>Imprimir</button>
+   <button onclick="printPDF()">Imprimir</button>
    <label for="file"><input id="file" type="file" onchange="import_char(event)">Importar</input></label>
    <button onclick="export_char()">Exportar</button>
    <button id="chardel" class="delete" onclick="char_remove()" disabled>Deletar</button>
@@ -486,10 +486,16 @@ function print_out(print){
 
 function startroll(e){
  value = document.getElementById(e).innerHTML;
- if(e.includes('hab')){print_out('Teste de '+habis[habs.indexOf(e.replace('hab_',''))])}
+ if(e.includes('hab')){
+  e = habis[habs.indexOf(e.replace('hab_',''))];
+  value = JSON.parse(value.replace('+','')) + data.cond[e+' (teste)'];
+  value = value>-1?'+'+value:value;
+  print_out('Teste de '+e);
+ }
  if(e.includes('total')){print_out('Teste de '+e.slice(0,-6))}
  if(e.includes('dice')){print_out(value);diceroll(value)}
  else{diceroll('d20'+value);openroller(document.getElementById('drawer'))}
+ console.log(value);
  print_out('');
 }
 
@@ -1076,11 +1082,11 @@ function cond_info(e,array){
 
 function cond_details(e,j,i,array,k){
  var q = JSON.stringify(array[i][3]).length>2?'<b>Efeitos:</b> ':'';
- for (var key in array[i][3]){if(key!='Deslocamento'){q += key+' '+(array[i][3][key]>0?'+':'')+array[i][3][key]+' • '}}
+ for (var key in array[i][3]){q += key+' '+(array[i][3][key]>0?'+':'')+array[i][3][key]+' • '}
 
- e.children[0].innerHTML = array[i][0];
+ e.children[0].innerHTML = array[i][0] + (j?'':(array[i][1]?' • '+array[i][1]:''));
  let p = [];
- if(array[i][1]){p.push(array[i][1])}
+ if(j&&array[i][1]){p.push(array[i][1])}
  if(array[i][4]){p.push(array[i][4]+' PM')}
  if(array[i][5]>1){p.push(action[array[i][5]])}
  if(array[i][6]){p.push(duration[array[i][6]])}
@@ -1122,6 +1128,7 @@ function toggle_condition(e,array){
  data.conditions[j][i] =! data.conditions[j][i];
  for (var key in array[i][3]){
   if(key=='Deslocamento'){
+   console.log(key);
    if(data.conditions[j][i]){data.cond[key].push(array[i][3][key])}
    else{data.cond[key].splice(data.cond[key].indexOf(array[i][3][key]),1)}
    if(data.cond[key].length){desloc.innerHTML = '*'+data.cond[key][0].charAt(0).toUpperCase() + data.cond[key].join(', ').slice(1)}
@@ -1183,7 +1190,7 @@ function list_conditions(e,i,array){
   for(let key in array[i][3]){
    content += '<div class="w10 dif">';
    content += '<div class="w4 m3e"><select class="skill_input m3e" onchange="effect_change(this)" required>'+effects+'</select></div>';
-   content += '<div class="w4 m3e"><input class="skill_input m3e" placeholder="Modificador" autocomplete="off" onkeyup="regexb1(this)" onchange="effect_change(this)"></div>';
+   content += '<div class="w4 m3e"><input class="skill_input m3e" type="number" placeholder="Modificador" autocomplete="off" onkeydown="regexe(event)" onchange="effect_change(this)"></div>';
    content += '<div class="w2 ma dif" onclick="effect_remove(this)"><div class="trash"></div></div>';
    content += '</div>';
   }
@@ -1207,7 +1214,7 @@ function list_conditions(e,i,array){
 
 function cond_create(){
  if(data.cond_user.length){data.cond_user.push(['Nome da Condição','Tipo de Condição','Descrição e detalhes',{},'Custo em',0,0])}
- else{data.cond_user.push(['Forma Selvagem Feroz (exemplo)','Druída','Você pode adquirir a forma de uma criatura selvagem. Você recebe Força +3, +2 na Defesa e uma arma natural que causa 1d8 pontos de dano.',{Força:3,Defesa:2},3,4,7])}
+ else{data.cond_user.push(['Forma Selvagem Feroz (exemplo)','Druída','Você pode adquirir a forma de uma criatura selvagem. Você recebe Força +3, Defesa  +2 e uma arma natural que causa 1d8 pontos de dano.',{Força:3,Defesa:2},3,4,7])}
  list_conditions('cond_user',data.cond_user.length-1,data.cond_user);
  save_data();
 }
@@ -1226,7 +1233,7 @@ function effect_add(e){
  div.setAttribute('class','w10 dif');
 
  content = '<div class="w4 m3e"><select class="skill_input m3e" onchange="effect_change(this)" required>'+effects+'</select></div>';
- content += '<div class="w4 m3e"><input class="skill_input m3e" type="number" placeholder="Modificador" autocomplete="off" onkeyup="regexb1(this)" onchange="effect_change(this)"></div>';
+ content += '<div class="w4 m3e"><input class="skill_input m3e" type="number" placeholder="Modificador" autocomplete="off" onkeydown="regexe(event)" onchange="effect_change(this)"></div>';
  content += '<div class="w2 ma dif" onclick="effect_remove(this)"><div class="trash"></div></div>';
 
  div.innerHTML = content;
@@ -1244,11 +1251,11 @@ function effect_change(e){
  for(let k=0;k<selects.length;k++){ //readd effects to array
   let value = selects[k].parentNode.parentNode.children[1].children[0];
   if(selects[k].value=='Deslocamento'){
-   value.setAttribute('onkeyup','regex_inj(this)');
+   value.setAttribute('onkeydown','regex_inj(this)');
    value.setAttribute('type','text');
    value = value.value;
   }else{
-   value.setAttribute('onkeyup','regexb1(this)');
+   value.setAttribute('onkeydown','regexe(event)');
    if(isNaN(value.value)){value.value=''}
    value.setAttribute('type','number');
    value = value.value.replace('+','');
@@ -1447,15 +1454,15 @@ function testWorker(){
 }
 
 function populate(sup){
- if(window.Worker&&typeof(Worker)!=="undefined"&&sup){
+ if(sup&&window.Worker&&typeof(Worker)!=="undefined"){
   console.log('Web worker: populating all powers and spells');
-  let powwok = new Worker("/js/power_worker.js");
+  let powwok = new Worker("./js/power_worker.js");
   powwok.postMessage([powers,power_typ,magic,action,spell_action]);
   powwok.addEventListener('message',(ev) => {
    document.getElementById('all_powers').innerHTML = ev.data[0];
    powers_viz = ev.data[1];
   });
-  let spewok = new Worker("/js/spell_worker.js");
+  let spewok = new Worker("./js/spell_worker.js");
   spewok.postMessage([spells,spell_pm_cost,spell_action]);
   spewok.addEventListener('message',(ev) => {
    document.getElementById('all_spells').innerHTML = ev.data[0];
@@ -1470,9 +1477,9 @@ function populate(sup){
 
 var list = [];
 function create_lists(sup){
- if(window.Worker&&typeof(Worker)!=="undefined"&&sup){
+ if(sup&&window.Worker&&typeof(Worker)!=="undefined"){
   console.log("Web worker: creating lists");
-  let worker = new Worker("/js/list_worker.js");
+  let worker = new Worker("./js/list_worker.js");
   worker.postMessage([[equip,equip,equip,powers,spells],[0,armor_start,weap_start,0,0],[equip.length,armor_end,weap_end,powers.length,spells.length]]);
   worker.addEventListener('message',(ev) => {
    for(let j=0;j<5;j++){
@@ -2326,19 +2333,20 @@ const hints = [
 function printPDF(){
  if(data.char){
   console.log('Sending character '+data.char+' to print environment');
-  window.open('https://marmarx.github.io/t20web?char='+data.char);
+  //https://marmarx.github.io/t20web;
+  window.open('./print.html?char='+data.char);
  }
 }
 
 //-------------------------REGEX FUNCTIONS------------------------//
 
+function regexe(e){['e','E'].includes(e.key)&&e.preventDefault()}
 function regex_inj(e){e.value=/[<>\[\]\{\}\$#&]+/.test(e.value)?e.value.slice(0,-1):e.value}
 function regexo(e){e.value=/^([+-]|[0-9]|[d])*$/.test(e.value)?e.value:e.value.slice(0,-1)}
-function regexb1(e){e.value=/^([+-]|[0-9]|\/)*$/.test(e.value)?e.value:e.value.slice(0,-1)}
 function regexb2(e){e.value=='d'?'d':e.value=/^([d]|[0-9])*$/.test(e.value)?e.value:e.value.slice(0,-1)}
 function regexc1(e){e.value=/^([1-9]|1[0-9]|20)$/.test(e.value)?e.value:e.value.slice(0,-1)}
 function regexc2(e){e.value=='x'?'x':e.value=/^x(100|[1-9][0-9]?)$/.test(e.value)?e.value:e.value.slice(0,-1)}
-function regex(e){e.value=='-'||e.value=='+'?'-':e.value=/^[-+]?(0|[1-9]\d*)$/.test(e.value)?e.value:e.value.slice(0,-1)}
+function regex(e){e.value = (e.value=='-'?'-':(e.value=='+'?'+':(/^[-+]?(0|[1-9]\d*)$/.test(e.value)?e.value:e.value.slice(0,-1))))}
 function regex2(e){e.value=/^(0|[1-9]\d*)$/.test(e.value)?e.value:e.value.slice(0,-1)}
 function regexqte(e){e.value=/(\d)*$/.test(e.value)?e.value:e.value.slice(0,-1)}
 

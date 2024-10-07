@@ -1,0 +1,2126 @@
+<!DOCTYPE>
+<html lang="pt-BR">
+<head>
+<title>Ficha T20 - v1.3</title>
+<meta name="author" content="Marco Martins">
+<link rel="icon" type="image/png" href="src/favicon.png">
+<meta name="viewport" content="width=device-width, minimum-scale=0.1">
+<link href="https://fonts.googleapis.com/css2?family=Lora&family=Source+Sans+Pro:wght@200;400;600&display=swap" rel="stylesheet">
+<script type="text/javascript" src="db/common.js"></script>
+<script type="text/javascript" src="db/feats.js"></script>
+<script type="text/javascript" src="db/spells.js"></script>
+
+<style>
+html{scroll-behavior:smooth}
+*{position:relative;margin:0;padding:0;border:0;color:#333;font-size:100%;font-family: 'Source Sans Pro', sans-serif!important;transition:all .3s ease-in-out;font-weight:400;outline-width:0}
+::-webkit-scrollbar{width:6px;height:0}
+::-webkit-scrollbar-track{background:#f1f1f1}
+::-webkit-scrollbar-thumb{background:#bbb}
+::-webkit-scrollbar-thumb:hover{background:#999}
+input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.invisible{display:none!important}
+.nowrap{white-space:nowrap;display:inline-block}
+b{font-weight:bold}
+i{font-style:italic}
+sm{font-size:80%}
+bg{font-size:110%;font-weight:bold}
+b,i,sm,bg{color:inherit}
+input[type="checkbox"]{height:unset!important;background:#fff}
+
+body{background:#525659;display:inline-flex;width:100vw;min-height:100vh;padding:25px;box-sizing:border-box;page-break-after:auto}
+#paper{background-color:#fffdf1;background-image:url("src/noisy.png");min-width:900px;width:55%;padding:50px 30px;margin:auto}
+.left,.right{margin:10;height:fit-content}
+.left{width:59.9999%}
+.right{width:39.9999%}
+
+.row{width:100%;display:inline-flex}
+.container{width:80%;display:inline-flex;margin:15px auto}
+.half,.third,.verysmall{margin:auto}
+.half{width:45%}
+.third{width:25%}
+.third div{text-align:center;width:49.99%}
+.verysmall{width:5%}
+.verylarge{width:90%}
+.border,.border:before{border:6px solid transparent;border-image:url("src/border-print.svg") 20% stretch}
+
+input,textarea{background:#fff;width:100%;text-align:center;float:left;overflow:auto;padding:7px}
+select{-webkit-appearance:none;width:100%;text-align-last:center;height:100%;background:#fff}
+select option{background:white}
+select option:disabled{color:#333}
+input:hover,input:focus,input:active,select:hover,select:focus,select:active,textarea:hover,textarea:focus,textarea:active{background:#f1f4ff;border:0;outline-width:0}
+
+#name-char{font-size:120%;width:95%}
+.logo{width:40%;margin-bottom:35px;cursor:pointer}
+.name,.player,.race,.origin,.class-level,.deity{margin:auto 10 20 10}
+.name{width:35%;position:relative;display:flex}.player,.race,.origin,.deity{width:20%}.class-level{width:40%}.class{width:80%}.level{width:20%}
+.name_rmv{background:#fff;width:5%;display:flex}
+.name_rmv div{margin:auto}
+
+.tam,.deslc,.exp{margin:auto 10 20 10}
+.tam,.deslc{width:calc(25% - 20px)}.exp{width:50%}
+.tam select{height:37px}
+.exp input:nth-child(odd){width:47.5%}
+.exp input:nth-child(even){width:4.9999%;padding:7px 0}
+
+.habs{width:12%;margin:auto}
+.habs-box{background:white}
+.habt{margin:5% auto;font-size:120%;font-weight:600;font-variant:small-caps}
+.hab,.mod,.sep{margin:auto;text-align:center}
+.hab,.mod{width:41.4999%}
+.sep{width:16.9999%}
+
+.pmpv{width:44.9999%;margin:20 auto}
+.pmpv div{background:#fff}
+.pvt{margin:10 auto 5;font-weight:600;font-variant:small-caps;font-size:120%}
+.tot,.atual{text-align:center;font-size:110%;margin:5px auto}.tot{width:30%}.atual{width:60%}
+.small{font-size:90%;font-variant:small-caps}
+.red{color:#ef1313}
+.green{color:#49ef13}
+.italic{font-style:italic}
+
+.create{background-color:#555555;color:white;border:2px solid #555555;font-weight:600;padding:0 4px;text-align:center;text-decoration:none;display:inline-block;font-size:85%;cursor:pointer}
+.create:hover,.rmv:active,.rmv:focus{background-color:white;color:black}
+.rmv{font-weight:400;text-align:center;background-color:transparent;color:black;font-size:70%;cursor:pointer;width:100%}
+.rmv:hover,.rmv:active,.rmv:focus{border:0}
+
+#weapons{width:95%;margin:10 auto}
+#weapons > div{background:white;padding:1% 2.5%;width:95%}
+.weapons-head div{margin:2.5% 1% 1%;font-weight:600;font-variant:small-caps;font-size:95%}
+.weapons-head div:nth-child(2){font-size:115%}
+.w0{width:5%}.w1{width:30%}.w2,.w3,.w4,.w5,.w6{width:12.5%}.w7{width:2.5%;display:flex}
+.w0,.w1,.w2,.w3,.w4,.w5,.w6,.w7{margin:0 1%;text-align:center}
+#weapons input,#weapons select{border-bottom:black 1px solid;font-size:85%;height:36px}
+
+.def{width:90%;padding:2% 5%}
+.def div{text-align:center;margin:auto;font-size:95%}
+.def div:nth-child(odd){width:15%}
+.def div:nth-child(even){width:5%}
+.def div:nth-child(3){width:10%}
+.small div{font-size:90%}
+.line{margin:2% auto;width:85%;border-top:#9a9696 1px solid}
+.arma{width:80%;margin:2% auto;display:flex}
+.arma-t{width:60%}
+.arma-c{width:15%;text-align:center}
+.arma-t,.arma-c{margin:auto}
+.arma-t input,.arma-c input{border-bottom:black 1px solid;font-size:90%;height:75%}
+.big{font-size:135%!important}
+.full-height{height:100%;background:#fff}
+.full-height > div{float:left}
+
+#skill-head{margin-top:2.5%!important;height:unset!important}
+#skill-head div{margin:3.5% 0;font-weight:600;font-variant:small-caps;font-size:95%;margin:auto 0 3% 0!important}
+#skill-head div:nth-child(2){font-size:115%}
+.ofic input,.skill-line input,.ofic-line input{padding:0;height:25px}
+#skill-box{width:100%;background:white;padding:10px 0}
+.ofic,.skill-line,.ofic-line,#skill-head{width:90%;margin:0 auto;display:flex;position:relative;height:25px}
+.c0{width:10%}.c1{width:40%}.c2,.c4,.c6,.c8,.c10{width:10%}.c3,.c5,.c7,.c9,.c11{width:3%}
+.c0,.c1,.c2,.c3,.c4,.c5,.c6,.c7,.c8,.c9,.c10{margin:auto;font-size:90%;text-align:center}.c1{text-align:left}
+.cx{width:62%}.c11{display:flex}
+
+.c10:before,.c10:after{position:absolute;display:none;color:white;text-align:left}
+.c10:before{content:'';border-top:5px solid transparent;border-bottom:5px solid transparent;border-right:5px solid rgba(0,0,0,.6);margin-left:-5px;left:100%;top:calc(20% + 3px)}
+.c10:after{content:attr(data-content);background:rgba(0,0,0,.6);padding:5px 15px 5px 10px;border-radius:5px;left:100%;word-break:break-word;font-size:85%;line-height:130%;white-space:pre}
+.c10:hover:before,.c10:hover:after{display:block;z-index:1}
+
+#condlist,#condobs{padding:3%;box-sizing:border-box;display:block}
+#condobs{padding:5%;font-size:75%}
+#cond_overlay,#habi_overlay,#equip_overlay,#spell_overlay{position:fixed;width:100%;height:100%;display:flex;background:rgba(0,0,0,.6);left:0;top:0;overflow:auto;z-index:9}
+#cond,#habi,#equip,#spell{position:relative;width:80%;max-width:800px;margin:auto;background:#fff;padding:40px 25px}
+#cond input[type="text"],#cond input[type="number"],#cond select,#cond textarea,#habi input,#habi select,#habi textarea,#equip input,#equip select,#equip textarea,#spell input,#spell select,#spell textarea{text-align:left;border:1px #4848486e solid;box-sizing:border-box;font-size:100%;height:50px;padding:12px 16px;text-align-last:left}
+#habi input,#habi select,#equip input,#equip select,#spell input,#spell select{margin:15 0}#habi textarea{height:210px}#equip textarea{height:210px}
+#cond textarea{width:95%;margin:auto}
+#cond input:focus,#habi input:focus{outline:none}
+.title-cond{font-size:120%;font-weight:600}
+.cond-title{padding:0 16px}
+.cond-title,.cond-color{width:40%;margin:5px auto}
+.cond-color-radio{border:1px #4848486e solid;width:fit-content;height:calc(100% - 2px);display:flex;padding:0 8px;}
+.btn{background-color:white;color:black;padding:14px 26px;text-align:center;text-decoration:none;display:inline-block;font-size:100%;margin:10px;cursor:pointer;border-radius:5px}
+.btn1{border:2px solid #4CAF50}.btn1:hover{background-color:#4CAF50;color:white}
+.btn2{border:2px solid #f44336}.btn2:hover{background-color:#f44336;color:white}
+.btn3{border:2px solid #008CBA}.btn3:hover{background-color:#008CBA;color:white}
+.btn:disabled,.btn:disabled:hover{border-color:#c3bcbc;background-color:white;color:black;cursor:unset}
+
+input[type="radio"]{width:38px;height:38px;background:transparent;border:1px solid #fff;border-radius:50%;-webkit-appearance:none;outline:none;margin:auto;padding:0!important}
+input[type="radio"]:checked{border:1px solid #000}
+input[type="radio"]:after{content:'';width:24px;height:24px;position:relative;top:5px;left:0;display:inline-block;border:2px solid white;border-radius:50%}
+
+.cback[value="0"],input[type="radio"]:nth-child(1):after{border:1px solid rgba(234,2,1,.6);background:rgba(234,2,1,.1)}
+.cback[value="1"],input[type="radio"]:nth-child(2):after{border:1px solid rgba(255,157,0,.6);background:rgba(255,157,0,.1)}
+.cback[value="2"],input[type="radio"]:nth-child(3):after{border:1px solid rgba(251,255,28,.6);background:rgba(251,255,28,.1)}
+.cback[value="3"],input[type="radio"]:nth-child(4):after{border:1px solid rgba(98,255,0,.6);background:rgba(98,255,0,.1)}
+.cback[value="4"],input[type="radio"]:nth-child(5):after{border:1px solid rgba(51,187,255,.6);background:rgba(51,187,255,.1)}
+.cback[value="5"],input[type="radio"]:nth-child(6):after{border:1px solid rgba(102,110,255,.6);background:rgba(102,110,255,.1)}
+.cback[value="6"],input[type="radio"]:nth-child(7):after{border:1px solid rgba(255,102,179,.6);background:rgba(255,102,179,.1)}
+.cback{position:relative;display:flex;border-radius:20px;padding:1px;height:fit-content;float:left;margin:2px;font-size:80%}
+.cback div{background:none;margin:auto 3px}
+
+
+
+
+.cback:before,.cback_info{position:absolute;display:none;color:white;z-index:1}
+.cback:before{content:'';border:5px solid transparent;border-bottom:5px solid rgba(0,0,0,.6);margin-left:-5px;left:50%;top:calc(100% + 3px)}
+.cback_info{max-width:250px;background:rgba(0,0,0,.6)!important;padding:5px 15px 5px 10px;border-radius:5px;top:calc(100% + 13px);font-size:85%;line-height:130%}
+.cback:hover:before,.cback:hover .cback_info{display:block!important}
+
+
+
+
+
+
+.name-dropdown,.cond-dropdown{position:relative;display:inline-block}
+.name-dropdown-content,.dropdown-content{position:absolute;background-color:#f6f6f6;overflow:auto;border:1px solid #ddd;z-index:1;width:100%;top:100%;box-sizing:border-box;max-height:212px}
+.name-dropdown-content a,.dropdown-content a{color:black;padding:12px 16px;text-decoration:none;display:block}
+.name-dropdown-content a:hover,.dropdown-content a:hover{background-color:#ddd}
+.show{display:block}
+
+#habis,#anotat{width:92.5%;margin:10 auto}
+#habis div,#anotat div{background:white}
+#spells,#equips{width:100%;margin:10 auto}
+#spells div,#equips div{background:white}
+#habi textarea,#equip textarea{width:100%;margin:auto}
+#equip textarea{margin:15 auto}
+#spell input,#spell textarea,#spell select{margin:0}
+.ssw60{width:60%}.ssw30{width:35%;float:right}
+.sw20{width:20%}.sw70{width:70%}.sw20,.sw70{margin:0 auto}.sw70 textarea{height:100px!important}
+#habis_list,#spells_list,#equips_list{display:block;padding:10px 0}
+#habis_list{min-height:350px}
+#spells_list{min-height:200px}
+#equips_list{min-height:239px}
+#anot{min-height:200px;padding:3% 5%;text-align:left}
+.ma{margin:auto;width:fit-content}
+.df{display:flex}
+.ms{margin:12px auto 0}
+#anot{font-size:90%}
+
+.item_list{position:relative;height:fit-content;float:left;margin:2% 5%;font-size:90%;width:90%;display:flex}
+.item_list_det:before{content:'';border:5px solid transparent;border-bottom:5px solid rgba(0,0,0,.6);left:60px;top:calc(100% - 2px)}
+.item_list_det:after{content:attr(data-content);color:#fff;background:rgba(0,0,0,.6)!important;padding:12px 15px;border-radius:5px;left:15%;top:calc(100% + 8px);word-break:break-word;font-size:85%;line-height:130%;max-width:90%;z-index:9999}
+.item_list_det:before,.item_list_det:after{position:absolute;display:none}
+.item_list_det:hover:before,.item_list_det:hover:after{display:block}
+
+#equips .item_list{width:45%;margin:1% 2.5%;display:flex;height:46px}.item_list div{margin:auto}
+.esw15{width:15%}.esw80{width:80%;float:right}
+.item_detail,.item_triag{position:absolute;color:white;display:none;z-index:1}
+.item_list:hover .item_detail,.item_list:hover .item_triag{display:block}
+.item_detail{background:rgba(0,0,0,.6)!important;padding:5px 15px 5px 10px;border-radius:5px;left:0;top:calc(100% + 8px);word-break:break-word;font-size:85%;line-height:130%;max-width:90%}
+.item_triag{border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:5px solid rgba(0,0,0,.6);left:25px;top:calc(100% + 3px)}
+#equips .item_triag{left:25%;margin-left:-10px}#equips .item_detail{width:60%;left:15%}
+.item_detail *{background:transparent}
+
+#habis,#habis_list,#anotat,#anot,#spells,#spells_list,#equips,#equips_list{background:#fff;background-clip:padding-box;overflow:visible}
+#habis::-webkit-scrollbar,#anotat::-webkit-scrollbar,#spells::-webkit-scrollbar,#equips::-webkit-scrollbar{width:0}
+#header,#habisvg,#spellsvg{position:relative;z-index:1}
+#habssvg,#pmpvsvg,#defsvg,#weapsvg{z-index:0}
+#equipsvg{z-index:unset}#spellsvg .item_detail{z-index:9999}
+.name{z-index:1}
+
+.bg{position:absolute;top:0;left:0;width:110%;height:110%;margin:0 5%;z-index:-1;background:none!important;overflow:hidden}
+.svgdef{width:0;height:0}
+.svgback{width:100%;height:100%}
+.svgpath{stroke:transparent;stroke-width:4;transition:1s}
+#header .bg{width:calc(100% + 60px);margin-left:-30px}
+#header .svgback{width:90%;margin:0 5%;overflow:overlay}
+#spellsvg .bg,#equipsvg .bg{margin:0;z-index:0}
+
+#roller{position:fixed;bottom:0;right:0;width:15%;min-height:400px;background:#bdbcbc;overflow:hidden;font-size:1em}
+#roller:hover{min-height:800px;width:30%}
+
+#dice,#results{position:absolute;width:100%}
+#dice{bottom:0;text-align:left}
+#results{height:calc(100% - 32px);bottom:32px;background:#d4d4d4;box-sizing:border-box;padding:5%;overflow-y:auto;overflow-x:hidden}
+p{padding:1%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+p:empty{margin:2px}
+#roller:hover p{overflow:unset;white-space:unset}
+.rot{color:#ef1313}
+.grun{color:#35a90f}
+.strike{text-decoration:line-through;opacity:.5}
+.bold{font-weight:bold}
+.dice{background:#fff url("src/dice.svg") center/contain no-repeat;cursor:pointer;margin:1% 0}
+#weapons .dice{margin:1% 10px 1% 0}
+#pgdivider{width:calc(100% + 60px);height:25px;left:-30px;margin:50px 0;background:#525659;page-break-after:always}
+
+
+
+@media print{
+#habis_list{min-height:690px}#anot{min-height:269px}
+#spells_list{min-height:550px}#equips_list{min-height:300px}
+::-webkit-input-placeholder,:-moz-placeholder,::-moz-placeholder,:-ms-input-placeholder{color:transparent}::placeholder{opacity:0}
+/*input[value="0"],.c2[value="-"],.c2[value="0"],.c4[value="0"],.c8[value="0"],input:disabled{color:#fff}*/
+body,#paper{background:#fff!important;padding:0}
+#paper{width:210mm}
+#paper,#pg1{min-height:297mm}
+button,.ofic{display:none!important}
+.full-height{min-height:245px}
+#weapons .dice{background:none}
+#pgdivider,#roller,#skill-box .dice,.rice,#habi_overlay,#equip_overlay,#spell_overlay,#cond_overlay,script{display:none}
+}
+@page{size:A4;margin-top:25mm}
+
+@media only screen and (max-width: 800px){#roller{display:none}}
+</style>
+</head>
+
+<body oncontextmenu="return false">
+ <svg class="svgdef"><defs><radialGradient id="svggradient" x2="0%" y2="100%"><stop offset="0%" stop-color="#ac3133"/><stop offset="100%" stop-color="#d15a5c"/></radialGradient></defs></svg>
+ <div id="paper">
+  <section id="header">
+   <div class="row">
+    <div class="name border">
+     <input type="text" id="name-char" name="bname" class="dropdown" placeholder="Nome do personagem" onkeyup="filterFunction(this)" onclick="list_chars(this)" onchange="add_char(this)">
+     <div id="name-dropdown" class="name-dropdown-content invisible"></div>
+     <div class="name_rmv" onclick="rmv_char()"><div><button class="rmv">x</button></div></div>
+    </div>
+    <div class="player border"><input placeholder="Jogador" name="bplayer" onchange="change(this)"></div>
+    <img class="logo" src="src/logo.png" alt="Tormenta 20" ondblclick="svg_esc()" onmousedown="svg_shape_color(event)"/>
+   </div>
+   <div class="row">
+    <div class="race border"><input placeholder="Ra&ccedil;a" name="brace" onchange="change(this)"></div>
+    <div class="origin border"><input placeholder="Origem" name="borigin" onchange="change(this)"></div>
+    <div class="class-level border">
+     <input class="class" placeholder="Classe" name="bclass" onchange="change(this)">
+     <input class="level" type="number" id="lvl" name="blvl" placeholder="LVL" onchange="change(this)">
+    </div>
+    <div class="deity border"><input placeholder="Divindade" name="bdeity" onchange="change(this)"></div>
+   </div>
+  </section>
+
+  <section id="pg1">
+   <div class="row">
+    <div class="left">
+     <div id="habssvg" class="row">
+      <div class="habs border"><div class="habs-box">
+       <div class="row"><div class="habt">For</div></div>
+       <div class="row">
+        <div class="hab"><input type="number" placeholder="10" onchange="change_hab()"></div>
+        <div class="sep">/</div>
+        <div class="mod""></div>
+       </div>
+      </div></div>
+      <div class="habs border"><div class="habs-box">
+       <div class="row"><div class="habt">Des</div></div>
+       <div class="row">
+        <div class="hab"><input type="number" placeholder="10" onchange="change_hab()"></div>
+        <div class="sep">/</div>
+        <div class="mod"></div>
+       </div>
+      </div></div>
+      <div class="habs border"><div class="habs-box">
+       <div class="row"><div class="habt">Con</div></div>
+       <div class="row">
+        <div class="hab"><input type="number" placeholder="10" onchange="change_hab()"></div>
+        <div class="sep">/</div>
+        <div class="mod"></div>
+       </div>
+      </div></div>
+      <div class="habs border"><div class="habs-box">
+       <div class="row"><div class="habt">Int</div></div>
+       <div class="row">
+        <div class="hab"><input type="number" placeholder="10" onchange="change_hab()"></div>
+        <div class="sep">/</div>
+        <div class="mod"></div>
+       </div>
+      </div></div>
+      <div class="habs border"><div class="habs-box">
+       <div class="row"><div class="habt">Sab</div></div>
+       <div class="row">
+        <div class="hab"><input type="number" placeholder="10" onchange="change_hab()"></div>
+        <div class="sep">/</div>
+        <div class="mod"></div>
+       </div>
+      </div></div>
+      <div class="habs border"><div class="habs-box">
+       <div class="row"><div class="habt">Car</div></div>
+       <div class="row">
+        <div class="hab"><input type="number" placeholder="10" onchange="change_hab()"></div>
+        <div class="sep">/</div>
+        <div class="mod"></div>
+       </div>
+      </div></div>
+     </div>
+
+     <div id="pmpvsvg" class="row">
+      <div class="pmpv border">
+       <div class="row"><div class="pvt">Pontos de Vida</div></div>
+       <div id="pv" class="row">
+        <div class="tot"><input type="number" name="pvt" onchange="change_pmpv(this)"></div>
+        <div class="atual"><input type="" name="pva" onchange="change_pmpv(this)"></div>
+       </div>
+       <div class="row">
+        <div class="tot small">Total</div>
+        <div class="atual small">Atual</div>
+       </div>
+      </div>
+      <div class="pmpv border">
+       <div class="row"><div class="pvt">Pontos de Mana</div></div>
+       <div id="pm" class="row">
+        <div class="tot"><input type="number" name="pmt" onchange="change_pmpv(this)"></div>
+        <div class="atual"><input type="" name="pma" onchange="change_pmpv(this)"></div>
+       </div>
+       <div class="row">
+        <div class="tot small">Total</div>
+        <div class="atual small">Atual</div>
+       </div>
+      </div>
+     </div>
+
+     <div id="weapsvg" class="row"><div id="weapons" class="border"></div></div>
+
+     <div id="defsvg" class="row" style="display:flex">
+      <div id="defense" class="pmpv border"><div class="full-height">
+       <div class="row"><div class="pvt">Defesa</div></div>
+       <div class="row def">
+        <div id="def" class="big"></div>
+        <div>=</div>
+        <div>10</div>
+        <div>+</div>
+        <div><select name="Defesa (habilidade)" class="select" onchange="change_def()"><option value="0">for</option><option value="1" selected>des</option><option value="2">con</option><option value="3">int</option><option value="4">sab</option><option value="5">car</option><option value="6">n/a</option></select></div>
+        <div>+</div>
+        <div id="defa"></div>
+        <div>+</div>
+        <div id="defe"></div>
+        <div>+</div>
+        <div><input type="number" name="Defesa (outros)" id="defo" value="0" onchange="change_def()"></div>
+       </div>
+       <div class="row def small" style="padding-top:0">
+        <div>Total</div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div>Hab</div>
+        <div></div>
+        <div>Armad.</div>
+        <div></div>
+        <div>Escudo</div>
+        <div></div>
+        <div>Outros</div>
+       </div>
+       <div class="row"><div class="line"></div></div>
+       <div class="row"><div class="arma small">
+        <div class="arma-t">Armadura e Escudo</div>
+        <div class="arma-c">Def</div>
+        <div class="arma-c">Pel</div>
+       </div></div>
+       <div class="row"><div class="arma">
+        <div class="arma-t"><input name="Armadura" placeholder="Armadura" onchange="change_def()"></div>
+        <div class="arma-c"><input type="number" name="Armadura (bonus)" value="0" onchange="change_def()"></div>
+        <div class="arma-c"><input type="number" name="Armadura (penalidade)" value="0" onkeyup="change_def()"></div>
+       </div></div>
+       <div class="row"><div class="arma">
+        <div class="arma-t"><input name="Escudo" placeholder="Escudo" onchange="change_def()"></div>
+        <div class="arma-c"><input type="number" name="Escudo (bonus)" value="0" onchange="change_def()"></div>
+        <div class="arma-c"><input type="number" name="Escudo (penalidade)" value="0" onkeyup="change_def()"></div>
+       </div></div>
+       <div class="row"><div class="arma">
+        <input name="RD" placeholder="RD" onchange="change_def()" style="border-bottom:1px solid black">
+       </div></div>
+      </div></div>
+
+      <div class="pmpv border"><div class="full-height">
+       <div class="row">
+        <div class="pvt" style="margin:10 5% 5 auto">Condi&ccedil;&otilde;es</div>
+        <div style="margin:13 auto auto 0"><button class="create" onclick="unhide('cond_overlay');reset_filter()">+</button></div>
+       </div>
+       <div class="row" id="condlist">
+       </div>
+       <div class="row" id="condobs">
+       </div>
+      </div></div>
+     </div>
+
+     <div id="subheader" class="row">
+      <div class="tam border">
+       <select name="btam" value="0" onchange="change(this);change_tam(this)">
+        <option selected disabled>Tamanho</option><option value="1">Min&iacute;sculo</option><option value="2">Pequeno</option><option value="3">M&eacute;dio</option><option value="4">Grande</option><option value="5">Enorme</option><option value="6">Colossal</option>
+       </select>
+      </div>
+      <div class="deslc border"><input type="text" placeholder="Deslocamento" name="bdeslc" onchange="change(this)" onkeyup="regex_inj(this)"></div>
+      <div class="exp border">
+       <input type="number" id="expnow" placeholder="Experi&ecirc;ncia" name="bexp" onchange="change(this)">
+       <input value="/" disabled>
+       <input id="expmax" value="1000" disabled>
+      </div>
+     </div>
+    </div>
+
+<div class="right border"><div id="skill-box"></div></div>
+
+</div>
+</section>
+<section id="pgdivider"></section>
+<section>
+ <div class="row">
+  <div id="habisvg" class="right">
+   <div id="habis" class="border">
+    <div class="row">
+     <div class="pvt" style="margin:10 5% 5 auto">Habilidades</div>
+     <div style="margin:13 auto auto 0"><button class="create" onclick="unhide('habi_overlay')">+</button></div>
+    </div>
+    <div class="row" id="habis_list" ondrop="drop(event,this)" ondragover="allowDrop(event)">
+    </div>
+   </div>
+
+   <div id="anotat" class="border">
+    <div class="row">
+     <div class="pvt">Anota&ccedil;&otilde;es Gerais</div>
+    </div>
+    <div class="row"><textarea id="anot" placeholder="Escreva suas anotações gerais aqui" onchange="header[this.id]=value"></textarea>
+    </div>
+   </div>
+
+  </div>
+  <div class="left">
+   <div id="spellsvg" class="row">
+    <div id="spells" class="border">
+     <div class="row">
+      <div class="pvt" style="margin:10 5% 5 auto">Magias</div>
+      <div style="margin:13 auto auto 0"><button class="create" onclick="unhide('spell_overlay')">+</button></div>
+     </div>
+     <div class="row">
+      <div class="container ms">
+       <div class="half df"><div class="ma">Atributo chave:</div><div class="ma"><select name="shab" class="select" onchange="change_spell(this)">
+	<option value="0">for</option><option value="1">des</option><option value="2">con</option><option value="3">int</option><option value="4">sab</option><option value="5">car</option>
+       </select></div></div>
+       <div class="half df"><div class="ma">Teste de resistência</div><div id="res_test" class="ma"></div></div>
+      </div>
+     </div>
+     <div class="row" id="spells_list">
+     </div>
+    </div>
+   </div>
+   <div id="equipsvg" class="row">
+    <div id="equips" class="border">
+     <div class="row">
+      <div class="pvt" style="margin:10 5% 5 auto">Equipamentos</div>
+      <div style="margin:13 auto auto 0"><button class="create" onclick="unhide('equip_overlay')">+</button></div>
+     </div>
+     <div class="row">
+      <div class="container ms">
+       <div class="third df">
+        <div class="ma">TO</div>
+        <div class="ma"><input name="TO" placeholder="TO" onchange="change_coin(this)"></div>
+       </div>
+       <div class="third df">
+        <div class="ma">T$</div>
+        <div class="ma"><input name="TP" placeholder="T$" onchange="change_coin(this)"></div>
+       </div>
+       <div class="third df">
+        <div class="ma">TC</div>
+        <div class="ma"><input name="TC" placeholder="TC" onchange="change_coin(this)"></div>
+       </div>
+      </div>
+     </div>
+     <div class="row" id="equips_list">
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+</div>
+
+<div id="roller">
+<div id="results" onmouseleave="roll_down()">
+<p class="bold">Exemplos de rolagens:</p>
+</div>
+<input id="dice" onchange="diceroll(this.value,1,1);this.value=''" onkeyup="dicerollRegex(this)">
+</div>
+
+<div id="habi_overlay" class="invisible" onclick="hide(event,this)"><div id="habi">
+ <div class="row"><div class="container">
+  <div class="half title-cond">Habilidades</div>
+  <div class="half"></div>
+ </div></div>
+ <div class="row"><div class="container">
+  <div class="half">
+   <input type="text" placeholder="T&iacute;tulo">
+   <select class="select" onchange="check_other(this,1)">
+    <option value='Tipo de habilidade' selected disabled>Tipo de habilidade</option>
+    <option value='Hab de Ra&ccedil;a'>Habilidade de Ra&ccedil;a</option>
+    <option value='Hab de Classe'>Habilidade de Classe</option>
+    <option value='Benef de Origem'>Benef&iacute;cio de Origem</option>
+    <option value='Poder Concedido'>Poder Concedido (Devo&ccedil;&atilde;o)</option>
+    <option value='Poder de Combate'>Poder de Combate</option>
+    <option value='Poder de Destino'>Poder de Destino</option>
+    <option value='Poder de Magia'>Poder de Magia</option>
+    <option value='Poder da Tormenta'>Poder da Tormenta</option>
+    <option value='Outro'>Outro (escrever)</option>
+   </select>
+   <input class="invisible" type="text" placeholder="Escreva o tipo ('voltar' p/ voltar)" onchange="check_other(this,1)">
+   <input type="number" placeholder="N&iacute;vel que conseguiu" oninput="this.value=this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1')">
+  </div>
+  <div class="half">
+   <textarea type="text" placeholder="Descri&ccedil;&atilde;o"></textarea>
+  </div>
+ </div></div>
+ <div style="margin:20px 0 0 auto;width:fit-content">
+  <button id="btn1" class="btn btn1" onclick="add_generic(this,features);add_habi(features.length-1)">Salvar</button>
+  <button id="btn3" class="btn btn3" onclick="this.parentNode.parentNode.parentNode.classList.add('invisible')">Cancelar</button>
+ </div>
+</div></div>
+
+<div id="equip_overlay" class="invisible" onclick="hide(event,this)"><div id="equip">
+ <div class="row"><div class="container">
+  <div class="half title-cond">Equipamento</div>
+  <div class="half"></div>
+ </div></div>
+ <div class="row"><div class="container">
+  <div class="half">
+   <input type="text" placeholder="Título">
+   <select id="item_tipo" class="select" onchange="check_other(this,1)"></select>
+   <input class="invisible" type="text" placeholder="Escreva o tipo ('voltar' p/ voltar)" onchange="check_other(this,1)">
+   <input type="text" placeholder="Preço: 1 T$">
+   <select id="item_peso" class="select" onchange="check_other(this,4)"></select>
+   <input class="invisible" type="text" placeholder="Escreva o peso ('voltar' p/ voltar)" onchange="check_other(this,1)">
+  </div>
+  <div class="half">
+   <textarea type="text" placeholder="Descrição"></textarea>
+   <input type="text" placeholder="Onde/como conseguiu">
+  </div>
+ </div></div>
+ <div style="margin:20px 0 0 auto;width:fit-content">
+  <button id="btn1" class="btn btn1" onclick="add_generic(this,equips);add_equip(equips.length-1)">Salvar</button>
+  <button id="btn3" class="btn btn3" onclick="this.parentNode.parentNode.parentNode.classList.add('invisible')">Cancelar</button>
+ </div>
+</div></div>
+
+<div id="spell_overlay" class="invisible" onclick="hide(event,this)"><div id="spell">
+ <div class="row"><div class="container">
+  <div class="half title-cond">Magias</div>
+  <div class="half"></div>
+ </div></div>
+ <div class="row"><div class="container">
+  <div class="half"><input type="text" placeholder="T&iacute;tulo" name="nome"></div>
+  <div class="half"></div>
+ </div></div>
+ <div class="row"><div class="container">
+  <div class="half">
+   <select class="select ssw60" onchange="check_other(this,0)">
+    <option value='Tipo' selected disabled name="tipo">Tipo</option>
+    <option value='Arcana'>Arcana</option>
+    <option value='Divina'>Divina</option>
+    <option value='Universal'>Universal</option>
+   </select>
+   <input class="invisible" type="text">
+   <select class="select ssw30" onchange="check_other(this,2)">
+    <option value='C&iacute;rculo' selected disabled name="circulo">C&iacute;rculo</option>
+    <option value='1'>1 (1 PM)</option>
+    <option value='2'>2 (3 PMs)</option>
+    <option value='3'>3 (6 PMs)</option>
+    <option value='4'>4 (10 PMs)</option>
+    <option value='5'>5 (15 PMs)</option>
+   </select>
+   <input type="number" class="invisible" type="text">
+  </div>
+  <div class="half">
+   <select class="select" onchange="check_other(this,0)" name="escola">
+    <option value='Escola' selected disabled>Escola</option>
+    <option value='Abjur'>Abjura&ccedil;&atilde;o (Abjur)</option>
+    <option value='Adiv'>Adivinha&ccedil;&atilde;o (Adiv)</option>
+    <option value='Conv'>Convoca&ccedil;&atilde;o (Conv)</option>
+    <option value='Encant'>Encantamento (Encant)</option>
+    <option value='Evoc'>Evoca&ccedil;&atilde;o (Evoc)</option>
+    <option value='Ilus'>Ilus&atilde;o (Ilus)</option>
+    <option value='Necro'>Necromancia (Necro)</option>
+    <option value='Trans'>Transmuta&ccedil;&atilde;o (Trans)</option>
+   </select>
+   <input class="invisible" type="text">
+  </div>
+ </div></div>
+ <div class="row"><div class="container">
+  <div class="half">
+   <select class="select" onchange="check_other(this,0)" name="execucao">
+    <option value='Execu&ccedil;&atilde;o' selected disabled>Execu&ccedil;&atilde;o</option>
+    <option value='Livre'>Livre</option>
+    <option value='Movimento'>Movimento</option>
+    <option value='Padr&atilde;o'>Padr&atilde;o</option>
+    <option value='Completa'>Completa</option>
+    <option value='Rea&ccedil;&atilde;o'>Rea&ccedil;&atilde;o</option>
+    <option value='Outro'>Outro (escrever)</option>
+   </select>
+   <input class="invisible" type="text" placeholder="Escreva a execu&ccedil;&atilde;o" onchange="check_other(this,0)">
+  </div>
+  <div class="half">
+   <select class="select" onchange="check_other(this,0)">
+    <option value='Alcance' selected disabled name="alcance">Alcance</option>
+    <option value='Pessoal'>Pessoal</option>
+    <option value='Toque'>Toque</option>
+    <option value='Curto'>Curto</option>
+    <option value='M&eacute;dio'>M&eacute;dio</option>
+    <option value='Longo'>Longo</option>
+    <option value='Ilimitado'>Ilimitado</option>
+    <option value='Veja texto'>Veja texto</option>
+    <option value='Outro'>Outro (escrever)</option>
+   </select>
+   <input class="invisible" type="text" placeholder="Escreva a dura&ccedil;&atilde;o" onchange="check_other(this,0)">
+  </div>
+ </div></div>
+ <div class="row"><div class="container">
+  <div class="half"><input type="text" placeholder="&Aacute;rea/alvo" name="alvo-area"></div>
+  <div class="half">
+   <select class="select" onchange="check_other(this,0)" name="duracao">
+    <option value='Dura&ccedil;&atilde;o' selected disabled>Dura&ccedil;&atilde;o</option>
+    <option value='Instantânea'>Instantânea</option>
+    <option value='Cena'>Cena</option>
+    <option value='Sustentada'>Sustentada</option>
+    <option value='Permanente'>Permanente</option>
+    <option value='Descarregar'>Descarregar</option>
+    <option value='Ver texto'>Ver texto</option>
+    <option value='Outro'>Outro (escrever)</option>
+   </select>
+   <input class="invisible" type="text" placeholder="Escreva a dura&ccedil;&atilde;o" onchange="check_other(this,0)">
+  </div>
+ </div></div>
+ <div class="row"><div class="container">
+  <div class="half"><input type="text" placeholder="Resist&ecirc;ncia" name="resistencia"></div>
+  <div class="half"><input type="text" placeholder="Como conseguiu (classe e n&iacute;vel)"></div>
+ </div></div>
+ <div class="row"><div class="container" style="width:76%">
+  <textarea type="text" placeholder="Descri&ccedil;&atilde;o" name="descricao"></textarea>
+ </div></div>
+ <div class="row"><div class="container">
+  <div class="half">Melhoramentos de magia:</div>
+  <div class="half"><button class="create" onclick="spell_create()">+</button></div>
+ </div></div>
+ <div id="spell_plus"></div>
+ <div style="margin:20px 0 0 auto;width:fit-content">
+  <button id="btn1" class="btn btn1" onclick="add_generic(this,char_spells);add_spell(char_spells.length-1)">Salvar</button>
+  <button id="btn3" class="btn btn3" onclick="this.parentNode.parentNode.parentNode.classList.add('invisible');document.getElementById('spell_plus').innerHTML=''">Cancelar</button>
+ </div>
+</div></div>
+
+<div id="cond_overlay" class="invisible" onclick="hide(event,this)"><div id="cond">
+ <div class="row"><div class="container">
+  <div class="half title-cond">Condi&ccedil;&otilde;es</div>
+  <div class="half"></div>
+ </div></div>
+ <div class="row"><div class="container">
+  <div class="half">Selecione uma existente ou crie uma...</div>
+  <div class="half">Cor (para identifica&ccedil;&atilde;o)</div>
+ </div></div>
+ <div class="row"><div class="container">
+  <div class="half cond-dropdown">
+   <input type="text" id="cond-name" name="cond-name" class="dropdown" placeholder="T&iacute;tulo da condi&ccedil;&atilde;o" index="new" onkeyup="filterFunction(this)" onclick="effects_show(this)">
+   <div id="cond-dropdown" class="dropdown-content invisible"></div>
+  </div>
+  <div class="half"><div class="cond-color-radio">
+   <input type="radio" class="color" name="color" value="0" checked>
+   <input type="radio" class="color" name="color" value="1">
+   <input type="radio" class="color" name="color" value="2">
+   <input type="radio" class="color" name="color" value="3">
+   <input type="radio" class="color" name="color" value="4">
+   <input type="radio" class="color" name="color" value="5">
+   <input type="radio" class="color" name="color" value="6">
+  </div></div>
+ </div></div>
+ <div class="row" style="margin-top:20px"><div class="container">
+  <div class="half">Adicione e selecione efeitos:</div>
+  <div class="half"><button class="create" onclick="add_effect('cond-create')">+</button></div>
+ </div></div>
+ <div id="cond-create"></div>
+ <div id="cond-type-obs">
+  <div class="row"><div class="container">
+   <div class="half"><input type="text" id="cond-type" placeholder="Tipologia de condi&ccedil;&atilde;o"></div>
+   <div class="half"></div>
+  </div></div>
+  <div class="row"><div class="container">
+   <textarea type="text" id="cond-obs" placeholder="Observa&ccedil;&otilde;es"></textarea>
+  </div></div>
+ </div>
+
+ <div style="margin:20px 0 0 auto;width:fit-content">
+  <button id="btn1" class="btn btn1" onclick="add_cond_list();reset_filter();">Salvar</button>
+  <button id="btn2" class="btn btn2" onclick="rmv_cond_list();reset_filter()" disabled>Remover</button>
+  <button id="btn3" class="btn btn3" onclick="this.parentNode.parentNode.parentNode.classList.add('invisible');document.getElementById('cond-create').innerHTML=''">Cancelar</button>
+ </div>
+</div></div>
+</body>
+
+<script>
+let tipo = '<option value="" disabled selected>Tipo de item</option>';
+for(var i=1;i<tipo_item.length;i++){tipo += '<option value="'+tipo_item[i]+'">'+tipo_item[i]+'</option>'}
+document.getElementById('item_tipo').innerHTML = tipo;
+
+var peso = '<option value="" disabled selected>Espaço por unidade</option>';
+var pesos = ['Espaço por unidade'];
+for(var i=1;i<peso_item.length;i++){
+ var str = i>1?((i<5?' de':'') + ' espaço' + (i>5?'s':'')):'';
+ peso += '<option value="'+peso_item[i]+str+'">'+peso_item[i]+str+'</option>'
+ pesos.push(peso_item[i]+str);
+}
+document.getElementById('item_peso').innerHTML = peso;
+	
+//-------------------------BASIC VARIABLES------------------------//
+
+const load=1;
+
+const habs_names = ['Força','Destreza','Constituição','Inteligência','Sabedoria','Carisma'];
+const tamanhos = ['Tamanho','Minísculo','Pequeno','Médio','Grande','Enorme','Colosal'];
+const exp = [0,1000,3000,6000,10000,15000,21000,28000,36000,45000,55000,66000,78000,91000,105000,120000,136000,153000,171000,190000];
+var chars = [];
+var header, pmpv, defense, habs, weapons, char_spells, equips, features, skills, oficios, active_conditions, effects
+
+function starter(){
+header = {bname:'',bplayer:'',brace:'',borigin:'',bclass:'',blvl:1,bdeity:'',btam:0,bdesloc:'',bexp:0,shab:3,TO:0,TP:0,TC:0,anot:''};
+pmpv = {pvt:0,pva:0,pmt:0,pma:0};	//pvt,pva,pmt,pma
+defense = {'Defesa (habilidade)':1,'Defesa (outros)':0,'Armadura':'','Armadura (bonus)':0,'Armadura (penalidade)':0,'Escudo':'','Escudo (bonus)':0,'Escudo (penalidade)':0,RD:0};
+habs = [10,10,10,10,10,10];		//for,des,con,int,sab,car
+weapons = [];
+char_spells = [];
+equips = [];
+features = [];
+oficios = [];
+active_conditions = [];
+effects = {'Tamanho':'','Deslocamento':'','Pontos de Vida':0,'Pontos de Mana':0,'Força':0,'Destreza':0,'Constituição':0,'Inteligência':0,'Sabedoria':0,'Carisma':0,
+'Defesa (outros)':0,'Armadura (bonus)':0,'Armadura (penalidade)':0,'Escudo (bonus)':0,'Escudo (penalidade)':0,'Perícias (todas)':0,
+'Acrobacia':0,'Adestramento':0,'Atletismo':0,'Atuação':0,'Cavalgar':0,'Conhecimento':0,'Cura':0,'Diplomacia':0,'Enganação':0,'Fortitude':0,'Furtividade':0,'Guerra':0,'Iniciativa':0,'Intimidação':0,'Intuição':0,'Investigação':0,'Jogatina':0,'Ladinagem':0,'Luta':0,'Misticismo':0,'Nobreza':0,'Percepção':0,'Pilotagem':0,'Pontaria':0,'Reflexos':0,'Religião':0,'Sobrevivência':0,'Vontade':0};
+}
+
+var skills = [
+['Acrobacia',1,0,0,0,1],
+['Adestramento',5,0,0,1,0],
+['Atletismo',0,0,0,0,0],
+['Atuação',5,0,0,0,0],
+['Cavalgar',1,0,0,0,0],
+['Conhecimento',3,0,0,1,0],
+['Cura',4,0,0,0,0],
+['Diplomacia',5,0,0,0,0],
+['Enganação',5,0,0,0,0],
+['Fortitude',2,0,0,0,0],
+['Furtividade',1,0,0,0,1],
+['Guerra',3,0,0,1,0],
+['Iniciativa',1,0,0,0,0],
+['Intimidação',5,0,0,0,0],
+['Intuição',4,0,0,0,0],
+['Investigação',3,0,0,0,0],
+['Jogatina',5,0,0,1,0],
+['Ladinagem',1,0,0,1,1],
+['Luta',0,0,0,0,0],
+['Misticismo',3,0,0,1,0],
+['Nobreza',3,0,0,1,0],
+['Percepção',4,0,0,0,0],
+['Pilotagem',1,0,0,1,0],
+['Pontaria',1,0,0,0,0],
+['Reflexos',1,0,0,0,0],
+['Religião',4,0,0,1,0],
+['Sobrevivência',4,0,0,0,0],
+['Vontade',4,0,0,0,0]
+];
+
+var conditions = [
+{name:'Abalado',type:'Medo',obs:'Se ficar abalado novamente, em vez diz fica apavorado.','Perícias (todas)':-2,},
+{name:'Agarrado',type:'Movimento',obs:'O personagem fica desprevenido e imóvel, e só pode atacar com armas leves. Ataques à distância contra um alvo envolvido em uma manobra agarrar têm 50% de chance de acertar o alvo errado.','Ataques':-2,},
+{name:'Alquebrado',type:'Mental',obs:'O custo em pontos de mana das habilidades do personagem aumenta em +1.',},
+{name:'Apavorado',type:'Medo',obs:'O personagem não pode se aproximar voluntariamente da fonte do medo.','Perícias (todas)':-5,},
+{name:'Atordoado',type:'Mental',obs:'O personagem fica desprevenido e não pode fazer ações.',},
+{name:'Caído',type:'',obs:'Seu deslocamento é reduzido a 1,5m. Sofre -5 na Defesa contra ataques corpo a corpo e recebe +5 na Defesa contra ataques à distância (cumulativos com outras condições).','Deslocamento':'reduzido para 1,5m','Luta':-5,},
+{name:'Cego',type:'Sentidos',obs:'O personagem fica desprevenido e lento, não pode fazer testes de Percepção para observar. Todos os alvos de seus ataques recebem camuflagem total. Você é considerado cego enquanto estiver em uma área de escuridão total, a menos que algo lhe permita perceber no escuro.','Acrobacia':-5,'Atletismo':-5,'Cavalgar':-5,'Furtividade':-5,'Iniciativa':-5,'Ladinagem':-5,'Luta':-5,'Pilotagem':-5,'Pontaria':-5,'Reflexos':-5,},
+{name:'Confuso',type:'Mental',obs:'O personagem comporta-se de modo aleatório (pag 394).',},
+{name:'Debilitado',type:'',obs:'Se o personagem ficar debilitado novamente, em vez disso fica inconsciente.','Acrobacia':-5,'Atletismo':-5,'Cavalgar':-5,'Constituição (teste)':-5,'Destreza (teste)':-5,'Força (teste)':-5,'Fotitude':-5,'Furtividade':-5,'Iniciativa':-5,'Ladinagem':-5,'Luta':-5,'Pilotagem':-5,'Pontaria':-5,'Reflexos':-5,},
+{name:'Desprevenido',type:'',obs:'Despreparado para reagir, você fica desprevenido contra inimigos que não possa ver.','Defesa':-5,'Reflexos':-5,},
+{name:'Doente',type:'Metabolismo',obs:'Sob efeito de uma doença.',},
+{name:'Em Chamas',type:'',obs:'O personagem está pegando fogo. No início de seus turnos, sofra 1d6 pontos de dano de fogo. O personagem pode gastar uma ação padrão para apagar o fogo com as mãos. Imersão em água também apaga as chamas.',},
+{name:'Enfeitiçado',type:'Mental',obs:'O personagem se torna prestativo em relação à fonte da condição. Ele não fica sob controle da fonte, mas percebe suas palavras e ações da maneira mais favorável possível. A fonte da condição recebe +10 em testes de Diplomacia com o personagem.',},
+{name:'Enjoado',type:'Metabolismo',obs:'O personagem só pode realizar uma ação padrão ou de movimento (não ambas) por rodada. Ele pode gastar uma ação padrão para fazer uma investida, mas pode avançar no máximo seu deslocamento (e não o dobro). Metabolismo.',},
+{name:'Enredado',type:'Movimento',obs:'O personagem fica lento, vulnerável e sofre -2 em testes de ataque.','Ataques':-2,},
+{name:'Envenenado',type:'Veneno',obs:'O efeito desta condição varia de acordo com o veneno, veja página 393.',},
+{name:'Esmorecido',type:'Mental',obs:'','Adestramento':-5,'Atuação':-5,'Carisma (teste)':-5,'Conhecimento':-5,'Cura':-5,'Diplomacia':-5,'Enganação':-5,'Guerra':-5,'Inteligência (teste)':-5,'Intimidação':-5,'Intuição':-5,'Investigação':-5,'Jogatina':-5,'Misticismo':-5,'Nobreza':-5,'Percepção':-5,'Religião':-5,'Sabedoria (teste)':-5,'Sobrevivência':-5,'Vontade':-5,},
+{name:'Exausto',type:'Cansaço',obs:'O personagem fica debilitado, lento e vulnerável. Se ficar exausto novamente, em vez disso fica inconsciente.',},
+{name:'Fascinado',type:'Mental',obs:'Com a atenção presa em alguma coisa. O personagem não pode fazer ações, exceto observar aquilo que o fascinou. Esta condição é anulada por ações hostis contra o personagem ou se o que o fascinou não estiver mais visível. Balançar uma criatura fascinada para tirá-la desse estado gasta uma ação padrão.','Percepção':-5,},
+{name:'Fatigado',type:'Cansaço',obs:'O personagem fica fraco e vulnerável. Se ficar fatigado novamente, em vez disso fica exausto.',},
+{name:'Fraco',type:'',obs:'Se ficar fraco novamente, em vez disso fica debilitado.','Acrobacia':-2,'Atletismo':-2,'Cavalgar':-2,'Constituição (teste)':-2,'Destreza (teste)':-2,'Força (teste)':-2,'Fotitude':-2,'Furtividade':-2,'Iniciativa':-2,'Ladinagem':-2,'Luta':-2,'Pilotagem':-2,'Pontaria':-2,'Reflexos':-2,},
+{name:'Frustrado',type:'Mental',obs:'Se ficar frustrado novamente, em vez disso fica esmorecido.','Adestramento':-2,'Atuação':-2,'Carisma (teste)':-2,'Conhecimento':-2,'Cura':-2,'Diplomacia':-2,'Enganação':-2,'Guerra':-2,'Inteligência (teste)':-2,'Intimidação':-2,'Intuição':-2,'Investigação':-2,'Jogatina':-2,'Misticismo':-2,'Nobreza':-2,'Percepção':-2,'Religião':-2,'Sabedoria (teste)':-2,'Sobrevivência':-2,'Vontade':-2,},
+{name:'Imóvel',type:'Movimento',obs:'Você fica imóvel (deslocamento 0m).','Deslocamento':'reduzido para 0m',},
+{name:'Inconsciente',type:'',obs:'O personagem fica indefeso e não pode fazer ações, incluindo reações (mas ainda pode fazer testes que sejam naturalmente feitos quando se está inconsciente, como testes de Constituição para estabilizar sangramento). Balançar uma criatura para acordá-la gasta uma ação padrão.',},
+{name:'Indefeso',type:'',obs:'O personagem fica desprevenido, mas sofre -10 na Defesa, falha automaticamente em testes de Reflexos e pode sofrer golpes de misericórdia.','Defesa':-10,},
+{name:'Lento',type:'Movimento',obs:'Deslocamento reduzido à metade, o personagem não pode correr ou fazer investidas.','Deslocamento':'reduzido pela metade',},
+{name:'Ofuscado',type:'Sentidos',obs:'','Ataques':-2,'Percepção':-2,},
+{name:'Paralisado',type:'Movimento',obs:'O personagem fica imóvel e indefeso e só pode realizar ações puramente mentais.',},
+{name:'Pasmo',type:'Mental',obs:'O personagem não pode fazer ações.',},
+{name:'Petrificado',type:'Metamorfose',obs:'O personagem fica inconsciente e recebe redução de dano 8.','RD':8,},
+{name:'Sangrando',type:'',obs:'No início de seus turnos, o personagem deve fazer um teste de Constituição (CD 15). Se passar, estabiliza e remove essa condição. Se falhar, perde 1d6 pontos de vida e continua sangrando.',},
+{name:'Sobrecarregado',type:'Movimento',obs:'Seu deslocamento é reduzido -3m. Para remover essa condição, reduza o peso carregado em itens.','Armadura (penalidade)':-5,'Deslocamento':'reduzido em 3m',},
+{name:'Surdo',type:'Sentidos',obs:'O personagem não pode fazer testes de Percepção para ouvir. Além disso, é considerado em condição ruim para lançar magias.','Iniciativa':-5,},
+{name:'Surpreendido',type:'',obs:'Não ciente de seus inimigos. O personagem fica desprevenido e não pode fazer ações.',},
+{name:'Vulnerável',type:'',obs:'','Defesa':-2,},
+];
+
+
+//-------------------------DICE ROLLER FUNCTIONS------------------------//
+
+function dicerollRegex(e){e.value=/-?\d+|[d#!hlkerab]/.test(e.value)?e.value:e.value.slice(0,-1)}
+function regex_inj(e){e.value=/[<>\[\]\{\}\$#&]+/.test(e.value)?e.value.slice(0,-1):e.value}
+
+const keyels = ['d','!','rra','rrb','eh','el','kh','kl'];
+const keyssp = /[+\-]*\d+|[+\-]|#|d|!|kh|kl|eh|el|rra|rrb/g;
+
+function fix_str(str){
+ let str2 = [];
+ str = str.replaceAll(' ','').replaceAll('+','_+_').replaceAll('-','_-_').split('_');
+ for(let i in str){
+  if(str[i]=='+'||str[i]=='-'){str2[i] = {sign:str[i][0]}}
+  else{
+   str[i] = str[i].match(keyssp) || [];						//split string into array
+   if(isNaN(str[i][0])){str[i].unshift(1)}					//add 1 if string starts with 'd'
+   str2[i] = {num:JSON.parse(str[i][0])};					//start building associative object with array contents, position becomes unimportant
+   for(let j=1;j<str[i].length;j+=2){
+    if(isNaN(str[i][j])&&isNaN(str[i][j+1])){
+     if(str[i][j]=='!'||str[i][j]=='rra'){str[i].splice(j+1,0,str[i][2])}	//verifies if ! and rra have defined values, otherwise make max
+     else{str[i].splice(j+1,0,1)}						//verifies if rrb, kh, kl, eh, and el have defined values, otherwise make 1
+    }
+    str2[i][str[i][j]] = JSON.parse(str[i][j+1]);				//finishes building associative object
+   }
+  }
+ }
+ return [str2,str.join('').replaceAll(',','').replaceAll('+',' + ').replaceAll('-',' - ')]
+}
+
+function roll_dice(num,max,exp=max+1,rra=max+1,rrb=-1){
+ rrb = (rrb<exp-1)?rrb:exp-2;
+ let roll = [];
+ let rolled = '';
+ for(k=0;k<num;k++){
+  rolled = Math.floor(Math.random()*max)+1;
+  roll.push(rolled);
+  while(rolled>=exp||rolled>=rra||rolled<=rrb){
+   rolled = Math.floor(Math.random()*max)+1;
+   roll.push(rolled);
+  }
+ }
+ return roll;
+}
+
+var soma,roll;
+function diceroll(str,crit=0){
+ let repeat = 1;
+ if(str.includes("#")){
+  repeat = str.slice(0,str.indexOf('#'));
+  str = str.slice(str.indexOf('#')+1);
+ }
+
+ [subarrays,str] = fix_str(str);
+
+ let total_sum = 0;
+ for(var reroll=0;reroll<repeat;reroll++){
+  soma = 0;
+  roll=[];
+  let dices='', sum=[], alg='+', print=' ⟵',ctp = 0;
+  for(i=0;i<subarrays.length;i++){
+   if(subarrays[i].d){
+    roll[i] = roll_dice(subarrays[i].num,subarrays[i].d,subarrays[i]['!'],subarrays[i].rra,subarrays[i].rrb);	//rolling dices
+
+    dices = subarrays[i].num;
+    for(let j in keyels){if(subarrays[i][keyels[j]]){dices+=keyels[j]+subarrays[i][keyels[j]]}};	//joining str for printout
+
+    crit = subarrays[i]['!']?subarrays[i]['!']:subarrays[i].d;	//determining crit (max or !)
+    roll[i] = roll[i].sort(function(a,b){return b-a});  //sorting rolls
+
+    let start=0,end=roll[i].length;		//determining with dice removals start and end points
+    if(subarrays[i].rra){roll[i].forEach(function(el){if(el>=subarrays[i].rra){start++}})}
+    else if(subarrays[i].rrb){roll[i].forEach(function(el){if(el<=subarrays[i].rrb){end--}})}
+
+    if(subarrays[i].eh){start+=subarrays[i].eh}		//changing start and end based on eh, el, kh, kl
+    else if(subarrays[i].el){end-=subarrays[i].el}
+    else if(subarrays[i].kh){end=start+subarrays[i].kh}
+    else if(subarrays[i].kl){start=end-subarrays[i].kl}
+
+    for(j=start;j<end;j++){	//summing roll values
+     if(alg=='+'){sum.push(roll[i][j])}
+     if(alg=='-'){sum.push(-roll[i][j])}
+    }
+
+    for(j=0;j<roll[i].length;j++){	//marking dice rolls crits and removals
+     let classe = '';
+     print += j?', ':' [';
+     if(j<start||j>end-1){classe+=' strike'}
+     if(roll[i][j]==1){classe+=' bold rot';if(!classe.includes('strike')){ctp=-1}}
+     if(roll[i][j]>=crit){classe+=' bold grun';if(!classe.includes('strike')){ctp=1}}
+     print += '<span class="'+classe+'">'+roll[i][j]+'</span>';
+    }
+    print += '] ' + dices;
+
+   }else if(subarrays[i].sign){alg=subarrays[i].sign;print+=' '+alg+' '}	 //+ or -, no d
+    else{	//contant number, no d
+    if(alg=='+'){sum.push(subarrays[i].num)}
+    if(alg=='-'){sum.push(-subarrays[i].num)}
+    print+=' '+subarrays[i].num+' ';
+   }
+
+  }
+  if((str.match(/d/g) || []).length==1&&str.match(/d20/g)&&ctp){ctp = ctp>0?' ⟵ Acerto crítico!':' ⟵ Falha crítica!'}
+  else{ctp=''}
+
+  for(j=0;j<sum.length;j++){soma+=sum[j]}
+  print = '<span class="bold">'+soma+'</span>'+print+ctp;
+  print_out(print);
+  total_sum += soma;
+ }
+ return total_sum;
+}
+
+function scroll_down(e){setTimeout(function(){e=document.getElementById(e);e.scroll({top:e.scrollHeight,behavior:"smooth"})},700)}
+function print_out(print){
+ var card = document.createElement('p');
+ card.innerHTML = print;
+ document.getElementById("results").appendChild(card);
+ scroll_down('allrolls');
+}
+
+function startroll(e){
+ value = document.getElementById(e).innerHTML;
+ if(e.includes('hab')){print_out('Teste de '+habis[habs.indexOf(e.replace('hab_',''))])}
+ if(e.includes('total')){print_out('Teste de '+e.slice(0,-6))}
+ if(e.includes('dice')){print_out(value);diceroll(value)}
+ else{diceroll('d20'+value);openroller(document.getElementById('drawer'))}
+ print_out('');
+}
+
+const demo = document.getElementById("results");
+function print_out(print){
+ let card = document.createElement('p');
+ card.innerHTML = print;
+ demo.appendChild(card);
+ roll_down();
+}
+function roll_down(){setTimeout(function(){demo.scrollTop=demo.scrollHeight},300)}
+
+function roll_weap(el){
+ el = el.parentNode;
+ print_out('Ataque com '+el.children[1].children[0].value);
+ diceroll(el.children[2].children[0].value,0,0);
+ if(roll[0]>=JSON.parse(el.children[4].children[0].value)){
+  print_out('Dano crítico!');
+  diceroll('2#'+el.children[3].children[0].value,0,1);
+ }else{
+  diceroll(el.children[3].children[0].value,0,1);
+ }
+}
+
+function roll_skill(el,ski){
+ el = el.parentNode;
+ let per = el.children[3].innerHTML;
+ if(per=='-'){}
+ else{
+  if(ski){print_out('Teste de '+el.children[2].innerHTML.replace(/[*‡]/g,''))}
+  else{print_out('Teste de '+el.children[2].children[0].value)}
+
+  if(per.includes('-')){diceroll('d20'+per,0,1)}
+  else{diceroll('d20+'+per,0,1)}
+ }
+}
+
+print_out('d20+2');diceroll('d20+2');print_out('');
+print_out('2d20-2');diceroll('2d20-2');print_out('');
+print_out('2#d12+1');diceroll('2#d12+1');print_out('');
+print_out('2d10+2d8-2');diceroll('2d10+2d8-2');print_out('');
+print_out('3d8! (explosão)');diceroll('3d8!');print_out('');
+print_out('3d8!5 (explosão em 5+)');diceroll('3d8!5');print_out('');
+print_out('4d6kh3 (keep higher 3)');diceroll('4d6kh3');print_out('');
+print_out('4d6el (eliminate lower)');diceroll('4d6el');print_out('');
+print_out('5d4!kl2 (keep lower 2)');diceroll('5d4!kl2');print_out('');
+print_out('5d4eh2!3 (eliminate higher 2)');diceroll('5d4eh2!3');print_out('');
+print_out('5d4rra (reroll 4)');diceroll('5d4rra');print_out('');
+print_out('6d6rrb2 (reroll 2-)');diceroll('6d6rrb2');print_out('');
+print_out('4d8!rrb2 (explosão em 8, reroll 2-)');diceroll('4d8!rrb2');print_out('');
+print_out('6d10!8rrb2el+3 (explosão 8+, reroll 2-, eliminar o menor)');diceroll('6d10!8rrb2el+3');print_out('');
+
+
+
+//-------------------------SPELL, EQUIP & ABILITY FUNCTIONS------------------------//
+
+function check_other(el,x){
+ if(el.value=='Outro'){
+  el.classList.add("invisible");
+  el.parentNode.children[x+1].classList.remove("invisible");
+ } else {
+  el.parentNode.children[x+1].value = el.value;
+ }
+ if(el.value=='Voltar'||el.value=='voltar'){
+  el.value = '';
+  el.classList.add("invisible");
+  el.parentNode.children[x].classList.remove("invisible");
+ }
+}
+
+function spell_create(){
+ var card = document.createElement('div');
+ card.setAttribute('class','row');
+ card.innerHTML = '<div class="container"><div class="sw20"><input type="number" placeholder="+PMs" oninput="this.value=this.value.replace(/[^0-9.]/g, \'\').replace(/(\..*?)\..*/g, \'$1\')"></div><div class="sw70"><textarea placeholder="Descri&ccedil;&atilde;o do melhoramento"></textarea></div></div>';
+ document.getElementById('spell_plus').appendChild(card);
+}
+
+function add_generic(el,array){
+ el.parentNode.parentNode.parentNode.classList.add('invisible');
+ el = el.parentNode.parentNode;
+ var to_add = [];
+ var inputs = el.getElementsByTagName('input');
+ for(var i=0;i<inputs.length;i++){
+  to_add.push(inputs[i].value);
+  inputs[i].value='';
+ }
+ var txtarea = el.getElementsByTagName('textarea');
+ for(var i=0;i<txtarea.length;i++){
+  if(el.id=='spell'){to_add.splice(2*i+10,0,txtarea[i].value)}
+  else{to_add.push(txtarea[i].value)}
+  txtarea[i].value='';
+ }
+ var select = el.getElementsByTagName('select');
+ for(var i=0;i<select.length;i++){select[i].selectedIndex = 0}
+ array.splice(array.length,0,to_add);
+ document.getElementById('spell_plus').innerHTML='';
+}
+
+function add_habi(index){
+ let card = document.createElement('div');
+ card.setAttribute('class','item_list');
+ card.setAttribute('draggable','true');
+ card.setAttribute('ondragstart','drag(event)');
+
+ let p = [];
+ let text = '<div class="verylarge"><b>'+features[index][0]+'</b></br>';
+ if(features[index][1]){p.push(features[index][1])}
+ if(features[index][2]){p.push(features[index][2])}
+ text += p.join(' 🞄 ');
+
+ if(features[index][3].length>130){
+  text += '<div class="item_triag"></div><div class="item_detail">' + features[index][3] + '</div>';
+  //card.classList.add('item_list_det');
+  //card.setAttribute('data-content',features[index][3]);
+ }else{text += '</br>'+features[index][3]}
+ text += '</div><div class="verysmall"><button class="rmv" onclick="rmv_item(this,'+index+',features)">x</button></div>';
+ card.innerHTML = text;
+
+ document.getElementById('habis_list').appendChild(card);
+}
+
+function add_equip(index){
+ let card = document.createElement('div');
+ let c = (equips[index][5]||equips[index][4])?'item_list_det':'';
+ card.setAttribute('class','item_list '+c);
+
+ let text = '<div class="verysmall"><button class="rmv" onclick="rmv_item(this,'+index+',equips)">x</button></div>';
+ text += '<div class="esw15"><input placeholder="Qte" type="number" value="'+equips[index][6]+'" onchange="equips['+index+'][6]=this.value"></div><div class="esw80"><b>'+equips[index][0]+'</b>';
+
+ let p = [];
+ if(equips[index][1]){p.push(equips[index][1])}
+ if(equips[index][2]){p.push(equips[index][2])}
+ if(equips[index][3]){p.push(equips[index][3])}
+ if(p.length){p = '</br><sm>'+p.join(' 🞄 ')+'</sm>';text+=p}
+ text += '</div>';
+
+ p = [];
+ if(equips[index][5]){p.push(equips[index][5])}
+ if(equips[index][4]){p.push('<i><b>Origem:</b> '+equips[index][4]+'</i>')}
+ if(p.length){card.setAttribute('data-content',p.join('</br>'))}
+
+ card.innerHTML = text;
+ document.getElementById('equips_list').appendChild(card);
+}
+
+function add_spell(index){
+ let card = document.createElement('div');
+ card.setAttribute('class','item_list');
+		
+ let text = '<div class="verylarge"><bg>'+char_spells[index][0]+'</bg></br>';
+
+ let pmc = [1,3,6,10,15];
+ let p = [];
+ if(char_spells[index][3]){p.push(char_spells[index][3])}else{p.unshift('Círculo')}
+ if(char_spells[index][2]){p.push(char_spells[index][2])}
+ p[0]=p.join(' ');p.splice(1);
+ if(char_spells[index][1]){p.unshift(char_spells[index][1])}else{p.unshift('Universal')}
+ if(char_spells[index][2]){p.unshift(pmc[char_spells[index][2]-1]+' PM'+(char_spells[index][2]>1?'s':''))}
+ 
+ text += p.join(' 🞄 ');
+ if(char_spells[index][9]){text += '<sm> ('+char_spells[index][9]+')</sm>'}
+
+ p = [];
+ if(char_spells[index][4]){p.push('<b>Ação:</b>&nbsp;'+char_spells[index][4])}
+ if(char_spells[index][5]){p.push('<b>Alcance:</b>&nbsp;'+char_spells[index][5])}
+ if(char_spells[index][6]){p.push('<b>Área/Alvo:</b>&nbsp;'+char_spells[index][6])}
+ if(char_spells[index][7]){p.push('<b>Duração:</b>&nbsp;'+char_spells[index][7])}
+ if(char_spells[index][8]){p.push('<b>Resistência:</b>&nbsp;'+char_spells[index][8])}
+ if(p.length){p = p.join('&emsp;');text+='</br>'+p}
+
+ if(char_spells[index].length>10){text += '<div class="item_triag"></div><div class="item_detail">'}
+ if(char_spells[index][10]){text += '<b>Descrição:</b><br>'+char_spells[index][10]+'<br>'}
+ for(var i=11;i<char_spells[index].length;i+=2){
+  text += '<br>';
+  if(char_spells[index][i]&&char_spells[index][i+1]){
+   if(char_spells[index][i]>0){text += '<b>+'+char_spells[index][i]+' PM: '}
+   else{text += '<b>Truque: '}
+   text += '</b>'+char_spells[index][i+1];
+  }
+ }
+ if(char_spells[index].length>10){text += '</div>'}
+
+ text += '</div><div class="verysmall"><button class="rmv" onclick="rmv_item(this,'+index+',char_spells)">x</button></div>';
+ card.innerHTML = text;
+
+ document.getElementById('spells_list').appendChild(card);
+}
+
+function rmv_item(el,index,array){
+ el.parentNode.parentNode.remove();
+ array.splice(index,1);
+}
+
+function set_features(){for(var i=0;i<features.length;i++){add_habi(i)}}
+function set_equips(){
+ var inputs = document.getElementById('equips').getElementsByTagName('input');
+ for(var i=0;i<inputs.length;i++){inputs[i].value=header[inputs[i].name]}
+ for(var i=0;i<equips.length;i++){add_equip(i)}
+}
+function set_spells(){
+ var select = document.getElementById('spells').getElementsByTagName('select');
+ select[0].selectedIndex = header['shab'];
+ change_spell(select[0]);
+ for(var i=0;i<char_spells.length;i++){add_spell(i)}
+}
+
+function change_spell(el){
+ var lvl = header['blvl'];
+ lvl = Math.floor(lvl/2);
+ var hab = el.value;
+ hab = Math.floor(habs[hab]/2)-5 + Math.floor(effects[habs_names[hab]]/2);
+ document.getElementById('res_test').innerHTML = 10 + hab + lvl;
+ header[el.name] = JSON.parse(el.value);
+}
+
+function change_coin(el){
+ if(el.value.includes('-')||el.value.includes('+')){
+  el.value = el.value.replace('+','');
+  el.value=header[el.name]+JSON.parse(el.value);
+ }
+ header[el.name] = JSON.parse(el.value)
+}
+
+var drag_el = '';
+function allowDrop(ev){ev.preventDefault()}
+function drag(ev){drag_el = ev.target}
+function drop(ev,el){
+ ev.preventDefault();
+ el.appendChild(drag_el);
+}
+
+
+
+//-------------------------CONDITIONS FUNCTIONS------------------------//
+
+function effects_show(el){
+ var origin = el.name;
+ var el = el.parentNode.children[1];
+ el.classList.remove('invisible');
+ el.innerHTML = '';
+
+ if(origin=='cond-name'){for(var i=0;i<conditions.length;i++){el.innerHTML += '<a index="'+i+'" onclick="set_value(this)">'+conditions[i]['name']+'</a>'}}
+ if(origin=='effect-name'){for(var key in effects){el.innerHTML += '<a index="'+i+'" onclick="set_value(this);verify_input_name(this.parentNode.parentNode.children[0])">'+key+'</a>'}}
+}
+window.addEventListener('click',function(e){
+ var el = document.getElementsByClassName('dropdown');
+ for (i=0;i<el.length;i++){if(el[i].contains(e.target)){}else{el[i].parentNode.children[1].classList.add("invisible")}}
+});
+
+function amIclicked(e,element){
+ e = e || event;
+ var target = e.target || e.srcElement;
+ if(target.id==element.id){return true}
+ else{return false}
+}
+function unhide(id){document.getElementById(id).classList.remove('invisible')}
+function hide(event,el){if(amIclicked(event,el)){el.classList.add('invisible');document.getElementById('cond-create').innerHTML='';document.getElementById('spell_plus').innerHTML=''}}
+
+function filterFunction(el){
+ k = 0;
+ if(el.name=='cond-name'){
+  el.setAttribute('index','new');
+  document.getElementById('cond-create').classList.remove("invisible");
+  document.getElementById('cond-type-obs').classList.remove("invisible");
+  document.getElementById('btn2').disabled = true;
+  if(el.value){document.getElementById('btn1').disabled = false}
+  else{document.getElementById('btn1').disabled = true}
+ }
+ var filter = el.value.toUpperCase();
+ var a = el.parentNode.children[1].getElementsByTagName("a");
+ for (var i=0;i<a.length;i++){
+  txtValue = a[i].textContent || a[i].innerText;
+  if(txtValue.toUpperCase().indexOf(filter)>-1){a[i].style.display=""}
+  else{a[i].style.display="none"}
+ }
+}
+
+function reset_filter(){
+ var el = document.getElementById('cond_overlay');
+ el = el.getElementsByTagName('input');
+ document.getElementById('cond-create').classList.remove("invisible");
+ document.getElementById('cond-type-obs').classList.remove("invisible");
+ for (i=0;i<el.length;i++){el[i].value = ''}
+ document.getElementById('btn1').disabled = true;
+ document.getElementById('btn2').disabled = true;
+}
+
+function set_value(el){
+ if(el.parentNode.parentNode.children[0].name=='cond-name'){
+  document.getElementById('cond-create').classList.add("invisible");
+  document.getElementById('cond-type-obs').classList.add("invisible");
+  document.getElementById('btn2').disabled = false;
+  document.getElementById('btn1').disabled = false;
+ }
+ el.parentNode.parentNode.children[0].value = el.innerHTML;
+ el.parentNode.parentNode.children[0].setAttribute('index',el.getAttribute('index'));
+}
+
+function add_effect(id){
+ var card = document.createElement('div');
+ card.setAttribute('class','row');
+ card.innerHTML = '<div class="container"><div class="half cond-dropdown"><input type="text" name="effect-name" class="dropdown" placeholder="O efeito altera For&ccedil;a em..." onkeyup="filterFunction(this);verify_input_name(this)" onclick="effects_show(this)"><div id="cond-effects" class="dropdown-content invisible"></div></div><div class="half" style="display:flex"><input type="number" placeholder="+2"><div class="verysmall"><button class="rmv" onclick="rmv_effect(this)">x</button></div></div></div>';
+ document.getElementById(id).appendChild(card);
+}
+
+function verify_input_name(el){
+ if(el.value=='Tamanho'){
+  el.parentNode.parentNode.children[1].innerHTML = '<select><option value="0" selected disabled>Tamanho</option><option value="1">Min&iacute;sculo</option><option value="2">Pequeno</option><option value="3">M&eacute;dio</option><option value="4">Grande</option><option value="5">Enorme</option><option value="6">Colossal</option></select><div class="verysmall"><button class="rmv" onclick="rmv_effect(this)">x</button></div>';
+  el.parentNode.setAttribute('id','cond_tam');
+  el.parentNode.innerHTML = 'Tamanho';
+ }
+}
+
+function rmv_effect(el){el.parentNode.parentNode.parentNode.parentNode.remove()}
+
+function add_cond_list(){ //add new condition to the list of available conditionds
+ var cname = document.getElementById('cond-name');
+ var index = cname.getAttribute('index');
+ var el = document.getElementById('cond-create');
+
+ if(index=='new'){
+  index = conditions.length;
+  var to_add = {};
+  to_add['name']=cname.value;
+  to_add['type']=document.getElementById('cond-type').value;
+  to_add['obs']=document.getElementById('cond-obs').value;
+
+  var inputs = el.getElementsByTagName('input');
+  for(var i=0;i<inputs.length;i+=2){
+   if(inputs[i].value&&inputs[i+1].value){to_add[inputs[i].value]=inputs[i+1].value}
+  }
+
+  var select = el.getElementsByTagName('select');
+  var tam = document.getElementById('cond_tam')||0;
+  if(tam){to_add['Tamanho']=select[0].value}
+
+  conditions.splice(index,0,to_add);
+ }else{index=JSON.parse(index)}
+
+ var color = 0;
+ var radios = document.getElementById('cond').getElementsByClassName('color');
+ for(var i=0;i<radios.length;i++){if(radios[i].checked){color=i}}
+
+ el.innerHTML='';
+
+ active_conditions.splice(active_conditions.length,0,[index,color]);
+ add_condition(index,color);
+}
+
+function rmv_cond_list(){ //remove a condition to the list of available conditionds
+ var el = document.getElementById('cond-name');
+ var i = el.getAttribute('index');
+ alert('A condi&ccedil;&atilde;o "'+conditions[i]['name']+'" foi removida');
+ conditions.splice(i,1);
+}
+
+function add_condition(index,color){ //add a condition to character sheet
+ var cond = document.createElement('div');
+ cond.innerHTML = '<div class="row"><div class="ct">'+conditions[index]['name'] + '</div><div class="cr"><button class="rmv" value="'+index+'" onclick="rmv_condition(this,value)">x</button></div></div>';
+ cond.setAttribute('class','cback');
+ cond.setAttribute('value',color);
+
+
+
+
+ let tooltip = [];
+
+ for (var key in conditions[index]){
+  if(key=='name'||key=='obs'||key=='type'){}
+  else if(key=='Tamanho'){tooltip.push(key+': '+tamanhos[conditions[index][key]])}
+  else{tooltip.push(key+': '+conditions[index][key])}
+ }
+ let typ = (conditions[index]['type']?conditions[index]['type']+'<br>':'');
+ cond.innerHTML += '<div class="cback_info"><i>Condição de '+typ+'<br>'+tooltip.join(', ')+'</div>';
+
+ document.getElementById('condlist').appendChild(cond);
+ document.getElementById('cond_overlay').classList.add('invisible');
+
+ if(conditions[index]['obs']!=''){
+  var obs = document.createElement('li');
+  obs.setAttribute('value',index);
+  obs.innerHTML = conditions[index]['obs'];
+  document.getElementById('condobs').appendChild(obs);
+ }
+ 
+ activate_condition(index,1);
+}
+
+function rmv_condition(el,k){ //remove a condition from the character sheet
+ k = JSON.parse(k);
+ el.parentNode.parentNode.parentNode.remove();
+
+ el = document.getElementById('condobs').getElementsByTagName('li');
+ for(var i=0;i<el.length;i++){if(el[i].value==k){el[i].remove()}}
+
+ active_conditions.splice(active_conditions.indexOf(k),1);
+ activate_condition(k,-1);
+}
+
+function activate_condition(index,k){ //update variables according to active conditions
+ for (var key in conditions[index]){
+  if(key!='name'&&key!='type'&&key!='obs'&&key!='obs'&&key!='Tamanho'&&key!='Deslocamento'){
+   effects[key]+=conditions[index][key]*k;
+  }
+  if(key=='Tamanho'||key=='Deslocamento'){
+   if(k==1){effects[key]=conditions[index][key]}
+   else{effects[key]=''}
+  }
+ }
+ set_header();
+ set_pmpv();
+ calc_hab();
+}
+
+function set_conditions(){
+ for(var i=0;i<active_conditions.length;i++){
+  add_condition(active_conditions[i][0],active_conditions[i][1])
+ }
+}
+
+
+
+//-------------------------WEAPONS FUNCTIONS------------------------//
+
+function create_weap(el,k){
+ el = document.getElementById(el);
+ var card = document.createElement('div');
+ card.setAttribute('class','row weap');
+ card.innerHTML = '<div class="w0 dice" onclick="roll_weap(this)"></div><div class="w1"><input type="text" onchange="change_weap(this)"></div><div class="w2"><input type="text" onchange="change_weap(this)"></div><div class="w3"><input type="text" onchange="change_weap(this)"></div><div class="w4"><input type="text" onchange="change_weap(this)"></div><div class="w5"><select class="select" onchange="change_weap(this)"><option value="0" selected disabled>Tipo</option><option value="1">Corte</option><option value="2">Impacto</option><option value="3">Perfuração</option><option value="4">Estratégico</option></select></div><div class="w6"><select class="select" onchange="change_weap(this)"><option value="0" selected disabled>Alcance</option><option value="1">Adjacente</option><option value="2">Curto</option><option value="3">M&eacute;dio</option><option value="4">Longo</option></select></div><div class="w7"><button class="rmv" onclick="rmv_weap(this)">x</button></div>';
+ el.appendChild(card);
+ if(k){weapons.splice(weapons.lenght,0,[,,,,,])}
+}
+
+function change_weap(el){
+ el = el.parentNode.parentNode.parentNode;
+ var weaps = el.getElementsByClassName('weap');
+ for(var i=0;i<weaps.length;i++){
+  var inputs = weaps[i].getElementsByTagName('input');
+  for(var j=0;j<inputs.length;j++){weapons[i][j] = inputs[j].value}
+
+  var select = weaps[i].getElementsByTagName('select');
+  weapons[i][4] = JSON.parse(select[0].value);
+  weapons[i][5] = JSON.parse(select[1].value);
+ }
+}
+
+function rmv_weap(el){
+ var name = el.parentNode.parentNode.children[1].children[0].value;
+ el = el.parentNode.parentNode.parentNode;
+ var k = null;
+ for(var i=0;i<weapons.length;i++){if(weapons[i][0]===name){k=i}}
+ if(k!=null){el.children[k+1].remove();weapons.splice(k,1)}
+}
+
+function set_weap(){
+ for(var i=0;i<weapons.length;i++){create_weap('weapons',0)};
+ var el = document.getElementById('weapons');
+ var weaps = el.getElementsByClassName('weap');
+ for(var i=0;i<weapons.length;i++){
+  var inputs = weaps[i].getElementsByTagName('input');
+  for(var j=0;j<inputs.length;j++){inputs[j].value = weapons[i][j]}
+
+  var select = weaps[i].getElementsByTagName('select');
+  select[0].selectedIndex = weapons[i][4];
+  select[1].selectedIndex = weapons[i][5];
+ }
+}
+
+
+
+//-------------------------SKILLS FUNCTIONS------------------------//
+
+function change_skills(el){
+ el = el.parentNode.parentNode.parentNode;
+ var skill_list = el.getElementsByClassName('skill-line');
+ for(var i=0;i<skills.length;i++){
+  var inputs = skill_list[i].getElementsByTagName('input');
+  skills[i][2] = inputs[0].checked?1:0;
+  skills[i][3] = JSON.parse(inputs[1].value);
+  var select = skill_list[i].getElementsByTagName('select');
+  skills[i][1] = JSON.parse(select[0].selectedIndex);
+ }
+ calc_skills('skill-line',skills);
+}
+
+function calc_skills(el,array){
+ var skill_list = document.getElementsByClassName(el);
+ for(var i=0;i<skill_list.length;i++){
+  var lvl = header['blvl'];
+  var tre = array[i][2]?(lvl<7?2:(lvl<15?4:6)):0;
+  var lvl = Math.floor(lvl/2);
+  var hab = Math.floor(habs[array[i][1]]/2)-5 + Math.floor(effects[habs_names[array[i][1]]]/2);
+  var out = array[i][3];
+  var pel = array[i][5]?(JSON.parse(defense['Armadura (penalidade)']) + JSON.parse(defense['Escudo (penalidade)'])) + effects['Armadura (penalidade)'] + effects['Escudo (penalidade)']:0;
+  var tam = effects['Tamanho']?JSON.parse(effects['Tamanho']):JSON.parse(header['btam']);
+  tam = (tam==0?0:(tam==1?-5:(tam==2?-2:(tam==3?0:(tam==4?2:(tam==5?5:10))))));
+  tam = array[i][0]=='Furtividade'?-tam:0;
+  var cond = (effects[array[i][0]]?effects[array[i][0]]:0) + effects['Perícias (todas)'];
+
+  skill_list[i].children[5].innerHTML = lvl; skill_list[i].children[5].setAttribute('value',lvl);
+  skill_list[i].children[9].innerHTML = tre; skill_list[i].children[9].setAttribute('value',tre);
+  skill_list[i].children[11].children[0].value = out;
+  var total = tre?(lvl + tre + hab + out + pel + tam + cond):(array[i][4]?'-':lvl + tre + hab + out + pel + tam + cond);
+  skill_list[i].children[3].innerHTML = total; skill_list[i].children[3].setAttribute('value',total);
+
+  if(total=='-'){skill_list[i].children[0].className='c0 rice';skill_list[i].children[0].setAttribute('onClick','')}
+  else{
+   if(array==skills){skill_list[i].children[0].className='c0 dice';skill_list[i].children[0].setAttribute('onClick','roll_skill(this,1)')}
+   else{skill_list[i].children[0].className='c0 dice';skill_list[i].children[0].setAttribute('onClick','roll_skill(this,0)')}
+  }
+
+  var tooltip = (hab<0?'':'+') + hab + ' habilidade, ';
+  tooltip += lvl?('+' + lvl + ' metade do nível, '):'';
+  tooltip += tre?('+' + tre + ' treinamento, '):'';
+  tooltip += out?((out<0?'':'+') + out + ' outros, '):'';
+  tooltip += pel?((pel<0?'':'+') + pel + ' armadura e/ou escudo, '):'';
+  tooltip += tam?((tam<0?'':'+') + tam + ' tamanho, '):'';
+  tooltip += cond?((cond<0?'':'+') + cond + ' condição'):'';
+  skill_list[i].getElementsByClassName('c10')[0].setAttribute('data-content',tooltip.replace(/, /g, '\u000D\u000A'));
+ }
+}
+
+function set_skills(){
+ for(var i=0;i<skills.length;i++){
+  var name = skills[i][0] + (skills[i][4]?'*':'') + (skills[i][5]?'&#8225;':'');
+  var card = document.createElement('div');
+
+  card.setAttribute('class','skill-line');
+  var checked = skills[i][2]?' checked':'';
+  card.innerHTML = '<div class="c0 dice" onclick="roll_skill(this,1)"></div><div class="c0"><input type="checkbox" onchange="change_skills(this)"'+checked+'></div><div class="c1">'+name+'</div><div value="0" class="c2">0</div><div class="c3">=</div><div value="0" class="c4">0</div><div class="c5">+</div><div class="c6"><select class="select" onchange="change_skills(this)"><option value="0">for</option><option value="1">des</option><option value="2">con</option><option value="3">int</option><option value="4">sab</option><option value="5">car</option></select></div><div class="c7">+</div><div value="0" class="c8">0</div><div class="c9">+</div><div class="c10"><input  type="number" value="'+skills[i][3]+'" onchange="change_skills(this)"></div><div class="c11"></div>';
+  card.getElementsByTagName('select')[0].selectedIndex = skills[i][1];
+  document.getElementById('skill-box').appendChild(card);
+
+  if(i==20){
+   var card = document.createElement('div');
+   card.setAttribute('id','ofic');
+   card.innerHTML = '<div class="ofic"><div class="c0"></div><div class="c0"><button class="create" onclick="create_ofic(\'ofic\',1)">+</button></div><div class="c1">Ofícios*</div><div class="cx"></div></div>';
+   document.getElementById('skill-box').appendChild(card);
+  }
+
+ }
+ var card = document.createElement('div');
+ card.innerHTML = '<div style="font-size:80%;text-align:center;margin:2.5% auto">&#8225;penalidade de armadura *somente treinado</div>';
+ document.getElementById('skill-box').appendChild(card);
+}
+
+
+
+//-------------------------OFICIOS FUNCTIONS------------------------//
+
+function create_ofic(el,k){
+ el = document.getElementById(el);
+ var card = document.createElement('div');
+ card.setAttribute('class','ofic-line');
+ card.innerHTML = '<div class="c0 dice" onclick="roll_skill(this,0)"></div><div class="c0"><input type="checkbox" onchange="change_ofic(this)"></div><div class="c1"><input type="text" style="text-align:left" placeholder="Adicione um nome" onchange="change_ofic(this)"></div><div class="c2">0</div><div class="c3">=</div><div class="c4">0</div><div class="c5">+</div><div class="c6"><select class="select" onchange="change_ofic(this)"><option value="0">for</option><option value="1">des</option><option value="2">con</option><option value="3" selected>int</option><option value="4">sab</option><option value="5">car</option></select></div><div class="c7">+</div><div class="c8">0</div><div class="c9">+</div><div class="c10"><input type="number" value="0" onchange="change_ofic(this)"></div><div class="c11"><button class="rmv" onclick="rmv_ofic(this)">x</button></div>';
+ el.appendChild(card);
+ if(k){oficios.splice(oficios.lenght,0,['',3,0,0,1,0])}
+ calc_skills('ofic-line',oficios);
+}
+
+function change_ofic(el){
+ el = el.parentNode.parentNode.parentNode;
+ var ofics = el.getElementsByClassName('ofic-line');
+ for(var i=0;i<ofics.length;i++){
+  var inputs = ofics[i].getElementsByTagName('input');
+  oficios[i][0] = inputs[1].value;
+  oficios[i][2] = inputs[0].checked?1:0;
+  oficios[i][3] = JSON.parse(inputs[2].value);
+  var select = ofics[i].getElementsByTagName('select');
+  oficios[i][1] = JSON.parse(select[0].selectedIndex);
+  oficios[i][4] = 1;oficios[i][5] = 0; //requer treinamento e penalidade por armadura
+ }
+ calc_skills('ofic-line',oficios);
+}
+
+function rmv_ofic(el){
+ var name = el.parentNode.parentNode.children[2].children[0].value;
+ el = el.parentNode.parentNode.parentNode;
+ var k = '';
+ for(var i=0;i<oficios.length;i++){if(oficios[i][0]==name){k=i}}
+ el.children[k+1].remove();
+ oficios.splice(k,1);
+}
+
+function set_oficios(){
+ for(var i=0;i<oficios.length;i++){create_ofic('ofic',0)};
+ var el = document.getElementById('ofic');
+ var ofics = el.getElementsByClassName('ofic-line');
+
+ for(var i=0;i<ofics.length;i++){
+  var inputs = ofics[i].getElementsByTagName('input');
+  inputs[1].value = oficios[i][0];
+  if(oficios[i][2]){inputs[0].checked = true}
+  inputs[2].value = oficios[i][3];
+  var select = ofics[i].getElementsByTagName('select');
+  select[0].value = oficios[i][1];
+ }
+}
+
+
+
+//-------------------------PV&PM FUNCTIONS------------------------//
+
+function change_pmpv(el){
+ if(el.value.includes('-')||el.value.includes('+')){
+  el.value = el.value.replace('+','');
+  el.value=pmpv[el.name]+JSON.parse(el.value);
+ }
+ if(el.name=='pma'||el.name=='pva'){
+  var max = JSON.parse(el.parentNode.parentNode.children[0].children[0].value);
+  el.value = ((el.value>max)?max:el.value);
+ }
+ pmpv[el.name] = JSON.parse(el.value);
+
+ el.className = ((el.value<0)?'red':'');
+ pmpv['pvt'] -= effects['Pontos de Vida'];
+ pmpv['pmt'] -= effects['Pontos de Mana'];
+}
+
+function set_pmpv(){
+ el = document.getElementById('pv');
+ el.children[0].children[0].value = pmpv['pvt'] + effects['Pontos de Vida'];
+ el.children[1].children[0].value = pmpv['pva'];
+ el = document.getElementById('pm');
+ el.children[0].children[0].value = pmpv['pmt'] + effects['Pontos de Mana'];
+ el.children[1].children[0].value = pmpv['pma'];
+}
+
+
+
+//-------------------------HABS FUNCTIONS------------------------//
+
+function set_hab(){
+ var habs_list = document.getElementsByClassName('habs-box');
+ for(var i=0;i<habs.length;i++){
+  habs_list[i].children[1].children[0].children[0].value = habs[i];
+  habs_list[i].children[1].children[2].innerHTML = Math.floor(habs[i]/2)-5;
+ }
+}
+
+function change_hab(){
+ var habs_list = document.getElementsByClassName('habs-box');
+ for(var i=0;i<habs_list.length;i++){
+  habs[i] = JSON.parse(habs_list[i].children[1].children[0].children[0].value) - effects[habs_names[i]];
+ }
+ calc_hab();
+}
+
+function calc_hab(){
+ var habs_list = document.getElementsByClassName('habs-box');
+ for(var i=0;i<habs_list.length;i++){
+  habs_list[i].children[1].children[0].children[0].value = habs[i] + effects[habs_names[i]];
+  habs_list[i].children[1].children[2].innerHTML = Math.floor((habs[i] + effects[habs_names[i]])/2)-5;
+ }
+ calc_def();
+ calc_skills('ofic-line',oficios);
+}
+
+
+
+//-------------------------DEFENSE FUNCTIONS------------------------//
+
+function set_def(){
+ var el = document.getElementById('defense');
+ var inputs = el.getElementsByTagName('input');
+ for(var i=0;i<inputs.length;i++){
+  inputs[i].value = defense[inputs[i].name];
+ }
+ var select = el.getElementsByTagName('select');
+ select[0].selectedIndex = defense['Defesa (habilidade)'];
+ calc_def();
+}
+
+function change_def(){
+ var el = document.getElementById('defense');
+ var inputs = el.getElementsByTagName('input');
+ for(var i=0;i<inputs.length;i++){
+  if(i==3||i==6){
+   inputs[i].value=((inputs[i].value<0)?inputs[i].value:(-inputs[i].value));
+  }
+  defense[inputs[i].name] = inputs[i].value;
+ }
+ var select = el.getElementsByTagName('select');
+ defense[select[0].name] = select[0].selectedIndex;
+ calc_def();
+}
+
+function calc_def(){
+ var hab = JSON.parse(defense['Defesa (habilidade)']);
+ hab = hab==6?0:Math.floor(habs[hab]/2)-5 + Math.floor(effects[habs_names[hab]]/2);
+ var defo = JSON.parse(defense['Defesa (outros)']);
+ var defa = JSON.parse(defense['Armadura (bonus)']) + effects['Armadura (bonus)'];
+ var defe = JSON.parse(defense['Escudo (bonus)']) + effects['Escudo (bonus)'];
+
+ document.getElementById('def').innerHTML = 10 + hab + defa + defe + defo + effects['Defesa (outros)'];
+ document.getElementById('defo').value = defo;
+ document.getElementById('defa').innerHTML = defa;
+ document.getElementById('defe').innerHTML = defe;
+ calc_skills('skill-line',skills);
+}
+
+
+
+//-------------------------HEADERS FUNCTIONS------------------------//
+
+function change_tam(el){
+ var tam = effects['Tamanho']?JSON.parse(effects['Tamanho']):JSON.parse(header['btam']);
+ tam = (tam==0?0:(tam==1?-5:(tam==2?-2:(tam==3?0:(tam==4?2:(tam==5?5:10))))));
+
+ el = document.getElementById('condobs').getElementsByTagName('li');
+ for(var i=0;i<el.length;i++){if(el[i].value==-1){el[i].remove()}}
+
+ if(tam){
+  var obs = document.createElement('li');
+  obs.setAttribute('value',-1);
+  obs.innerHTML = (tam>0?'+'+tam:tam) + ' em Manobras de Combate';
+  document.getElementById('condobs').appendChild(obs);
+ }
+}
+
+function change(el){
+ var el, inputs;
+ el = document.getElementById('header');
+ inputs = el.getElementsByTagName('input');
+ for(var i=0;i<inputs.length;i++){
+  header[inputs[i].name] = inputs[i].value;
+ }
+
+ el = document.getElementById('subheader');
+ inputs = el.getElementsByTagName('input');
+ select = el.getElementsByTagName('select');
+ header['btam'] = JSON.parse(select[0].value); //tamanho
+ header['bdesloc'] = inputs[0].value; //deslocamento
+ header['bexp'] = inputs[1].value; //experiência
+
+ for(var i=0;i<exp.length;i++){if(header['bexp']>=exp[i]){document.getElementById('expmax').value=exp[i+1]}}
+ calc_skills('skill-line',skills);
+ calc_skills('ofic-line',oficios);
+}
+
+function set_header(){
+ var el, inputs;
+ el = document.getElementById('header');
+ inputs = el.getElementsByTagName('input');
+ for(var i=0;i<inputs.length;i++){
+  if(inputs[i].name!=='bname'){inputs[i].value = header[inputs[i].name]}
+ }
+
+ el = document.getElementById('subheader');
+ inputs = el.getElementsByTagName('input');
+ select = el.getElementsByTagName('select');
+ select[0].selectedIndex = effects['Tamanho']!=''?effects['Tamanho']:header['btam']; //tamanho
+ change_tam(select[0]);
+ inputs[0].value = effects['Deslocamento']!=''?effects['Deslocamento']:header['bdesloc']; //deslocamento
+ inputs[1].value = header['bexp']; //experiência
+}
+
+
+
+//-------------------------CHARS FUNCTIONS------------------------//
+
+function list_chars(el){
+ if(chars){
+  el = el.parentNode.children[1];
+  el.classList.remove('invisible');
+  el.innerHTML = '';
+  for(var i=0;i<chars.length;i++){el.innerHTML += '<a onclick="set_char(this)">'+chars[i]+'</a>'}
+ }
+}
+
+function set_char(el){
+ if(title){save_data();console.log('Character '+title+' saved')}
+ title = el.innerHTML;
+ document.title = title + ' - T20';
+ el.parentNode.parentNode.children[0].value = title;
+ console.log('Character '+title+' loaded');
+ title = title.replace(/[^a-zA-Z]/g, "");
+ load_data();
+ document.getElementById('svggradient').children[0].setAttribute('stop-color',header.color1);
+ document.getElementById('svggradient').children[1].setAttribute('stop-color',header.color2);
+}
+
+function add_char(el){
+ chars.splice(chars.length,0,el.value);
+ title = el.value;
+ document.title = title + ' - T20';
+ header['bname'] = title;
+ title = title.replace(/[^a-zA-Z]/g, "");
+ load_data();
+}
+
+function rmv_char(){
+ let name = document.getElementById('name-char');
+ let char = name.value;
+ name.value = '';
+ let storage = ['defense','equips','features','habs','header','oficios','skills','pmpv','char_spells','weapons','active_conditions','conditions'];
+ storage.forEach(function(e){localStorage.removeItem(char+'_'+e)})
+ chars.splice(chars.indexOf(char),1);
+ clear();
+ title='';
+ save_data();
+ load_data();
+}
+
+function clear(){
+ starter();
+ document.getElementById('weapons').innerHTML = '<div class="row weapons-head"><div class="w0"><button class="create" onclick="create_weap(\'weapons\',1)">+</button></div><div class="w1">Ataques</div><div class="w2">Teste</div><div class="w3">Dano</div><div class="w4">Crítico</div><div class="w5">Tipo</div><div class="w6">Alcance</div><div class="w7"></div></div>';
+ document.getElementById('skill-box').innerHTML = '<div id="skill-head"><div class="c0"></div><div class="c0"></div><div class="c1">Per&iacute;cias</div><div class="c2">Tot</div><div class="c3"></div><div class="c4">Lvl</div><div class="c5"></div><div class="c6">Hab</div><div class="c7"></div><div class="c8">Tre</div><div class="c9"></div><div class="c10">Out</div><div class="c11"></div></div>';
+ document.getElementById('condlist').innerHTML = '';
+ document.getElementById('condobs').innerHTML = '';
+ document.getElementById('habis_list').innerHTML = '';
+ document.getElementById('spells_list').innerHTML = '';
+ document.getElementById('equips_list').innerHTML = '';
+ document.getElementById('anot').value = '';
+}
+
+//-------------------------SVG BACK FUNCTIONS------------------------//
+
+function set_points(el){
+ minmax = [];
+ var xpoints = Math.ceil(el.offsetWidth/100);
+ var ypoints = Math.ceil(el.offsetHeight/100);
+ var dx = 1000/xpoints;
+ var dy = 1000/ypoints;
+
+ const vmin = .2;
+ const vmax = .8;
+ for(var i=Math.floor(xpoints/2)-1;i<xpoints;i++){
+  var xmin = Math.floor(dx*(i+vmin));
+  var xmax = Math.floor(dx*(i+vmax));
+  var ymin = Math.floor(vmin*dy);
+  var ymax = Math.floor(vmax*dy);
+  var point = [xmin,xmax,ymin,ymax];
+  minmax.splice(minmax.length,0,point);
+ }
+ for(var i=0;i<ypoints-1;i++){
+  var xmin = Math.floor(dx*(xpoints+vmin-1));
+  var xmax = Math.floor(dx*(xpoints+vmax-1));
+  var ymin = Math.floor(dy*(i+vmin));
+  var ymax = Math.floor(dy*(i+vmax));
+  var point = [xmin,xmax,ymin,ymax];
+  minmax.splice(minmax.length,0,point);
+ }
+ for(var i=xpoints-1;i>-1;i--){
+  var xmin = Math.floor(dx*(i+vmin));
+  var xmax = Math.floor(dx*(i+vmax));
+  var ymin = Math.floor(dy*(ypoints+vmin-1));
+  var ymax = Math.floor(dy*(ypoints+vmax-1));
+  var point = [xmin,xmax,ymin,ymax];
+  minmax.splice(minmax.length,0,point);
+ }
+ for(var i=ypoints-1;i>-1;i--){
+  var xmin = Math.floor(vmin*dx);
+  var xmax = Math.floor(vmax*dx);
+  var ymin = Math.floor(dy*(i+vmin));
+  var ymax = Math.floor(dy*(i+vmax));
+  var point = [xmin,xmax,ymin,ymax];
+  minmax.splice(minmax.length,0,point);
+ }
+ for(var i=0;i<Math.floor(xpoints/2)-1;i++){
+  var xmin = Math.floor(dx*(i+vmin));
+  var xmax = Math.floor(dx*(i+vmax));
+  var ymin = Math.floor(vmin*dy);
+  var ymax = Math.floor(vmax*dy);
+  var point = [xmin,xmax,ymin,ymax];
+  minmax.splice(minmax.length,0,point);
+ }	
+ return minmax;
+}
+
+function randomize(min,max){return Math.floor(Math.random() * (max - min + 1) + min)}
+
+function set_bezier(el){
+ var minmax = set_points(el);
+ var points = [];
+ for(var i=0;i<minmax.length;i++){
+  var rand = [randomize(minmax[i][0],minmax[i][1]),randomize(minmax[i][2],minmax[i][3])];
+  points.splice(points.length,0,rand);
+ }
+
+ var path = 'M'+points[0][0]+','+points[0][1]+' ';
+ for(var i=0;i<minmax.length;i++){
+  var x1 = points[i][0];var y1 = points[i][1];
+  if(i==minmax.length-1){var x2 = points[0][0];var y2 = points[0][1]}
+  else {var x2 = points[i+1][0];var y2 = points[i+1][1]}
+  var x = x2 - x1;
+  var y = y2 - y1;
+  const d = 25;
+  if(Math.abs(x)>Math.abs(y)){
+   z = Math.floor(x/2) + randomize(-d,d);
+   w = Math.floor(y/2) + randomize(-d,d)+100;
+   w = x2>x1?w:-w;
+  } else {
+   w = Math.floor(x/2) + randomize(-d,d);
+   z = Math.floor(y/2) + randomize(-d,d)+100;
+   z = y2>y1?-z:z;
+  }
+  path += 'q'+z+','+w+','+x+','+y+' ';
+ }
+ el.children[0].children[0].children[0].setAttribute('d',path);
+}
+
+function create_svg(el){
+ var card = document.createElement('div');
+ card.setAttribute('class','bg');
+ card.innerHTML = '<svg class="svgback" viewBox="0 0 1000 1000" preserveAspectRatio="none"><path class="svgpath" fill="url(#svggradient)"/></svg>';
+ el.insertBefore(card, el.firstChild); 
+ set_bezier(el);
+}
+
+const backs = ['header','habssvg','pmpvsvg','weapsvg','defsvg','habisvg','equipsvg','spellsvg'];
+function add_svg(){for(var i=0;i<backs.length;i++){create_svg(document.getElementById(backs[i]))}}
+
+var svgs = document.getElementsByTagName('svg');
+function svg_esc(){for(var i=0;i<svgs.length;i++){svgs[i].classList.toggle('invisible')}}
+function svg_shape_color(e){
+ if(e.button){
+  var h = randomize(1, 360);
+  var s = randomize(20, 100);
+  var l = randomize(20, 70)-8;
+  header.color1 = 'hsl('+h+'deg '+s+'% '+l+'%)';
+  document.getElementById('svggradient').children[0].setAttribute('stop-color',header.color1);
+  l+=16;
+  header.color2 = 'hsl('+h+'deg '+s+'% '+l+'%)';
+  document.getElementById('svggradient').children[1].setAttribute('stop-color',header.color2);
+ } else {
+  for(var i=0;i<backs.length;i++){set_bezier(document.getElementById(backs[i]))}
+ }
+}
+
+
+
+//-------------------------DATA MANAGEMENT FUNCTIONS------------------------//
+
+window.addEventListener('beforeunload',save_data);
+function save_data(){
+ localStorage.setItem('chars',JSON.stringify(chars));
+ if(title){
+  calc_hab();
+  localStorage.setItem(title+'_header',JSON.stringify(header));
+  localStorage.setItem(title+'_pmpv',JSON.stringify(pmpv));
+  localStorage.setItem(title+'_defense',JSON.stringify(defense));
+  localStorage.setItem(title+'_habs',JSON.stringify(habs));
+  localStorage.setItem(title+'_weapons',JSON.stringify(weapons));
+  localStorage.setItem(title+'_skills',JSON.stringify(skills));
+  localStorage.setItem(title+'_oficios',JSON.stringify(oficios));
+  localStorage.setItem(title+'_conditions',JSON.stringify(conditions));
+  localStorage.setItem(title+'_active_conditions',JSON.stringify(active_conditions));
+  localStorage.setItem(title+'_char_spells',JSON.stringify(char_spells));
+  localStorage.setItem(title+'_equips',JSON.stringify(equips));
+  localStorage.setItem(title+'_features',JSON.stringify(features));
+ }
+}
+
+function load_data(){
+ clear();
+ if(load&&localStorage.getItem(title+'_header')!==null){
+  header = JSON.parse(localStorage.getItem(title+'_header'));
+  pmpv = JSON.parse(localStorage.getItem(title+'_pmpv'));
+  defense = JSON.parse(localStorage.getItem(title+'_defense'));
+  habs = JSON.parse(localStorage.getItem(title+'_habs'));
+  weapons = JSON.parse(localStorage.getItem(title+'_weapons'));
+  skills = JSON.parse(localStorage.getItem(title+'_skills'));
+  oficios = JSON.parse(localStorage.getItem(title+'_oficios'));
+  conditions = JSON.parse(localStorage.getItem(title+'_conditions'));
+  active_conditions = JSON.parse(localStorage.getItem(title+'_active_conditions'));
+  char_spells = JSON.parse(localStorage.getItem(title+'_char_spells'));
+  equips = JSON.parse(localStorage.getItem(title+'_equips'));
+  features = JSON.parse(localStorage.getItem(title+'_features'));
+ }
+ set_header();
+ set_hab();
+ set_pmpv();
+ set_weap();
+ set_def();
+ set_skills();
+ set_oficios();
+ calc_skills('skill-line',skills);
+ calc_skills('ofic-line',oficios);
+ set_conditions();
+ set_spells();
+ set_equips();
+ set_features();
+ document.getElementById('anot').value = header['anot'];
+}
+
+
+
+//-------------------------PRINT FUNCTIONS------------------------//
+
+window.onafterprint = function() {
+ for(var i=0;i<oficios.length;i++){
+  document.getElementById('ofic').children[i+1].children[1].children[0].value = oficios[i][0];
+ }
+}
+window.onbeforeprint = function() {
+ for(var i=0;i<oficios.length;i++){
+  var k = oficios[i][0]?oficios[i][0]:'                          ';
+  document.getElementById('ofic').children[i+1].children[1].children[0].value = 'Of. ('+k+')*';
+ }
+}
+
+
+
+//-------------------------STARTER FUNCTION------------------------//
+
+var title = '';
+window.onload = function(){
+ clear();
+ set_skills();
+ if(load&&localStorage.getItem('chars')!==null){chars = JSON.parse(localStorage.getItem('chars'))}
+ add_svg();
+ readGet();
+}
+
+function read_localStorage(char){
+ console.log('Reading '+char+'\'s data');
+ let data = JSON.parse(localStorage.getItem('T20data_'+char));
+ header.bname = data.char;		//str
+ header.bplayer = data.jogador;		//str
+ header.brace = raca[data.raça];	//str	*	select > string
+ header.borigin = origem[data.origem];	//str	*	select > string
+ header.bclass = data.classe+', '+data.distincao;		//str
+ header.blvl = data.nível;		//str	*	num > string
+ header.bdeity = data.divindade;	//str
+ header.btam = data.tamanho;		//num select
+ header.bdesloc = data.deslocamento;	//str
+ header.bexp = data.xp;			//str	*	num > string
+ header.shab = data.spell_hab-1;	//num select	*	1>6 > 0>5
+ header.TO = data.carga.to;		//num
+ header.TP = data.carga.ts;		//num
+ header.TC = data.carga.tc;		//num
+ header.anot = data.anot;		//str
+
+ habs = [data.hab_for_val,data.hab_des_val,data.hab_con_val,data.hab_int_val,data.hab_sab_val,data.hab_car_val];
+ pmpv.pva = '';pmpv.pma = '';
+ pmpv.pvt = data.hpmax;pmpv.pmt = data.mpmax;
+
+ defense['Defesa (habilidade)'] = data.defense.def_hab-1;	//num select	*	1>6 > 0>5
+ defense['Defesa (outros)'] = data.defense.def_out;		//str
+ defense.Armadura = data.defense.armor;				//str
+ defense['Armadura (bonus)'] = data.defense.armor_bonus;	//str	*	num > str
+ defense['Armadura (penalidade)'] = data.defense.armor_penal	//str	*	num > str
+ defense.Escudo = data.defense.shield;				//str
+ defense['Escudo (bonus)'] = data.defense.shield_bonus;		//str	*	num > str
+ defense['Escudo (penalidade)'] = data.defense.shield_penal;	//str	*	num > str
+
+ let red = [];
+ if(data.defense.rd){red.push('RD: '+data.defense.rd)}
+ rd.forEach(function(e){if(data.defense[e]){red.push(e+': '+data.defense[e])}});
+ defense.RD = red.join(', ');
+
+ skills=[];data.skills.forEach(function(e){skills.push([e[0],e[1]-1,e[4],e[5],e[3],e[6]])});			//web:	hab	train	outro	req?   penal?
+ oficios=[];data.crafts.forEach(function(e){if(e[4]){oficios.push([e[0],e[1]-1,e[4],e[5],e[3],e[6]])}});	//mob:	hab1	hab2	req?	train   outro   penal?
+
+ weapons = [];
+ data.attack.forEach(function(e){weapons.push([e[0],e[14],e[15],e[6]+'/'+e[7],e[9],e[8]])});	//nome,ataque total,dano total,crit,tipo,alcance
+
+ equips = [];
+ data.equip.forEach(function(e){equips.push([e[1],tipo_item[e[2]],e[3],pesos[e[4]],'',e[5],e[0]])});	//nome,tipo(select),valor,peso(select),onde conseguiu,descrição,qte
+
+ features = [];
+ data.powers.forEach(function(e){		//nome,tipo(sel),nível,desc - powers[e]
+  let p = [];
+  if(powers[e][1]){p.push(power_typ[powers[e][1]])};
+  if(powers[e][2]){p.push(powers[e][2])};
+  if(powers[e][4]){p.push(powers[e][4])};
+  features.push([powers[e][0],p.join(' 🞄 '),'',powers[e][7]])
+ });
+ data.user_powers.forEach(function(e){
+  let p = [];
+  if(e[1]){p.push(power_typ[e[1]])};
+  if(e[2]){p.push(e[2])};
+  if(e[4]){p.push(e[4])};
+  features.push([e[0],p.join(' 🞄 '),'',e[7]])
+ });
+
+ char_spells = [];
+ data.magias.forEach(function(e){
+  char_spells.push(spells[e].slice(0,6));
+  let p = [];
+  if(spells[e][7]){p.push(spells[e][7])}
+  if(spells[e][8]){p.push(spells[e][8])}
+  if(spells[e][10]){p.push(spells[e][10])}
+  char_spells[char_spells.length-1].push(p.join(' 🞄 '),spells[e][6],spells[e][9],'',spells[e][11]);
+  for(let i=13;i<spells[e].length;i+=2){char_spells[char_spells.length-1].push(spells[e][i],spells[e][i+1])}
+ });
+  data.user_spells.forEach(function(e){
+  char_spells.push(e.slice(0,6));
+  let p = [];
+  if(e[7]){p.push(e[7])}
+  if(e[8]){p.push(e[8])}
+  if(e[10]){p.push(e[10])}
+  char_spells[char_spells.length-1].push(p.join(' 🞄 '),e[6],e[9],'',e[11]);
+  for(let i=13;i<e.length;i+=2){char_spells[char_spells.length-1].push(e[i],e[i+1])}
+ });
+
+ active_conditions = [];
+ data.cond_user.forEach(function(e){
+  p = [];	//pm4, ação5, duração6
+  if(e[1]){p.push(e[1]+'</i>')}
+  if(e[2]){p.push(e[2])}
+  if(e[4]){p.push('Custo: '+e[4]+' PMs')}
+  if(e[5]){p.push('Ação: '+action[e[5]])}		//select
+  if(e[6]){p.push('Duração: '+duration[e[6]])}		//select
+
+  conditions.push({'name':e[0],'type':p.join('<br>'),obs:''});	//name,type,obs,mods
+  for(let key in e[3]){
+   let k = key;
+   if(key=='Defesa'){k = 'Defesa (outros)'}
+   conditions[conditions.length-1][k]=e[3][key]
+  }
+ });
+ 
+ if(data.c_magic){document.getElementById('spells_list').style="min-height:300px";document.getElementById('equips_list').style="min-height:550px"}
+ header.color1 = data.c_color;
+ header.color2 = data.c_color;
+ document.getElementById('svggradient').children[0].setAttribute('stop-color',data.c_color);
+ document.getElementById('svggradient').children[1].setAttribute('stop-color',data.c_color);
+}
+
+function readGet(){
+ if(location.href.includes('?char=')){
+  let request = {};
+  let pairs = location.search.substring(1).split('&');
+  for (let i=0;i<pairs.length;i++){
+   let pair = pairs[i].split('=');
+   request[pair[0]] = pair[1];
+  }
+
+  let char = request.char;
+  chars.push(char);
+  title = char;
+  read_localStorage(char);
+  save_data();
+
+  let e = document.getElementById('name-char');
+  e.value = char;
+  list_chars(e);
+  e = e.parentNode.children[1].children[chars.indexOf(char)];
+  set_char(e);
+  e.parentNode.classList.add('invisible');
+  window.print();
+ }
+ if(!JSON.parse(localStorage.chars).length){
+  setTimeout(function(){
+   alert('Comece criando ou carregando um personagem, para isso entre com um nome de personagem, quaisquer edições feitas antes disso serão perdidas.')
+  },5000);
+ }
+}
+
+</script>
+</html>

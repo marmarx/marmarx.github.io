@@ -2,8 +2,6 @@ const habs = ['spell_hab','for','des','con','int','sab','car'];
 const habis = ['Habilidade','Força','Destreza','Constituição','Inteligência','Sabedoria','Carisma'];
 const nivel = ['nível',1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
 const tamanho = ['tamanho','Minúsculo','Pequeno','Médio','Grande','Enorme','Colossal'];
-const action = ['Ação para ativar','Nenhuma Ação','Ação Livre','Ação de Movimento','Ação Padrão','Ação Completa','Reação'];
-const duration = ['Duração','Instantânea','Até seu próximo turno','Sustentada','Cena','Dia','Semana','O tempo que quiser','Permanente'];
 
 const deslocamento = [
 'deslocamento',
