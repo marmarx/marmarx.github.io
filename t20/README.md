@@ -1,15 +1,19 @@
 # marmarx.github.io/t20
 
 Tarefas pendentes:
-- adicionar suporte para imprimir/exportar PDF
-- magias personalizadas (?)
-- filtrar e personalizar magias (?)
+- criar magias personalizadas
+- filtrar e personalizar magias existentes
 
 Tarefas canceladas:
 - adicionar log de alterações feitas pelo usuário >> motivo: não há necessidade
 - adicionar suporte para retro-gerenciamento de: armas/armaduras e equipamentos >> motivo: pode confundir o usuário
 
 <b>Histórico de versões:</b>
+
+v1.5.8
+- adicionado suporte para imprimir/exportar em PDF
+- layout de impressão editável criado e revisado
+- correção de bugs e outros melhoramentos menores
 
 v1.5.6
 - adicionado Web Worker para reduzir tempo de carregamento da página na montagem de listas de seleção e listas de magias e poderes
