@@ -159,7 +159,7 @@ a:hover{background-color:#1e90ff;color:var(--white)!important}
 .attack .dice{width:45%;max-width:45px;justify-content:flex-end}.skills .dice{margin-right:0}
 .attack_info{background:var(--transblack);margin:10px auto 0;padding:20px 25px;position:relative;color:var(--white)}
 .attack_info .fakeinput,.attack_info input,.attack_info select,.attack_info textarea{color:var(--black);background:#ffffffe8}.attack_info .w10{margin:5px 0}
-.attack_info textarea{field-sizing:content;min-height:125px;max-height:unset;min-width:100%;max-width:100%}
+.attack_info textarea{field-sizing:content;min-height:125px;max-height:unset;min-width:calc(100% - .6em);max-width:calc(100% - .6em)}
 .attack_info .fakeinput{height:unset}.fakeinput:empty:not(:focus):before{content:attr(placeholder);color:#6c6c6c}
 .w5at{width:100%;margin:auto;float:left}.w5at:nth-child(2){margin:10px auto}
 @media (min-width:900px){.w5at{width:49.9999%}.w5at:nth-child(2){margin:auto}.attack .dice{justify-content:unset;width:90%}}

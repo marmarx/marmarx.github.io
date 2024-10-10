@@ -1,5 +1,3 @@
-<style>
-p{}
 .ac_livre,.ac_movimento,.ac_padrão,.ac_completa,.ac_padrão:before,.ac_completa:before,.ac_completa:after{width:12px;height:12px;border:1px solid var(--overlay);display:block;margin:auto}
 .ac_livre,.ac_movimento{transform:rotate(45deg)}
 .ac_livre{border:1px solid #b3b2b2}
@@ -29,4 +27,3 @@ p{}
 .close::after{transform:rotate(-45deg)}
 textarea{field-sizing:content}
 select option{color:var(--black)!important}option:disabled{color:unset!important}select:invalid{color:#6c6c6c!important}
-</style>
