@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<title>Ficha T20 Mobile - v1.5.8</title>
+<title>Ficha T20 Mobile - v1.6</title>
 <meta name="author" content="Marco Martins">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
 <meta name="theme-color" content="#b72a2b">
@@ -170,7 +170,7 @@
   <h1 style="margin:2em 0 .6em">Magias Personalizadas</h1>
   <div class="row"><div id="user_spells" class="container db"></div></div>
   <div class="row"><div class="container">
-   <button onclick="user_spell()" disabled>Adicionar magia personalizada</button>
+   <button onclick="user_spell()">Adicionar magia personalizada</button>
   </div></div>
  </div>
 
@@ -495,7 +495,6 @@ function startroll(e){
  if(e.includes('total')){print_out('Teste de '+e.slice(0,-6))}
  if(e.includes('dice')){print_out(value);diceroll(value)}
  else{diceroll('d20'+value);openroller(document.getElementById('drawer'))}
- console.log(value);
  print_out('');
 }
 
@@ -1128,7 +1127,6 @@ function toggle_condition(e,array){
  data.conditions[j][i] =! data.conditions[j][i];
  for (var key in array[i][3]){
   if(key=='Deslocamento'){
-   console.log(key);
    if(data.conditions[j][i]){data.cond[key].push(array[i][3][key])}
    else{data.cond[key].splice(data.cond[key].indexOf(array[i][3][key]),1)}
    if(data.cond[key].length){desloc.innerHTML = '*'+data.cond[key][0].charAt(0).toUpperCase() + data.cond[key].join(', ').slice(1)}
@@ -1515,7 +1513,8 @@ function list_remove(e,ev){
  prev_focus = null;
 }
 
-function filter(e){
+
+async function filter(e){
  let k = (e.id=="armor"||e.id=="shield"||e.id=="char")?2:1;
  let filter = e.value.toUpperCase();
  let a = e.parentNode.children[k].getElementsByTagName("a");
@@ -1527,7 +1526,6 @@ function filter(e){
    txtValue = txtValue.split('');
    let j=result.length;
    for(;j>0;){j--;txtValue.splice(result[j]+filter.length,0,'</b>');txtValue.splice(result[j],0,'<b>')}
-
    a[i].innerHTML = txtValue.join('');
    a[i].style.display="";
   }
@@ -1791,6 +1789,215 @@ function clear_powers_filters(){
  filter_powers_name(e);
 }
 
+//-------------------------USERS SPELLS FUNCTIONS------------------------//
+
+function user_spell(e){
+ data.user_spells.push(['Nome da magia','Classificação','Nível','Escola','Ação para lançar','Alcance','Duração','Alvo','Área','Resistência','Efeito','Descrição','','Truque','Truque Desc',0,'+0 PM desc',1,'+1 PM desc']); //+add,mod
+ list_user_spell(data.user_spells.length-1);
+ save_data();
+}
+
+function user_spell_info(e){
+ e = e.parentNode;
+ let x = Array.prototype.indexOf.call(document.getElementById('user_spells').getElementsByClassName('spells'),e);
+ db_spell_info(e,x,data.user_spells,0);
+}
+
+let spell_classs = '<option value="" disabled selected>Classificação</option>';
+for(let i=1;i<spell_class.length;i++){spell_classs += '<option value="'+spell_class[i]+'">'+spell_class[i]+'</option>'}
+let spell_schools = '<option value="" disabled selected>Escola</option>';
+for(let i=1;i<spell_school.length;i++){spell_schools += '<option value="'+spell_school[i]+'">'+spell_school[i]+'</option>'}
+let spell_levels = '<option value="" disabled selected>Nível</option>';
+for(let i=1;i<spell_level.length;i++){spell_levels += '<option value="'+spell_level[i]+'">Nível '+spell_level[i]+'</option>'}
+let pm_add = '<option value="" disabled selected>Modificador</option><option value="Truque">Truque</option>';
+for(let i=0;i<16;i++){pm_add += '<option value="'+i+'">+'+i+' PM'+(i>1?'s':'')+'</option>'}
+let spell_actions = '';
+for(let i in action){spell_actions += '<option value="'+(i>0?action[i].replace('Ação ','').replace('de ','').toLowerCase()+'"':'" disabled selected')+'>'+action[i]+'</option>'}
+spell_actions += '<option value="Outro">Outro (escrever)</option>';
+spell_actions = spell_actions.replaceAll('ativar','lançar');
+
+function list_user_spell(i){
+ let div = document.createElement('div');
+ document.getElementById('user_spells').appendChild(div);
+
+ div.setAttribute('class','spells w10');
+ var content = '<div class="spell_details" onclick="user_spell_info(this)"><div class="w10 dif"><div class="w8"><p class="item_title">'+data.user_spells[i][0]+'</p><p class="item_subtitle">'+(data.user_spells[i][2]!='Nível'?spell_pm_cost[data.user_spells[i][2]-1]:'Custo em')+' PM • '+data.user_spells[i][1]+' • '+data.user_spells[i][3]+' '+data.user_spells[i][2]+'</p></div><div class="item_action w1 ma">';
+ if(spell_action.includes(data.user_spells[i][4])){content += '<div class="ac_'+data.user_spells[i][4]+'"></div>'}
+ content += '</div>';
+ content += '<div class="w1 ma powe" onclick="edit_spell(this)"><div class="pencilbox ma"><div class="pencil"></div></div></div>';
+ content += '</div><div class="item_subtitle w10 ms"></div>';
+ content += '</div>';
+
+ content += '<div class="w10 mt1"><div class="w10 attack_info cond_info def_hide">';
+ content += '<div class="w10 dif">';
+ content += '<div class="w8 pr ma dif"><input class="skill_input m3e" type="text" placeholder="Nome da magia" value="'+(data.user_spells[i][0]=='Nome da magia'?'':data.user_spells[i][0])+'" autocomplete="off"  onkeyup="regex_inj(this);filter(this)" onblur="list_remove(this,event)" onfocus="list_move(this,event,4)" onchange="change_spell(this,0)"></div>';
+ content += '<div class="w2 ma dif" onclick="remove_spell(this,\''+e+'\')"><div class="trash"></div></div>'
+ content += '</div>';
+
+ content += '<div class="w10 dif">';
+ content += '<div class="w5 ma dif"><select class="skill_input m3e" onchange="change_spell(this,1)" required>'+spell_classs+'</select></div>';
+ content += '<div class="w5 ma dif"><select class="skill_input m3e" onchange="change_spell(this,2)" required>'+spell_levels+'</select></div>';
+ content += '</div>';
+
+ content += '<div class="w10 dif">';
+ content += '<div class="w5 ma dif"><select class="skill_input m3e" onchange="change_spell(this,3)" required>'+spell_schools+'</select></div>';
+ content += '<div class="w5 ma dif">';
+ content += '<select class="skill_input m3e" onchange="spell_mod_outro(this);change_spell(this,4)" required>'+spell_actions+'</select>';
+ content += '<input class="skill_input m3e dn" type="text" placeholder="Outro (escreva \'voltar\' para voltar)" value="'+(data.user_spells[i][4]=='Ação para lançar'?'':data.user_spells[i][4])+'" autocomplete="off" onkeyup="regex_inj(this)" onchange="spell_mod_outro(this);change_spell(this,4)">';
+ content += '</div></div>';
+
+ content += '<div class="w10 dif">';
+ content += '<div class="w5 ma dif"><input class="skill_input m3e" type="text" placeholder="Alvo" value="'+(data.user_spells[i][7]=='Alvo'?'':data.user_spells[i][7])+'" autocomplete="off" onkeyup="regex_inj(this)" onchange="change_spell(this,7)"></div>';
+ content += '<div class="w5 ma dif"><input class="skill_input m3e" type="text" placeholder="Alcance" value="'+(data.user_spells[i][5]=='Alcance'?'':data.user_spells[i][5])+'" autocomplete="off" onkeyup="regex_inj(this)" onchange="change_spell(this,5)"></div>';
+ content += '</div>';
+
+ content += '<div class="w10 dif">';
+ content += '<div class="w5 ma dif"><input class="skill_input m3e" type="text" placeholder="Área" value="'+(data.user_spells[i][8]=='Área'?'':data.user_spells[i][8])+'" autocomplete="off" onkeyup="regex_inj(this)" onchange="change_spell(this,8)"></div>';
+ content += '<div class="w5 ma dif"><input class="skill_input m3e" type="text" placeholder="Efeito" value="'+(data.user_spells[i][10]=='Efeito'?'':data.user_spells[i][10])+'" autocomplete="off" onkeyup="regex_inj(this)" onchange="change_spell(this,10)"></div>';
+ content += '</div>';
+
+ content += '<div class="w10 dif">';
+ content += '<div class="w5 ma dif"><input class="skill_input m3e" type="text" placeholder="Duração" value="'+(data.user_spells[i][6]=='Duração'?'':data.user_spells[i][6])+'" autocomplete="off" onkeyup="regex_inj(this)" onchange="change_spell(this,6)"></div>';
+ content += '<div class="w5 ma dif"><input class="skill_input m3e" type="text" placeholder="Resistência" value="'+(data.user_spells[i][9]=='Resistência'?'':data.user_spells[i][9])+'" autocomplete="off" onkeyup="regex_inj(this)" onchange="change_spell(this,9)"></div>';
+ content += '</div>';
+
+ content += '<div><div class="w10 dif"><textarea class="skill_input m3e" type="text" placeholder="Descrição e detalhes" autocomplete="off" onchange="change_spell(this,11)">'+(data.user_spells[i][11]=='Descrição'?'':data.user_spells[i][11])+'</textarea></div></div>'; // contenteditable="true"
+
+ content += '<div class="w10 mt tac"><div class="effect_add" onclick="spell_mod_add(this)">+ Adicionar</div><p class="item_title">Aprimoramentos nesta magia:</p></div><div>';
+
+ for(let j=13;j<data.user_spells[i].length;j+=2){
+  content += '<div class="w10 dif">';
+  content += '<div class="w2 m3e"><select class="skill_input m3e" onchange="spell_mod_change(this)" required>'+pm_add+'</select></div>';
+  content += '<div class="w7 m3e"><textarea class="skill_input m3e" type="text" placeholder="Descrição do aprimoramento" autocomplete="off" onkeydown="regex_inj(event)" onchange="spell_mod_change(this)">'+data.user_spells[i][j+1]+'</textarea></div>';
+  content += '<div class="w1 ma dif" onclick="spell_mod_remove(this)"><div class="trash"></div></div>';
+  content += '</div>';
+ }
+
+ content += '</div></div>';
+ div.innerHTML = content;
+
+ let selects = div.getElementsByTagName('select');
+ if(data.user_spells[i][1]!='Classificação'){selects[0].value = data.user_spells[i][1]}
+ if(data.user_spells[i][2]!='Nível'){selects[1].value = data.user_spells[i][2]}
+ if(data.user_spells[i][3]!='Escola'){selects[2].value = data.user_spells[i][3]}
+ if(data.user_spells[i][4]!='Ação para lançar'){selects[3].value = data.user_spells[i][4]}
+ let k = 13;
+ for(let j=4;j<selects.length;j++){
+  if(data.user_spells[i][k]!='Modificador'){selects[j].value = data.user_spells[i][k]}
+  k+=2;
+ }
+}
+
+function bold_italic(str){
+ let indexes = [...str.matchAll(/_/g)].map(match => match.index);
+ for(let i=indexes.length-1;i>-1;i--){
+  if(i%2==0){str = str.substring(0,indexes[i]) + '<i>' + str.substring(indexes[i]+1)}
+  else{str = str.substring(0,indexes[i]) + '</i>' + str.substring(indexes[i]+1)}
+ }
+ indexes = [...str.matchAll(/\*/g)].map(match => match.index);
+ for(let i=indexes.length-1;i>-1;i--){
+  if(i%2==0){str = str.substring(0,indexes[i]) + '<b>' + str.substring(indexes[i]+1)}
+  else{str = str.substring(0,indexes[i]) + '</b>' + str.substring(indexes[i]+1)}
+ }
+ return str.replaceAll('</table>\n','</table><p class="nowrap ms">').replaceAll('\n','<br>');
+}
+
+function spell_mod_outro(e){
+ if(e.value=='Outro'){
+  e.classList.add('dn');
+  e.parentNode.children[1].classList.remove('dn');
+ }
+ if(e.value=="Voltar"||e.value=="voltar"){
+  e.value = 'nenhuma ação';
+  e.classList.add('dn');
+  e.parentNode.children[0].classList.remove('dn');
+ }
+}
+
+function spell_mod_add(e,i=0,j=0){
+ let content = '<div class="w10 dif">';
+ content += '<div class="w2 m3e"><select class="skill_input m3e" onchange="spell_mod_change(this)" required>'+pm_add+'</select></div>';
+ content += '<div class="w7 m3e"><textarea class="skill_input m3e" type="text" placeholder="Descrição do aprimoramento" autocomplete="off" onkeydown="regex_inj(event)" onchange="spell_mod_change(this)">'+(j?spells[i][j+1]:'')+'</textarea></div>';
+ content += '<div class="w1 ma dif" onclick="spell_mod_remove(this)"><div class="trash"></div></div>';
+ content += '</div>';
+ let div = document.createElement('div');
+ div.innerHTML = content;
+ if(j){div.children[0].children[0].children[0].value = spells[i][j]}
+ e.parentNode.parentNode.appendChild(div);
+}
+
+function spell_mod_change(e){
+ let el = e.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+ console.log(el);
+ let x = Array.prototype.indexOf.call(document.getElementById('user_spells').getElementsByClassName('spells'),el);
+ let inputs = el.querySelectorAll('input,select,textarea');
+ let j = [...inputs].indexOf(e);
+ data.user_spells[x][j] = bold_italic(e.value);
+}
+
+function spell_mod_remove(e){
+ let el = e.parentNode.parentNode.parentNode.parentNode.parentNode;
+ let x = Array.prototype.indexOf.call(document.getElementById('user_spells').getElementsByClassName('spells'),el);
+ let inputs = el.querySelectorAll('input,select,textarea');
+ let j = [...inputs].indexOf(e.parentNode.children[0].children[0]);
+ data.user_spells[x].splice(j,1);
+ data.user_spells[x].splice(j,1);
+ e.parentNode.remove();
+}
+
+let spell_indexes = [0,1,2,3,4,4,7,5,8,10,6,9,11];
+function spell_choose(e,i){
+ e = e.parentNode.parentNode;
+ e.children[1].remove(); //remove dropdown
+ prev_focus = null;
+
+ e = e.parentNode.parentNode;
+ while(e.children[8]){e.children[8].remove()}
+
+ let inputs = e.querySelectorAll('input,select,textarea');
+ for(let j=0;j<13;j++){inputs[j].value = spells[i][spell_indexes[j]].replaceAll(/<br>|<\/br>/gi,'\n').replaceAll(/<i>|<\/i>/gi,'_').replaceAll(/<b>|<\/b>/gi,'*').replaceAll(/<\/?p[^>]*>/gi,'\n')}
+ for(let j=13;j<spells[i].length;j+=2){spell_mod_add(e.children[7].children[0],i,j)}
+
+ e = e.parentNode.parentNode;
+ let x = Array.prototype.indexOf.call(document.getElementById('user_spells').getElementsByClassName('spells'),e);
+
+ data.user_spells[x] = spells[i];
+ data.user_spells[x][12] = 'Editado de '+spells[x][12];
+ calc_spell(e,x);
+}
+
+function edit_spell(e){
+ event.stopPropagation();
+ e = e.parentNode.parentNode;
+ if(!e.children[1].innerHTML){user_spell_info(e)}
+ e = e.parentNode.children[1].children[0];
+ e.classList.toggle('def_hide');
+}
+
+function change_spell(e,i){
+ let value = e.value;
+ e = e.parentNode.parentNode.parentNode.parentNode.parentNode;
+ let x = Array.prototype.indexOf.call(document.getElementById('user_spells').getElementsByClassName('spells'),e)
+ data.user_spells[x][i] = bold_italic(value);
+ calc_spell(e,x)
+}
+
+function calc_spell(e,i){
+ e = e.children[0];
+ e.children[0].children[0].children[0].innerHTML = data.user_spells[i][0];
+ let p = [];
+ if(data.user_spells[i][2]){p.push(data.user_spells[i][2]=='Nível'?'Custo em PM':spell_pm_cost[data.user_spells[i][2]-1]+' PM')}
+ if(data.user_spells[i][1]){p.push(data.user_spells[i][1])}
+ if(data.user_spells[i][2]||data.user_spells[i][3]){p.push(data.user_spells[i][3]+' '+data.user_spells[i][2])}
+ e.children[0].children[0].children[1].innerHTML = p.join(' • ');
+
+ e.children[0].children[1].innerHTML = spell_action.includes(data.user_spells[i][4])?'<div class="ac_'+data.user_spells[i][4]+'"></div>':'';
+
+ e.children[1].innerHTML = spell_details(i,data.user_spells);
+ save_data();
+}
+
+
 //-------------------------SPELLS FUNCTIONS------------------------//
 
 data.magias = [];
@@ -1810,32 +2017,42 @@ function list_spells(e,i){
  spell_viz.push([1,1,1,1]);
 }
 
-function spell_info(e){
- var i = e.getAttribute('index');
+function spell_info(e){db_spell_info(e,e.getAttribute('index'),spells,1)}
+
+function spell_details(i,arr){
+ let content = '';
+ if(arr[i][4]){content += '<p class="nowrap"><b>Ação:</b> '+arr[i][4]+'</p>'} //!spell_action.includes(arr[i][4])
+ if(arr[i][5]){content += '<p class="nowrap"><b>Alcance:</b> '+arr[i][5]+'</p>'}
+ if(arr[i][7]){content += '<p class="nowrap"><b>Alvo:</b> '+arr[i][7]+'</p>'}
+ if(arr[i][8]){content += '<p class="nowrap"><b>Área:</b> '+arr[i][8]+'</p>'}
+ if(arr[i][10]){content += '<p class="nowrap"><b>Efeito:</b> '+arr[i][10]+'</p>'}
+ if(arr[i][6]){content += '<p class="nowrap"><b>Duração:</b> '+arr[i][6]+'</p>'}
+ if(arr[i][9]){content += '<p class="nowrap"><b>Resistência:</b> '+arr[i][9]+'</p>'}
+
+ content += '<p class="nowrap ms">'+arr[i][11]+'</p>';
+ var length = arr[i].length;
+ for (var j=13;j<length;j+=2){
+  content += '<p class="nowrap ms"><b>';
+  content += isNaN(arr[i][j])?arr[i][j]:('+'+arr[i][j]+' PM');
+  content += ': </b><span>'+arr[i][j+1]+'</span></p>';
+ }
+ return content;
+}
+
+function db_spell_info(e,i,arr,k){
  e.classList.toggle('more_info');
  e = e.children[0].children[1];
 
- if(e.innerHTML){e.innerHTML = ''} else {
-  var content = '';
-
-  if(spells[i][4]){content += '<p class="nowrap"><b>Ação:</b> '+spells[i][4]+'</p>'} //!spell_action.includes(spells[i][4])
-  if(spells[i][5]){content += '<p class="nowrap"><b>Alcance:</b> '+spells[i][5]+'</p>'}
-  if(spells[i][7]){content += '<p class="nowrap"><b>Alvo:</b> '+spells[i][7]+'</p>'}
-  if(spells[i][8]){content += '<p class="nowrap"><b>Área:</b> '+spells[i][8]+'</p>'}
-  if(spells[i][10]){content += '<p class="nowrap"><b>Efeito:</b> '+spells[i][10]+'</p>'}
-  if(spells[i][6]){content += '<p class="nowrap"><b>Duração:</b> '+spells[i][6]+'</p>'}
-  if(spells[i][9]){content += '<p class="nowrap"><b>Resistência:</b> '+spells[i][9]+'</p>'}
-
-  content += '<p class="nowrap ms">'+spells[i][11]+'</p>';
-  var length = spells[i].length;
-  for (var j=13;j<length;j+=2){
-   content += '<p class="nowrap ms"><b>';
-   content += Number.isInteger(spells[i][j])?('+'+spells[i][j]+' PM'):spells[i][j];
-   content += ': </b><span>'+spells[i][j+1]+'</span></p>';
+ if(e.innerHTML){
+  e.innerHTML = '';
+  if(!k){e.parentNode.parentNode.children[1].children[0].classList.add('def_hide')}
+ }else{
+  let content = spell_details(i,arr);
+  if(arr[i][12]){content += '<p class="nowrap"><i>Publicação:</i> '+arr[i][12]+'</p>'}
+  if(k){
+   content += '<button class="spell_add" onclick="add_spell(this)">Adicionar magia</button>';
+   content += '<button class="delete spell_delete" onclick="remove_spell(this)">Remover magia</button>';
   }
-  if(spells[i][12]){content += '<p class="nowrap"><i>Publicação:</i> '+spells[i][12]+'</p>'}
-  content += '<button class="spell_add" onclick="add_spell(this)">Adicionar magia</button>';
-  content += '<button class="delete spell_delete" onclick="remove_spell(this)">Remover magia</button>';
   e.innerHTML = content;
  }
 }
@@ -2081,7 +2298,7 @@ function char_remove(){
   localStorage.removeItem('T20data_'+title);
   console.log('Character '+title+' was removed');
   clear();
-  document.title = 'Ficha T20 Mobile - v1.5.8';
+  document.title = 'Ficha T20 Mobile - v1.6';
   document.getElementById('chardel').disabled = true;
  }
 }
@@ -2166,6 +2383,8 @@ function data_set(){
  for (const key in data){
   if(key=='magias'){
    for (var i=0;i<data.magias.length;i++){list_spells('char_spells',data.magias[i])}
+  }else if(key=='user_spells'){
+   for (var i=0;i<data.user_spells.length;i++){list_user_spell(data.user_spells[i])}
   }else if(key=='powers'){
    for (var i=0;i<data.powers.length;i++){list_powers('powers',data.powers[i],powers)}
   }else if(key=='user_powers'){
