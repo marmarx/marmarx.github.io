@@ -1094,8 +1094,8 @@ function cond_details(e,j,i,array,k){
  e.children[3].innerHTML = (data.conditions[j][i]||!k)?q.slice(0,-3):(e.children[3].innerHTML?'':q.slice(0,-3));
 
  if(j&&k){
-  if(data.conditions[j][i]){e.parentNode.children[2].classList.remove('hid')}
-  else{e.parentNode.children[2].classList.toggle('hid')}
+  //if(data.conditions[j][i]){e.parentNode.children[2].classList.remove('hid')}
+  //else{e.parentNode.children[2].classList.toggle('hid')}
   e = e.parentNode.parentNode.children[1].children[0];
   if(!e.classList.contains('def_hide')){e.classList.add('def_hide')}
  }
@@ -1170,7 +1170,7 @@ function list_conditions(e,i,array){
  content += '<p class="item_subtitle">'+p.join(' • ')+'</p>';
  content += '<p class="item_subtitle"></p><p class="item_subtitle"></p></div>';
  if(e=='cond_user'){
-  content += '<div class="w1 ma hid" onclick="cond_edit(this)"><div class="pencilbox ma"><div class="pencil"></div></div></div></div>';
+  content += '<div class="w1 ma" onclick="cond_edit(this)"><div class="pencilbox ma"><div class="pencil"></div></div></div></div>';
   content += '<div class="w10">';
   content += '<div class="w10 attack_info def_hide cond_info"><div class="w10 dif">';
   content += '<div class="w8 ma dif"><input class="skill_input m3e" type="text" placeholder="Nome da condição" value="'+(array[i][0]=="Nome da Condição"?'':array[i][0])+'" autocomplete="off" onkeyup="regex_inj(this)" onchange="cond_change(this,0)"></div>';
@@ -1491,6 +1491,24 @@ function create_lists(sup){
   list = worker_list([equip,equip,equip,powers,spells],[0,armor_start,weap_start,0,0],[equip.length,armor_end,weap_end,powers.length,spells.length]);
  }
 }
+
+
+//-------------------------RICH TEXT FUNCTIONS------------------------//
+
+function boldify(str){
+ let indexes = [...str.matchAll(/_/g)].map(match => match.index);
+ for(let i=indexes.length-1;i>-1;i--){
+  if(i%2==0){str = str.substring(0,indexes[i]) + '<i>' + str.substring(indexes[i]+1)}
+  else{str = str.substring(0,indexes[i]) + '</i>' + str.substring(indexes[i]+1)}
+ }
+ indexes = [...str.matchAll(/\*/g)].map(match => match.index);
+ for(let i=indexes.length-1;i>-1;i--){
+  if(i%2==0){str = str.substring(0,indexes[i]) + '<b>' + str.substring(indexes[i]+1)}
+  else{str = str.substring(0,indexes[i]) + '</b>' + str.substring(indexes[i]+1)}
+ }
+ return str.replaceAll('</table>\n','</table><p class="nowrap ms">').replaceAll('\n','<br>');
+}
+function unboldify(str){return isNaN(str)?str.replaceAll(/<br>|<\/br>/gi,'\n').replaceAll(/<i>|<\/i>/gi,'_').replaceAll(/<b>|<\/b>/gi,'*').replaceAll(/<\/?p[^>]*>/gi,'\n'):str}
 
 
 //-------------------------LISTS FUNCTIONS------------------------//
@@ -1883,23 +1901,9 @@ function list_user_spell(i){
  if(data.user_spells[i][4]!='Ação para lançar'){selects[3].value = data.user_spells[i][4]}
  let k = 13;
  for(let j=4;j<selects.length;j++){
-  if(data.user_spells[i][k]!='Modificador'){selects[j].value = data.user_spells[i][k]}
+  if(data.user_spells[i][k]!='Modificador'){selects[j].value = unboldify(data.user_spells[i][k])}
   k+=2;
  }
-}
-
-function bold_italic(str){
- let indexes = [...str.matchAll(/_/g)].map(match => match.index);
- for(let i=indexes.length-1;i>-1;i--){
-  if(i%2==0){str = str.substring(0,indexes[i]) + '<i>' + str.substring(indexes[i]+1)}
-  else{str = str.substring(0,indexes[i]) + '</i>' + str.substring(indexes[i]+1)}
- }
- indexes = [...str.matchAll(/\*/g)].map(match => match.index);
- for(let i=indexes.length-1;i>-1;i--){
-  if(i%2==0){str = str.substring(0,indexes[i]) + '<b>' + str.substring(indexes[i]+1)}
-  else{str = str.substring(0,indexes[i]) + '</b>' + str.substring(indexes[i]+1)}
- }
- return str.replaceAll('</table>\n','</table><p class="nowrap ms">').replaceAll('\n','<br>');
 }
 
 function spell_mod_outro(e){
@@ -1928,11 +1932,11 @@ function spell_mod_add(e,i=0,j=0){
 
 function spell_mod_change(e){
  let el = e.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
- console.log(el);
  let x = Array.prototype.indexOf.call(document.getElementById('user_spells').getElementsByClassName('spells'),el);
  let inputs = el.querySelectorAll('input,select,textarea');
  let j = [...inputs].indexOf(e);
- data.user_spells[x][j] = bold_italic(e.value);
+ data.user_spells[x][j] = boldify(e.value);
+ calc_spell(el,x);
 }
 
 function spell_mod_remove(e){
@@ -1943,6 +1947,7 @@ function spell_mod_remove(e){
  data.user_spells[x].splice(j,1);
  data.user_spells[x].splice(j,1);
  e.parentNode.remove();
+ save_data();
 }
 
 let spell_indexes = [0,1,2,3,4,4,7,5,8,10,6,9,11];
@@ -1955,7 +1960,7 @@ function spell_choose(e,i){
  while(e.children[8]){e.children[8].remove()}
 
  let inputs = e.querySelectorAll('input,select,textarea');
- for(let j=0;j<13;j++){inputs[j].value = spells[i][spell_indexes[j]].replaceAll(/<br>|<\/br>/gi,'\n').replaceAll(/<i>|<\/i>/gi,'_').replaceAll(/<b>|<\/b>/gi,'*').replaceAll(/<\/?p[^>]*>/gi,'\n')}
+ for(let j=0;j<13;j++){inputs[j].value = unboldify(spells[i][spell_indexes[j]])}
  for(let j=13;j<spells[i].length;j+=2){spell_mod_add(e.children[7].children[0],i,j)}
 
  e = e.parentNode.parentNode;
@@ -1978,7 +1983,7 @@ function change_spell(e,i){
  let value = e.value;
  e = e.parentNode.parentNode.parentNode.parentNode.parentNode;
  let x = Array.prototype.indexOf.call(document.getElementById('user_spells').getElementsByClassName('spells'),e)
- data.user_spells[x][i] = bold_italic(value);
+ data.user_spells[x][i] = boldify(value);
  calc_spell(e,x)
 }
 
