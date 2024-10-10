@@ -1,14 +1,17 @@
 # marmarx.github.io/t20
 
 Tarefas pendentes:
-- criar magias personalizadas
-- filtrar e personalizar magias existentes
+
 
 Tarefas canceladas:
 - adicionar log de alterações feitas pelo usuário >> motivo: não há necessidade
 - adicionar suporte para retro-gerenciamento de: armas/armaduras e equipamentos >> motivo: pode confundir o usuário
 
 <b>Histórico de versões:</b>
+
+v1.6
+- adicionado suporte para criar magias personalizadas
+- adicionado suporte para filtrar e personalizar magias existentes
 
 v1.5.8
 - adicionado suporte para imprimir/exportar em PDF
