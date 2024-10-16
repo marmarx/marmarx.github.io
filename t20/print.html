@@ -1072,7 +1072,7 @@ function add_habi(index){
  let text = '<div class="verylarge"><b>'+features[index][0]+'</b></br>';
  if(features[index][1]){p.push(features[index][1])}
  if(features[index][2]){p.push(features[index][2])}
- text += p.join(' 🞄 ');
+ if(p.length){text += p.join(' 🞄 ')}
 
  if(features[index][3].length>130){
   text += '<div class="item_triag"></div><div class="item_detail">' + features[index][3] + '</div>';
