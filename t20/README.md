@@ -12,6 +12,7 @@ Tarefas canceladas:
 v1.6
 - adicionado suporte para criar magias personalizadas
 - adicionado suporte para filtrar e personalizar magias existentes
+- correção de bugs e outros melhoramentos menores
 
 v1.5.8
 - adicionado suporte para imprimir/exportar em PDF
