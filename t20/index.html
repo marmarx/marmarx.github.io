@@ -433,7 +433,7 @@ function diceroll(str,crit=0){
     dices = subarrays[i].num;
     for(let j in keyels){if(subarrays[i][keyels[j]]){dices+=keyels[j]+subarrays[i][keyels[j]]}};	//joining str for printout
 
-    crit = subarrays[i]['!']?subarrays[i]['!']:subarrays[i].d;	//determining crit (max or !)
+    if(!crit){crit = subarrays[i]['!']?subarrays[i]['!']:subarrays[i].d}	//determining crit (max or !)
     roll[i] = roll[i].sort(function(a,b){return b-a});  //sorting rolls
 
     let start=0,end=roll[i].length;		//determining with dice removals start and end points
@@ -780,12 +780,12 @@ function weap_roll(e){
 
  e = e.children[0].children[0].children[1].innerHTML;
  for (var i=0;i<n;i++){
+  let c = data.attack[x][6]?data.attack[x][6]:20;
   if(n>1){print_out((i+1)+'º ataque:')}
-  if(k[i].search(/[drabekl]/g)<0){diceroll('d20'+(k[i]<0?'':'+')+k[i],data.attack[x][6])}
-  else{diceroll(k[i],data.attack[x][6])}
+  if(k[i].search(/[drabekl]/g)<0){diceroll('d20'+(k[i]<0?'':'+')+k[i],c)}
+  else{diceroll(k[i],c)}
 
-  var p = 1;
-  var c = data.attack[x][6]?data.attack[x][6]:20;
+  let p = 1;
   if(roll[0]>=c){p = data.attack[x][7]?JSON.parse(data.attack[x][7].replace('x','')):2}
 
   var q = data.attack[x][2].indexOf('d');
@@ -1813,7 +1813,7 @@ function clear_powers_filters(){
 //-------------------------USERS SPELLS FUNCTIONS------------------------//
 
 function user_spell(e){
- data.user_spells.push(['Nome da magia','Classificação','Nível','Escola','Ação para lançar','Alcance','Duração','Alvo','Área','Resistência','Efeito','Descrição','']);
+ data.user_spells.push(['Nome da magia','Classificação','Nível','Escola','Ação para lançar','Alcance','Duração','Alvo','Área','Resistência','Efeito','Descrição','','Truque','Truque Desc',0,'+0 PM desc',1,'+1 PM desc']); //+add,mod
  list_user_spell(data.user_spells.length-1);
  save_data();
 }
@@ -2392,7 +2392,7 @@ function data_set(){
   if(key=='magias'){
    for (var i=0;i<data.magias.length;i++){list_spells('char_spells',data.magias[i])}
   }else if(key=='user_spells'){
-   for (var i=0;i<data.user_spells.length;i++){list_user_spell(i)}
+   for (var i=0;i<data.user_spells.length;i++){list_user_spell(data.user_spells[i])}
   }else if(key=='powers'){
    for (var i=0;i<data.powers.length;i++){list_powers('powers',data.powers[i],powers)}
   }else if(key=='user_powers'){
