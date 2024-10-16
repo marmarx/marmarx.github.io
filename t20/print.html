@@ -207,7 +207,7 @@ input[type="radio"]:after{content:'';width:24px;height:24px;position:relative;to
 .name{z-index:1}
 #anotsvg{z-index:0!important}
 
-.bg{position:absolute;top:0;left:0;width:110%;height:110%;margin:0 5%;z-index:-1;background:none!important;overflow:hidden}
+.bg{position:absolute;top:0;left:0;width:110%;height:110%;margin:0 5%;z-index:-1!important;background:none!important;overflow:hidden}
 .svgdef{width:0;height:0}
 .svgback{width:100%;height:100%}
 .svgpath{stroke:transparent;stroke-width:4;transition:1s}
@@ -1072,7 +1072,7 @@ function add_habi(index){
  let text = '<div class="verylarge"><b>'+features[index][0]+'</b></br>';
  if(features[index][1]){p.push(features[index][1])}
  if(features[index][2]){p.push(features[index][2])}
- if(p.length){text += p.join(' 🞄 ')+'</br>'}
+ if(p.length){text += p.join(' • ')+'</br>'}
 
  if(features[index][3].length>130){
   text += '<div class="item_triag"></div><div class="item_detail">' + features[index][3] + '</div>';
@@ -1097,7 +1097,7 @@ function add_equip(index){
  if(equips[index][1]){p.push(equips[index][1])}
  if(equips[index][2]){p.push(equips[index][2])}
  if(equips[index][3]){p.push(equips[index][3])}
- if(p.length){p = '</br><sm>'+p.join(' 🞄 ')+'</sm>';text+=p}
+ if(p.length){p = '</br><sm>'+p.join(' • ')+'</sm>';text+=p}
  text += '</div>';
 
  p = [];
@@ -1123,7 +1123,7 @@ function add_spell(index){
  if(char_spells[index][1]){p.unshift(char_spells[index][1])}else{p.unshift('Universal')}
  if(char_spells[index][2]){p.unshift(pmc[char_spells[index][2]-1]+' PM'+(char_spells[index][2]>1?'s':''))}
  
- text += p.join(' 🞄 ');
+ text += p.join(' • ');
  if(char_spells[index][9]){text += '<sm> ('+char_spells[index][9]+')</sm>'}
 
  p = [];
@@ -2031,14 +2031,14 @@ function read_localStorage(char){
   if(powers[e][1]){p.push(power_typ[powers[e][1]])};
   if(powers[e][2]){p.push(powers[e][2])};
   if(powers[e][4]){p.push(powers[e][4])};
-  features.push([powers[e][0],p.join(' 🞄 '),'',powers[e][7]])
+  features.push([powers[e][0],p.join(' • '),'',powers[e][7]])
  });
  data.user_powers.forEach(function(e){
   let p = [];
   if(e[1]){p.push(power_typ[e[1]])};
   if(e[2]){p.push(e[2])};
   if(e[4]){p.push(e[4])};
-  features.push([e[0],p.join(' 🞄 '),'',e[7]])
+  features.push([e[0],p.join(' • '),'',e[7]])
  });
 
  char_spells = [];
@@ -2048,7 +2048,7 @@ function read_localStorage(char){
   if(spells[e][7]){p.push(spells[e][7])}
   if(spells[e][8]){p.push(spells[e][8])}
   if(spells[e][10]){p.push(spells[e][10])}
-  char_spells[char_spells.length-1].push(p.join(' 🞄 '),spells[e][6],spells[e][9],'',spells[e][11]);
+  char_spells[char_spells.length-1].push(p.join(' • '),spells[e][6],spells[e][9],'',spells[e][11]);
   for(let i=13;i<spells[e].length;i+=2){char_spells[char_spells.length-1].push(spells[e][i],spells[e][i+1])}
  });
   data.user_spells.forEach(function(e){
@@ -2057,7 +2057,7 @@ function read_localStorage(char){
   if(e[7]){p.push(e[7])}
   if(e[8]){p.push(e[8])}
   if(e[10]){p.push(e[10])}
-  char_spells[char_spells.length-1].push(p.join(' 🞄 '),e[6],e[9],'',e[11]);
+  char_spells[char_spells.length-1].push(p.join(' • '),e[6],e[9],'',e[11]);
   for(let i=13;i<e.length;i+=2){char_spells[char_spells.length-1].push(e[i],e[i+1])}
  });
 
