@@ -1072,13 +1072,13 @@ function add_habi(index){
  let text = '<div class="verylarge"><b>'+features[index][0]+'</b></br>';
  if(features[index][1]){p.push(features[index][1])}
  if(features[index][2]){p.push(features[index][2])}
- if(p.length){text += p.join(' 🞄 ')}
+ if(p.length){text += p.join(' 🞄 ')+'</br>'}
 
  if(features[index][3].length>130){
   text += '<div class="item_triag"></div><div class="item_detail">' + features[index][3] + '</div>';
   //card.classList.add('item_list_det');
   //card.setAttribute('data-content',features[index][3]);
- }else{text += '</br>'+features[index][3]}
+ }else{text += features[index][3]}
  text += '</div><div class="verysmall"><button class="rmv" onclick="rmv_item(this,'+index+',features)">x</button></div>';
  card.innerHTML = text;
 
