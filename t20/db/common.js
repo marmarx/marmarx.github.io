@@ -12,5 +12,4 @@ const classe = ['classe','Arcanista','Bárbaro','Bardo','Bucaneiro','Caçador','
 const divindade = ['divindade','Aharadak','Allihanna','Arsenal','Azgher','Hyninn','Kallyadranoch','Khalmyr','Lena','Lin-Wu','Marah','Megalokk','Nimb','Oceano','Sszzaas','Tanna-Toh','Tenebra','Thwor','Thyatis','Valkaria','Wynna','O Bem','O Mal','O Panteão'];
 
 const peso_item = ['Espaço por unidade','Não ocupa espaço','⅛','¼','½',1,2,3,4,5,6,7,8,9,10];
-const tipo_item = ['Tipo de item','Equip. de Aventura','Arma Simples','Arma Marcial','Arma Exótica','Arma de Fogo','Munição','Armadura Leve','Armadura Pesada','Escudo',
-'Alimentação','Alquímicos','Animais','Catalisadores','Esotéricos','Ferramentas','Item Mágico','Pergaminhos','Poções','Veículos','Venenos','Vestuário','Outro'];
+const tipo_item = ['Geral','Alquimia','Alimentação','Animais','Esotéricos','Ferramentas','Mágico','Pergaminhos','Poções','Veículos','Vestuário','Arma Simples','Arma Macial','Arma Exótica','Arma de Fogo','Armadura Leve','Armadura Pesada','Escudo','Arma Mágica','Armadura Mágica','Escudo Mágico','Acessório mágico menor','Acessório mágico médio','Acessório mágico maior','Outro'];
