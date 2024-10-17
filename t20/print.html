@@ -1874,8 +1874,9 @@ function create_svg(el){
  set_bezier(el);
 }
 
-const backs = ['header','habssvg','pmpvsvg','weapsvg','defsvg','habisvg','equipsvg','spellsvg'];
-function add_svg(){for(var i=0;i<backs.length;i++){create_svg(document.getElementById(backs[i]))}}
+const backs = ['header','habssvg','pmpvsvg','weapsvg','defsvg','habisvg','equipsvg','spellsvg','anotsvg'];
+backs.forEach(function(e){create_svg(document.getElementById(e))})
+//function add_svg(){for(var i=0;i<backs.length;i++){create_svg(document.getElementById(backs[i]))}}
 
 var svgs = document.getElementsByTagName('svg');
 function svg_esc(){for(var i=0;i<svgs.length;i++){svgs[i].classList.toggle('invisible')}}
