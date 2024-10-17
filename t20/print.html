@@ -199,7 +199,7 @@ input[type="radio"]:after{content:'';width:24px;height:24px;position:relative;to
 #equips .item_triag{left:25%;margin-left:-10px}#equips .item_detail{width:60%;left:15%}
 .item_detail *{background:transparent}
 
-#habis,#habis_list,#anotat,#anot,#spells,#spells_list,#equips,#equips_list{background:#fff;background-clip:padding-box;overflow:visible}
+#habis,#habis_list,#anotat,#anot,#spells,#spells_list,#equips,#equips_list{background:#fff;background-clip:padding-box}
 #habis::-webkit-scrollbar,#anotat::-webkit-scrollbar,#spells::-webkit-scrollbar,#equips::-webkit-scrollbar{width:0}
 #header,#habisvg,#anotsvg,#spellsvg{position:relative;z-index:1}
 #habssvg,#pmpvsvg,#defsvg,#weapsvg{z-index:0}
@@ -207,7 +207,11 @@ input[type="radio"]:after{content:'';width:24px;height:24px;position:relative;to
 .name{z-index:1}
 #anotsvg{z-index:0!important}
 
-.bg{position:absolute;top:0;left:0;width:110%;height:110%;margin:0 5%;z-index:-1!important;background:none!important;overflow:hidden}
+#header,#habssvg,#pmpvsvg,#weapsvg,#defsvg,#habisvg,#equipsvg,#spellsvg,#anotsvg{transform-style:preserve-3d}
+#habis,#habis_list,#anotat,#anot,#spells,#spells_list,#equips,#equips_list{transform:translateZ(0px)}
+.bg{transform:translateZ(-10px)}
+	
+.bg{position:absolute;top:0;left:0;width:110%;height:110%;margin:0 5%;z-index:-1!important;background:none!important}
 .svgdef{width:0;height:0}
 .svgback{width:100%;height:100%}
 .svgpath{stroke:transparent;stroke-width:4;transition:1s}
@@ -1870,13 +1874,11 @@ function create_svg(el){
  var card = document.createElement('div');
  card.setAttribute('class','bg');
  card.innerHTML = '<svg class="svgback" viewBox="0 0 1000 1000" preserveAspectRatio="none"><path class="svgpath" fill="url(#svggradient)"/></svg>';
- el.insertBefore(card, el.firstChild); 
+ el.insertBefore(card,el.firstChild); 
  set_bezier(el);
 }
-
 const backs = ['header','habssvg','pmpvsvg','weapsvg','defsvg','habisvg','equipsvg','spellsvg','anotsvg'];
-backs.forEach(function(e){create_svg(document.getElementById(e))})
-//function add_svg(){for(var i=0;i<backs.length;i++){create_svg(document.getElementById(backs[i]))}}
+backs.forEach(function(e){create_svg(document.getElementById(e))});
 
 var svgs = document.getElementsByTagName('svg');
 function svg_esc(){for(var i=0;i<svgs.length;i++){svgs[i].classList.toggle('invisible')}}
