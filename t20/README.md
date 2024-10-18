@@ -12,7 +12,9 @@ Tarefas canceladas:
 v1.6
 - adicionado suporte para criar magias personalizadas
 - adicionado suporte para filtrar e personalizar magias existentes
-adicionado a opção de usar **negrito** (*) e _itálico_ (_)
+- adicionado itens mágicos: armas, armaduras, escudos, e acessórios
+- lista de armas e armaduras foram separadas
+- adicionado a opção de usar **negrito** (*) e _itálico_ (_)
 - correção de bugs e outros melhoramentos menores
 
 v1.5.8
