@@ -29,12 +29,12 @@
   <div class="row"><div class="container db">
    <div class="half hint0p">
     <div class="input mt0">
-     <input id="char" class="drop" type="text" onclick="char_list(this)" onkeyup="regex_inj(this);char_list(this);filter(this)" autocomplete="off" required>
+     <input id="char" class="drop" type="text" onclick="char_list(this)" onkeydown="regex_inj(event);char_list(this);filter(this)" autocomplete="off" required>
      <label>Personagem</label>
      <div class="dropdown dn"></div>
     </div>
    </div><div class="half">
-    <div class="input mt0"><input id="jogador" type="text" onchange="data_array(this)" onkeyup="regex_inj(this)" required><label>Jogador</label></div>
+    <div class="input mt0"><input id="jogador" type="text" onchange="data_array(this)" onkeydown="regex_inj(event)" required><label>Jogador</label></div>
    </div>
   </div></div>
 
@@ -53,9 +53,9 @@
      <div class="w1"></div>
      <div class="w3 input"><select id="nível" class="tc" onchange="data_add(this);calc()" required></select><label class="tac">Nível</label></div>
     </div>
-    <div class="input mt0"><input id="distincao" onchange="data_array(this)" onkeyup="regex_inj(this)" autocomplete="off" required><label>Distinção de classe</label></div>
+    <div class="input mt0"><input id="distincao" onchange="data_array(this)" onkeydown="regex_inj(event)" autocomplete="off" required><label>Distinção de classe</label></div>
     <div class="input mt0"><div id="divindade" class="fakeinput drop" onclick="show_list(this)" str="1"></div><label>Divindade</label><div class="dropdown dn"></div></div>
-    <div class="input"><input id="xp" type="number" onchange="data_add(this)" onkeyup="regex_inj(this)" autocomplete="off" required><label>Experiência</label></div>
+    <div class="input"><input id="xp" type="number" onchange="data_add(this)" onkeydown="regex_inj(event)" autocomplete="off" required><label>Experiência</label></div>
    </div>
   </div></div>
 
@@ -104,12 +104,12 @@
     </div>
     <div class="w10 df"><div class="w8 ma mw400 df"><p class="p_skill tac">Armadura e Escudo</p></div></div>
     <div class="w10 df"><div class="w10 mw400 ma db">
-     <div class="def_half pr"><input id="armor" type="text" onchange="def_set(this)" onkeyup="regex_inj(this);filter(this)" onblur="list_remove(this,event)" onfocus="list_move(this,event,1)" autocomplete="off"><label>Armadura</label></div>
+     <div class="def_half pr"><input id="armor" type="text" onchange="def_set(this)" onkeydown="regex_inj(event);filter(this)" onblur="list_remove(this,event)" onfocus="list_move(this,event,1)" autocomplete="off"><label>Armadura</label></div>
      <div class="def_quarter m0a pr"><input id="armor_bonus" class="def_input" inputmode="numeric" sign="1" onkeyup="regex(this)" onchange="def_set(this);def_calc()" autocomplete="off"><label class="def_label">Bônus</label></div>
      <div class="def_quarter m0a pr"><input id="armor_penal" class="def_input" inputmode="numeric" sign="1" onkeyup="regex(this)" onchange="def_set(this);calc_skills('skills')" autocomplete="off"><label class="def_label">Penalidade</label></div>
     </div></div>
     <div class="w10 df"><div class="w10 mw400 ma db">
-     <div class="def_half pr"><input id="shield" type="text" onchange="def_set(this)" onkeyup="regex_inj(this);filter(this)" onblur="list_remove(this,event)" onfocus="list_move(this,event,1)" autocomplete="off"><label>Escudo</label></div>
+     <div class="def_half pr"><input id="shield" type="text" onchange="def_set(this)" onkeydown="regex_inj(event);filter(this)" onblur="list_remove(this,event)" onfocus="list_move(this,event,5)" autocomplete="off"><label>Escudo</label></div>
      <div class="def_quarter pr"><input id="shield_bonus" class="def_input" inputmode="numeric" sign="1" onkeyup="regex(this)" onchange="def_set(this);def_calc()" autocomplete="off"><label class="def_label">Bônus</label></div>
      <div class="def_quarter pr"><input id="shield_penal" class="def_input" inputmode="numeric" sign="1" onkeyup="regex(this)" onchange="def_set(this);calc_skills('skills')" autocomplete="off"><label class="def_label">Penalidade</label></div>
     </div></div>
@@ -148,6 +148,9 @@
   <div class="row"><div id="user_powers" class="container db"></div></div>
   <div class="row"><div class="container">
    <button onclick="user_power()">Adicionar poder personalizado</button>
+  </div></div>
+  <div class="row"><div class="container dif">
+   <p class="item_subtitle ma ms tc">Dica: utilize *texto* para <b>negrito</b> e _texto_ para <i>itálico</i>.</p>
   </div></div>
  </div>
 
@@ -189,6 +192,9 @@
   <div class="row"><div class="container">
    <button onclick="cond_create()">Adicionar condição</button>
   </div></div>
+  <div class="row"><div class="container dif">
+   <p class="item_subtitle ma ms tc">Dica: utilize *texto* para <b>negrito</b> e _texto_ para <i>itálico</i>.</p>
+  </div></div>
  </div>
 
  <div id="sec_equip" class="sec">
@@ -201,9 +207,9 @@
 
   <h1 style="margin:2em 0 .6em">Moedas</h1>
   <div class="row"><div class="container dif">
-   <div class="w3 dif"><div class="w5 dif"><p class="item_title ma">TO</p></div><div class="w5 dif"><input id="to" class="skill_input mwu tc" type="number" placeholder="0" autocomplete="off" onkeyup="regex_inj(this)" onchange="coins(this)"></div></div>
-   <div class="w3 dif"><div class="w5 dif"><p class="item_title ma">T$</p></div><div class="w5 dif"><input id="ts" class="skill_input mwu tc" type="number" placeholder="0" autocomplete="off" onkeyup="regex_inj(this)" onchange="coins(this)"></div></div>
-   <div class="w3 dif"><div class="w5 dif"><p class="item_title ma">TC</p></div><div class="w5 dif"><input id="tc" class="skill_input mwu tc" type="number" placeholder="0" autocomplete="off" onkeyup="regex_inj(this)" onchange="coins(this)"></div></div>
+   <div class="w3 dif"><div class="w5 dif"><p class="item_title ma">TO</p></div><div class="w5 dif"><input id="to" class="skill_input mwu tc" type="number" placeholder="0" autocomplete="off" onkeydown="regex_inj(event)" onchange="coins(this)"></div></div>
+   <div class="w3 dif"><div class="w5 dif"><p class="item_title ma">T$</p></div><div class="w5 dif"><input id="ts" class="skill_input mwu tc" type="number" placeholder="0" autocomplete="off" onkeydown="regex_inj(event)" onchange="coins(this)"></div></div>
+   <div class="w3 dif"><div class="w5 dif"><p class="item_title ma">TC</p></div><div class="w5 dif"><input id="tc" class="skill_input mwu tc" type="number" placeholder="0" autocomplete="off" onkeydown="regex_inj(event)" onchange="coins(this)"></div></div>
   </div></div>
   <div class="row"><div class="container dif">
    <p class="item_subtitle ma ms tc">Cada mil moedas, independentemente do tipo, ocupam 1 espaço.</p>
@@ -217,7 +223,7 @@
    </div>
    <div class="w5 dif">
     <div class="w5 dif"><p class="item_title ma">Máximo</p></div>
-    <div class="w3 dif"><input id="carga_cap" class="skill_input mwu tc" type="number" placeholder="10" autocomplete="off" onkeyup="regex_inj(this)" onchange="coins(this)"></div>
+    <div class="w3 dif"><input id="carga_cap" class="skill_input mwu tc" type="number" placeholder="10" autocomplete="off" onkeydown="regex_inj(event)" onchange="coins(this)"></div>
    </div>
   </div></div>
   <div class="row"><div class="container df">
@@ -231,7 +237,7 @@
  <div id="sec_notes" class="sec">
   <h1>Anotações</h1>
   <div class="row"><div class="container db">
-   <textarea id="anot" onchange="data_array(this)"></textarea>
+   <textarea id="anot" onkeydown="regex_inj(event)" onchange="data_array(this)"></textarea>
   </div></div>
  </div>
 
@@ -336,7 +342,7 @@
  <div class="overlay">
   <div class="row"><div class="container t20box db">
    <h2>Buscar por...</h2>
-   <div class="input"><input id="power_name" type="text" onkeyup="regex_inj(this);filter_powers_name(this)" autocomplete="off" required><label>Nome</label></div>
+   <div class="input"><input id="power_name" type="text" onkeydown="regex_inj(event);filter_powers_name(this)" autocomplete="off" required><label>Nome</label></div>
    <div class="input"><div id="power_type" class="fakeinput drop" onclick="show_list(this)" tabindex="1"></div><label>Tipo</label><div class="dropdown dn"></div></div>
    <div class="input"><div id="power_cat" class="fakeinput drop" onclick="show_list(this)" tabindex="2"></div><label>Raça, classe, categoria</label><div class="dropdown dn"></div></div>
   </div></div>
@@ -348,7 +354,7 @@
  <div class="overlay">
   <div class="row"><div class="container t20box db">
    <h2>Buscar por...</h2>
-   <div class="input"><input id="spell_name" type="text" onkeyup="regex_inj(this);filter_spell_name(this)" autocomplete="off" required><label>Nome</label></div>
+   <div class="input"><input id="spell_name" type="text" onkeydown="regex_inj(event);filter_spell_name(this)" autocomplete="off" required><label>Nome</label></div>
    <div class="input"><div id="spell_class" class="fakeinput drop" onclick="show_list(this)" tabindex="1"></div><label>Classificação</label><div class="dropdown dn"></div></div>
    <div class="input"><div id="spell_level" class="fakeinput drop" onclick="show_list(this)" tabindex="2"></div><label>Nível</label><div class="dropdown dn"></div></div>
    <div class="input"><div id="spell_school" class="fakeinput drop" onclick="show_list(this)" tabindex="3"></div><label>Escola</label><div class="dropdown dn"></div></div>
@@ -872,7 +878,7 @@ function attack_list(i){
  div.setAttribute('attack',data.attack.length);
 
  let content2 = '<div class="w10 dif"><div class="w8 m0a pr dif">';
- content2 +=  '<input class="skill_input m3e" type="text" placeholder="Nome do ataque" value="'+data.attack[i][0]+'" autocomplete="off" onchange="attack_data(this,0)" onkeyup="regex_inj(this);filter(this)" onblur="list_remove(this,event)" onfocus="list_move(this,event,2)">';
+ content2 +=  '<input class="skill_input m3e" type="text" placeholder="Nome do ataque" value="'+data.attack[i][0]+'" autocomplete="off" onchange="attack_data(this,0)" onkeydown="regex_inj(event);filter(this)" onblur="list_remove(this,event)" onfocus="list_move(this,event,2)">';
  content2 +=  '</div><div class="w2 m0a dif" onclick="attack_remove(this)"><div class="trash"></div></div></div>';
 
  content2 +=  '<div class="w10 dif">';
@@ -916,7 +922,7 @@ function attack_list(i){
  content2 +=  '<div class="w4 ma3 dif"><p class="p_skill">Ação</p></div></div>';
 
  content2 +=  '<div class="w10 dif"><div class="w10 m3e dif">';
- content2 +=  '<textarea class="skill_input m3e" type="text" placeholder="Poderes aplicados, melhoramentos de arma e outros detalhes" autocomplete="off" onchange="attack_data(this,10)">'+data.attack[i][10]+'</textarea>';
+ content2 +=  '<textarea class="skill_input m3e" type="text" placeholder="Poderes aplicados, melhoramentos de arma e outros detalhes" autocomplete="off" onkeydown="regex_inj(event)" onchange="attack_data(this,10)">'+data.attack[i][10]+'</textarea>';
  content2 +=  '</div></div></div>';
 
  let content = '<div class="w10 dif">';
@@ -969,7 +975,7 @@ function weap_choose(e,i){
  e.children[7].children[1].children[0].value = equip[i][10];
  e.children[8].children[0].children[0].value = '';
  e.children[8].children[1].children[0].value = '';
- e.children[9].children[0].children[0].value = equip[i][4];
+ e.children[9].children[0].children[0].value = equip[i][4].replaceAll(/<\/?[bi]>/gi,'');
 
  e = e.parentNode;
  var attacks = document.getElementsByClassName('attack');
@@ -1110,7 +1116,7 @@ function cond_change(e,k){
 
  let conds = document.getElementsByClassName('cond_user');
  let i = Array.prototype.indexOf.call(conds,e);
- data.cond_user[i][k]=value;
+ data.cond_user[i][k]=boldify(value);
  cond_details(e,1,i,data.cond_user,0);
  save_data();
 }
@@ -1176,16 +1182,16 @@ function list_conditions(e,i,array){
   content += '<div class="w1 ma" onclick="cond_edit(this)"><div class="pencilbox ma"><div class="pencil"></div></div></div></div>';
   content += '<div class="w10">';
   content += '<div class="w10 attack_info def_hide cond_info"><div class="w10 dif">';
-  content += '<div class="w8 ma dif"><input class="skill_input m3e" type="text" placeholder="Nome da condição" value="'+(array[i][0]=="Nome da Condição"?'':array[i][0])+'" autocomplete="off" onkeyup="regex_inj(this)" onchange="cond_change(this,0)"></div>';
+  content += '<div class="w8 ma dif"><input class="skill_input m3e" type="text" placeholder="Nome da condição" value="'+(array[i][0]=="Nome da Condição"?'':array[i][0])+'" autocomplete="off" onkeydown="regex_inj(event)" onchange="cond_change(this,0)"></div>';
   content += '<div class="w2 ma dif" onclick="cond_remove(this)"><div class="trash"></div></div>';
   content += '</div><div class="w10 dif">';
-  content += '<div class="w5 ma dif"><input class="skill_input m3e" type="text" placeholder="Tipo de condição" value="'+(array[i][1]=="Tipo de Condição"?'':array[i][1])+'" autocomplete="off" onkeyup="regex_inj(this)" onchange="cond_change(this,1)"></div>';
+  content += '<div class="w5 ma dif"><input class="skill_input m3e" type="text" placeholder="Tipo de condição" value="'+(array[i][1]=="Tipo de Condição"?'':array[i][1])+'" autocomplete="off" onkeydown="regex_inj(event)" onchange="cond_change(this,1)"></div>';
   content += '<div class="w5 ma dif"><select class="skill_input m3e" onchange="cond_change(this,5)" required>'+actions+'</select></div>';
   content += '</div><div class="w10 dif">';
   content += '<div class="w5 ma dif"><input class="skill_input m3e" type="Number" placeholder="Custo em PM" value="'+(array[i][4]=="Custo em"?'':array[i][4])+'" autocomplete="off" onkeyup="regexqte(this)" onchange="cond_change(this,4)"></div>';
   content += '<div class="w5 ma dif"><select class="skill_input m3e" onchange="cond_change(this,6)" required>'+durations+'</select></div>';
   content += '</div>';
-  content += '<div><div class="w10 m3e dif"><textarea class="skill_input m3e" type="text" placeholder="Descrição e detalhes" autocomplete="off" onchange="cond_change(this,2)">'+(array[i][2]=="Descrição e detalhes"?'':array[i][2])+'</textarea></div></div>';
+  content += '<div><div class="w10 m3e dif"><textarea class="skill_input m3e" type="text" placeholder="Descrição e detalhes" autocomplete="off" onkeydown="regex_inj(event)" onchange="cond_change(this,2)">'+(array[i][2]=="Descrição e detalhes"?'':unboldify(array[i][2]))+'</textarea></div></div>';
 
   content += '<div class="w10 mt tac"><div class="effect_add" onclick="effect_add(this)">+ Adicionar</div><p class="item_title">Efeitos nesta condição:</p></div><div>';
   for(let key in array[i][3]){
@@ -1252,7 +1258,7 @@ function effect_change(e){
  for(let k=0;k<selects.length;k++){ //readd effects to array
   let value = selects[k].parentNode.parentNode.children[1].children[0];
   if(selects[k].value=='Deslocamento'){
-   value.setAttribute('onkeydown','regex_inj(this)');
+   value.setAttribute('onkeydown','regex_inj(event)');
    value.setAttribute('type','text');
    value = value.value;
   }else{
@@ -1390,14 +1396,14 @@ function equip_add(qte,title,type,cost,weight,desc){
  content += '<div class="w3 equip_btns dif"><div class="third fakebtn equip_btn df m0 dn" onclick="equip_remov(this)"><div class="trash" style="transform:translateY(2px)"></div></div><button class="third equip_btn m0" onclick="qte_change(this,-1,1)">-</button><div class="third equip_btn mwu df"><input class="skill_input mwu tc" type="number" placeholder="Un." value="'+qte+'" autocomplete="off" onkeyup="regexqte(this)" onchange="equip_data(this,0)"></div><button class="third equip_btn m0" onclick="qte_change(this,1,0)">+</button></div>';
  content += '</div><div class="w10 attack_info def_hide">';
  content += '<div class="w10 dif">';
- content += '<div class="w7 ma pr df"><input class="skill_input m3e" type="text" placeholder="Nome do item" value="'+title+'" autocomplete="off" onkeyup="regex_inj(this);filter(this)" onblur="list_remove(this,event)" onfocus="list_move(this,event,0)" onchange="equip_data(this,1)"></div>';
- content += '<div class="w3 ma df"><input class="skill_input m3e" type="text" placeholder="Valor do item" value="'+cost+'" autocomplete="off" onkeyup="regex_inj(this)" onchange="equip_data(this,3)"></div>';
+ content += '<div class="w7 ma pr df"><input class="skill_input m3e" type="text" placeholder="Nome do item" value="'+title+'" autocomplete="off" onkeydown="regex_inj(event);filter(this)" onblur="list_remove(this,event)" onfocus="list_move(this,event,0)" onchange="equip_data(this,1)"></div>';
+ content += '<div class="w3 ma df"><input class="skill_input m3e" type="text" placeholder="Valor do item" value="'+cost+'" autocomplete="off" onkeydown="regex_inj(event)" onchange="equip_data(this,3)"></div>';
  content += '</div>';
  content += '<div class="w10 dif">';
  content += '<div class="w5 ma df"><select class="skill_input m3e" autocomplete="off" onchange="equip_data(this,2)" required>'+tipo+'</select></div>';
  content += '<div class="w5 ma df"><select class="skill_input m3e" autocomplete="off" onchange="equip_data(this,4)" required>'+peso+'</select></div>';
  content += '</div>';
- content += '<div><div class="w10 dif"><textarea class="skill_input m3e" type="text" placeholder="Descrição e detalhes" autocomplete="off" onchange="equip_data(this,5)">'+desc+'</textarea></div></div>';
+ content += '<div><div class="w10 dif"><textarea class="skill_input m3e" type="text" placeholder="Descrição e detalhes" autocomplete="off" onkeydown="regex_inj(event)" onchange="equip_data(this,5)">'+desc+'</textarea></div></div>';
  content += '</div>';
 
  div.innerHTML = content;
@@ -1429,7 +1435,7 @@ function equip_choose(e,i){
  e.children[0].children[1].children[0].value = equip[i][2];
  e.children[1].children[0].children[0].value = equip[i][1];
  e.children[1].children[1].children[0].value = equip[i][3];
- e.children[2].children[0].children[0].innerHTML = equip[i][4];
+ e.children[2].children[0].children[0].innerHTML = equip[i][4].replaceAll(/<\/?[bi]>/gi,'');
 
  e = e.parentNode;
  let equips = document.getElementsByClassName('equip');
@@ -1481,9 +1487,9 @@ function create_lists(sup){
  if(sup&&window.Worker&&typeof(Worker)!=="undefined"){
   console.log("Web worker: creating lists");
   let worker = new Worker("./js/list_worker.js");
-  worker.postMessage([[equip,equip,equip,powers,spells],[0,armor_start,weap_start,0,0],[equip.length,armor_end,weap_end,powers.length,spells.length]]);
+  worker.postMessage([[equip,equip,equip,powers,spells,equip],[0,armor_start,weap_start,0,0,shield_start],[equip.length,armor_end,weap_end,powers.length,spells.length,shield_end]]);
   worker.addEventListener('message',(ev) => {
-   for(let j=0;j<5;j++){
+   for(let j=0;j<ev.data.length;j++){
     list[j] = document.createElement('div');
     list[j].setAttribute('class','dropequip');
     list[j].innerHTML = ev.data[j];
@@ -1492,7 +1498,7 @@ function create_lists(sup){
  }else{
   console.log("Main thread: creating lists");
   list = worker_list([equip,equip,equip,powers,spells],[0,armor_start,weap_start,0,0],[equip.length,armor_end,weap_end,powers.length,spells.length]);
-   for(let j=0;j<5;j++){
+   for(let j=0;j<ev.data.length;j++){
     let div = document.createElement('div');
     div.setAttribute('class','dropequip');
     div.innerHTML = list[j];
@@ -1524,9 +1530,6 @@ function unboldify(str){return isNaN(str)?str.replaceAll(/<br>|<\/br>/gi,'\n').r
 
 var prev_focus;
 function list_move(e,ev,i){
- console.log(e);
- console.log(ev);
- console.log(i);
  if(prev_focus!=e){
   prev_focus=e;
   e.parentNode.appendChild(list[i]);
@@ -1605,7 +1608,7 @@ function change_power(e,i){
  let value = e.value;
  e = e.parentNode.parentNode.parentNode.parentNode.parentNode;
  let x = Array.prototype.indexOf.call(document.getElementById('user_powers').getElementsByClassName('user_powers'),e)
- data.user_powers[x][i] = value;
+ data.user_powers[x][i] = boldify(value);
  calc_power(e,x)
 }
 
@@ -1639,12 +1642,12 @@ function feat_choose(e,i){
  prev_focus = null;
 
  e = e.parentNode.parentNode;
- e.children[0].children[0].children[0].value = powers[i][0];	//nome
- e.children[1].children[0].children[0].value = powers[i][1];	//tipo (select)
- e.children[1].children[1].children[0].value = powers[i][2];	//categoria
+ e.children[0].children[0].children[0].value = unboldify(powers[i][0]);		//nome
+ e.children[1].children[0].children[0].value = powers[i][1];			//tipo (select)
+ e.children[1].children[1].children[0].value = unboldify(powers[i][2]);		//categoria
  e.children[2].children[0].children[0].value = powers[i][3]?powers[i][3]+1:1;	//ação (select)
- e.children[2].children[1].children[0].value = powers[i][4];	//subcategoria
- e.children[3].children[0].children[0].value = powers[i][7];	//desc (text area)
+ e.children[2].children[1].children[0].value = unboldify(powers[i][4]);		//subcategoria
+ e.children[3].children[0].children[0].value = unboldify(powers[i][7]);		//desc (text area)
  if(powers[i][5]){e.children[4].children[0].classList.add('checkmarked')}	//magic?
  else{e.children[4].children[0].classList.remove('checkmarked')}
 
@@ -1691,21 +1694,21 @@ function list_powers(e,i,arr){
  else{
   content += '<div class="w10 mt1"><div class="w10 attack_info cond_info def_hide">';
   content += '<div class="w10 dif">';
-  content += '<div class="w8 pr ma dif"><input class="skill_input m3e" type="text" placeholder="Nome do poder" value="'+(arr[i][0]=='Nome do poder'?'':arr[i][0])+'" autocomplete="off"  onkeyup="regex_inj(this);filter(this)" onblur="list_remove(this,event)" onfocus="list_move(this,event,3)" onchange="change_power(this,0)"></div>';
+  content += '<div class="w8 pr ma dif"><input class="skill_input m3e" type="text" placeholder="Nome do poder" value="'+(arr[i][0]=='Nome do poder'?'':arr[i][0])+'" autocomplete="off"  onkeydown="regex_inj(event);filter(this)" onblur="list_remove(this,event)" onfocus="list_move(this,event,3)" onchange="change_power(this,0)"></div>';
   content += '<div class="w2 ma dif" onclick="remove_power(this,\''+e+'\')"><div class="trash"></div></div>'
   content += '</div>';
 
   content += '<div class="w10 dif">';
   content += '<div class="w5 ma dif"><select class="skill_input m3e" onchange="change_power(this,1)" required>'+power_types+'</select></div>';
-  content += '<div class="w5 ma dif"><input class="skill_input m3e" type="text" placeholder="Categoria" value="'+(arr[i][2]=='Categoria'?'':arr[i][2])+'" autocomplete="off" onkeyup="regex_inj(this)" onchange="change_power(this,2)"></div>';
+  content += '<div class="w5 ma dif"><input class="skill_input m3e" type="text" placeholder="Categoria" value="'+(arr[i][2]=='Categoria'?'':arr[i][2])+'" autocomplete="off" onkeydown="regex_inj(event)" onchange="change_power(this,2)"></div>';
   content += '</div>';
 
   content += '<div class="w10 dif">';
   content += '<div class="w5 ma dif"><select class="skill_input m3e" onchange="change_power(this,3)" required>'+actions+'</select></div>';
-  content += '<div class="w5 ma dif"><input class="skill_input m3e" type="text" placeholder="Subcategoria" value="'+(arr[i][4]=='Subcategoria'?'':arr[i][4])+'" autocomplete="off" onkeyup="regex_inj(this)" onchange="change_power(this,4)"></div>';
+  content += '<div class="w5 ma dif"><input class="skill_input m3e" type="text" placeholder="Subcategoria" value="'+(arr[i][4]=='Subcategoria'?'':arr[i][4])+'" autocomplete="off" onkeydown="regex_inj(event)" onchange="change_power(this,4)"></div>';
   content += '</div>';
 
-  content += '<div><div class="w10 dif"><textarea class="skill_input m3e" type="text" placeholder="Descrição e detalhes" autocomplete="off" onchange="change_power(this,7)">'+(arr[i][7]=='Descrição e detalhes'?'':arr[i][7])+'</textarea></div></div>';
+  content += '<div><div class="w10 dif"><textarea class="skill_input m3e" type="text" placeholder="Descrição e detalhes" autocomplete="off" onkeydown="regex_inj(event)" onchange="change_power(this,7)">'+(arr[i][7]=='Descrição e detalhes'?'':unboldify(arr[i][7]))+'</textarea></div></div>';
   content += '<div class="w10 dif pr"><a class="checkmark a_power" onclick="power_magic(this)">Marque se essa habilidade for mágica</a></div>';
 
   content += '</div></div>';
@@ -1860,7 +1863,7 @@ function list_user_spell(i){
 
  content += '<div class="w10 mt1"><div class="w10 attack_info cond_info def_hide">';
  content += '<div class="w10 dif">';
- content += '<div class="w8 pr ma dif"><input class="skill_input m3e" type="text" placeholder="Nome da magia" value="'+(data.user_spells[i][0]=='Nome da magia'?'':data.user_spells[i][0])+'" autocomplete="off"  onkeyup="regex_inj(this);filter(this)" onblur="list_remove(this,event)" onfocus="list_move(this,event,4)" onchange="change_spell(this,0)"></div>';
+ content += '<div class="w8 pr ma dif"><input class="skill_input m3e" type="text" placeholder="Nome da magia" value="'+(data.user_spells[i][0]=='Nome da magia'?'':data.user_spells[i][0])+'" autocomplete="off"  onkeydown="regex_inj(event);filter(this)" onblur="list_remove(this,event)" onfocus="list_move(this,event,4)" onchange="change_spell(this,0)"></div>';
  content += '<div class="w2 ma dif" onclick="remove_spell(this,\''+e+'\')"><div class="trash"></div></div>'
  content += '</div>';
 
@@ -1873,25 +1876,25 @@ function list_user_spell(i){
  content += '<div class="w5 ma dif"><select class="skill_input m3e" onchange="change_spell(this,3)" required>'+spell_schools+'</select></div>';
  content += '<div class="w5 ma dif">';
  content += '<select class="skill_input m3e" onchange="spell_mod_outro(this);change_spell(this,4)" required>'+spell_actions+'</select>';
- content += '<input class="skill_input m3e dn" type="text" placeholder="Outro (escreva \'voltar\' para voltar)" value="'+(data.user_spells[i][4]=='Ação para lançar'?'':data.user_spells[i][4])+'" autocomplete="off" onkeyup="regex_inj(this)" onchange="spell_mod_outro(this);change_spell(this,4)">';
+ content += '<input class="skill_input m3e dn" type="text" placeholder="Outro (escreva \'voltar\' para voltar)" value="'+(data.user_spells[i][4]=='Ação para lançar'?'':data.user_spells[i][4])+'" autocomplete="off" onkeydown="regex_inj(event)" onchange="spell_mod_outro(this);change_spell(this,4)">';
  content += '</div></div>';
 
  content += '<div class="w10 dif">';
- content += '<div class="w5 ma dif"><input class="skill_input m3e" type="text" placeholder="Alvo" value="'+(data.user_spells[i][7]=='Alvo'?'':data.user_spells[i][7])+'" autocomplete="off" onkeyup="regex_inj(this)" onchange="change_spell(this,7)"></div>';
- content += '<div class="w5 ma dif"><input class="skill_input m3e" type="text" placeholder="Alcance" value="'+(data.user_spells[i][5]=='Alcance'?'':data.user_spells[i][5])+'" autocomplete="off" onkeyup="regex_inj(this)" onchange="change_spell(this,5)"></div>';
+ content += '<div class="w5 ma dif"><input class="skill_input m3e" type="text" placeholder="Alvo" value="'+(data.user_spells[i][7]=='Alvo'?'':data.user_spells[i][7])+'" autocomplete="off" onkeydown="regex_inj(event)" onchange="change_spell(this,7)"></div>';
+ content += '<div class="w5 ma dif"><input class="skill_input m3e" type="text" placeholder="Alcance" value="'+(data.user_spells[i][5]=='Alcance'?'':data.user_spells[i][5])+'" autocomplete="off" onkeydown="regex_inj(event)" onchange="change_spell(this,5)"></div>';
  content += '</div>';
 
  content += '<div class="w10 dif">';
- content += '<div class="w5 ma dif"><input class="skill_input m3e" type="text" placeholder="Área" value="'+(data.user_spells[i][8]=='Área'?'':data.user_spells[i][8])+'" autocomplete="off" onkeyup="regex_inj(this)" onchange="change_spell(this,8)"></div>';
- content += '<div class="w5 ma dif"><input class="skill_input m3e" type="text" placeholder="Efeito" value="'+(data.user_spells[i][10]=='Efeito'?'':data.user_spells[i][10])+'" autocomplete="off" onkeyup="regex_inj(this)" onchange="change_spell(this,10)"></div>';
+ content += '<div class="w5 ma dif"><input class="skill_input m3e" type="text" placeholder="Área" value="'+(data.user_spells[i][8]=='Área'?'':data.user_spells[i][8])+'" autocomplete="off" onkeydown="regex_inj(event)" onchange="change_spell(this,8)"></div>';
+ content += '<div class="w5 ma dif"><input class="skill_input m3e" type="text" placeholder="Efeito" value="'+(data.user_spells[i][10]=='Efeito'?'':data.user_spells[i][10])+'" autocomplete="off" onkeydown="regex_inj(event)" onchange="change_spell(this,10)"></div>';
  content += '</div>';
 
  content += '<div class="w10 dif">';
- content += '<div class="w5 ma dif"><input class="skill_input m3e" type="text" placeholder="Duração" value="'+(data.user_spells[i][6]=='Duração'?'':data.user_spells[i][6])+'" autocomplete="off" onkeyup="regex_inj(this)" onchange="change_spell(this,6)"></div>';
- content += '<div class="w5 ma dif"><input class="skill_input m3e" type="text" placeholder="Resistência" value="'+(data.user_spells[i][9]=='Resistência'?'':data.user_spells[i][9])+'" autocomplete="off" onkeyup="regex_inj(this)" onchange="change_spell(this,9)"></div>';
+ content += '<div class="w5 ma dif"><input class="skill_input m3e" type="text" placeholder="Duração" value="'+(data.user_spells[i][6]=='Duração'?'':data.user_spells[i][6])+'" autocomplete="off" onkeydown="regex_inj(event)" onchange="change_spell(this,6)"></div>';
+ content += '<div class="w5 ma dif"><input class="skill_input m3e" type="text" placeholder="Resistência" value="'+(data.user_spells[i][9]=='Resistência'?'':data.user_spells[i][9])+'" autocomplete="off" onkeydown="regex_inj(event)" onchange="change_spell(this,9)"></div>';
  content += '</div>';
 
- content += '<div><div class="w10 dif"><textarea class="skill_input m3e" type="text" placeholder="Descrição e detalhes" autocomplete="off" onchange="change_spell(this,11)">'+(data.user_spells[i][11]=='Descrição'?'':data.user_spells[i][11])+'</textarea></div></div>'; // contenteditable="true"
+ content += '<div><div class="w10 dif"><textarea class="skill_input m3e" type="text" placeholder="Descrição e detalhes" autocomplete="off" onkeydown="regex_inj(event)" onchange="change_spell(this,11)">'+(data.user_spells[i][11]=='Descrição'?'':unboldify(data.user_spells[i][11]))+'</textarea></div></div>'; // contenteditable="true"
 
  content += '<div class="w10 mt tac"><div class="effect_add" onclick="spell_mod_add(this)">+ Adicionar</div><p class="item_title">Aprimoramentos nesta magia:</p></div><div>';
 
@@ -2577,7 +2580,8 @@ function printPDF(){
 //-------------------------REGEX FUNCTIONS------------------------//
 
 function regexe(e){['e','E'].includes(e.key)&&e.preventDefault()}
-function regex_inj(e){e.value=/[<>\[\]\{\}\$#&]+/.test(e.value)?e.value.slice(0,-1):e.value}
+function regex_inj(e){['<','>','[',']','{','}','#'].includes(e.key)&&e.preventDefault()}
+//function regex_inj(e){e.value=/[<>\[\]\{\}\$#&]+/.test(e.value)?e.value.slice(0,-1):e.value}	// onkeydown="regex_inj(event)
 function regexo(e){e.value=/^([+-]|[0-9]|[d])*$/.test(e.value)?e.value:e.value.slice(0,-1)}
 function regexb2(e){e.value=='d'?'d':e.value=/^([d]|[0-9])*$/.test(e.value)?e.value:e.value.slice(0,-1)}
 function regexc1(e){e.value=/^([1-9]|1[0-9]|20)$/.test(e.value)?e.value:e.value.slice(0,-1)}
