@@ -13,7 +13,7 @@ v1.6
 - adicionado suporte para criar magias personalizadas
 - adicionado suporte para filtrar e personalizar magias existentes
 - adicionado itens mágicos: armas, armaduras, escudos, e acessórios
-- lista de armas e armaduras foram separadas
+- lista de armas e armaduras foram separadas em duas listas distintas
 - adicionado a opção de usar **negrito** (*) e _itálico_ (_)
 - correção de bugs e outros melhoramentos menores
 
