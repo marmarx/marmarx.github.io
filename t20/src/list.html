@@ -19,11 +19,16 @@ b{font-weight:700}
 
 <script>
 var list = [];
+const pag = document.getElementById('list');
 
 function submit(){
  let url = document.getElementById('url');
  let name = document.getElementById('name');
-
+ if(name.value=='delete'||url.value=='delete'){
+  pag.innerHTML = '';
+  list = [];
+  localStorage.list = [];
+ }
  if(name.value&&url.value.includes('=')){
   let val = JSON.parse(url.value.substring(url.value.indexOf('=')+1));
   if(!list.some(row => row.includes(val))){
@@ -46,7 +51,7 @@ function populate(){
   if(list[i-1]&&list[i][0]!=list[i-1][0]){card += '</br><b>'+list[i][0]+'</b></br>'}
   card += '<li><a href="'+url+list[i][1]+'" target="_blank">'+list[i][1]+'</a></li>';
  }
- document.getElementById('list').innerHTML = card;
+ pag.innerHTML = card;
 }
 </script>
 </body>
