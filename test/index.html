@@ -5,7 +5,7 @@
 <script>
 const url = 'https://google.com';
 let ifrm = document.createElement("iframe");
-ifrm.setAttribute("src",'./iframe.php?url='+url);
+ifrm.setAttribute("src",'iframe.php?url='+url);
 document.body.appendChild(ifrm);
 let title = ifrm.contentDocument.title || ifrm.contentDocument.document.title || ifrm.document.title || 'error';
 console.log(title);
