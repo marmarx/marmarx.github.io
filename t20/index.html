@@ -66,6 +66,7 @@
    <label for="file"><input id="file" type="file" onchange="import_char(event)">Importar</input></label>
    <button onclick="export_char()">Exportar</button>
    <button id="chardel" class="delete" onclick="char_remove()" disabled>Deletar</button>
+   <p class="item_subtitle ma mt tc">v1.6.0</p>
   </div></div>
 
  </div>
@@ -1498,15 +1499,13 @@ function create_lists(sup){
  }else{
   console.log("Main thread: creating lists");
   list = worker_list([equip,equip,equip,powers,spells],[0,armor_start,weap_start,0,0],[equip.length,armor_end,weap_end,powers.length,spells.length]);
-   for(let j=0;j<ev.data.length;j++){
+   for(let j=0;j<list.length;j++){
     let div = document.createElement('div');
     div.setAttribute('class','dropequip');
     div.innerHTML = list[j];
     list[j] = div;
    }
  }
-}
-
 
 //-------------------------RICH TEXT FUNCTIONS------------------------//
 
@@ -1524,7 +1523,6 @@ function boldify(str){
  return str.replaceAll('</table>\n','</table><p class="nowrap ms">').replaceAll('\n','<br>');
 }
 function unboldify(str){return isNaN(str)?str.replaceAll(/<br>|<\/br>/gi,'\n').replaceAll(/<i>|<\/i>/gi,'_').replaceAll(/<b>|<\/b>/gi,'*').replaceAll(/<\/?p[^>]*>/gi,'\n'):str}
-
 
 //-------------------------LISTS FUNCTIONS------------------------//
 
@@ -1545,7 +1543,6 @@ function list_remove(e,ev){
  if(!ev.target.parentNode.contains(ev.relatedTarget)&&e){e.remove()}
  prev_focus = null;
 }
-
 
 async function filter(e){
  let k = (e.id=="armor"||e.id=="shield"||e.id=="char")?2:1;
