@@ -1,15 +1,21 @@
 {
  "lang": "pt-br",
- "name": "Ficha Tormenta 20",
- "short_name": "Ficha Tormenta 20",
- "description": "Uma ficha online para criar, salvar, exportar e importar personagens Tormenta 20",
+ "name": "Tormenta 20",
+ "short_name": "Tormenta 20",
+ "description": "Uma ficha para criar, salvar, exportar e importar personagens Tormenta 20",
  "start_url": "/",
  "background_color": "#b72a2b",
  "theme_color": "#b72a2b",
  "orientation": "any",
  "display": "standalone",
  "icons": [{
-   "src": "/icon.webp",
+   "src": "/src/app_icon.webp",
    "sizes": "240x240"
   }]
+ "screenshots":[
+  {"src": "/ss/ss1.png","sizes": "2880x1632","type": "image/png","form_factor": "wide","label": "Tormenta 20"}
+  {"src": "/ss/ss2.png","sizes": "2880x1632","type": "image/png","form_factor": "wide","label": "Tormenta 20"}
+  {"src": "/ss/ss3.png","sizes": "850x1632","type": "image/png","form_factor": "narrow","label": "Tormenta 20"}
+  {"src": "/ss/ss4.png","sizes": "850x1632","type": "image/png","form_factor": "narrow","label": "Tormenta 20"}
+]
 }
