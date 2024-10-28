@@ -1,0 +1,15 @@
+{
+ "lang": "pt-br",
+ "name": "Ficha Tormenta 20",
+ "short_name": "Ficha Tormenta 20",
+ "description": "Uma ficha online para criar, salvar, exportar e importar personagens Tormenta 20",
+ "start_url": "/",
+ "background_color": "#b72a2b",
+ "theme_color": "#b72a2b",
+ "orientation": "any",
+ "display": "standalone",
+ "icons": [{
+   "src": "/icon.webp",
+   "sizes": "240x240"
+  }]
+}
