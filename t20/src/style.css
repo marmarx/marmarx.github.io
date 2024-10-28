@@ -209,7 +209,7 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 .effect_add{background-color:#555555;color:white;border:2px solid #555555;font-weight:600;padding:5px 13px;text-align:center;text-decoration:none;display:inline-block;font-size:85%;margin-right:15px}.effect_add:hover{background-color: white;color:var(--black)}
 
 .gray{color:#aaa}
-.config{line-height:.4em;margin:.5em 0}
+.config{line-height:.4em;margin:.2em 0}
 .hint,.hint:before{position:absolute}
 .hint{width:43%;background:var(--transblack);padding:1.2em 1.6em;font-size:.9em;z-index:999;color:var(--white);text-align:justify}
 .hint:before{content:'';border:8px solid transparent;border-color:transparent transparent var(--transblack) transparent}
