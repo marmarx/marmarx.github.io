@@ -2272,7 +2272,7 @@ function regex(e){e.value = (e.value=='-'?'-':(e.value=='+'?'+':(/^[-+]?(0|[1-9]
 function regex2(e){e.value=/^(0|[1-9]\d*)$/.test(e.value)?e.value:e.value.slice(0,-1)}
 function regexqte(e){e.value=/(\d)*$/.test(e.value)?e.value:e.value.slice(0,-1)}
 
-if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js',{ scope:'/'})}
+if('serviceWorker' in navigator){navigator.serviceWorker.register('/t20/sw.js',{ scope:'/'})}
 </script>
 </body>
 </html>
