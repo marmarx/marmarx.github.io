@@ -116,7 +116,7 @@ Observações: muitas coisas aconteceram nesse projeto, fui iniciar histórico d
 
 Personal notes:
 - manifest.json 'scope' must:
-> contain the full URL, for example: https://marmarx.github.io/t20/
+> contain the full URL, for example: https://marmarx.github.io/t20/</br>
 > match 'id' and 'start_url', for example: /t20/
 - HTML 'serviceWorker' handler 'scope' and 'url' under must:
 > match manifest.json 'start_url', for example: /t20/sw.js and /t20/
