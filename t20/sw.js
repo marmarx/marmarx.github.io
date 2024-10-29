@@ -7,7 +7,7 @@ const cache_resources = ['/t20/','/t20/print.html',
 
 //Use the install event to pre-cache all initial resources.
 self.addEventListener('install', event => {
- alert('Service worker install event!');
+ console.log('Service worker install event!');
  event.waitUntil((async () => {
   const cache = await caches.open(cache_name);
   cache.addAll(cache_resources);
@@ -15,23 +15,23 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('activate', (event) => {
- alert('Service worker activate event!');
+ console.log('Service worker activate event!');
 });
 
 self.addEventListener('fetch', event => {
- alert('Fetch intercepted for:', event.request.url);
+ console.log('Fetch intercepted for:', event.request.url);
  event.respondWith((async () => {
  const cache = await caches.open(cache_name);
 
  const cachedResponse = await cache.match(event.request);
- if(cachedResponse){alert('Fetch file offline');return cachedResponse}	// Get the resource from the cache.
+ if(cachedResponse){console.log('Fetch file offline');return cachedResponse}	// Get the resource from the cache.
  else{						//If the resource was not in the cache, try the network.
   try{
    const fetchResponse = await fetch(event.request);
    cache.put(event.request, fetchResponse.clone());	//Save the resource in the cache and return it.
-   alert('Trying to fetch file online');
+   console.log('Trying to fetch file online');
    return fetchResponse;
-   }catch(e){alert('Error: '+e)}
+   }catch(e){console.log('Error: '+e)}
   }
  })());
 });
