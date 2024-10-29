@@ -9,18 +9,18 @@
  "background_color":"#b72a2b",
  "theme_color":"#b72a2b",
  "orientation":"any",
- "display":"standalone",
- "display_override":["window-controls-overlay","minimal-ui"],
+ "display":"fullscreen",
+ "display_override":["window-controls-overlay","fullscreen","standalone","minimal-ui"],
  "icons":[
   {"src":"/t20/src/icon_600.png","sizes":"600x600","type":"image/png"},
   {"src":"/t20/src/icon_512.png","sizes":"512x512","type":"image/png"},
   {"src":"/t20/src/icon_192.png","sizes":"192x192","type":"image/png"}
  ],
  "screenshots":[
-  {"src":"/t20/ss/ss1.png", "sizes":"2880x1632", "type":"image/png", "form_factor":"wide", "label":"Tormenta 20"},
-  {"src":"/t20/ss/ss2.png", "sizes":"2880x1632", "type":"image/png", "form_factor":"wide", "label":"Tormenta 20"},
-  {"src":"/t20/ss/ss3.png", "sizes":"850x1632", "type":"image/png", "form_factor":"narrow", "label":"Tormenta 20"},
-  {"src":"/t20/ss/ss4.png", "sizes":"850x1632", "type":"image/png", "form_factor":"narrow", "label":"Tormenta 20"}
+  {"src":"/t20/ss/ss1.png", "sizes":"2880x1632", "type":"image/png", "form_factor":"wide", "label":"Tormenta 20: uma ficha completa para seu personagem no seu tablet ou computador"},
+  {"src":"/t20/ss/ss2.png", "sizes":"2880x1632", "type":"image/png", "form_factor":"wide", "label":"Tormenta 20: inclui um rolador de dados opcional com teclado personalizado"},
+  {"src":"/t20/ss/ss3.png", "sizes":"850x1632", "type":"image/png", "form_factor":"narrow", "label":"Tormenta 20: uma ficha completa para seu personagem no seu celular"},
+  {"src":"/t20/ss/ss4.png", "sizes":"850x1632", "type":"image/png", "form_factor":"narrow", "label":"Tormenta 20: inclui um rolador de dados opcional com teclado personalizado"}
  ],
  "prefer_related_applications":false
 }
