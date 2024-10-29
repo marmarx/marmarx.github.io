@@ -10,7 +10,7 @@
  "theme_color":"#b72a2b",
  "orientation":"any",
  "display":"fullscreen",
- "display_override":["window-controls-overlay","standalone","minimal-ui"],
+ "display_override":["window-controls-overlay","fullscreen","standalone","minimal-ui"],
  "icons":[
   {"src":"/t20/src/icon_600.png","sizes":"600x600","type":"image/png"},
   {"src":"/t20/src/icon_512.png","sizes":"512x512","type":"image/png"},
