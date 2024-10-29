@@ -24,11 +24,12 @@ self.addEventListener('fetch', event => {
  const cache = await caches.open(cache_name);
 
  const cachedResponse = await cache.match(event.request);
- if(cachedResponse){return cachedResponse}	// Get the resource from the cache.
+ if(cachedResponse){console.log('Fetch file offline');return cachedResponse}	// Get the resource from the cache.
  else{						//If the resource was not in the cache, try the network.
   try{
    const fetchResponse = await fetch(event.request);
    cache.put(event.request, fetchResponse.clone());	//Save the resource in the cache and return it.
+   console.log('Trying to fetch file online');
    return fetchResponse;
    }catch(e){alert('Error: '+e)}
   }
