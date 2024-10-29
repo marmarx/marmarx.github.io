@@ -5,7 +5,7 @@
  "description":"Uma ficha para criar, salvar, exportar, importar e imprimir personagens Tormenta 20",
  "start_url":"/t20/",
  "id":"/t20/",
- "scope": "/t20/",
+ "scope": "https://marmarx.github.io/t20/",
  "background_color":"#b72a2b",
  "theme_color":"#b72a2b",
  "orientation":"any",
