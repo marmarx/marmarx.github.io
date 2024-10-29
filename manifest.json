@@ -2,7 +2,7 @@
  "lang":"pt-br",
  "name":"Tormenta 20",
  "short_name":"Tormenta 20",
- "description":"Uma ficha para criar, salvar, exportar, importar e imprimir personagens Tormenta 20",
+ "description":"Uma ficha digital para criar, salvar, importar, exportar e imprimir personagens Tormenta 20. Ótimo para quem, como eu, tem o hábito de esquecer a ficha entre sessões.",
  "start_url":"/t20/",
  "id":"/t20/",
  "scope": "https://marmarx.github.io/t20/",
