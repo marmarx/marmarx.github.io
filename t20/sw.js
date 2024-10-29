@@ -1,8 +1,8 @@
 const cache_name = `ficha-tormenta20-v1.6`;
-const cache_resources = ['/','/print.html',
-'/src/favicon.png','/src/css.css','/src/style.css','/src/back.jpg','/src/border-print.svg','/src/dice.svg','/src/logo.png','/src/noisy.png','/src/magic.svg','/src/Tormenta20.ttf',
-'/db/common.js','/db/conditions.js','/db/equips.js','/db/geral.js','/db/icons.js','/db/powers.js','/db/skills.js','/db/spells.js',
-'/js/dice_roller.js','/js/keyboard.js','/js/worker_list.js','/js/worker_power.js','/js/worker_spell.js'
+const cache_resources = ['/t20/','/t20/print.html',
+'/t20/src/favicon.png','/t20/src/css.css','/t20/src/style.css','/t20/src/back.jpg','/t20/src/border-print.svg','/t20/src/dice.svg','/t20/src/logo.png','/t20/src/noisy.png','/t20/src/magic.svg','/t20/src/Tormenta20.ttf',
+'/t20/db/common.js','/t20/db/conditions.js','/t20/db/equips.js','/t20/db/geral.js','/t20/db/icons.js','/t20/db/powers.js','/t20/db/skills.js','/t20/db/spells.js',
+'/t20/js/dice_roller.js','/t20/js/keyboard.js','/t20/js/worker_list.js','/t20/js/worker_power.js','/t20/js/worker_spell.js'
 ];
 
 //Use the install event to pre-cache all initial resources.
