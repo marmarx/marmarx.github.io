@@ -115,8 +115,10 @@ Observações: muitas coisas aconteceram nesse projeto, fui iniciar histórico d
 -------------------------------------------------
 
 Personal notes:
-> manifest.json 'scope' must:
-  - contain the full URL, for example: https://marmarx.github.io/t20/
-  - match 'id' and 'start_url', for example: /t20/
-> HTML 'serviceWorker' handler 'scope' and 'url' under mist match manifest.json 'start_url', for example: /t20/sw.js and /t20/
-> sw.js 'cache_resources' must list the full path to each file, the scope doesn't seem to reduce file paths in any way, for example: /t20/ for index.html and /t20/src/favicon.png for favicon
+- manifest.json 'scope' must:
+> contain the full URL, for example: https://marmarx.github.io/t20/
+> match 'id' and 'start_url', for example: /t20/
+- HTML 'serviceWorker' handler 'scope' and 'url' under must:
+> match manifest.json 'start_url', for example: /t20/sw.js and /t20/
+- sw.js 'cache_resources' must:
+>  list the full path to each file, the scope doesn't seem to reduce file paths in any way, for example: /t20/ for index.html and /t20/src/favicon.png for favicon
