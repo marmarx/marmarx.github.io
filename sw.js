@@ -1,4 +1,4 @@
-const cache_name = `ficha-tormenta20-v1.6`;
+const cache_name = 'ficha-tormenta20-v1.6';
 const cache_resources = ['/t20/','/t20/print.html',
 '/t20/src/favicon.png','/t20/src/css.css','/t20/src/style.css','/t20/src/back.jpg','/t20/src/border-print.svg','/t20/src/dice.svg','/t20/src/logo.png','/t20/src/noisy.png','/t20/src/magic.svg','/t20/src/Tormenta20.ttf',
 '/t20/db/common.js','/t20/db/conditions.js','/t20/db/equips.js','/t20/db/geral.js','/t20/db/icons.js','/t20/db/powers.js','/t20/db/skills.js','/t20/db/spells.js',
