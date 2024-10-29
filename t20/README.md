@@ -115,10 +115,10 @@ Observações: muitas coisas aconteceram nesse projeto, fui iniciar histórico d
 -------------------------------------------------
 
 Personal notes:
-- manifest.json 'scope' must:
+- **manifest.json** _'scope'_ must:
 > contain the full URL, for example: https://marmarx.github.io/t20/</br>
-> match 'id' and 'start_url', for example: /t20/
-- HTML 'serviceWorker' handler 'scope' and 'url' under must:
-> match manifest.json 'start_url', for example: /t20/sw.js and /t20/
-- sw.js 'cache_resources' must:
+> match _'id'_ and _'start_url'_, for example: /t20/
+- HTML **'serviceWorker'** handler _'scope'_ and _'url'_ must:
+> match **manifest.json** _'start_url'_, for example: /t20/sw.js and /t20/
+- **sw.js** _'cache_resources'_ must:
 >  list the full path to each file, the scope doesn't seem to reduce file paths in any way, for example: /t20/ for index.html and /t20/src/favicon.png for favicon
