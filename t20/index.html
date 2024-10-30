@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<title>Ficha T20 Mobile - v1.6</title>
+<title>Ficha T20 Mobile - v1.6.2</title>
 <meta name="author" content="Marco Martins">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
 <meta name="theme-color" content="#b72a2b">
@@ -71,10 +71,7 @@
    <button id="chardel" class="delete" onclick="char_remove()" disabled>Deletar</button>
   </div></div>
   <div class="row"><div class="container dif">
-   <p>Para poder utilizar esse aplicativo offline, você pode instalá-lo no seu celular, tablet ou computador. Veja o <a class="reset" href="https://support.google.com/chrome/answer/9658361" target="_blank">suporte Google</a> para instruções detalhadas.</p>
-  </div></div>
-  <div class="row"><div class="container dif">
-   <p class="item_subtitle ma mt tc">v1.6.0</p>
+   <p class="item_subtitle ma mt tc">v1.6.2</p>
   </div></div>
 
  </div>
@@ -278,11 +275,15 @@
   </div></div>
   <div class="divider"></div>
 
-  <div class="row"><div class="container db">
-   <p>Essa ferramenta é desenvolvida de forma independente para fins recreativos apenas, ou seja, sem fins lucrativos.</p>
+  <div class="row"><div class="container dif">
+   <p>Você pode utilizar esse aplicativo offline, se desejar instale-o no seu celular, tablet ou computador. Veja o <a class="reset" href="https://support.google.com/chrome/answer/9658361" target="_blank">suporte Google</a> para instruções detalhadas.</p>
+  </div></div>
+  <div class="divider"></div>
+  <div class="row"><div class="container dif">
+   <p>Esse aplicativo é desenvolvido de forma independente com fins recreativos apenas, ou seja, sem fins lucrativos.</p>
   </div></div>
   <div class="row"><div class="container t20box db">
-   <p>Direitos referentes ao conteúdo Tormenta 20 reservados à seus criadores e à Editora Jambo.</p>
+   <p>Direitos referentes ao conteúdo Tormenta 20 reservados à seus criadores e à <a class="reset" style="color:#fff!important" href="https://jamboeditora.com.br/" target="_blank">Editora Jambô</a>.</p>
   </div></div>
   <div class="row"><div class="container db">
    <p>Direitos referentes ao código e API reservados exclusivamente ao autor.</p>
@@ -2004,7 +2005,7 @@ function char_remove(){
   localStorage.removeItem('T20data_'+title);
   console.log('Character '+title+' was removed');
   clear();
-  document.title = 'Ficha T20 Mobile - v1.6';
+  document.title = 'Ficha T20 Mobile - v1.6.2';
   document.getElementById('chardel').disabled = true;
  }
 }
