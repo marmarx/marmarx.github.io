@@ -101,10 +101,6 @@
      <div class="w6 m0a dif"><p class="p_skill">Outro</p></div>
     </div>
     <div class="w10 dif">
-     <div class="w3 m0a mh51 dif"><p class="p_skill tac skill_lvl">+0</p></div>
-     <div class="w6 m0a dif"><p class="p_skill">1/2 do nível</p></div>
-    </div>
-    <div class="w10 dif">
      <div class="w3 m0a mh51 dif"><p id="def_cond" class="p_skill tac">+0</p></div>
      <div class="w6 m0a dif"><p class="p_skill">Condições</p></div>
     </div>
@@ -394,7 +390,7 @@ function rd_calc(){
 }
 
 function def_calc(){
- document.getElementById('ac').innerHTML = 10+Math.floor(JSON.parse(data.nível)/2)+data.defense.armor_bonus+data.defense.shield_bonus+data.defense.def_out+data['hab_'+habs[data.defense.def_hab]] + (data.defense.def_hab2>0?data['hab_'+habs[data.defense.def_hab2]]:0)+data.cond['Defesa']+data.cond['Armadura (bonus)']+data.cond['Escudo (bonus)'];
+ document.getElementById('ac').innerHTML = 10+data.defense.armor_bonus+data.defense.shield_bonus+data.defense.def_out+data['hab_'+habs[data.defense.def_hab]] + (data.defense.def_hab2>0?data['hab_'+habs[data.defense.def_hab2]]:0)+data.cond['Defesa']+data.cond['Armadura (bonus)']+data.cond['Escudo (bonus)'];
  document.getElementById('def_cond').innerHTML = add_plus_sign(data.cond['Defesa']);
  document.getElementById('armor_bonus').value = add_plus_sign(data.defense.armor_bonus + data.cond['Armadura (bonus)']);
  document.getElementById('armor_penal').value = add_plus_sign(data.defense.armor_penal + data.cond['Armadura (penalidade)']);
@@ -2276,7 +2272,7 @@ function regex(e){e.value = (e.value=='-'?'-':(e.value=='+'?'+':(/^[-+]?(0|[1-9]
 function regex2(e){e.value=/^(0|[1-9]\d*)$/.test(e.value)?e.value:e.value.slice(0,-1)}
 function regexqte(e){e.value=/(\d)*$/.test(e.value)?e.value:e.value.slice(0,-1)}
 
-if('serviceWorker' in navigator){navigator.serviceWorker.register('/t20/sw.js',{ scope:'/t20/'})}
+if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js',{ scope:'/'})}
 </script>
 </body>
 </html>

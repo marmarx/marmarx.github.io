@@ -1,7 +1,7 @@
 const alcance = ['Alcance do ataque','Adjacente','Curto','Médio','Longo'];
 const tipo_dano = ['Tipo de dano','Corte','Impacto','Perfuração','Estratégico'];
 
-const kit = [104,65,70];
+const kit = [136,97,102]; //104,65,70
 const weap_start = 0, weap_end = 60;
 const armor_start = 64, armor_end = 82;
 const shield_start = 82, shield_end = 89;
