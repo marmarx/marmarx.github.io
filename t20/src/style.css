@@ -220,6 +220,8 @@ input:checked+.slider:before{-webkit-transform:translateX(26px);-ms-transform:tr
 .hint2{bottom:80px;left:5%}.hint2:before{left:10%}
 .hint3{margin-top:11%;right:20%;width:60%}.hint3:before{right:25%;top:-16px}
 
+a.reset{color:-webkit-link!important;padding:0;display:inline;line-height:unset;background-color:transparent!important}
+
 @media (min-width:1300px){
 .hint0{width:180%;margin-left:5%}.hint1{width:60%}
 .half{width:39.99999%;margin:0 5%}
