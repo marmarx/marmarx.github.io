@@ -1892,8 +1892,6 @@ function svg_shape_color(e){
  }
 }
 
-
-
 //-------------------------DATA MANAGEMENT FUNCTIONS------------------------//
 
 window.addEventListener('beforeunload',save_data);
@@ -1945,10 +1943,10 @@ function load_data(){
  set_spells();
  set_equips();
  set_features();
- document.getElementById('anot').value = header['anot'];
+ let anot = document.getElementById('anot');
+ anot.value = header['anot'];
+ anot.style.height = anot.scrollHeight+'px';
 }
-
-
 
 //-------------------------PRINT FUNCTIONS------------------------//
 
@@ -1963,8 +1961,6 @@ window.onbeforeprint = function() {
   document.getElementById('ofic').children[i+1].children[1].children[0].value = 'Of. ('+k+')*';
  }
 }
-
-
 
 //-------------------------STARTER FUNCTION------------------------//
 
@@ -2092,7 +2088,6 @@ function readGet(){
   }	
 
   let char = request.char;
-  console.log(char);
   chars.push(char);
   title = char;
   read_localStorage(char);
