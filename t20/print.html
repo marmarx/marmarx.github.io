@@ -178,11 +178,10 @@ input[type="radio"]:after{content:'';width:24px;height:24px;position:relative;to
 #habis_list{min-height:350px}
 #spells_list{min-height:200px}
 #equips_list{min-height:239px}
-#anot{min-height:200px;padding:3% 5%;text-align:left}
+#anot{min-height:200px;padding:3% 5%;text-align:left;resize:vertical;font-size:90%;z-index:0}
 .ma{margin:auto;width:fit-content}
 .df{display:flex}
 .ms{margin:12px auto 0}
-#anot{font-size:90%;z-index:0}
 
 .item_list{position:relative;height:fit-content;float:left;margin:2% 5%;font-size:90%;width:90%;display:flex}
 .item_list_det:before{content:'';border:5px solid transparent;border-bottom:5px solid rgba(0,0,0,.6);left:60px;top:calc(100% - 2px)}
@@ -455,7 +454,7 @@ html,body{height:100vh}
     <div class="row">
      <div class="pvt">Anota&ccedil;&otilde;es Gerais</div>
     </div>
-    <div class="row"><textarea id="anot" placeholder="Escreva suas anotações gerais aqui" onchange="header[this.id]=value"></textarea>
+    <div class="row"><textarea id="anot" placeholder="Escreva suas anotações gerais aqui" oninput="this.parentNode.parentNode.style.height=(this.scrollHeight+50)+'px'" onchange="header[this.id]=value"></textarea>
     </div>
    </div></div>
 
