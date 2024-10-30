@@ -9,6 +9,10 @@ Tarefas canceladas:
 
 <b>Histórico de versões:</b>
 
+v1.6.2
+- adicionada a opção de instalar localemnte como um PWA (Progressive Web App)
+- adicionado instruções de instalação
+
 v1.6
 - adicionado suporte para criar magias personalizadas
 - adicionado suporte para filtrar e personalizar magias existentes
