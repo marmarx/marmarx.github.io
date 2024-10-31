@@ -7,7 +7,7 @@ const cache_resources = ['/','/print.html',
 ];
 
 //check if cached resource is expired
-async function isExpired(cachedResponse){
+function isExpired(cachedResponse){
  let dateHeader = cachedResponse.headers.get('date');
  if(dateHeader){
   let cacheDate = new Date(dateHeader).getTime();
@@ -35,7 +35,7 @@ self.addEventListener('install', event => {
  console.log('Service worker: install event!');
  event.waitUntil((async () => {
   let cache = await caches.open(cache_name);
-  await cache.addAll(cache_resources);
+  cache.addAll(cache_resources);
  })());
 });
 
@@ -46,7 +46,7 @@ self.addEventListener('activate', event => {
   let cachedRequests = await cache.keys();
   for(let request of cachedRequests){
    let cachedResponse = await cache.match(request);
-   if(await isExpired(cachedResponse)){
+   if(isExpired(cachedResponse)){
     console.log(`Service worker: activate event detected outdated resource detected: ${request.url}`);
     await updateCache(request);
    }
@@ -61,7 +61,7 @@ self.addEventListener('fetch', event => {
   let cache = await caches.open(cache_name);
   let cachedResponse = await cache.match(event.request);
 
-  if (cachedResponse && !(await isExpired(cachedResponse))) {
+  if (cachedResponse && !(isExpired(cachedResponse))) {
    console.log('Service worker: fetch event serving cached resource at ', event.request.url);
    return cachedResponse;
   }
