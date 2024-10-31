@@ -26,8 +26,7 @@ async function isExpired(cachedResponse){
 }
 
 //update a resource in the cache
-async function updateCache(request){
- let cache = await caches.open(cache_name);
+async function updateCache(cache,request){
  try{
   let fetchResponse = await fetch(request);
   await cache.put(request, fetchResponse.clone());
@@ -48,7 +47,7 @@ self.addEventListener('activate', event => {
    let cachedResponse = await cache.match(request);
    if(await isExpired(cachedResponse)){
     console.log('Service worker: activate event detected outdated resource at',request.url);
-    await updateCache(request);
+    await updateCache(cache,request);
    }
   }
  })());
@@ -67,6 +66,6 @@ self.addEventListener('fetch', event => {
   }
 
   console.log('Service worker: fetch event resource is',cachedResponse?'expired':'not in cache',' - will try to serve from web at',event.request.url);
-  return updateCache(event.request) || new Response('Network error occurred',{status:408});
+  return updateCache(cache,event.request) || new Response('Network error occurred',{status:408});
  })());
 });
