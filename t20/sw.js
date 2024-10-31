@@ -6,6 +6,15 @@ const cache_resources = ['/t20/','/t20/print.html',
 '/t20/js/dice_roller.js','/t20/js/keyboard.js','/t20/js/worker_list.js','/t20/js/worker_power.js','/t20/js/worker_spell.js'
 ];
 
+//install event to pre-cache all initial resources
+self.addEventListener('install', event => {
+ console.log('Service worker: install event!');
+ event.waitUntil((async () => {
+  let cache = await caches.open(cache_name);
+  cache.addAll(cache_resources);
+ })());
+});
+
 //check if cached resource is expired
 async function isExpired(cachedResponse){
  let dateHeader = cachedResponse.headers.get('date');
@@ -22,22 +31,13 @@ async function updateCache(request){
  try{
   let fetchResponse = await fetch(request);
   await cache.put(request, fetchResponse.clone());
-  console.log(`Service worker: updated cached resource: ${request.url}`);
+  console.log('Service worker: updated cached resource at',request.url);
   return fetchResponse;
  }catch(e){
-  console.log(`Service worker: failed to update resource: ${request.url}\nError:`, e);
+  console.log('Service worker: failed to update resource at',request.url,' - Error:', e);
   return cache.match(request);	//return the outdated cache in case of failure
  }
 }
-
-//install event to pre-cache all initial resources
-self.addEventListener('install', event => {
- console.log('Service worker: install event!');
- event.waitUntil((async () => {
-  let cache = await caches.open(cache_name);
-  cache.addAll(cache_resources);
- })());
-});
 
 //activate event to update outdated cached resources
 self.addEventListener('activate', event => {
@@ -47,7 +47,7 @@ self.addEventListener('activate', event => {
   for(let request of cachedRequests){
    let cachedResponse = await cache.match(request);
    if(await isExpired(cachedResponse)){
-    console.log(`Service worker: activate event detected outdated resource detected: ${request.url}`);
+    console.log('Service worker: activate event detected outdated resource at',request.url);
     await updateCache(request);
    }
   }
@@ -56,17 +56,17 @@ self.addEventListener('activate', event => {
 
 //fetch event to serve from cache and update if expired
 self.addEventListener('fetch', event => {
- console.log('Service worker: fetch event intercepted for ', event.request.url);
+ console.log('Service worker: fetch event intercepted for', event.request.url);
  event.respondWith((async () => {
   let cache = await caches.open(cache_name);
   let cachedResponse = await cache.match(event.request);
 
   if (cachedResponse && !(await isExpired(cachedResponse))) {
-   console.log('Service worker: fetch event serving cached resource at ', event.request.url);
+   console.log('Service worker: fetch event serving cached resource at', event.request.url);
    return cachedResponse;
   }
 
-  console.log(`Service worker: fetch event resource is ${cachedResponse?'expired':'not in cache'} - will try to serve from web at ${event.request.url}`);
+  console.log('Service worker: fetch event resource is',cachedResponse?'expired':'not in cache',' - will try to serve from web at',event.request.url);
   return updateCache(event.request) || new Response('Network error occurred',{status:408});
  })());
 });
