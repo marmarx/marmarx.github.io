@@ -10,7 +10,7 @@ Tarefas canceladas:
 <b>Histórico de versões:</b>
 
 v1.6.2
-- adicionada a opção de instalar localmente como um PWA (Progressive Web App)
+- adicionada a opção de instalar localmente como um PWA (Progressive Web App) utilizando um Server Worker
 - Server Worker PWA irá agora atualizar arquivos expirados (maior que 24 horas) automaticamente
 - adicionado instruções de instalação
 
