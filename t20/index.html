@@ -802,12 +802,12 @@ function cond_details(e,j,i,array,k){
 }
 
 function cond_change(e,k){
- let value = isNaN(e.value)?e.value:JSON.parse(e.value);
+ let value = isNaN(e.value)?boldify(e.value):JSON.parse(e.value);
  e = e.parentNode.parentNode.parentNode.parentNode.parentNode.children[0].children[1];
 
  let conds = document.getElementsByClassName('cond_user');
  let i = Array.prototype.indexOf.call(conds,e);
- data.cond_user[i][k]=boldify(value);
+ data.cond_user[i][k]=value;
  cond_details(e,1,i,data.cond_user,0);
  save_data();
 }
