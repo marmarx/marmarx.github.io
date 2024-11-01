@@ -801,7 +801,7 @@ function cond_change(e,k){
 
  let conds = document.getElementsByClassName('cond_user');
  let i = Array.prototype.indexOf.call(conds,e);
- data.cond_user[i][k]=value;
+ data.cond_user[i][k]=boldify(value);
  cond_details(e,1,i,data.cond_user,0);
  save_data();
 }
@@ -1293,7 +1293,7 @@ function change_power(e,i){
  let value = e.value;
  e = e.parentNode.parentNode.parentNode.parentNode.parentNode;
  let x = Array.prototype.indexOf.call(document.getElementById('user_powers').getElementsByClassName('user_powers'),e)
- data.user_powers[x][i] = value;
+ data.user_powers[x][i] = boldify(value);
  calc_power(e,x)
 }
 
@@ -1327,12 +1327,12 @@ function feat_choose(e,i){
  prev_focus = null;
 
  e = e.parentNode.parentNode;
- e.children[0].children[0].children[0].value = powers[i][0];	//nome
- e.children[1].children[0].children[0].value = powers[i][1];	//tipo (select)
- e.children[1].children[1].children[0].value = powers[i][2];	//categoria
+ e.children[0].children[0].children[0].value = unboldify(powers[i][0]);		//nome
+ e.children[1].children[0].children[0].value = powers[i][1];			//tipo (select)
+ e.children[1].children[1].children[0].value = unboldify(powers[i][2]);		//categoria
  e.children[2].children[0].children[0].value = powers[i][3]?powers[i][3]+1:1;	//ação (select)
- e.children[2].children[1].children[0].value = powers[i][4];	//subcategoria
- e.children[3].children[0].children[0].value = powers[i][7];	//desc (text area)
+ e.children[2].children[1].children[0].value = unboldify(powers[i][4]);		//subcategoria
+ e.children[3].children[0].children[0].value = unboldify(powers[i][7]);		//desc (text area)
  if(powers[i][5]){e.children[4].children[0].classList.add('checkmarked')}	//magic?
  else{e.children[4].children[0].classList.remove('checkmarked')}
 
@@ -1579,7 +1579,7 @@ function list_user_spell(i){
  content += '<div class="w5 ma dif"><input class="skill_input m3e" type="text" placeholder="Resistência" value="'+(data.user_spells[i][9]=='Resistência'?'':data.user_spells[i][9])+'" autocomplete="off" onkeyup="regex_inj(this)" onchange="change_spell(this,9)"></div>';
  content += '</div>';
 
- content += '<div><div class="w10 dif"><textarea class="skill_input m3e" type="text" placeholder="Descrição e detalhes" autocomplete="off" onchange="change_spell(this,11)">'+(data.user_spells[i][11]=='Descrição'?'':data.user_spells[i][11])+'</textarea></div></div>'; // contenteditable="true"
+ content += '<div><div class="w10 dif"><textarea class="skill_input m3e" type="text" placeholder="Descrição e detalhes" autocomplete="off" onchange="change_spell(this,11)">'+(data.user_spells[i][11]=='Descrição'?'':data.user_spells[i][11])+'</textarea></div></div>';
 
  content += '<div class="w10 mt tac"><div class="effect_add" onclick="spell_mod_add(this)">+ Adicionar</div><p class="item_title">Aprimoramentos nesta magia:</p></div><div>';
 
@@ -1601,7 +1601,7 @@ function list_user_spell(i){
  if(data.user_spells[i][4]!='Ação para lançar'){selects[3].value = data.user_spells[i][4]}
  let k = 13;
  for(let j=4;j<selects.length;j++){
-  if(data.user_spells[i][k]!='Modificador'){selects[j].value = unboldify(data.user_spells[i][k])}
+  if(data.user_spells[i][k]!='Modificador'){selects[j].value = data.user_spells[i][k]}
   k+=2;
  }
 }
@@ -2273,7 +2273,7 @@ function regex(e){e.value = (e.value=='-'?'-':(e.value=='+'?'+':(/^[-+]?(0|[1-9]
 function regex2(e){e.value=/^(0|[1-9]\d*)$/.test(e.value)?e.value:e.value.slice(0,-1)}
 function regexqte(e){e.value=/(\d)*$/.test(e.value)?e.value:e.value.slice(0,-1)}
 
-if('serviceWorker' in navigator){navigator.serviceWorker.register('/t20/sw.js',{ scope:'/t20/'})}
+if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js',{ scope:'/'})}
 </script>
 </body>
 </html>
