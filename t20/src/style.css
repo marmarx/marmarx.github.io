@@ -1,4 +1,4 @@
-@font-face{font-family:'tormenta20';src:url('Tormenta20.ttf') format('truetype');font-weight:normal;font-style:normal}
+@font-face{font-family:'tormenta20';src:url('/Tormenta20.ttf') format('truetype');font-weight:normal;font-style:normal}
 :root{--t20:#b72a2b;--black:#292929;--white:#fff;--transwhite:#ffffff80;--transblack:rgba(0,0,0,.8);--drawer:#dbdbdb;--diceroller:#e9e9e9;--overlay:#e8e8e8;--menu:#b72a2b;--bright:brightness(1.1);--t20white:#fff;--t20weight:400;--yellow:#f0dc82;--green:#2ecb57;--pv:#FF4466;--pm:#4BC7CF;--menulen:900%;--drh:90%;--hph:120px;--drb:calc(var(--hph) + 105px);--pvw:100%,--pmw:100%;--rot:#ef1313;--grun:#35a90f;--opc:0.93}
 
 *,*:before,*:after{margin:0;padding:0;transition:all .6s ease-in-out,display 0s;font-family:'Open Sans', sans-serif;word-wrap:normal;word-break:keep-all;box-sizing:border-box}
