@@ -1010,7 +1010,6 @@ function calc_cap_carga(){
  data.carga.carga_cap = 10 + (data.hab_for>0?2:1)*data.hab_for + (data.equip.flat().includes('Mochila de Aventureiro')?2:0) + (data.equip.flat().includes('Alforge')?10:0);
  document.getElementById('carga_cap').value = data.carga.carga_cap;
  total_value();
- console.log('----------');
 }
 
 function total_value(){
