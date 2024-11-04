@@ -1989,7 +1989,7 @@ function read_localStorage(char){
  header.TO = data.carga.to;		//num
  header.TP = data.carga.ts;		//num
  header.TC = data.carga.tc;		//num
- header.anot = data.anot;		//str
+ header.anot = data.anot + '\n\n\n' + data.parceiros;		//str
 
  habs = [data.hab_for_val,data.hab_des_val,data.hab_con_val,data.hab_int_val,data.hab_sab_val,data.hab_car_val];
  pmpv.pva = '';pmpv.pma = '';
