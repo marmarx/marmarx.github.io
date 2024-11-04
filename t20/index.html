@@ -1059,7 +1059,7 @@ function equip_calc(){
  }
  carga += (data.carga.to + data.carga.ts + data.carga.tc)/1000;
  data.carga.carga = carga;
- document.getElementById('carga').innerHTML = carga;
+ document.getElementById('carga').innerHTML = carga.toLocaleString('pt-BR');
  document.getElementById('to').value = data.carga.to;
  document.getElementById('ts').value = data.carga.ts;
  document.getElementById('tc').value = data.carga.tc;
