@@ -1054,7 +1054,7 @@ function equip_calc(){
  for(var i=0;i<data.equip.length;i++){
   e = equips[i].children[0];
   e.children[0].children[0].innerHTML = data.equip[i][1]?data.equip[i][1]:'Nome do item';
-  e.children[0].children[1].innerHTML = (data.equip[i][2]?tipo_item[data.equip[i][2]]:'Tipo de item')+' • '+(data.equip[i][3]?data.equip[i][3]:'Valor do item')+' • '+(data.equip[i][4]?calc_peso(data.equip[i][0],data.equip[i][4],i):'Espaços totais ocupados');
+  e.children[0].children[1].innerHTML = (data.equip[i][2]>=0?tipo_item[data.equip[i][2]]:'Tipo de item')+' • '+(data.equip[i][3]?data.equip[i][3]:'Valor do item')+' • '+(data.equip[i][4]?calc_peso(data.equip[i][0],data.equip[i][4],i):'Espaços totais ocupados');
   carga += isNaN(data.equip[i][6])?0:data.equip[i][6];
  }
  carga += (data.carga.to + data.carga.ts + data.carga.tc)/1000;
