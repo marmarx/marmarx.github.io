@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<title>Mestre T20 - v0.1</title>
+<meta name="author" content="Marco Martins">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+<meta name="theme-color" content="#b72a2b">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<link rel="manifest" href="/manifest.json">
+<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+<link rel="icon" type="image/png" href="src/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="src/css.css">
+<link rel="stylesheet" href="src/style.css">
+<script type="text/javascript" src="db/icons_mestre.js"></script>
+<script type="text/javascript" src="db/equips.js"></script>
+<script type="text/javascript" src="db/common.js"></script>
+<script type="text/javascript" src="db/geral.js"></script>
+<script type="text/javascript" src="db/recompensa.js"></script>
+<script type="text/javascript" src="js/worker_list.js"></script>
+<script defer type="text/javascript" src="js/dice_roller.js"></script>
+<script defer type="text/javascript" src="js/keyboard.js"></script>
+<style>
+:root{--hph:0px!important}
+#menu{max-width:500px}
+textarea{padding:1.6em 1.3em .5em}textarea:focus~label,textarea:not(:focus):valid~label{font-size:.7em;padding:.4em 2.1em;margin:.3em 0;left:2px}
+.mtta{margin:0;width:100%}
+ul{margin:0 2em}
+@media (min-width: 1300px){.mtta{width:90%;margin:0 5%}}
+</style>
+</head>
+
+<body class="dn">
+<div id="sections">
+ <div id="sec_camp" class="sec">
+  <h1>Campanha</h1>
+  <div class="row"><div class="container db">
+   <div class="half"><div class="input mt0">
+    <input id="camp" class="drop" type="text" onclick="camp_list(this)" onkeyup="regex_inj(this);camp_list(this);filter(this)" autocomplete="off" required>
+    <label>Campanha</label>
+    <div class="dropdown dn"></div>
+   </div></div>
+   <div class="half"><div class="input mt0">
+    <input id="mestre" type="text" onchange="data_array(this)" onkeyup="regex_inj(this)" autocomplete="off" required>
+    <label>Mestre</label>
+   </div></div>
+  </div></div>
+  <div class="row"><div class="container db"><div class="input mtta">
+   <textarea id="resume" type="text" onchange="data_array(this)" onkeyup="regex_inj(this)" required></textarea>
+   <label>Descrição e resumo</label>
+  </div></div></div>
+
+  <div class="divider"></div>
+
+  <div class="row"><div class="container db mw400">
+   <button id="campdel" class="delete" onclick="camp_remove()" disabled>Deletar campanha</button>
+  </div></div>
+  <div class="row"><div class="container dif">
+   <p class="item_subtitle ma mt tc">v0.1</p>
+  </div></div>
+
+ </div>
+
+ <div id="sec_combat" class="sec">
+  <h1>Combate</h1>
+  <div class="row"><div class="container db z1">
+  </div></div>
+  <div class="row"><div class="container">
+   <button onclick="attack_add()">Adicionar combatente</button>
+  </div></div>
+ </div>
+
+ <div id="sec_equip" class="sec">
+  <h1>Recompensas</h1>
+  <div class="row"><div class="container"><div class="input mt0">
+    <select id="nd" onchange="roll_nd(this)" required></select>
+    <label>ND</label>
+  </div></div></div>
+  <div class="row"><div class="container"><p id="din"></p></div></div>
+  <div class="row"><div class="container"><p id="item"></p></div></div>
+  <div class="row"><div class="container"><p id="valor"></p></div></div>
+  <div class="row"><div class="container df">
+    <p class="item_subtitle ma ms tc">Veja a página 327 do Livro <i>Jogo do Ano</i> para mais informações sobre tesouros e recompensas.</p>
+   </div></div>
+ </div>
+
+ <div id="sec_config" class="sec">
+  <h1>Configurações</h1>
+
+  <div class="row"><div class="container">
+   <div class="w8"><p>Teclado avançado</p></div>
+   <div class="w2 ma ml tc"><label class="switch"><input id="c_keyboard" type="checkbox" onclick="data_check(this);config()"><span class="slider"></span></label></div>
+  </div></div>
+  <div class="row"><div class="container">
+   <div class="w8"><p>Modo tela cheia</p></div>
+   <div class="w2 ma ml tc"><label class="switch"><input id="c_fullscreen" type="checkbox" onclick="data_check(this);config()"><span class="slider"></span></label></div>
+  </div></div>
+  <div class="row"><div class="container">
+   <div class="w8"><p>Modo noturno</p></div>
+   <div class="w2 ma ml tc"><label class="switch"><input id="c_nocturnal" type="checkbox" onclick="data_check(this);config()"><span class="slider"></span></label></div>
+  </div></div>
+  <div class="row"><div class="container">
+   <div class="w8"><p>Vibrar</p></div>
+   <div class="w2 ma ml tc"><label class="switch"><input id="c_vibrate" type="checkbox" onclick="data_check(this);config()"><span class="slider"></span></label></div>
+  </div></div>
+
+  <div class="row"><div class="container">
+   <div class="w8"><p>Cor customizada</p></div>
+   <div class="w2 ma ml tc"><input id="c_color" type="color" value="#b72a2b" onchange="data_array(this);config()"></div>
+  </div></div>
+  <div class="divider"></div>
+
+  <div class="row"><div class="container dif">
+   <p>Você pode utilizar esse aplicativo offline, se desejar instale-o no seu celular, tablet ou computador. Veja o <a class="reset" href="https://support.google.com/chrome/answer/9658361" target="_blank">suporte Google</a> para instruções detalhadas.</p>
+  </div></div>
+  <div class="divider"></div>
+  <div class="row"><div class="container dif">
+   <p>Esse aplicativo é desenvolvido de forma independente com fins recreativos apenas, ou seja, sem fins lucrativos.</p>
+  </div></div>
+  <div class="row"><div class="container t20box db">
+   <p>Direitos referentes ao conteúdo Tormenta 20 reservados à seus criadores e à <a class="reset" style="color:#fff!important" href="https://jamboeditora.com.br/" target="_blank">Editora Jambô</a>.</p>
+  </div></div>
+  <div class="row"><div class="container db">
+   <p>Direitos referentes ao código e API reservados exclusivamente ao autor.</p>
+  </div></div>
+  <div class="divider"></div>
+  <div class="row"><div class="container db">
+   <p>Seus dados são armazenados <b>apenas</b> localmente neste dispositivo, ou seja, nada é armazenado online ou em outro dispositivo.</p>
+   <p class="mt">Use as opções <b>importar</b> e <b>exportar</b> para transferir seu personagem entre dispositivos.</p>
+   <p class="mt">Caso deseje exluir todos os dados, por favor, utilize o botão a seguir. Eles <b>não</b> poderão ser recuperados.</p>
+  </div><div class="container mw400 mt">
+   <button class="delete" onclick="reset()">Excluir todos os dados</button>
+  </div></div>
+ </div>
+
+</div>
+
+<div id="dice_roller">
+ <div id="drawer" onclick="openroller(this)"><div></div></div>
+  <div id="diceholder">
+   <div id="allrolls"><div id="results"><p><b>Exemplos de rolagens:</b></p></div></div>
+   <div id="dice-input" class="fakeinput" onfocus="fakefocus()" onblur="fakeblur(this)" tabindex="0"></div>
+  </div>
+</div>
+
+<nav>
+ <div id="menu">
+  <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon menuselicon"></div><div class="menutext menuseltext">Campanha</div></div></div>
+  <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Combate</div></div></div>
+  <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Recompensas</div></div></div>
+  <div class="menubtn" onclick="navig(this)"><div class="menubi"><div class="menuicon"></div><div class="menutext">Configurações</div></div></div>
+ </div>
+</nav>
+
+<div id="keyboard" class="row"><div class="container keyboard"></div></div>
+
+</div></div>
+
+<script>
+var title = '', camps = [];
+const data_ini = {camp:'',mestre:'',resume:'',combat:[],combat_history:[],'c_color':'#b72a2b','c_keyboard':0,c_dice:false,'c_fullscreen':0,'c_nocturnal':0,'c_vibrate':0}
+var data = structuredClone(data_ini);
+
+//-------------------------REWARD FUNCTIONS------------------------//
+
+const nd = ['¼','⅓','½','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20'];
+let nds = '<option value="" disabled selected></option>';
+for(var i=0;i<nd.length;i++){nds += '<option value="'+nd[i]+'">'+nd[i]+'</option>'}
+document.getElementById('nd').innerHTML = nds;
+
+function roll_money(str){
+  let x = str.indexOf('x');
+  let s = str.indexOf(' ');
+  let dice = [];
+  dice.push(str.substring(0,x));
+  dice.push(str.substring(x+1,s));
+  dice.push(str.substring(s));
+  let result = diceroll(dice[0],0,0) * JSON.parse(dice[1]);
+  let valor_total = result * (dice[2].includes('TO')?10:(dice[2].includes('TC')?0.1:1));
+  console.log('Money: ',valor_total);
+  return [`${dice[2]} ${result.toLocaleString('pt-BR')}`,valor_total];
+}
+
+function roll_riqueza(str){
+  let x = str.search(' riqueza');
+  let dice = str.substring(0,x);
+  repeat = diceroll(dice,0,0);
+
+  let k=0;
+  if(str.includes('menor')){k=0}
+  else if(str.includes('médi')){k=2}
+  else if(str.includes('maior')){k=4}
+
+  let add = str.includes('*')?20:0;
+  let content = '';
+  let valor_total = 0;
+  for(let r=0;r<repeat;r++){
+    rolled = diceroll('d100',0,0) + add;
+    rolled = rolled>100?100:rolled;
+    console.log('Riqueza roll:',rolled);
+    let j=0;
+    for(;j<riquezas.length;j++){if(rolled>=riquezas[j][k]&&rolled<=riquezas[j][k+1]){break}}
+    let exemplos = riquezas[j][7].split('; ');
+    let exemplo = Math.floor(Math.random()*exemplos.length);
+    exemplo = exemplos[exemplo];
+    let par = exemplo.indexOf('(');
+    let espaco = exemplo.substring(par+1,par+2);
+    espaco = isNaN(espaco)?espaco:JSON.parse(espaco);
+    exemplo = exemplo.substring(0,par);
+    let valor = roll_money(riquezas[j][6]+' T$');
+    content += `• 1 ${exemplo} no valor de ${valor[0]} <span style="color:gray">(ocupa ${espaco} espaço${espaco>1?'s':''}, T$ ${riquezas[j][6].toLocaleString('pt-BR')})</span><br>`;
+    valor_total += valor[1];
+  }
+  console.log('Riquezas: ',valor_total);
+  return [content,valor_total];
+}
+
+function roll_pocoes(str){
+  let x = str.search(' poç');
+  let dice = str.substring(0,x);
+  repeat = diceroll(dice,0,0);
+
+  let add = str.includes('*')?20:0;
+  let content = '';
+  let valor_total = 0;
+  for(let r=0;r<repeat;r++){
+    rolled = diceroll('d100',0,0) + add;
+    rolled = rolled>100?100:rolled;
+    console.log('Poções roll:',rolled);
+    let j=0;
+    for(;j<pocoes.length;j++){if(rolled>=pocoes[j][0]&&rolled<=pocoes[j][1]){break}}
+    content += `• 1 ${pocoes[j][2]} de <i>${pocoes[j][3]}</i> ${pocoes[j][4]?`com aprimoramento de ${pocoes[j][4]}`:''} no valor de T$ ${pocoes[j][5].toLocaleString('pt-BR')} 
+    <span style="color:gray">(ocupa ½ espaço - fabricar: CD ${20+pocoes[j][6]}, custo T$ ${Math.floor(pocoes[j][5]/3).toLocaleString('pt-BR')}, 1 dia de trabalho)</span><br>`;
+    valor_total += JSON.parse(pocoes[j][5]);
+  }
+  console.log('Poções: ',valor_total);
+  return [content,valor_total];
+}
+
+function roll_item(table){
+  let rolled = diceroll('d100',0,0);
+  console.log('Roll_item roll:',rolled);
+  let j=0;
+  for(;j<table.length;j++){if(rolled>=table[j][0]&&rolled<=table[j][1]){break}}
+  let item = table[j][2];
+  console.log('Item:',item);
+
+  let i=0;
+  for(;i<equip.length;i++){if(equip[i][0].toUpperCase().includes(item.toUpperCase())){break}}
+  let valor = JSON.parse(equip[i][2].replace('T$ ','').replace('.',''));
+  let peso = equip[i][3];
+  peso = peso>1?(`ocupa ${peso_item[peso]} espaço${peso_item[peso]>1?'s':''}`):peso_item[peso];
+  return [item,valor,peso,equip[i][1]];
+}
+
+function roll_equip(){
+  let rolled = diceroll('d6',0,0);
+  console.log('Equip d6:',rolled);
+  let arr;
+  if(rolled<=3){arr = roll_item(arma)}
+  else if(rolled>=6){arr = roll_item(esoterico)}
+  else{arr = roll_item(armadura)}
+  console.log('Equip:',arr);
+  return arr;
+}
+
+function roll_regular(table){
+  let item,valor,peso,type;
+  if(table.length){[item,valor,peso,type] = roll_item(table)}
+  else{[item,valor,peso,type] = roll_equip()}
+  item = `• 1 ${item} no valor de T$ ${valor.toLocaleString('pt-BR')} <span style="color:gray">(${tipo_item[type]}, ${peso})</span><br>`;
+  return [item,valor];
+}
+
+function roll_superior(str){
+  let item,valor,peso,type;
+  [item,valor,peso,type] = roll_equip();
+
+  let table;
+  let armas = [1,2,3,4,6]; //armas simples, marciais, exóticas, de fogo e munições
+  let armaduras = [7,8,10]; //armaduras leves, pesadas e escudos
+  if(armas.includes(type)){table = armas_sup}
+  else if(armaduras.includes(type)){table = armaduras_sup}
+  else{table = esotericos_sup}
+  console.log('sup',table);
+
+  let repeat = JSON.parse(str.substring(str.indexOf('(')+1,str.indexOf('melhoria')));
+  let mods = [];
+  for(let i=0;i<repeat;){
+    let rolled = diceroll('d100',0,0);
+    console.log('Superior roll:',rolled);
+    let j=0;
+    for(;j<table.length;j++){if(rolled>=table[j][0]&&rolled<=table[j][1]){break}}
+
+    let k = 1;
+    if(mods.includes(j)){k=0}  //não pode repetir melhoramento
+    if(table[j][5]){if(mods.includes(table[j][5])){k=0}}  //antitesse
+    if(table[j][4]){  //pre-requisito
+      if(table[j][4]=='*'){if(!mods.length){k=0}}
+      if(!mods.includes(table[j][4])){k=0}
+    }
+    if(i+table[j][3]>repeat){k=0}  //conta como 2 melhoramentos
+    if(k){mods.push(j);i+=table[j][3]}   //após as verificações acima, adiciona o melhoramento e aumenta o valor do i do loop
+  }
+
+  let content = '';
+  for(let i=0;i<mods.length;i++){
+    if(table[mods[i]][2]=="Material especial"){
+      let column = armas.includes(type)?1:(type==7?2:(type==8?4:(type==10?3:5)));
+      let rolled = diceroll('d6',0,0) - 1;
+      console.log('Material especial roll:',rolled);
+      while(!mat_esp_valor[rolled][column-1]){rolled = diceroll('d6',0,0) - 1}
+
+      content += `• ${mat_esp[rolled][0]} (${table[mods[i]][2]}): ${mat_esp[rolled][6]} ${mat_esp[rolled][column]} <span style="color:gray">(conta como ${table[mods[i]][3]} 
+        melhoria${table[mods[i]][3]>1?'s':''})</span><br>`;
+      valor += mat_esp_valor[rolled][column-1];
+    }else{
+      content += `• ${table[mods[i]][2]}: ${table[mods[i]][6]} <span style="color:gray">(conta como ${table[mods[i]][3]} melhoria${table[mods[i]][3]>1?'s':''})</span><br>`
+    }
+  }
+
+  valor += [0,300,3000,9000,18000][repeat];
+  let cd = ([2,3,4,8,13,16,17,22,23].includes(type)?20:15) + [0,5,10,15,20][repeat];
+
+  item = `1 ${item} superior com ${repeat} melhoria${repeat>1?'s':''} no valor total de T$ ${valor.toLocaleString('pt-BR')}:<br>${content}
+  <span style="color:gray">(${tipo_item[type]}, ${peso} - para fabricar: CD ${cd}, custo T$ ${Math.floor(valor/3).toLocaleString('pt-BR')}, 1 mês de trabalho)</span><br>`;
+  return [item,valor];
+}
+
+function roll_magic(str){
+  let repeat = 1;
+  if(str.includes('menor')){repeat=1}
+  else if(str.includes('médi')){repeat=2}
+  else if(str.includes('maior')){repeat=3}
+  console.log('Magic repeat:',repeat);
+
+  let rolled = diceroll('d6',0,0);
+  console.log('Magic item type d6:',rolled);
+  if(rolled<=2){arr = roll_item(arma)}
+  else if(rolled>=4){arr = [0,0,5,[0,24,25,26][repeat]]}
+  else{arr = roll_item(armadura)}
+
+  let item,valor,peso,type;
+  [item,valor,peso,type] = arr;
+  let cd = rolled>=4?[0,30,40,50][repeat]:(([2,3,4,8,13,16,17,22,23].includes(type)?20:15) + [0,10,15,20][repeat]);
+  if(rolled<4){valor += [0,18000,36000,72000][repeat]}
+
+  if(rolled>=4){  //acessorios
+    let table = [0,magic_acess_menor,magic_acess_medio,magic_acess_maior][repeat];
+    let rolled2 = diceroll('d100',0,0);
+    console.log('Magic d100:',rolled2);
+    let j=0;
+    for(;j<table.length;j++){if(rolled2>=table[j][0]&&rolled2<=table[j][1]){break}}
+
+    valor = JSON.parse(table[j][4].replace('T$ ','').replace('.',''));
+    peso = peso>1?(`ocupa ${peso_item[peso]} espaço${peso_item[peso]>1?'s':''}`):peso_item[peso];
+    item = `1 ${table[j][2]} no valor total de T$ ${valor.toLocaleString('pt-BR')}:<br>${table[j][3]} <span style="color:gray">(${tipo_item[type]}, ${peso}
+       - para fabricar: CD ${cd}, custo T$ ${Math.floor(valor/3).toLocaleString('pt-BR')}, 1 mês de trabalho)</span><br>`;
+  }else{  //efeitos ou item específico
+    let table;
+    if(rolled<=2){table=efeitos_magicos_weap}else{table=efeitos_magicos_armor}
+
+    let mods = [];
+    for(let i=0;i<repeat;){
+      let rolled2 = diceroll('d100',0,0);
+      console.log('Magic mod d100:',rolled2);
+      let j=0;
+      for(;j<table.length;j++){if(rolled2>=table[j][0]&&rolled2<=table[j][1]){break}}
+
+      let k = 1;
+      if(mods.includes(j)){k=0}  //não pode repetir encantamento
+      if(type!=10&&table[j][4]){k=0}  //escudo apenas
+      if(i+table[j][3]>repeat){k=0}  //conta como 2 encantamentos
+      if(rolled2>90){k=0;if(!mods.length){mods[0]=-1;i=repeat}} //item mágico específico, end loop
+      if(k){mods.push(j);i+=table[j][3]}   //após as verificações acima, adiciona o melhoramento e aumenta o valor do i do loop
+    }
+
+    let content = '';
+    for(let i=0;i<mods.length;i++){
+      if(mods[0]<0){  //item mágico específico são considerados maiores (CD = 50)
+        if(rolled<=2){table=magic_weap}else{table=magic_armor}
+        
+        let rolled2 = diceroll('d100',0,0);
+        let j=0;
+        for(;j<table.length;j++){if(rolled2>=table[j][0]&&rolled2<=table[j][1]){break}}
+        valor = JSON.parse(table[j][4].replace('T$ ','').replace('.',''));
+        item = table[j][5].includes('*')?'Espada Bastarda (Uma Mão)':table[j][2];
+
+        let l = 0;
+        for(;l<equip.length;l++){if(equip[l][0].includes(item)){break}}
+
+        peso = equip[l][3];
+        peso = peso>1?(`ocupa ${peso_item[peso]} espaço${peso_item[peso]>1?'s':''}`):peso_item[peso];
+        item = `1 ${table[j][2]} no valor total de T$ ${valor.toLocaleString('pt-BR')}:<br>${table[j][3]} <span style="color:gray">
+          (${tipo_item[equip[l][1]]}, ${peso} - para fabricar: CD 50, custo T$ ${Math.floor(valor/3).toLocaleString('pt-BR')}, 1 mês de trabalho)</span><br>`;
+      }else{
+        content += `• ${table[mods[i]][2]}: ${table[mods[i]][5]} <span style="color:gray">(conta como ${table[mods[i]][3]} encantamento${table[mods[i]][3]>1?'s':''})</span><br>`
+      }
+    }
+    let art = 'o';
+    if(item.includes('a ')||item.includes('as ')||item.slice(-1)=='a'){art='a'}
+    if(mods[0]>0){item = `1 ${item} mágic${art} com ${repeat} encantamento${repeat>1?'s':''} no valor total de T$ ${valor.toLocaleString('pt-BR')}:<br>${content}
+    <span style="color:gray">(${tipo_item[type]}, ${peso} - para fabricar: CD ${cd}, custo T$ ${Math.floor(valor/3).toLocaleString('pt-BR')}, 1 mês de trabalho)</span><br>`}
+  }
+
+  return [item,valor];
+}
+
+function roll_reward(i,table=[]){
+  if(table.length){
+    let rolled = diceroll('d100',0,0);
+    console.log('Reward d100:',rolled);
+    let j=0;
+    for(;j<table[i].length;j++){if(rolled>=table[i][j][0]&&rolled<=table[i][j][1]){break}}
+
+    let str = table[i][j][2];
+    let cont,valor;
+    console.log(str);
+    if(str.includes('riqueza')){[cont,valor] = roll_riqueza(str)} //dx
+    else if(str.includes('x')){[cont,valor] = roll_money(str);cont += ` <span style="color:gray">(${str})</span>`}  //d100
+    else if(str.includes('Diverso')){[cont,valor] = roll_regular(diverso)}  //d100
+    else if(str.includes('Equipamento')){[cont,valor] = roll_regular([])}  //d6 then d100
+    else if(str.includes('poç')){[cont,valor] = roll_pocoes(str)}  //d100
+    else if(str.includes('Superior')){[cont,valor] = roll_superior(str)}  //d6,1-4,d100
+    else if(str.includes('Mágico')){[cont,valor] = roll_magic(str)}  //d6,1-3,d100
+    else{cont = 'Nenhum';valor = 0}
+    console.log('Reward: ',valor);
+    return [cont,valor];
+  }
+}
+
+function roll_nd(e){
+  let i = nd.indexOf(e.value);
+  let cont,valor,valor_total = 0;
+  [cont,valor] = roll_reward(i,nd_din);
+  document.getElementById('din').innerHTML = cont?'Moedas e riquezas:<br>'+cont:'';
+  valor_total+=isNaN(valor)?0:valor;
+
+  [cont,valor] = roll_reward(i,nd_item);
+  document.getElementById('item').innerHTML = cont?'Items e equipamentos:<br>'+cont:'';
+  valor_total+=isNaN(valor)?0:valor;
+
+  document.getElementById('valor').innerHTML = `Valor total estimado desta recompensa: T$ ${valor_total.toLocaleString('pt-BR')}`;
+  console.log(' ');
+}
+
+//-------------------------WEB WORKER FUNCTIONS------------------------//
+
+function testWorker(){
+ try{
+  let url = '/js/worker_tester.js';
+  let worker = new Worker(url);
+  worker.terminate();
+  URL.revokeObjectURL(url);
+  return true;
+ }
+ catch(e){return false}
+}
+
+var list = [];
+function create_lists(sup){
+ if(sup&&window.Worker&&typeof(Worker)!=="undefined"){
+  console.log("Web worker: creating lists");
+  let worker = new Worker("./js/worker_list.js");
+  worker.postMessage([[equip,equip,equip,equip],[0,armor_start,weap_start,shield_start],[equip.length,armor_end,weap_end,shield_end]]);
+  worker.addEventListener('message',(ev) => {
+   for(let j=0;j<ev.data.length;j++){
+    list[j] = document.createElement('div');
+    list[j].setAttribute('class','dropequip');
+    list[j].innerHTML = ev.data[j];
+   }
+  });
+ }else{
+  console.log("Main thread: creating lists");
+  list = worker_list([equip,equip,equip,equip],[0,armor_start,weap_start,shield_start],[equip.length,armor_end,weap_end,shield_end]);
+  for(let j=0;j<list.length;j++){
+   let div = document.createElement('div');
+   div.setAttribute('class','dropequip');
+   div.innerHTML = list[j];
+   list[j] = div;
+  }
+ }
+}
+
+//-------------------------RICH TEXT FUNCTIONS------------------------//
+
+function boldify(str){
+ let indexes = [...str.matchAll(/_/g)].map(match => match.index);
+ for(let i=indexes.length-1;i>-1;i--){
+  if(i%2==0){str = str.substring(0,indexes[i]) + '<i>' + str.substring(indexes[i]+1)}
+  else{str = str.substring(0,indexes[i]) + '</i>' + str.substring(indexes[i]+1)}
+ }
+ indexes = [...str.matchAll(/\*/g)].map(match => match.index);
+ for(let i=indexes.length-1;i>-1;i--){
+  if(i%2==0){str = str.substring(0,indexes[i]) + '<b>' + str.substring(indexes[i]+1)}
+  else{str = str.substring(0,indexes[i]) + '</b>' + str.substring(indexes[i]+1)}
+ }
+ return str.replaceAll('</table>\n','</table><p class="nowrap ms">').replaceAll('\n','<br>');
+}
+function unboldify(str){return isNaN(str)?str.replaceAll(/<br>|<\/br>/gi,'\n').replaceAll(/<i>|<\/i>/gi,'_').replaceAll(/<b>|<\/b>/gi,'*').replaceAll(/<\/?p[^>]*>/gi,'\n'):str}
+
+//-------------------------LISTS FUNCTIONS------------------------//
+
+var prev_focus;
+function list_move(e,ev,i){
+ if(prev_focus!=e){
+  prev_focus=e;
+  e.parentNode.appendChild(list[i]);
+  let a = e.parentNode.children[1].getElementsByTagName("a");
+  for(var i=0;i<a.length;i++){a[i].style.display=""}
+  filter(e);
+ }
+}
+
+function list_remove(e,ev){
+ let k = (e.id=="armor"||e.id=="shield")?2:1;
+ e = e.parentNode.children[k];
+ if(!ev.target.parentNode.contains(ev.relatedTarget)&&e){e.remove()}
+ prev_focus = null;
+}
+
+async function filter(e){
+ let k = (e.id=="camps")?2:1;
+ let filter = e.value.toUpperCase();
+ let a = e.parentNode.children[k].getElementsByTagName("a");
+ for(let i=0;i<a.length;i++){
+  txtValue = a[i].textContent || a[i].innerText;
+  txtValue.replaceAll('<b>','').replaceAll('</b>','');
+  if(txtValue.toUpperCase().indexOf(filter)>-1){
+   let result = [...txtValue.matchAll(new RegExp(filter,'gi'))].map(z => z.index);
+   txtValue = txtValue.split('');
+   let j=result.length;
+   for(;j>0;){j--;txtValue.splice(result[j]+filter.length,0,'</b>');txtValue.splice(result[j],0,'<b>')}
+   a[i].innerHTML = txtValue.join('');
+   a[i].style.display="";
+  }
+  else{a[i].style.display="none"}
+ }
+}
+
+//-------------------------CONFIG FUNCTIONS------------------------//
+
+function invert(color){return (Number(`0x1${color}`)^0xFFFFFF).toString(16).substr(1).toUpperCase()}
+function menucolor(color){
+ document.querySelector('meta[name="theme-color"]').setAttribute('content',color);
+ document.querySelector(':root').style.setProperty('--t20white',data.c_nocturnal?'#000':'#fff');
+ document.querySelector(':root').style.setProperty('--t20weight',data.c_nocturnal?'600':'400');
+ document.querySelector(':root').style.setProperty('--bright',data.c_nocturnal?'brightness(.9)':'brightness(1.1)');
+ color = data.c_nocturnal?invert(color.replace('#','')):color.replace('#','');
+ document.querySelector(':root').style.setProperty('--menu','#'+color);
+ color = 'url(\''+backborder.replace('backborder',color)+'\') 4% repeat';
+ document.querySelector(':root').style.setProperty('--backborder',color);
+}
+
+function fullscreen(e){
+ if(data.c_fullscreen&&document.fullscreenElement==null){
+  if(e.requestFullscreen){e.requestFullscreen()}
+  else if(e.webkitRequestFullscreen){e.webkitRequestFullscreen()}
+  else if(e.msRequestFullscreen){e.msRequestFullscreen()}
+ }
+ if(!data.c_fullscreen&&document.fullscreenElement){
+  if(document.exitFullscreen){document.exitFullscreen()}
+  else if(document.webkitExitFullscreen){document.webkitExitFullscreen()}
+  else if(document.msExitFullscreen){document.msExitFullscreen()}
+ }
+}
+
+function config(){
+ const colorpicker = document.getElementById('c_color');
+ data.c_keyboard?keyboard.classList.add('keyext'):keyboard.classList.remove('keyext');
+
+ document.querySelector(':root').style.setProperty('--hph',(data.c_dice&&keyboard.classList.contains('boardshow'))?'256px':'120px');
+ document.querySelector(':root').style.setProperty('--drh',data.c_dice?'var(--drb)':'90%');
+
+ if(data.c_magic){
+  allmenubtn[4].classList.add('dn');
+  sections[4].classList.add('dn');
+  if(menubtn.indexOf(4)>0){menubtn.splice(menubtn.indexOf(4),1)}
+ }else{
+  allmenubtn[4].classList.remove('dn');
+  sections[4].classList.remove('dn');
+  if(menubtn.indexOf(4)<0){menubtn.splice(menubtn.indexOf(5),0,4)}
+ }
+
+ if(data.c_nocturnal){
+  document.documentElement.classList.add('invert');colorpicker.classList.add('invert');keyboard.classList.add('invert');
+  document.getElementById('hpbar').classList.add('hpinvert');
+  document.getElementById('mpbar').classList.add('hpinvert');
+  document.querySelector(':root').style.setProperty('--grun','#ca56f0');
+  document.querySelector(':root').style.setProperty('--rot','#10ecec');
+  document.querySelector(':root').style.setProperty('--opc','0.83');
+ }else{
+  document.documentElement.classList.remove('invert');colorpicker.classList.remove('invert');keyboard.classList.remove('invert');
+  document.getElementById('hpbar').classList.remove('hpinvert');
+  document.getElementById('mpbar').classList.remove('hpinvert');
+  document.querySelector(':root').style.setProperty('--grun','#35a90f');
+  document.querySelector(':root').style.setProperty('--rot','#ef1313');
+  document.querySelector(':root').style.setProperty('--opc','0.93');
+ }
+
+ fullscreen(document.documentElement);
+ menucolor(data.c_color);
+}
+
+//-------------------------NAVIGATION FUNCTIONS------------------------//
+
+const sections = document.getElementsByClassName('sec');
+const allmenubtn = document.getElementsByClassName('menubtn');
+var menubtn = [];
+for(var i=0;i<allmenubtn.length;i++){menubtn.push(i)};
+document.documentElement.style.setProperty("--menulen",allmenubtn.length*100+"%");
+
+function navig(e){
+ for(var i=0;i<allmenubtn.length;i++){
+  allmenubtn[i].children[0].children[0].classList.remove('menuselicon');
+  allmenubtn[i].children[0].children[1].classList.remove('menuseltext');
+ }
+ e.children[0].children[0].classList.add('menuselicon');
+ e.children[0].children[1].classList.add('menuseltext');
+
+ var x = Array.prototype.indexOf.call(allmenubtn,e);
+ x = menubtn.indexOf(x);
+ x = window.innerWidth>990&&x==menubtn.length-1?x-1:x;
+
+ document.documentElement.style.setProperty("--menulen",menubtn.length*100+"%");
+ document.getElementById('sections').style.transform='translate(-'+x*100/menubtn.length+'%,0)';
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+
+let touchstartX = 0;
+let touchendX = 0;
+function deltaX(){var deltaX = touchstartX-touchendX;if(deltaX>200&&x<8){navig(menubtn[x+1])}if(deltaX<-200&&x>0){navig(menubtn[x-1])}}
+document.getElementById('sections').addEventListener('touchstart',e=>{touchstartX=e.changedTouches[0].screenX},{passive:true})
+document.getElementById('sections').addEventListener('touchend',e=>{touchendX=e.changedTouches[0].screenX;deltaX()},{passive:true})
+
+function hide(e,el){if(el==e.target){el.classList.toggle('invisible');if(el.id=="backdrop_spell"){clear_spell_filters()};if(el.id=="backdrop_power"){clear_powers_filters()}}}
+function show(el){document.getElementById(el).classList.toggle('invisible')}
+function show_list(e){e.focus();e = e.parentNode.children[2].classList.remove('dn')}
+
+var cspell_level=[],cspell_class=[],cspell_school=[],cclasse=[],cdivindade=[],cdeslocamento=[],cpower_type=[],cpower_cat=[];
+function set_check(e,array){
+ e.classList.toggle('checkmarked');
+ e.setAttribute('value',e.getAttribute('value')==1?0:1)
+
+ if(e.getAttribute('value')==1){array.push(e.innerHTML)}else{array.splice(array.indexOf(e.innerHTML),1)}
+ array.sort();
+
+ e = e.parentNode.parentNode.children[0];
+ e.innerHTML = array.join(', ');
+
+ var c = e.parentNode.parentNode.parentNode.parentNode.parentNode.id;
+ if(e.getAttribute('inner')){data_inner(e)}
+ if(e.getAttribute('str')){data_str(e)}
+ else if(c=="backdrop_power"){filter_powers_other(e)}
+ else if(c=="backdrop_spell"){filter_spell_other(e)}
+}
+
+window.addEventListener('click',function(e){
+ var el = document.getElementsByClassName('dropdown');
+ for (i=0;i<el.length;i++){
+  if(!el[i].parentNode.contains(e.target)){el[i].parentNode.children[2].classList.add("dn")}
+ }
+ window.focus();
+});
+document.addEventListener('touchstart',e=>{if(data.c_vibrate){navigator.vibrate(75)}})
+
+//-------------------------CHARACTERS FUNCTIONS------------------------//
+
+function camp_create(e){
+ if(e.title){
+  e.parentNode.classList.add('dn');
+  clear();
+  title = e.title;
+  camps.push(title);
+  data.camp=title;
+  document.getElementById('camp').value=title;
+  document.getElementById('campdel').disabled = false;
+  document.title = title + ' - T20';
+  document.getElementById('c_color').value = '#b72a2b';
+  console.log('Campaign '+title+' was created');
+  save_data();
+ }
+}
+
+function camp_set(el){
+ if(title){save_data()}
+ clear();
+ title = el.innerHTML;
+ el.parentNode.classList.add('dn');
+ data_load();
+ document.title = title + ' - T20';
+ document.getElementById('campdel').disabled = false;
+ data_set();
+ console.log('Campaign '+title+' was loaded');
+}
+
+function camp_remove(){
+ if(title){
+  camps.splice(camps.indexOf(title),1);
+  localStorage.T20camps = camp;
+  localStorage.removeItem('T20campaign_'+title);
+  console.log('Campaign '+title+' was removed');
+  clear();
+  document.title = 'Mestre T20 - v0.1';
+  document.getElementById('campdel').disabled = true;
+ }
+}
+
+function camp_list(el){
+ var value = el.value;
+ el = el.parentNode.children[2];
+ if(value||camps.length){el.classList.remove('dn')}
+ if(!value&&!camps.length){el.classList.add('dn')}
+ el.innerHTML = '';
+ if(value&&camps.indexOf(value)){el.innerHTML = '<a onclick="camp_create(this)" title="'+value+'">Clique para criar '+value+'</a>'}
+ for(var i=0;i<camps.length;i++){el.innerHTML += '<a onclick="camp_set(this)">'+camps[i]+'</a>'}
+}
+
+//-------------------------STARTER FUNCTIONS------------------------//
+
+function start_up(){
+ menucolor('#b72a2b');
+ const menuicon = document.getElementsByClassName('menuicon');
+ for (var i=0;i<menuicon.length;i++){menuicon[i].innerHTML = icons[i]}
+ let supported = testWorker();
+ create_lists(supported);
+ set_keyboard();
+ dice = document.getElementsByClassName('dice');
+ for (var i=0;i<dice.length;i++){dice[i].innerHTML = dices[dice[i].getAttribute("data-dice")]}
+ camps = localStorage.T20camps?JSON.parse(localStorage.T20camps):[];
+ document.body.classList.remove('dn');
+}
+
+//-------------------------DATA MANAGEMENT FUNCTIONS------------------------//
+
+function data_add(e){data[e.id]=JSON.parse(e.value);save_data()}
+function data_array(e){data[e.id]=e.value;save_data()}
+function data_check(e){data[e.id]=e.checked;save_data()}
+function data_inner(e){var value = e.innerHTML.replace('+','');data[e.id]=JSON.parse(value);save_data()}
+function data_str(e){data[e.id]=e.innerHTML;save_data()}
+
+function data_set(){
+ for (const key in data){
+  if(key=='combat'){
+  }else if(key=='combat_history'||key.includes('_')){	//do nothing
+  }else{
+   var e=document.getElementById(key);
+   console.log(key);
+   e.value=data[key];
+   e.innerHTML=data[key];
+  }
+ }
+ title=data.camp;
+ document.title = title + ' - T20';
+ document.getElementById('c_color').value = data.c_color?data.c_color:'#b72a2b';
+ document.getElementById('campdel').disabled = false;
+ document.getElementById('sections').style.transform='';
+ config();
+ bars()
+}
+
+window.onload = function(){
+ start_up();
+ if(localStorage.T20camps){camps = JSON.parse(localStorage.T20camps)}
+}
+
+window.addEventListener('beforeunload',save_data);
+function save_data(){
+ if(camps.length){localStorage.setItem('T20camps',JSON.stringify(camps))}
+ if(title){localStorage.setItem('T20campaign_'+title,JSON.stringify(data))}
+ console.log('Saved data in local storage');
+}
+
+function data_load(){
+ if(localStorage.getItem('T20campaign_'+title)){
+  data = JSON.parse(localStorage.getItem('T20campaign_'+title));
+ }
+}
+
+function clear(){
+ title='';
+
+ let input = document.getElementsByTagName("input");
+ for(let e of input){if(e.id!='file'){e.value=(e.id=="c_color"?'#b72a2b':'')}}
+ menucolor('#b72a2b');
+
+ let select = document.getElementsByTagName("select");
+ for(let e of select){option = e.options;option[0].selected = true}
+
+ let fakeinput = document.getElementsByClassName('fakeinput');
+ for(let e of fakeinput){e.innerHTML=(e.id.includes('hp')||e.id.includes('mp'))?0:''}
+
+ data = structuredClone(data_ini);
+}
+
+function reset(){
+ for(let i in camps){localStorage.removeItem('T20campaign_'+camps[i])}
+ localStorage.removeItem('T20camps');
+ camps=[];data={};title='';location.reload()
+}
+
+//-------------------------REGEX FUNCTIONS------------------------//
+
+function regexe(e){['e','E'].includes(e.key)&&e.preventDefault()}
+function regex_inj(e){e.value=/[<>\[\]\{\}\#&]+/.test(e.value)?e.value.slice(0,-1):e.value}
+function regexo(e){e.value=/^([+-]|[0-9]|[d])*$/.test(e.value)?e.value:e.value.slice(0,-1)}
+function regexb2(e){e.value=='d'?'d':e.value=/^([d]|[0-9])*$/.test(e.value)?e.value:e.value.slice(0,-1)}
+function regexc1(e){e.value=/^([1-9]|1[0-9]|20)$/.test(e.value)?e.value:e.value.slice(0,-1)}
+function regexc2(e){e.value=='x'?'x':e.value=/^x(100|[1-9][0-9]?)$/.test(e.value)?e.value:e.value.slice(0,-1)}
+function regex(e){e.value = (e.value=='-'?'-':(e.value=='+'?'+':(/^[-+]?(0|[1-9]\d*)$/.test(e.value)?e.value:e.value.slice(0,-1))))}
+function regex2(e){e.value=/^(0|[1-9]\d*)$/.test(e.value)?e.value:e.value.slice(0,-1)}
+function regexqte(e){e.value=/(\d)*$/.test(e.value)?e.value:e.value.slice(0,-1)}
+
+</script>
+</body>
+</html>

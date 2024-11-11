@@ -38,7 +38,7 @@ function roll_dice(num,max,exp=max+1,rra=max+1,rrb=-1){
 }
 
 var soma,roll;
-function diceroll(str,crit=0){
+function diceroll(str,crit=0,drucken=1){
  let repeat = 1;
  if(str.includes("#")){
   repeat = str.slice(0,str.indexOf('#'));
@@ -99,7 +99,7 @@ function diceroll(str,crit=0){
 
   for(j=0;j<sum.length;j++){soma+=sum[j]}
   print = '<span class="bold">'+soma+'</span>'+print+ctp;
-  print_out(print);
+  if(drucken){print_out(print)}
   total_sum += soma;
  }
  return total_sum;
