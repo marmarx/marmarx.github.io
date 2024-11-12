@@ -16,7 +16,7 @@ input[type="number"],input[type="number"]::-webkit-outer-spin-button,input[type=
 .half,.third{float:left}.half{width:100%}.third{width:33.3333%}
 .third .trash:before,.third .trash:after{transform:translateX(-2.8px)}
 
-table{margin:auto;width:80%}
+table{margin:1.2em auto;width:80%}
 td,th{text-align:center;padding:5px}
 tr:nth-child(even){background-color:rgba(0,0,0,.1)}
 
