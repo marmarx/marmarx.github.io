@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<kml xmlns='http://www.opengis.net/kml/2.2'>
+	<Document>
+		<name>1</name>
+		<description> | Created with http://batchgeo.com</description>
+					<Placemark>
+				<styleUrl>#0</styleUrl>
+				<name>141 Jeremias de Paula Eduardo</name>				<ExtendedData>
+												<Data name='Group'>
+								<value>Atropelamento</value>
+							</Data>
+												<Data name='Data'>
+								<value>5/4/16</value>
+							</Data>
+												<Data name='BO'>
+								<value>535</value>
+							</Data>
+												<Data name='Logradouro'>
+								<value>Jeremias de Paula Eduardo</value>
+							</Data>
+												<Data name='Número'>
+								<value>141</value>
+							</Data>
+									</ExtendedData>
+								<address>141 Jeremias de Paula Eduardo Monte Alto SP 15910-000</address>
+				<Point>
+					<coordinates>-48.4879511,-21.2618146,0</coordinates>
+				</Point>
+			</Placemark>
+		<Style id="0"><IconStyle><scale>1</scale><Icon><href>http://static.batchgeo.com/images/icons/red_shadow_Marker.png</href></Icon><hotSpot x=".3" y=".8" xunits="fraction" yunits="fraction" /></IconStyle><LabelStyle><scale>0</scale></LabelStyle></Style>	</Document>
+</kml>

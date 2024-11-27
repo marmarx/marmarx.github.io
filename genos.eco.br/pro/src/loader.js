@@ -1,0 +1,1 @@
+document.onreadystatechange=function(){var e=document.readyState;"interactive"==e?document.getElementById("contents").style.visibility="hidden":"complete"==e&&setTimeout(function(){document.getElementById("loader").style.visibility="hidden",document.getElementById("contents").style.visibility="visible"},1e2)};
