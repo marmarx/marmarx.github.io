@@ -1975,34 +1975,45 @@ window.onload = function(){
 function read_localStorage(char){
  console.log('Reading '+char+'\'s data');
  let data = JSON.parse(localStorage.getItem('T20data_'+char));
- header.bname = data.char;		//str
- header.bplayer = data.jogador;		//str
- header.brace = raca[data.raça];	//str	*	select > string
- header.borigin = origem[data.origem];	//str	*	select > string
- header.bclass = data.classe+', '+data.distincao;		//str
- header.blvl = data.nível;		//str	*	num > string
- header.bdeity = data.divindade;	//str
- header.btam = data.tamanho;		//num select
- header.bdesloc = data.deslocamento;	//str
- header.bexp = data.xp;			//str	*	num > string
- header.shab = data.spell_hab-1;	//num select	*	1>6 > 0>5
- header.TO = data.carga.to;		//num
- header.TP = data.carga.ts;		//num
- header.TC = data.carga.tc;		//num
- header.anot = data.anot + '\n\n\n' + data.parceiros;		//str
+ header.bname = data.char?data.char:'';		//str
+ header.bplayer = data.jogador?data.jogador:'';		//str
+ header.brace = data.raça?raca[data.raça]:'';	//str	*	select > string
+ header.borigin = data.origem?origem[data.origem]:'';	//str	*select > string
+ header.bclass = [];
+ if(data.classe){header.bclass.push(data.classe)}
+ if(data.distincao){header.bclass.push(data.distincao)}	
+ header.bclass = header.bclass.join(', ');		//str
+ header.blvl = data.nível?data.nível:1;		//str	*	num > string
+ header.bdeity = data.divindade?data.divindade:'';	//str
+ header.btam = data.tamanho?data.tamanho:3;		//num select
+ header.bdesloc = data.deslocamento?data.deslocamento:'terrestre (9m, 6sq)';	//str
+ header.bexp = data.xp?data.xp:'';			//str	*	num > string
+ header.shab = data.spell_hab?data.spell_hab-1:0;	//num select	*	1>6 > 0>5
+ header.TO = data.carga.to?data.carga.to:'';		//num
+ header.TP = data.carga.ts?data.carga.ts:'';		//num
+ header.TC = data.carga.tc?data.carga.tc:'';		//num
+ header.anot = data.anot?(data.anot + '\n\n'):'' + data.parceiros?data.parceiros:'';		//str
 
- habs = [data.hab_for_val,data.hab_des_val,data.hab_con_val,data.hab_int_val,data.hab_sab_val,data.hab_car_val];
+ habs = [
+	 data.hab_for_val?data.hab_for_val:'',
+	 data.hab_des_val?data.hab_des_val:'',
+	 data.hab_con_val?data.hab_con_val:'',
+	 data.hab_int_val?data.hab_int_val:'',
+	 data.hab_sab_val?data.hab_sab_val:'',
+	 data.hab_car_val?data.hab_car_val:''
+ ];
  pmpv.pva = '';pmpv.pma = '';
- pmpv.pvt = data.hpmax;pmpv.pmt = data.mpmax;
+ pmpv.pvt = data.hpmax?data.hpmax:'';
+ pmpv.pmt = data.mpmax?data.mpmax:'';
 
- defense['Defesa (habilidade)'] = data.defense.def_hab-1;	//num select	*	1>6 > 0>5
- defense['Defesa (outros)'] = data.defense.def_out;		//str
- defense.Armadura = data.defense.armor;				//str
- defense['Armadura (bonus)'] = data.defense.armor_bonus;	//str	*	num > str
- defense['Armadura (penalidade)'] = data.defense.armor_penal	//str	*	num > str
- defense.Escudo = data.defense.shield;				//str
- defense['Escudo (bonus)'] = data.defense.shield_bonus;		//str	*	num > str
- defense['Escudo (penalidade)'] = data.defense.shield_penal;	//str	*	num > str
+ defense['Defesa (habilidade)'] = data.defense.def_hab?data.defense.def_hab-1:0;	//num select	*	1>6 > 0>5
+ defense['Defesa (outros)'] = data.defense.def_out?data.defense.def_out:'';		//str
+ defense.Armadura = data.defense.armor?data.defense.armor:'';				//str
+ defense['Armadura (bonus)'] = data.defense.armor_bonus?data.defense.armor_bonus:'';	//str	*	num > str
+ defense['Armadura (penalidade)'] = data.defense.armor_penal?data.defense.armor_penal:''	//str	*	num > str
+ defense.Escudo = data.defense.shield?data.defense.shield:'';				//str
+ defense['Escudo (bonus)'] = data.defense.shield_bonus?data.defense.shield_bonus:'';		//str	*	num > str
+ defense['Escudo (penalidade)'] = data.defense.shield_penal?data.defense.shield_penal:'';	//str	*	num > str
 
  let red = [];
  if(data.defense.rd){red.push('RD: '+data.defense.rd)}
