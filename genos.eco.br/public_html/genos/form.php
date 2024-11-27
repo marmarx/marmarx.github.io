@@ -1,1 +1,0 @@
-<?php include '../../php/f/former.php';?>

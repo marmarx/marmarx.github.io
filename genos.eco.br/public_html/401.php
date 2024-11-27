@@ -1,1 +1,0 @@
-<?php $error='401';$loc='error';include '../php/'. $loc .'/error.php';?>

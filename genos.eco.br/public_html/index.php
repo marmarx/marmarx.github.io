@@ -1,1 +1,0 @@
-<?php $loc='h';include '../php/' . $loc . '/home.php'?>

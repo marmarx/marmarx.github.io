@@ -1,1 +1,0 @@
-<?php include __DIR__ . '/../../php/n/news_former.php';?>

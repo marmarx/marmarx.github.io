@@ -1,1 +1,0 @@
-<?php $loc='s';include '../../php/' . $loc . '/solucoes.php'?>
