@@ -1,0 +1,1 @@
+<?php $loc='b';include '../../php/' . $loc . '/blog.php'?>
