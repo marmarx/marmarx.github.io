@@ -1,0 +1,220 @@
+<IfModule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/text text/html text/plain text/xml text/css application/x-javascript application/javascript
+</IfModule>
+
+ErrorDocument 400 /400.php
+ErrorDocument 401 /401.php
+ErrorDocument 403 /403.php
+ErrorDocument 404 /404.php
+ErrorDocument 500 /500.php
+
+<ifmodule mod_expires.c>
+<Filesmatch "\.(jpg|jpeg|jpe|png|gif|js|pdf|swf|ico|ttf|eot|woff|woff2|mp3|mp4|mov|avi|wmv|mpeg4|flv|mpegps|webp)$">
+  ExpiresActive on
+  ExpiresDefault "access plus 1 month"
+</Filesmatch>
+</ifmodule>
+
+ExpiresActive on
+ExpiresByType text/css "access plus 1 day"
+ExpiresByType text/xml "access plus 1 second"
+
+#Force non-www:
+RewriteEngine On
+RewriteBase /
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+RewriteCond %{HTTPS} off
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R,L]
+RewriteCond %{HTTP_USER_AGENT} libwww-perl.* 
+RewriteRule .* ? [F,L]
+
+RedirectMatch 301 /wp-includes(.*) /
+RedirectMatch 301 /wp-content(.*) /
+RedirectMatch 301 /wp-admin(.*) /
+RedirectMatch 301 /wp(.*) /
+RedirectMatch 301 /trabalhe-conosco(.*) /contato/
+RedirectMatch 301 /feed$ /rss.xml
+RedirectMatch 301 /rss$ /rss.xml
+RedirectMatch 301 /feed/$ /rssf.xml
+RedirectMatch 301 /rss/$ /rssf.xml
+
+RedirectMatch 301 /adequancao-leis-ambientais(.*) /solucoes/
+RedirectMatch 301 /areas-contaminadas$ /solucoes/
+RedirectMatch 301 /areas-contaminadas/$ /solucoes/
+RedirectMatch 301 /ecodesign$ /solucoes/
+RedirectMatch 301 /ecodesign/$ /solucoes/
+RedirectMatch 301 /ecodesign-produtos-sustentaveis(.*) /solucoes/
+RedirectMatch 301 /ecodesign-desenvolvimento-de-produtos-e-embalagens(.*) /solucoes/
+RedirectMatch 301 /gestao-de-residuos(.*) /solucoes/
+RedirectMatch 301 /investigacao-de-passivo-ambiental(.*) /solucoes/
+RedirectMatch 301 /levantamento-arboreo-recomposicao-e-supressao(.*) /solucoes/
+RedirectMatch 301 /licenciamento(.*) /solucoes/
+RedirectMatch 301 /licenciamento-ambiental(.*) /solucoes/
+RedirectMatch 301 /licenciamentos(.*) /solucoes/
+RedirectMatch 301 /pgrs-empresas(.*) /solucoes/
+RedirectMatch 301 /pgrss(.*) /solucoes/
+RedirectMatch 301 /plano-de-mobilidade-corporativa(.*) /solucoes/
+RedirectMatch 301 /pl-producao-mais-limpa(.*) /solucoes/
+RedirectMatch 301 /pmgirs(.*) /solucoes/
+RedirectMatch 301 /producao-mais-limpa$ /solucoes/
+RedirectMatch 301 /producao-mais-limpa/$ /solucoes/
+RedirectMatch 301 /project(.*) /solucoes/
+RedirectMatch 301 /saneamento-basico(.*) /solucoes/
+RedirectMatch 301 /servicos(.*) /solucoes/
+RedirectMatch 301 /skill(.*) /solucoes/
+RedirectMatch 301 /mobilidade-urbana$ /solucoes/
+RedirectMatch 301 /mobilidade-urbana/$ /solucoes/
+RedirectMatch 301 /mu$ /solucoes/
+RedirectMatch 301 /mu/$ /solucoes/
+RedirectMatch 301 /empresa(.*) /solucoes/
+RedirectMatch 301 /solucoes-sao-carlos/(.*) /solucoes/
+RedirectMatch 301 /cursomobilidade(.*) /solucoes/
+
+RedirectMatch 301 /consultoria(.*) /genos/
+RedirectMatch 301 /equipe-tecnica(.*) /genos/
+RedirectMatch 301 /genos-ambiental(.*) /genos/
+RedirectMatch 301 /testimonial(.*) /genos/
+
+RedirectMatch 301 /author(.*) /blog/
+RedirectMatch 301 /beatriz-demartini(.*) /blog/
+RedirectMatch 301 /eduardo-blanco(.*) /blog/
+RedirectMatch 301 /filipe-abreu(.*) /blog/
+RedirectMatch 301 /guilherme(.*) /blog/
+RedirectMatch 301 /guto-agnelli(.*) /blog/
+RedirectMatch 301 /juliana-polizel(.*) /blog/
+RedirectMatch 301 /marco-martins(.*) /blog/
+RedirectMatch 301 /raphael-cobra(.*) /blog/
+RedirectMatch 301 /tiago-moraes(.*) /blog/
+RedirectMatch 301 /tiago-tadeu(.*) /blog/
+RedirectMatch 301 /tiffany(.*) /blog/
+RedirectMatch 301 /page(.*) /blog/
+RedirectMatch 301 /arquitetura-sustentavel(.*) /blog/
+RedirectMatch 301 /category(.*) /blog/
+RedirectMatch 301 /inovacao(.*) /blog/
+RedirectMatch 301 /inspiracao(.*) /blog/
+RedirectMatch 301 /outros(.*) /blog/
+RedirectMatch 301 /sustentabilidade(.*) /blog/
+RedirectMatch 301 /tag(.*) /blog/
+RedirectMatch 301 /-qual-tipo-usar(.*) /blog/
+
+RedirectMatch 301 /um-meio-ambiente-para-todos(.*) /blog/meio-ambiente-sustentabilidade-estocolmo-1972/
+RedirectMatch 301 /licenciamento-ambiental-passa-a-ser-online-no-estado-de-sao-paulo(.*) /blog/cetesb-licenciamento-ambiental-online/
+RedirectMatch 301 /solucoes-passa-a-ser-online-no-estado-de-sao-paulo(.*) /blog/cetesb-licenciamento-ambiental-online/
+RedirectMatch 301 /mobilidade-aplicativos-e-os-desafios-para-a-sustentabilidade(.*) /blog/aplicativos-mobilidade-urbana-sustentabilidade-desafios/
+RedirectMatch 301 /o-plano-de-gerenciamento-de-residuos-solidos-em-cinco-passos(.*) /blog/5-passos-elaboracao-plano-residuos-solidos/
+RedirectMatch 301 /7-motivos-para-sua-empresa-ter-um-plano-de-residuos-solidos-em-2014(.*) /blog/7-motivos-empresa-plano-residuos-solidos/
+RedirectMatch 301 /producao-mais-limpa-o-que-e-e-3-bons-motivos-para-aplicar-em-sua-empresa(.*) /blog/o-que-e-porque-producao-mais-limpa/
+RedirectMatch 301 /passo-a-passo-para-a-elaboracao-do-plano-de-residuos-solidos-empresarial(.*) /blog/como-elaborar-plano-residuos-solidos-empresa/
+RedirectMatch 301 /green-office-uma-visao-diferente-sobre-os-impactos-ambientais-de-sua-empresa(.*) /blog/green-office-impactos-ambientais-empresa/
+RedirectMatch 301 /sustentabilidade-de-escritorios-uma-visao-diferente-sobre-os-impactos-ambientais-de-sua-empresa(.*) /blog/green-office-impactos-ambientais-empresa/
+RedirectMatch 301 /empresas-sustentaveis-e-felicidade-empresarial-funcionarios-mais-felizes-e-engajados(.*) /blog/felicidade-empresarial-empresas-sustentaveis/
+RedirectMatch 301 /empresas-sustentaveis-felicidade-empresarial(.*) /blog/felicidade-empresarial-empresas-sustentaveis/
+RedirectMatch 301 /4-anos-de-pnrs-os-desafios-da-implementacao-pelos-municipios(.*) /blog/desafios-implementacao-politica-nacional-residuos-solidos/
+RedirectMatch 301 /5-tendencias-em-inovacao-e-qualidade(.*) /blog/tendencia-inovacao-qualidade/
+RedirectMatch 301 /os-planos-de-mobilidade-urbana-e-seus-desafios(.*) /blog/desafios-plano-mobilidade-urbana/
+RedirectMatch 301 /mobilidade-urbana-planejamento-e-implantacao(.*) /blog/desafios-plano-mobilidade-urbana/
+RedirectMatch 301 /ppps-parcerias-publico-privadas-na-gestao-de-residuos-solidos-municipais(.*) /blog/parcerias-publico-privadas-gestao-residuos-solidos/
+RedirectMatch 301 /sampa-2-0-entenda-o-que-vem-ai-com-o-novo-plano-diretor(.*) /blog/plano-diretor-sao-paulo-atualizacao/
+RedirectMatch 301 /ppps-parcerias-publicoprivadas-na-gestao-de-residuos-solidos-municipais(.*) /blog/parcerias-publico-privadas-gestao-residuos-solidos/
+RedirectMatch 301 /saneamento-basico-10-anos-de-politica-nacional(.*) /blog/10-anos-politica-saneamento-basico/
+RedirectMatch 301 /049-10-anos-politica-saneamento-basico(.*) /blog/10-anos-politica-saneamento-basico/
+RedirectMatch 301 /12-de-maio-va-de-bike-ao-trabalho(.*) /blog/12-de-maio-bike-ao-trabalho/
+RedirectMatch 301 /057-12-de-maio-bike-ao-trabalho(.*) /blog/12-de-maio-bike-ao-trabalho/
+RedirectMatch 301 /050-cidades-mais-caminhaveis-50-motivadores(.*) /blog/50-motivadores-cidades-mais-caminhaveis/
+RedirectMatch 301 /cidades-mais-caminhaveis-50-motivadores(.*) /blog/50-motivadores-cidades-mais-caminhaveis/
+RedirectMatch 301 /acessibilidade-cidades-mais-transitaveis(.*) /blog/acessibilidade-cidade-mobilidade-urbana/
+RedirectMatch 301 /voce-pode-ajudar-outros-se-locomoverem-na-sua-cidade(.*) /blog/acessibilidade-google-maps/
+RedirectMatch 301 /065-acessibilidade-google-maps(.*) /blog/acessibilidade-google-maps/
+RedirectMatch 301 /voce-pode-ajudar-outros-a-se-locomoverem-na-sua-cidade(.*) /blog/acessibilidade-google-maps/
+RedirectMatch 301 /area-contaminada-primeiros-passos-para-regularizacao-e-reabilitacao(.*) /blog/areas-contaminadas-regularizacao-reabilitacao/
+RedirectMatch 301 /047-areas-contaminadas-regularizacao-reabilitacao(.*) /blog/areas-contaminadas-regularizacao-reabilitacao/
+RedirectMatch 301 /areas-contaminadas-primeiros-passos-para-regularizacao-e-reabilitacao(.*) /blog/areas-contaminadas-regularizacao-reabilitacao/
+RedirectMatch 301 /lampadas-fluorescentes(.*) /blog/armazenamento-destinacao-lampadas-fluorescentes/
+RedirectMatch 301 /destinacao-e-armazenamento-de-lampadas-fluorescentes(.*) /blog/armazenamento-destinacao-lampadas-fluorescentes/
+RedirectMatch 301 /calcada-cilada-2017-resultados(.*) /blog/calcada-cilada-resultados/
+RedirectMatch 301 /058-calcada-cilada-resultados(.*) /blog/calcada-cilada-resultados/
+RedirectMatch 301 /056-campanha-calcada-cilada-2017(.*) /blog/campanha-calcada-cilada-2017/
+RedirectMatch 301 ^/campanha-calcada-cilada-2017$ /blog/campanha-calcada-cilada-2017/
+RedirectMatch 301 ^/campanha-calcada-cilada-2017/$ /blog/campanha-calcada-cilada-2017/
+RedirectMatch 301 /o-futuro-dos-carros-eletricos-e-os-desafios-da-cpfl(.*) /blog/carro-eletrico-futuro-e-desafios/
+RedirectMatch 301 /066-carro-eletrico-futuro-e-desafios(.*) /blog/carro-eletrico-futuro-e-desafios/
+RedirectMatch 301 /cidade-favela-e-fluxos-o-caso-da-rocinha(.*) /blog/cidade-favela-fluxo-mobilidade-urbana/
+RedirectMatch 301 /cidade-favela-e-fluxos-o-caso-da-(.*) /blog/cidade-favela-fluxo-mobilidade-urbana/
+RedirectMatch 301 /cidades-mais-caminhaveis-visao-de-jeff-speck-um-planejador-urbano(.*) /blog/cidades-caminhaveis-planejamento-urbano/
+RedirectMatch 301 /055-cidades-caminhaveis-planejamento-urbano(.*) /blog/cidades-caminhaveis-planejamento-urbano/
+RedirectMatch 301 /cidades-mais-caminhaveis-a-visao-de-jeff-speck-um-planejador-urbano(.*) /blog/cidades-caminhaveis-planejamento-urbano/
+RedirectMatch 301 /cidades-mais-caminhaveis-porque(.*) /blog/cidades-mais-caminhaveis-projeto-urbano/
+RedirectMatch 301 /cities-transport-mobilidade-urbana(.*) /blog/congresso-cities-transporte-mobilidade-urbana/
+RedirectMatch 301 /construcao-de-molhes-em-barra-velhasc(.*) /blog/construcao-molhes-barra-velha/
+RedirectMatch 301 /064-construcao-molhes-barra-velha(.*) /blog/construcao-molhes-barra-velha/
+RedirectMatch 301 /construcao-de-molhes-em-barra-velha-sc(.*) /blog/construcao-molhes-barra-velha/
+RedirectMatch 301 /devo-elaborar-um-plano-de-gerenciamento-de-residuos-solidos(.*) /blog/devo-elaborar-plano-gerenciamento-residuos-solidos/
+RedirectMatch 301 /disposicao-de-residuos-mistos-perigosos-como-proceder(.*) /blog/disposicao-residuo-perigoso/
+RedirectMatch 301 /062-disposicao-residuo-perigoso(.*) /blog/disposicao-residuo-perigoso/
+RedirectMatch 301 /disposicao-de-residuos-perigosos-mistos-como-proceder(.*) /blog/disposicao-residuo-perigoso/
+RedirectMatch 301 /ecodesign-o-que-e-e-quais-sao-seus-beneficios(.*) /blog/ecodesign-beneficios-ambientais-economicos/
+RedirectMatch 301 /mobilidade-urbana-um-caso-em-sao-carlos-sp-a-c-prefeitura-municipal(.*) /blog/estudo-caso-sao-carlos-mobilidade-urbana/
+RedirectMatch 301 /fib-genos-felicidade-interna-bruta(.*) /blog/felicidade-interna-bruta-empresarial/
+RedirectMatch 301 /fibgenos-felicidade-interna-bruta(.*) /blog/felicidade-interna-bruta-empresarial/
+RedirectMatch 301 /groningen-referencia-holandesa-em-mobilidade(.*) /blog/groningen-mobilidade-urbana/
+RedirectMatch 301 /054-groningen-mobilidade-urbana(.*) /blog/groningen-mobilidade-urbana/
+RedirectMatch 301 /laudo-de-identificacao-vegetal(.*) /blog/identificacao-vegetal-laudo-licenciamento-ambiental/
+RedirectMatch 301 /o-passo-a-passo-para-a-elaboracao-de-um-laudo-de-identificacao-vegetal(.*) /blog/identificacao-vegetal-laudo-licenciamento-ambiental/
+RedirectMatch 301 /o-passo-passo-para-elaboracao-de-um-laudo-de-identificacao-vegetal(.*) /blog/identificacao-vegetal-laudo-licenciamento-ambiental/
+RedirectMatch 301 /genos-entrega-o-plano-de-mobilidade-urbana-de-ilha-solteirasp(.*) /blog/ilha-solteira-plano-mobilidade-urbana/
+RedirectMatch 301 /7-impactos-positivos-da-arquitetura-sustentavel-aplicada-em-escola-da-capital-paulista(.*) /blog/impacto-arquitetura-sustentavel-escola/
+RedirectMatch 301 /estruturas-cicloviarias-como-determinar(.*) /blog/infraestrutura-ciclovia-mobilidade-urbana/
+RedirectMatch 301 /mobilidade-urbana-inventario-de-gases-do-efeito-estufa(.*) /blog/inventario-gases-efeito-estufa-mobilidade-urbana/
+RedirectMatch 301 /solucoes-inventario-de-gases-do-efeito-estufa(.*) /blog/inventario-gases-efeito-estufa-mobilidade-urbana/
+RedirectMatch 301 /iso-140012015-como-obter-certificacao(.*) /blog/iso-14001-2015-certificacao/
+RedirectMatch 301 /iso-14001-2015-o-que-esta-vindo-por-ai(.*) /blog/iso-14001-2015-certificacao/
+RedirectMatch 301 /060-iso-14001-2015-certificacao(.*) /blog/iso-14001-2015-certificacao/
+RedirectMatch 301 /iso-140012015-como-obter-a-certificacao(.*) /blog/iso-14001-2015-certificacao/
+RedirectMatch 301 /iso-140012015-o-que-esta-vindo-por-ai(.*) /blog/iso-14001-2015-certificacao/
+RedirectMatch 301 /lampadas-led-heroi-ou-vilao-ambiental(.*) /blog/lampada-led-impacto-meio-ambiente/
+RedirectMatch 301 /lampadas-led-heroi-ou-vilao-ambiental-2(.*) /blog/lampada-led-impacto-meio-ambiente/
+RedirectMatch 301 /led-heroi-ou-vilao-ambiental(.*) /blog/lampada-led-impacto-meio-ambiente/
+RedirectMatch 301 /colocando-leds-na-bike(.*) /blog/leds-bike-seguranca-transito/
+RedirectMatch 301 /faixas-de-pedestre-vermelhaazul-e-admissivel(.*) /blog/legalidade-faixa-pedestre-vermelha-azul/
+RedirectMatch 301 /faixas-de-pedestre-vermelha-azul-e-admissivel(.*) /blog/legalidade-faixa-pedestre-vermelha-azul/
+RedirectMatch 301 /transito-velocidade-mortes-e-voce(.*) /blog/limite-velocidade-transito-seguranca-pedestre/
+RedirectMatch 301 /048-limite-velocidade-transito-seguranca-pedestre(.*) /blog/limite-velocidade-transito-seguranca-pedestre/
+RedirectMatch 301 /exemplo-inspirador-do-menino-de-12-anos-aprendeu-costurar-para-fazer-presentes-para-criancas-doentes(.*) /blog/menino-costura-presentes-criancas-doentes/
+RedirectMatch 301 /exemplo-inspirador-do-menino-de-12-anos-que-aprendeu-a-costurar-para-fazer-presentes-para-criancas-doentes(.*) /blog/menino-costura-presentes-criancas-doentes/
+RedirectMatch 301 /mobilidade-a-pe6-fatores-de-sucesso(.*) /blog/mobilidade-pe-ativa-fatores-sucesso/
+RedirectMatch 301 /mobilidade-pe-5-fatores-de-sucesso(.*) /blog/mobilidade-pe-ativa-fatores-sucesso/
+RedirectMatch 301 /mobilidade-urbana-em-favelas-um-estudo-de-caso/?$ /blog/mobilidade-urbana-favela/
+RedirectMatch 301 /059-mobilidade-urbana-favela(.*) /blog/mobilidade-urbana-favela/
+RedirectMatch 301 /mobilidade-da-mulher-em-sao-paulo(.*) /blog/mobilidade-urbana-mulher-sao-paulo/
+RedirectMatch 301 /051-mobilidade-urbana-mulher-sao-paulo(.*) /blog/mobilidade-urbana-mulher-sao-paulo/
+RedirectMatch 301 /a-mobilidade-da-mulher-em-sao-paulo(.*) /blog/mobilidade-urbana-mulher-sao-paulo/
+RedirectMatch 301 /genos-entrega-o-plano-de-mobilidade-urbana-de-monte-alto(.*) /blog/monte-alto-plano-mobilidade-urbana/
+RedirectMatch 301 /mudando-habitos-em-mobilidade(.*) /blog/mudanca-habitos-mobilidade-urbana-sustentavel/
+RedirectMatch 301 /052-mudanca-habitos-mobilidade-urbana-sustentavel(.*) /blog/mudanca-habitos-mobilidade-urbana-sustentavel/
+RedirectMatch 301 /mudando-os-habitos-de-mobilidade-qual-a-melhor-hora(.*) /blog/mudanca-habitos-mobilidade-urbana-sustentavel/
+RedirectMatch 301 /anterior-a-catraca-um-estudo-do-transporte-coletivo-em-registro(.*) /blog/ocupacao-onibus-transporte-coletivo/
+RedirectMatch 301 /anterior-a-catraca-um-estudo-em-registro(.*) /blog/ocupacao-onibus-transporte-coletivo/
+RedirectMatch 301 /plano-de-mobilidade-urbana-de-onde-as-pessoas-vem(.*) /blog/pesquisa-origem-destino-mobilidade-urbana/
+RedirectMatch 301 /plano-de-mobilidade-urbana-de-onde-as-pessoas-vem-e-para-onde-elas-vao(.*) /blog/pesquisa-origem-destino-mobilidade-urbana/
+RedirectMatch 301 /estudo-de-impacto-de-vizinhanca(.*) /blog/planejamento-urbana-estudo-impacto-vizinhanca/
+RedirectMatch 301 /entrega-do-plano-de-mobilidade-urbana-de-porto-feliz(.*) /blog/plano-mobilidade-urbana-porto-feliz/
+RedirectMatch 301 /061-plano-mobilidade-urbana-porto-feliz(.*) /blog/plano-mobilidade-urbana-porto-feliz/
+RedirectMatch 301 /ousar-no-espaco-urbano-experiencia-de-poynton-inglaterra(.*) /blog/poynton-ousadia-espaco-urbano/
+RedirectMatch 301 /053-poynton-ousadia-espaco-urbano(.*) /blog/poynton-ousadia-espaco-urbano/
+RedirectMatch 301 /ousar-no-espaco-urbano-a-experiencia-de-poynton-inglaterra(.*) /blog/poynton-ousadia-espaco-urbano/
+RedirectMatch 301 /barcelona-projeto-de-superquadra-para-uma-cidade-ativa(.*) /blog/projeto-superquadra-cidade-ativa-mobilidade-urbana/
+RedirectMatch 301 /residuo-de-servicos-de-saude-por-que-tao-importantes(.*) /blog/residuo-servico-saude-perigoso-gerenciamento/
+RedirectMatch 301 /mobilidade-sao-paulo-meio-de-transporte(.*) /blog/sao-paulo-meio-trasporte-rapido-mobilidade-urbana/
+RedirectMatch 301 /mobilidade-em-sao-paulo-qual-meio-de-transporte-e-mais-rapido(.*) /blog/sao-paulo-meio-trasporte-rapido-mobilidade-urbana/
+RedirectMatch 301 /o-que-o-simbolo-da-cadeira-de-rodas-realmente-significa(.*) /blog/simbolo-cadeira-rodas-significado/
+RedirectMatch 301 /simulacoes-de-trafego-as-vantagens-desse-tipo-de-analise(.*) /blog/simulacoes-trafego-otimizar-gestao-controle/
+RedirectMatch 301 /sistema-de-gestao-ambiental-3-boas-razoes-para-implantar(.*) /blog/sistema-gestao-ambiental-iso-14001/
+RedirectMatch 301 /mobilidade-transporte-publico(.*) /blog/transporte-publico-planejamento-urbano/
+RedirectMatch 301 /mobilidade-urbana-transporte-publico-e-planejamento(.*) /blog/transporte-publico-planejamento-urbano/
+RedirectMatch 301 /uberlandia-acessibilidade-deficientes(.*) /blog/uberlandia-acessibilidade-mobilidade-urbana/
+RedirectMatch 301 /uberlandia-e-exemplo-de-acessibilidade-para-deficientes(.*) /blog/uberlandia-acessibilidade-mobilidade-urbana/
+RedirectMatch 301 /voce-ja-se-deparou-com-algum-vazamento-liquido-no-seu-trabalho(.*) /blog/vazamento-liquido/
+RedirectMatch 301 /063-vazamento-liquido(.*) /blog/vazamento-liquido/
+RedirectMatch 301 /mobilidade-urbana-sao-carlos(.*) /blog/
+RedirectMatch 301 /passo-a-passo-para-a-elaboracao-do(.*) /blog/

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:webfeeds="http://webfeeds.org/rss/1.0"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Genos Engenharia e Consultoria: Artigos</title>
+	<atom:link href="https://genos.eco.br/rss.xml" rel="self" type="application/rss+xml" />
+	<link>https://genos.eco.br/</link>
+	<description>Artigos do nosso blog, relacionados à inovação, mobilidade urbana, produção mais limpa, ecodesign, resíduos sólidos, licenciamento, e sustentabilidade.</description>
+	<category>news/business/engineer/environment/enterprisses/noticias/negocios/engenharia/ambiente/empresas</category>
+	<language>pt-BR</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<lastBuildDate>Wed, 4 Jul 2018 16:50:51 -0300</lastBuildDate>
+	<webfeeds:cover image="https://genos.eco.br/img/genos4_1600.jpg" />
+	<webfeeds:icon>https://genos.eco.br/src/logo.png</webfeeds:icon>
+	<webfeeds:logo>https://genos.eco.br/src/text-logo.svg</webfeeds:logo>
+	<webfeeds:accentColor>333</webfeeds:accentColor>
+	<webfeeds:related layout="card" target="browser"/>
+	<webfeeds:analytics id="UA-108518895-1" engine="GoogleAnalytics"/>
+
+<item>
+<title>Panorama das Áreas Contaminadas no Estado de São Paulo</title>
+<description>Postos de combustíveis lideram o ranking de empreendimentos contaminadores de solos, seguido por atividades industriais diversas</description>
+<link>https://genos.eco.br/blog/sao-paulo-areas-contaminadas/</link>
+<guid>https://genos.eco.br/blog/sao-paulo-areas-contaminadas/</guid>
+<pubDate>Fri, 08 Jun 2018 16:56:23 -0300</pubDate>
+<img src="https://genos.eco.br/blog/sao-paulo-areas-contaminadas/pimg_994.jpg" class="webfeedsFeaturedVisual" />
+</item>
+
+<item>
+<title>Por que gerir óleo lubrificante usado é importante?</title>
+<description>Gerir o óleo lubrificante usado é essencial para boa qualidade ambiental e saúde de operários, além e evitar ações emergenciais e multas</description>
+<link>https://genos.eco.br/blog/gerir-oleo-lubrificante-usado/</link>
+<guid>https://genos.eco.br/blog/gerir-oleo-lubrificante-usado/</guid>
+<pubDate>Tue, 19 Jun 2018 16:32:16 -0300</pubDate>
+<img src="https://genos.eco.br/blog/gerir-oleo-lubrificante-usado/pimg_994.jpg" class="webfeedsFeaturedVisual" />
+</item>
+
+<item>
+<title>Redução de impostos e os carros elétricos</title>
+<description>O programa Rota 2030 visa estimular a compra de carros elétricos com a redução de impostos na importação</description>
+<link>https://genos.eco.br/blog/rota-2030-reducao-impostos-carros-eletricos/</link>
+<guid>https://genos.eco.br/blog/rota-2030-reducao-impostos-carros-eletricos/</guid>
+<pubDate>Wed, 20 Jun 2018 16:09:23 -0300</pubDate>
+<img src="https://genos.eco.br/blog/rota-2030-reducao-impostos-carros-eletricos/pimg_994.jpg" class="webfeedsFeaturedVisual" />
+</item>
+
+<item>
+<title>Sustentabilidade para clínicas: 4 motivos para adotar essa ideia</title>
+<description>Depois da gestão da qualidade, sustentabilidade é a nova tendência em estabelecimentos de saúde, trazendo benefícios além do cumprimento à legislação</description>
+<link>https://genos.eco.br/blog/clinicas-saude-sustentabilidade-PGRSS/</link>
+<guid>https://genos.eco.br/blog/clinicas-saude-sustentabilidade-PGRSS/</guid>
+<pubDate>Wed, 20 Jun 2018 10:57:23 -0300</pubDate>
+<img src="https://genos.eco.br/blog/clinicas-saude-sustentabilidade-PGRSS/pimg_994.jpg" class="webfeedsFeaturedVisual" />
+</item>
+
+<item>
+<title>Campanha Calçada #Cilada 2018</title>
+<description>Em São Carlos foram levantados 505 problemas nas vias mapeadas, sendo suas principais categorias as de calçada irregular e falta de rampa de acessibilidade</description>
+<link>https://genos.eco.br/blog/calcada-cilada-resultados-2018/</link>
+<guid>https://genos.eco.br/blog/calcada-cilada-resultados-2018/</guid>
+<pubDate>Mon, 25 Jun 2018 11:00:00 -0300</pubDate>
+<img src="https://genos.eco.br/blog/calcada-cilada-resultados-2018/pimg_994.jpg" class="webfeedsFeaturedVisual" />
+</item>
+
+<item>
+<title>Como o uso de plásticos descartáveis afeta o meio ambiente?</title>
+<description>Com duas leis aprovadas nesse mês para substituir esses materiais, o Rio de Janeiro se coloca como pioneiro nas iniciativas para a redução do plástico e consumo mais sustentável no país</description>
+<link>https://genos.eco.br/blog/plasticos-descartaveis-meio-ambiente/</link>
+<guid>https://genos.eco.br/blog/plasticos-descartaveis-meio-ambiente/</guid>
+<pubDate>Fri, 29 Jun 2018 11:49:13 -0300</pubDate>
+<img src="https://genos.eco.br/blog/plasticos-descartaveis-meio-ambiente/pimg_994.jpg" class="webfeedsFeaturedVisual" />
+</item>
+
+<item>
+<title>Passo a passo do Laudo de Fauna Silvestre</title>
+<description>O laudo de fauna silvestre é uma ferramenta importante para o licenciamento ambiental e supressão vegetal</description>
+<link>https://genos.eco.br/blog/laudo-fauna-silvestre-licenciamento-ambiental/</link>
+<guid>https://genos.eco.br/blog/laudo-fauna-silvestre-licenciamento-ambiental/</guid>
+<pubDate>Tue, 03 Jul 2018 11:27:13 -0300</pubDate>
+<img src="https://genos.eco.br/blog/laudo-fauna-silvestre-licenciamento-ambiental/pimg_994.jpg" class="webfeedsFeaturedVisual" />
+</item>
+
+<item>
+<title>Boulevard, rua compartilhada e calçadão: qual a diferença?</title>
+<description>Essas definições estão inseridas no cotidiano de qualquer planejador urbano, e afetam todas as pessoas que vivem numa cidade, entenda o conceito de cada uma</description>
+<link>https://genos.eco.br/blog/boulevard-calcadao-rua-compartilhada-planejamento-urbano/</link>
+<guid>https://genos.eco.br/blog/boulevard-calcadao-rua-compartilhada-planejamento-urbano/</guid>
+<pubDate>Thu, 05 Jul 2018 12:15:12 -0300</pubDate>
+<img src="https://genos.eco.br/blog/boulevard-calcadao-rua-compartilhada-planejamento-urbano/pimg_994.jpg" class="webfeedsFeaturedVisual" />
+</item>
+
+<item>
+<title>Por que incluir estudos de viabilidade no projeto de um empreendimento inovador?</title>
+<description>O Relatório de Sobrevivência das Empresas no Brasil publicado em 2016 pelo Sebrae aponta que há uma taxa de mortalidade de aproximadamente 25% das empresas com dois anos de existência</description>
+<link>https://genos.eco.br/blog/estudo-viabilidade-empreedimentos-inovacao/</link>
+<guid>https://genos.eco.br/blog/estudo-viabilidade-empreedimentos-inovacao/</guid>
+<pubDate>Wed, 11 Jul 2018 15:42:13 -0300</pubDate>
+<img src="https://genos.eco.br/blog/estudo-viabilidade-empreedimentos-inovacao/pimg_994.jpg" class="webfeedsFeaturedVisual" />
+</item>
+
+<item>
+<title>Como a abertura do calçadão afeta a dinâmica do centro de São Carlos?</title>
+<description>O calçadão da General Osório em São Carlos está ameaçado por um projeto que buscar torná-lo uma via para veículos motorizados</description>
+<link>https://genos.eco.br/blog/calcadao-dinamica-interacao-social/</link>
+<guid>https://genos.eco.br/blog/calcadao-dinamica-interacao-social/</guid>
+<pubDate>Fri, 13 Jul 2018 14:33:13 -0300</pubDate>
+<img src="https://genos.eco.br/blog/calcadao-dinamica-interacao-social/pimg_994.jpg" class="webfeedsFeaturedVisual" />
+</item>
+
+<item>
+<title>4 benefícios de elaborar um EIV para o seu empreendimento</title>
+<description>A finalidade do Estudo de Impacto de Vizinhança é produzir uma análise dos impactos e efeitos causados no entorno de determinados empreendimentos</description>
+<link>https://genos.eco.br/blog/empreendimento-estudo-impacto-vizinhanca/</link>
+<guid>https://genos.eco.br/blog/empreendimento-estudo-impacto-vizinhanca/</guid>
+<pubDate>Mon, 16 Jul 2018 10:20:00 -0300</pubDate>
+<img src="https://genos.eco.br/blog/empreendimento-estudo-impacto-vizinhanca/pimg_994.jpg" class="webfeedsFeaturedVisual" />
+</item>
+
+<item>
+<title>Empreendimentos sustentáveis: estudo de viabilidade</title>
+<description>Um olhar multidisciplinar alinhando perspectivas econômicas, urbanísticas, ambientais e sociais. A multidisciplinariedade da sustentabilidade na projeção e construção de um empreendimento deve ser observada num estudo de viabilidade técnica.</description>
+<link>https://genos.eco.br/blog/empreendimentos-sustentaveis-estudo-viabilidade/</link>
+<guid>https://genos.eco.br/blog/empreendimentos-sustentaveis-estudo-viabilidade/</guid>
+<pubDate>Wed, 18 Jul 2018 15:15:15 -0300</pubDate>
+<img src="https://genos.eco.br/blog/empreendimentos-sustentaveis-estudo-viabilidade/pimg_994.jpg" class="webfeedsFeaturedVisual" />
+</item>
+
+<item>
+<title>Qual a importância da gestão municipal de resíduos sólidos?</title>
+<description>Segundo o IBGE, quase metade dos municípios brasileiros ainda não possuem Plano Municipal de Gestão Integrada de Resíduos Sólidos</description>
+<link>https://genos.eco.br/blog/gestao-municipal-residuos-solidos/</link>
+<guid>https://genos.eco.br/blog/gestao-municipal-residuos-solidos/</guid>
+<pubDate>Wed, 01 Aug 2018 11:30:00 -0300</pubDate>
+<img src="https://genos.eco.br/blog/gestao-municipal-residuos-solidos/pimg_994.jpg" class="webfeedsFeaturedVisual" />
+</item>
+
+<item>
+<title>Santa Casa de São Carlos: Resíduos de Saúde</title>
+<description>Em trabalho sem fins lucrativos, o gerenciamento Resíduos de Serviços Saúde da Santa Casa de Misericórdia de São Carlos foram objeto de análise</description>
+<link>https://genos.eco.br/blog/santa-casa-sao-carlos-residuos-saude/</link>
+<guid>https://genos.eco.br/blog/santa-casa-sao-carlos-residuos-saude/</guid>
+<pubDate>Tue, 14 August 2018 10:00:00 -0300</pubDate>
+<img src="https://genos.eco.br/blog/santa-casa-sao-carlos-residuos-saude/pimg_994.jpg" class="webfeedsFeaturedVisual" />
+</item>
+
+<item>
+<title>Fui de casa ao trabalho caminhando: um relato sobre o direito de andar pela cidade</title>
+<description>O modo como nos locomovemos na cidade passa muitas vezes despercebido, escolhemos as rotas mais rápidas e o trajeto rotineiro se torna previsível e monótono</description>
+<link>https://genos.eco.br/blog/caminhando-trabalho-relato/</link>
+<guid>https://genos.eco.br/blog/caminhando-trabalho-relato/</guid>
+<pubDate>Tue, 14 August 2018 11:00:00 -0300</pubDate>
+<img src="https://genos.eco.br/blog/caminhando-trabalho-relato/pimg_994.jpg" class="webfeedsFeaturedVisual" />
+</item>
+
+</channel>
+</rss>
