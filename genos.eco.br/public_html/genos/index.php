@@ -1,0 +1,1 @@
+<?php $loc='g';include '../../php/' . $loc . '/genos.php'?>
