@@ -10,15 +10,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<script defer type="text/javascript" src="script.js"></script>
 </head>
 
 <body>
 <div class="row"><div class="container"><h1 id="title">What's the password?</h1></div></div>
 <div class="row"><div class="container"><h2 id="subtitle">- Can you guess it? -</h2></div></div>
-<div class="row"><div id="pass" class="container" style="width:unset"></div></div>
-<div class="row"><div class="container"><p id="message">Give it a try!</p></div></div>
-<div class="row"><div class="container"><h3 id="help">Your tries:</h3></div></div>
+<div class="row"><div id="pass" class="container"></div></div>
+<div class="row"><button id="go" class="container" onclick="go()">Give it a try!</button></div>
+<div class="row"><div class="container"><p id="message"></p></div></div>
 <div class="row"><div id="results" class="container flex"></div></div>
 
 <div class="fixed row"><div id="footer" class="container">
@@ -39,5 +38,7 @@
     <select onchange="config(this.value,3)"><option value="por">por</option><option value="eng">eng</option><option value="esp">esp</option></select>
   </div></div>
 </div></div>
+<script defer type="text/javascript" src="language.js"></script>
+<script defer type="text/javascript" src="script.js"></script>
 </body>
 </html>

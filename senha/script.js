@@ -20,7 +20,7 @@ function createPassword(size,max,repeat,lang){
     return pass;
   })();                                                           //run the function once immediately after declaration
   console.log(`Created a password with ${size} digits from 1 to ${max}, there are a total of ${possibilities} possibilities`);
-  //console.log('password:',password);
+  console.log('password:',password);
 
   //createInput
   (function(){
@@ -28,7 +28,7 @@ function createPassword(size,max,repeat,lang){
     container.innerHTML = '';
     let content = '<option value="" disabled selected></option>';
     for(let i=0;i<max;i++){content += `<option value="${i+1}">${i+1}</option>`}
-    for(let i=0;i<size;i++){container.innerHTML += `<select class="pass" onchange="select(this.value,${i})">${content}</select>`}
+    for(let i=0;i<size;i++){container.innerHTML += `<select class="pass" onchange="select()">${content}</select>`}
   })();
 
   const checkPassword = (password,attempt) => {
@@ -75,8 +75,12 @@ function createPassword(size,max,repeat,lang){
         congrats:`¡Felicidades! Descubriste la seña en ${tries} intento${tries>1?'s':''}, era ${password.join(', ')}. Había un total de ${possibilities.toLocaleString('es-ES')} posibilidades.`
       }
     }
-    if(hasBeenDiscovered){hasBeenDiscovered++;return languag[lang].done}
-    if(attempt.toString()===password.toString()){hasBeenDiscovered++;return languag[lang].congrats}
+    if(hasBeenDiscovered){hasBeenDiscovered++;return [languag[lang].done,hasBeenDiscovered]}
+    if(attempt.toString()===password.toString()){
+      hasBeenDiscovered++;
+      printResults(attempt,[...Array(size)].map(e=>'black'))
+      return [languag[lang].congrats,hasBeenDiscovered]
+    }
 
     [correctPosition,correctNumber,result] = checkPassword(password,structuredClone(attempt));
     printResults(attempt,result);
@@ -124,21 +128,21 @@ function createPassword(size,max,repeat,lang){
         '. '+['Vuelve de nuevo','Inténtalo de nuevo','Una vez más','Tu turno','Buena suerte'][random(5)]+'!'
       ]
     }
-    return language[lang].join('');
+    return [language[lang].join(''),hasBeenDiscovered];
   }
-  return (attempt) => {document.getElementById('message').innerHTML = showResults(attempt)}
+  return showResults
 }
 
 function start(){
   let config = localStorage.getItem('passwordGameRecord')?JSON.parse(localStorage.getItem('passwordGameRecord')):[4,5,1,'por'];
 
   const language = {
-    eng:{title:`What's the password?`,subtitle:'- Can you guess it? -',message:'Give it a try!',help:'Your tries:'},
-    por:{title:'Qual é a senha?',subtitle:'- Consegue adivinhar? -',message:'Faça uma tentativa!',help:'Suas tentativas'},
-    esp:{title:'¿Cuál es la seña?',subtitle:'¿Puedes adivinarlo?',message:'¡Haz tu intento!',help:'Tus intentos'}
+    eng:{title:`What's the password?`,subtitle:'- Can you guess it? -',go:'Give it a try!'},
+    por:{title:'Qual é a senha?',subtitle:'- Consegue adivinhar? -',go:'Faça uma tentativa!'},
+    esp:{title:'¿Cuál es la seña?',subtitle:'- ¿Puedes adivinarlo? -',go:'¡Haz tu intento!'}
   }
 
-  const lang = ['title','subtitle','message','help'];
+  const lang = ['title','subtitle','go'];
   lang.forEach(e=>document.getElementById(e).innerHTML = language[config[3]][e]);
 
   const language2 = {
@@ -153,7 +157,6 @@ function start(){
   const sets = document.getElementById('footer').getElementsByTagName('select');
   for(let i in sets){sets[i].value=config[i]}
 
-  let attempt = [...Array(config[0])].map(e=>0);
   function settings(value,index){
     config[index]=isNaN(value)?value:JSON.parse(value);
     localStorage.setItem('passwordGameRecord',JSON.stringify(config));
@@ -161,15 +164,18 @@ function start(){
   }
   const verifyPassword = createPassword(...config);
 
-  const selects = document.getElementById('pass').getElementsByTagName('select');
-  function select(value,index){
-    attempt[index]=JSON.parse(value);
-    if(!attempt.includes(0)){
-      verifyPassword(attempt);
-      attempt=[...Array(config[0])].map(e=>0);
-      for(let i in selects){selects[i].value=0}
-    }
+  const selects = Array.from(document.getElementById('pass').getElementsByTagName('select'));
+  let attempt=[...Array(config[0])];
+  const select = ()=>{
+    selects.forEach((e,i)=>{attempt[i]=e.value?JSON.parse(e.value):'_'});
+    console.log('attempt',attempt);
   }
-  return [select,settings]
+  const go = () => {
+    let [mes,end] = verifyPassword(attempt);
+    document.getElementById('message').innerHTML = mes;
+    if(!end){selects.forEach(e=>e.value=0)}
+  }
+  return [go,select,settings]
 }
-const [select,config] = start();
+
+const [go,select,config] = start();
