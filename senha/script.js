@@ -131,7 +131,7 @@ function createPassword(size,max,repeat,lang){
 }
 
 function start(){
-  let config = localStorage.getItem('passwordGameRecord')?JSON.parse(localStorage.getItem('passwordGameRecord')):[4,5,1,'eng'];
+  let config = localStorage.getItem('passwordGameRecord')?JSON.parse(localStorage.getItem('passwordGameRecord')):[4,5,1,'por'];
 
   const language = {
     eng:{title:`What's the password?`,subtitle:'- Can you guess it? -',message:'Give it a try!',help:'Your tries:'},
