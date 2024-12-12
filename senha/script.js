@@ -19,8 +19,8 @@ function createPassword(size,max,repeat,lang){
     });
     return pass;
   })();                                                           //run the function once immediately after declaration
-  console.log(`Created a password with ${size} digits from 1 to ${max}, there are a total of ${possibilities} possibilit${possibilities>1?'ies':'y'}`);
-  console.log('password:',password);
+  console.log(`Created a password with ${size} digits from 1 to ${max}, there are a total of ${possibilities} possibilities`);
+  //console.log('password:',password);
 
   //createInput
   (function(){
@@ -64,15 +64,15 @@ function createPassword(size,max,repeat,lang){
     const languag = {
       eng:{        
         done:`You've already discovered it!`,
-        congrats:`Congratulations! You discovered the password in ${tries} tr${tries>1?'ies':'y'}, it was ${password.join(', ')}`
+        congrats:`Congratulations! You discovered the password in ${tries} tr${tries>1?'ies':'y'}, it was ${password.join(', ')}. There were a total of ${possibilities.toLocaleString('en-US')} possibilities.`
       },
       por:{
         done:`Você já descobriu a senha!`,
-        congrats:`Parabéns! Você descobriu a senha em ${tries} tentativa${tries>1?'s':''}, era ${password.join(', ')}`
+        congrats:`Parabéns! Você descobriu a senha em ${tries} tentativa${tries>1?'s':''}, era ${password.join(', ')}. Havia um total de ${possibilities.toLocaleString('pt-BR')} possibilidades.`
       },
       esp:{
         done:`Ya descubriste la seña!`,
-        congrats:`¡Felicidades! Descubriste la seña en ${tries} intento${tries>1?'s':''}, era ${password.join(', ')}`
+        congrats:`¡Felicidades! Descubriste la seña en ${tries} intento${tries>1?'s':''}, era ${password.join(', ')}. Había un total de ${possibilities.toLocaleString('es-ES')} posibilidades.`
       }
     }
     if(hasBeenDiscovered){hasBeenDiscovered++;return languag[lang].done}
@@ -124,7 +124,6 @@ function createPassword(size,max,repeat,lang){
         '. '+['Vuelve de nuevo','Inténtalo de nuevo','Una vez más','Tu turno','Buena suerte'][random(5)]+'!'
       ]
     }
-    console.log(language);
     return language[lang].join('');
   }
   return (attempt) => {document.getElementById('message').innerHTML = showResults(attempt)}
@@ -149,7 +148,6 @@ function start(){
   }
 
   const lang2 = document.getElementById('footer').getElementsByTagName('span');
-  console.log(lang2)
   for(let i in lang2){lang2[i].innerHTML = language2[config[3]][i]}
 
   const sets = document.getElementById('footer').getElementsByTagName('select');
