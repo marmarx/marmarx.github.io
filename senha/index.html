@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>What's the password?</title>
+<meta name="author" content="Marco Martins">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#2f4550">
+<meta http-equiv=”Content-Type” content=”text/html; charset=utf-8″>
+<link rel="icon" type="image/png" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script defer type="text/javascript" src="script.js"></script>
+</head>
+
+<body>
+<div class="row"><div class="container"><h1 id="title">What's the password?</h1></div></div>
+<div class="row"><div class="container"><h2 id="subtitle">- Can you guess it? -</h2></div></div>
+<div class="row"><div id="pass" class="container" style="width:unset"></div></div>
+<div class="row"><div class="container"><p id="message">Give it a try!</p></div></div>
+<div class="row"><div class="container"><h3 id="help">Your tries:</h3></div></div>
+<div class="row"><div id="results" class="container flex"></div></div>
+
+<div class="fixed row"><div id="footer" class="container">
+  <div class="foot"><div class="f-center">
+    <span>Password size</span>
+    <select onchange="config(this.value,0)"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4" selected>4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select>
+  </div></div>
+  <div class="foot"><div class="f-center">
+    <span>Max number</span>
+    <select onchange="config(this.value,1)"><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5" selected>5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select>
+  </div></div>
+  <div class="foot"><div class="f-center">
+    <span>Repeat?</span>
+    <select onchange="config(this.value,2)"><option value="1">yes</option><option value="0">no</option></select>
+  </div></div>
+  <div class="foot"><div class="f-center">
+    <span>Language</span>
+    <select onchange="config(this.value,3)"><option value="por">por</option><option value="eng">eng</option><option value="esp">esp</option></select>
+  </div></div>
+</div></div>
+</body>
+</html>
