@@ -35,17 +35,21 @@ function createPassword(size,max,repeat,lang){
     let correctPosition = 0,correctNumber = 0,result=[];
     let pass = structuredClone(password);
     pass.forEach((e,i)=>{if(attempt[i]===e){
+      console.log('attempt black',attempt);
       correctPosition++;
       result.push('black');
       pass[i]=0;
       attempt[i]=-1;
     }});
     pass.forEach((e,i)=>{if(attempt.includes(e)){
+      console.log('attempt gray',attempt);
       correctNumber++;
       result.push('gray');
       pass[i]=0;
       attempt[attempt.indexOf(e)]=-1;
     }});
+    console.log('attempt end',attempt);
+    console.log(correctPosition,correctNumber,result);
     return [correctPosition,correctNumber,result]
   }
 
@@ -71,14 +75,15 @@ function createPassword(size,max,repeat,lang){
         congrats:`Parabéns! Você descobriu a senha em ${tries} tentativa${tries>1?'s':''}, era ${password.join(', ')}. Havia um total de ${possibilities.toLocaleString('pt-BR')} possibilidades.`
       },
       esp:{
-        done:`Ya descubriste la seña!`,
+        done:`¡Ya descubriste la seña!`,
         congrats:`¡Felicidades! Descubriste la seña en ${tries} intento${tries>1?'s':''}, era ${password.join(', ')}. Había un total de ${possibilities.toLocaleString('es-ES')} posibilidades.`
       }
     }
     if(hasBeenDiscovered){hasBeenDiscovered++;return [languag[lang].done,hasBeenDiscovered]}
     if(attempt.toString()===password.toString()){
       hasBeenDiscovered++;
-      printResults(attempt,[...Array(size)].map(e=>'black'))
+      printResults(attempt,[...Array(size)].map(e=>'black'));
+      document.getElementById('flower').src = "flower.html";
       return [languag[lang].congrats,hasBeenDiscovered]
     }
 
@@ -91,7 +96,7 @@ function createPassword(size,max,repeat,lang){
           ['Nice try','Nice try','Nicely done','Great',],
           ['Nicely done','Great','Amazing',,],
           ['Great','Amazing',,,]
-        ][Math.round(correctPosition*4,0)/size][Math.round(correctNumber*4/size)]+'!',
+        ][Math.round(4*correctPosition/size)][Math.round(correctNumber*4/size)]+'!',
         ' You got ',
         `${correctPosition?`${correctPosition} correct number${correctPosition>1?'s':''} in the correct position`:''}`,
         `${correctPosition&&correctNumber?' and ':''}`,
@@ -105,7 +110,7 @@ function createPassword(size,max,repeat,lang){
           ['Boa tentativa','Boa tentativa','Muito bem','Ótimo',],
           ['Muito bem','Ótimo','Incrível',,],
           ['Ótimo','Incrível',,,]
-        ][Math.round(correctPosition*4,0)/size][Math.round(correctNumber*4/size)]+'!',
+        ][Math.round(4*correctPosition/size)][Math.round(correctNumber*4/size)]+'!',
         ' Você conseguiu ',
         `${correctPosition?`${correctPosition} número${correctPosition>1?'s':''} certo${correctPosition>1?'s':''} na posição correta`:''}`,
         `${correctPosition&&correctNumber?' e ':''}`,
@@ -119,13 +124,13 @@ function createPassword(size,max,repeat,lang){
           ['Buen intento','Buen intento','Muy bien','Genial',],
           ['Muy bien','Genial','Increíble',,],
           ['Genial', 'Increíble',,,]
-        ][Math.round(correctPosition*4,0)/size][Math.round(correctNumber*4/size)]+'!',
+        ][Math.round(4*correctPosition/size)][Math.round(correctNumber*4/size)]+'!',
         ' Lo hiciste ',
         `${correctPosition?`${correctPosition} número${correctPosition>1?'s':''} correcto${correctPosition>1?'s':''} en la posición correcta`:''}`,
         `${correctPosition&&correctNumber?' e ':''}`,
         `${correctNumber?`${correctNumber} número${correctNumber>1?'s':''} correcto${correctNumber>1?'s':''} en posición incorrecta`:''}`,
         `${correctPosition===0&&correctNumber===0?'ninguno esta vez, que pena':''}`,
-        '. '+['Vuelve de nuevo','Inténtalo de nuevo','Una vez más','Tu turno','Buena suerte'][random(5)]+'!'
+        '. ¡'+['Vuelve de nuevo','Inténtalo de nuevo','Una vez más','Tu turno','Buena suerte'][random(5)]+'!'
       ]
     }
     return [language[lang].join(''),hasBeenDiscovered];
@@ -166,10 +171,7 @@ function start(){
 
   const selects = Array.from(document.getElementById('pass').getElementsByTagName('select'));
   let attempt=[...Array(config[0])];
-  const select = ()=>{
-    selects.forEach((e,i)=>{attempt[i]=e.value?JSON.parse(e.value):'_'});
-    console.log('attempt',attempt);
-  }
+  const select = ()=>{selects.forEach((e,i)=>{attempt[i]=e.value?JSON.parse(e.value):'_'})}
   const go = () => {
     let [mes,end] = verifyPassword(attempt);
     document.getElementById('message').innerHTML = mes;
