@@ -20,7 +20,7 @@ function createPassword(size,max,repeat,lang){
     return pass;
   })();                                                           //run the function once immediately after declaration
   console.log(`Created a password with ${size} digits from 1 to ${max}, there are a total of ${possibilities} possibilities`);
-  console.log('password:',password);
+  //console.log('password:',password);
 
   //createInput
   (function(){
