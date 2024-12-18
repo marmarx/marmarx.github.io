@@ -92,7 +92,7 @@ function sortear(){
     popNumbers.sort((a,b)=>a-b);  //sort numbers
 
     let pop = popNumbers.filter(num=>numbers.includes(num));
-    if(pop.length){issues.push(`Há ${pop.length} números popularmente tidos como de sorte: ${pop.join(',')}`)}
+    if(pop.length){issues.push(`Há ${pop.length} números popularmente da <a href="https://en.wikipedia.org/wiki/Lucky_number" target="_blank">sorte</a>: ${pop.join(',')}`)}
 
     if(issues.length){return issues.length?`<b>Possíveis problemas com este conjunto de números:</b><br><ul><li>${issues.join('</li><li>')}</ul></li>`:''}
     else{return 'Nenhum viés importante detectado. Este é um conjunto de números relativamente equilibrado'}
