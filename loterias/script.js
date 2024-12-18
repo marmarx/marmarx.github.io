@@ -97,7 +97,7 @@ function sortear(){
     if(issues.length){return issues.length?`<b>Possíveis problemas com este conjunto de números:</b><br><ul><li>${issues.join('</li><li>')}</ul></li>`:''}
     else{return 'Nenhum viés importante detectado. Este é um conjunto de números relativamente equilibrado'}
   }
-
+  
   document.getElementById("consider").innerHTML = check(numbers);
   document.getElementById("myPar").innerHTML = '<b>Números escolhidos aleatoriamente:</b><br><br>'+numbers.join(', ');
   console.log('');
