@@ -163,12 +163,11 @@ function start(){
 
   const lang2 = document.getElementById('footer').getElementsByTagName('span');
   for(let i in lang2){lang2[i].innerHTML = language2[config[3]][i]}
-  console.log(lang2[2]);
-  lang2[2].options[0].innerHTML = language2[config[3]][4];
-  lang2[2].options[1].innerHTML = language2[config[3]][5];
-
+  
   const sets = document.getElementById('footer').getElementsByTagName('select');
   for(let i in sets){sets[i].value=config[i]}
+  sets[2].options[0].innerHTML = language2[config[3]][4];
+  sets[2].options[1].innerHTML = language2[config[3]][5];
 
   function settings(value,index){
     config[index]=isNaN(value)?value:JSON.parse(value);
