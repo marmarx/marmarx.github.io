@@ -64,7 +64,7 @@ function createPassword(size,max,repeat,lang){
   let hasBeenDiscovered=0,tries=0;  
   const showResults = (attempt) => {
     tries++;
-    const go = document.getElementById('go');
+    const goBtn = document.getElementById('go');
     const languag = {
       eng:{        
         done:`You've already discovered it!`,
@@ -87,8 +87,8 @@ function createPassword(size,max,repeat,lang){
       hasBeenDiscovered++;
       printResults(attempt,[...Array(size)].map(e=>'black'));
       document.getElementById('flower').src = "flower.html";
-      go.innerHTML = languag[lang].restart;
-      go.setAttribute('onclick','location.reload()');
+      goBtn.innerHTML = languag[lang].restart;
+      goBtn.setAttribute('onclick','location.reload()');
       return [languag[lang].congrats,hasBeenDiscovered]
     }
 
@@ -180,8 +180,8 @@ function start(){
   let attempt=[...Array(config[0])];
   const select = ()=>{selects.forEach((e,i)=>{attempt[i]=e.value?JSON.parse(e.value):'_'})}
   const go = () => {
-    let [mes,end] = verifyPassword(attempt);
-    document.getElementById('message').innerHTML = mes;
+    let [mesg,end] = verifyPassword(attempt);
+    document.getElementById('message').innerHTML = mesg;
     if(!end){selects.forEach(e=>e.value=0)}
   }
   return [go,select,settings]
