@@ -163,6 +163,7 @@ function start(){
 
   const lang2 = document.getElementById('footer').getElementsByTagName('span');
   for(let i in lang2){lang2[i].innerHTML = language2[config[3]][i]}
+  console.log(lang2[2]);
   lang2[2].options[0].innerHTML = language2[config[3]][4];
   lang2[2].options[1].innerHTML = language2[config[3]][5];
 
