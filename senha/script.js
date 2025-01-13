@@ -64,26 +64,31 @@ function createPassword(size,max,repeat,lang){
   let hasBeenDiscovered=0,tries=0;  
   const showResults = (attempt) => {
     tries++;
-
+    const go = document.getElementById('go');
     const languag = {
       eng:{        
         done:`You've already discovered it!`,
+        restart:'Click to restart',
         congrats:`Congratulations! You discovered the password in ${tries} tr${tries>1?'ies':'y'}, it was ${password.join(', ')}. There were a total of ${possibilities.toLocaleString('en-US')} possibilities.`
       },
       por:{
         done:`Você já descobriu a senha!`,
+        restart:'Clique para reiniciar',
         congrats:`Parabéns! Você descobriu a senha em ${tries} tentativa${tries>1?'s':''}, era ${password.join(', ')}. Havia um total de ${possibilities.toLocaleString('pt-BR')} possibilidades.`
       },
       esp:{
         done:`¡Ya descubriste la seña!`,
+        restart:'Clic para reiniciar',
         congrats:`¡Felicidades! Descubriste la seña en ${tries} intento${tries>1?'s':''}, era ${password.join(', ')}. Había un total de ${possibilities.toLocaleString('es-ES')} posibilidades.`
       }
     }
-    if(hasBeenDiscovered){hasBeenDiscovered++;return [languag[lang].done,hasBeenDiscovered]}
+    if(hasBeenDiscovered){return [languag[lang].done,hasBeenDiscovered]}
     if(attempt.toString()===password.toString()){
       hasBeenDiscovered++;
       printResults(attempt,[...Array(size)].map(e=>'black'));
       document.getElementById('flower').src = "flower.html";
+      go.innerHTML = languag[lang].restart;
+      go.setAttribute('onclick','location.reload()');
       return [languag[lang].congrats,hasBeenDiscovered]
     }
 
