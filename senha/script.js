@@ -156,13 +156,15 @@ function start(){
   lang.forEach(e=>document.getElementById(e).innerHTML = language[config[3]][e]);
 
   const language2 = {
-    eng:['Password size','Max number','Repeat?','Language'],
-    por:['Tamanho senha','Número max','Repetir?','Idioma'],
-    esp:['Longitud seña','Número max','¿Repetir?','Idioma']
+    eng:['Password size','Max number','Repeat?','Language','yes','no'],
+    por:['Tamanho senha','Número max','Repetir?','Idioma','sim','não'],
+    esp:['Longitud seña','Número max','¿Repetir?','Idioma','sí','no']
   }
 
   const lang2 = document.getElementById('footer').getElementsByTagName('span');
   for(let i in lang2){lang2[i].innerHTML = language2[config[3]][i]}
+  lang2[2].options[0].innerHTML = language2[config[3]][4];
+  lang2[2].options[1].innerHTML = language2[config[3]][5];
 
   const sets = document.getElementById('footer').getElementsByTagName('select');
   for(let i in sets){sets[i].value=config[i]}
