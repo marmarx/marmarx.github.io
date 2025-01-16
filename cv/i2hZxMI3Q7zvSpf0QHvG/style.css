@@ -35,6 +35,8 @@ hr{border:0;border-top:1px solid var(--black);margin:20px 100px 20px 0;height:0;
 .lang{position:fixed;top:0;right:0;padding:10px}
 .lang-opt{padding:5px 10px 5px 50px}
 
+#skills,#skills_mob{text-align:left}
+
 .ani-width{animation: ani-width 1.5s ease-out}
 @keyframes ani-width{0%{width:0}}
 
