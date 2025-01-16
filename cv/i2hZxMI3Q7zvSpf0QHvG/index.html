@@ -9,77 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-
-<style>
-:root{--black:#3b3b3b;--white:#fff;--color:rgb(76,189,25);--backcolor:rgba(76,189,25,.1)}
-*,*:before,*:after{margin:0;padding:0;transition:all .7s ease-in-out;sans-serif;color:var(--black);word-wrap:normal;word-break:keep-all;box-sizing:border-box}
-html,body{overflow-x:hidden;width:100vw}
-::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:#f1f1f1}::-webkit-scrollbar-thumb{background:#bbb}::-webkit-scrollbar-thumb:hover{background:#999}::selection{background:#30f2bb}
-
-div[onclick]{cursor:pointer}
-.row{display:inline-flex;position:relative;width:100%}
-.container{margin:auto;position:relative;float:left;width:80%;max-width:1200px}
-.half,.third,.twothirds{float:left}
-.half{width:49.99999%}.third{width:33.33333%}.twothirds{width:66.66666%}
-
-h1,h2{letter-spacing:4px;font-family:'Lora', serif}
-h1{font-size:1.6em;font-weight:500;bottom:0;position:absolute;color:#fff;margin:12px 20px;text-shadow:2px 2px 3px #252525,2px 2px 5px #252525}
-h2{font-size:1.4em;margin:1.5em 0;font-weight:600}
-h3,p{line-height:1.8em;letter-spacing:.8px;text-align:justify;font-size:1.1em;font-weight:300}
-h3,.third p{margin-top:1em}
-.small{font-size:.9em;margin:0;letter-spacing:normal}
-b{font-weight:bold}i{font-style:italic}
-a{text-decoration:none;word-wrap:break-word}
-
-body{background:#f1f1f1}
-hr{border:0;border-top:1px solid var(--black);margin:20px 100px 20px 0;height:0;opacity:.8}.third hr{border-color:var(--white);margin:0 20px}
-.third{background:var(--backcolor);height:100%}
-.info{padding:30px 45px}
-.twothirds{width:66.66666%;padding-left:45px}
-.page{margin:100px auto;padding:120px 75px 0;width:90%;max-width:1200px;box-shadow:6px 10px 28px 0px rgba(0,0,0,0.4);overflow-y:hidden}
-.photo{position:relative;background:url("pic.jpg");background-size:cover;background-position:center;width:100%;padding-bottom:100%}
-.fa{margin-right:5px}.fa,.fa:before,.fa:after{color:var(--color)!important}
-.bar{border-radius:16px;height:10px;background:#f1f1f1;width:100%;margin:10px 0 15px}
-.ani-scroll{background:var(--color)}
-.w100{width:100%}.w95{width:95%}.w90{width:90%}.w85{width:85%}.w80{width:80%}.w75{width:75%}.w70{width:70%}.w65{width:65%}.w60{width:60%}.w55{width:55%}.w50{width:50%}.w45{width:45%}.w40{width:40%}.w35{width:35%}.w30{width:30%}.w25{width:25%}.w20{width:20%}.w15{width:15%}.w10{width:10%}.w5{width:5%}
-.m0{margin:0!important}
-.fa-envelope:before{color:black}h2 .fa{padding-right:35px}.fa{padding-right:25px}
-.mob{display:none}.pb{padding-bottom:120px}
-.lang{position:fixed;top:0;right:0;padding:10px}
-.lang-opt{padding:5px 10px 5px 50px}
-
-.ani-width{animation: ani-width 1.5s ease-out}
-@keyframes ani-width{0%{width:0}}
-
-@media (max-width:780px){
-.half,.third,.twothirds{width:100%}
-.third,.twothirds{padding:30px}
-.third{padding:30% 30px 45px;margin-top:100px;height:unset;position:relative}
-.photo{width:50%;padding-bottom:50%;border-radius:100%;position:absolute;top:0;left:50%;margin:-25%}
-h1{position:relative;text-align:center;margin:0;width:100%;color:var(--black);text-shadow:none;font-weight:bold}
-hr{display:none}
-#scholl{margin:0}
-.web{display:none}.mob{display:block}
-.page{margin:0;width:100%;padding:120px 20px}
-.twothirds .info{padding:30px 0}
-.pt0{padding-top:45px}.pb{padding-bottom:0}
-}
-@media print{
-@page{margin:0;padding:0}
-html{width:100%}
-body{width:100%;background:#fff;margin:auto;padding-left:60px}
-.page{margin:0;padding:45px 0}
-.container{width:100%,max-width:unset;box-shadow:none}
-.third .info{padding:15px 30px}
-.third{height:99%}
-h2,h3,p{display:block;break-inside:avoid;page-break-inside:avoid;line-height:1.3em}h3,.third p{margin:.5}p{font-size:1em}h2{font-size:1.3em}
-script,style{display:none}
-.twothirds{padding:0}#work,#achievements{padding:0 45px}
-hr{display:none}
-.pagebreak{page-break-before:always;break-after:page}
-.lang{display:none}
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -114,9 +44,10 @@ hr{display:none}
    <p>Autodesk AutoCAD</p><div class="bar"><div class="bar w80 ani-scroll"></div></div>
    <p>ESRI ArcGIS</p><div class="bar"><div class="bar w60 ani-scroll"></div></div>
    <p>Google Maps<br><span class="small">Earth, MyMaps, Maps platform API</span></p><div class="bar"><div class="bar w70 ani-scroll"></div></div>
-   <p>Frontend<br><span class="small">HTML 5, CSS 3, Javascript, JS, Vue.js, PHP</span></p><div class="bar"><div class="bar w85 ani-scroll"></div></div>
-   <p>Backend<br><span class="small">PHP, Javascript, Node.js</span></p><div class="bar"><div class="bar w75 ani-scroll"></div></div>
+   <p>Frontend<br><span class="small">HTML 5, CSS 3, Javascript, JS, Vue.js, React.js, PHP</span></p><div class="bar"><div class="bar w85 ani-scroll"></div></div>
+   <p>Backend<br><span class="small">PHP, Javascript, MongoDB Atlas, Node.js</span></p><div class="bar"><div class="bar w75 ani-scroll"></div></div>
    <p>WordPress.org</p><div class="bar"><div class="bar w100 ani-scroll"></div></div>
+   <p>Inteligência Artificial<br><span class="small">Google Gemini and ChatGPT 4</span></p><div class="bar"><div class="bar w75 ani-scroll"></div></div>
    <p>Arduino ESP Enviroment</p><div class="bar"><div class="bar w80 ani-scroll"></div></div>
    <p>DJI Drones</p><div class="bar"><div class="bar w75 ani-scroll"></div></div>
    <p>Agile Management<br><span class="small">PDCA, Scrum, Kanban</span></p><div class="bar"><div class="bar w90 ani-scroll"></div></div>
@@ -137,9 +68,21 @@ hr{display:none}
    <h3><b>Volunteer - Rondon Project</b></h3><p>Jan 2011 - Ministry of Defense, Federal Government, Brazil</p>
    <h3><b>Intern - Water Treatment System Designer</b></h3><p>Mar 2012 to Dec 2012 - Hidrosan Engineering S/A, Sao Carlos/SP, Brazil</p>
    <h3><b>Partner - CFO, Project Manager, and Salles Represensative</b></h3><p>May 2013 to Aug 2018 - Genos Environmental Consulting LTDA ME, São Carlos/SP, Brazil</p>
-   <h3><b>Freelancer - Airbnb Community Expert - Customer Support</b></h3><p>May 2018 to Jul 2024 - Directly OnDemand Inc, San Francisco/CA, USA</p>
+   <h3><b>Freelancer - Airbnb Community Expert - Customer Support and Conflict Resolution</b></h3><p>May 2018 to Jul 2024 - Directly OnDemand Inc, San Francisco/CA, USA</p>
   </div>
-
+  
+  <div id="courses" class="info">
+   <h2><b><i class="fa fa-suitcase fa-fw"></i>Courses and certifications</b></h2>
+   <h3><b>HTML 5, CSS 3, Javascript, PHP</b></h3><p>2016 to 2017 - W3Schools</p>
+   <h3><b>JavaScript: from first steps to professional</b></h3><p>2024 - Frontend Masters</p>
+   <h3><b>JavaScript: the hard parts v2</b></h3><p>2024 - Frontend Masters</p>
+   <h3><b>The hard parts of asynchronous JavaScript</b></h3><p>2024 - Frontend Masters</p>
+   <h3><b>The hard parts of functional JavaScript</b></h3><p>2024 - Frontend Masters</p>
+   <h3><b>Node.js and MongoDB Atlas integrated to Google Gemini</b></h3><p>2024 - Alura</p>
+   <h3><b>Vue.js e React.js</b></h3><p>2025 ongoing - W3Schools</p>
+   <h3><b>The hard parts of servers & Node.js</b></h3><p>2025 ongoing - Frontend Masters</p>
+  </div>
+  
   <div class="pagebreak"></div>
 
   <div id="achievements" class="info pb">
@@ -162,11 +105,7 @@ hr{display:none}
    <h3><b>Technical, Economic, Financial and Environmental Feasibility Study of the Technological Innovation Center (TIC) in the city of Registro</b></h3><p>2018 - Municipality of Registro, Registro/SP</p>
    <h3><b>Urban Public Transport Plan for the city of Monte Alto</b></h3><p>2018 - Municipality of Monte Alto, Monte Alto/SP</p>
    <h3><b>Airbnb Customer Support (hosts and guests) - Remote</b></h3><p>2018 to 2024 - Directly OnDemand Inc, San Francisco/CA, USA<br>85,113 cases resolved with CSAT 99% and NPS 82</p>
-   <h3><b>HTML 5, CSS 3, Javascript, js, Vue.js, PHP</b></h3><p>2014 ongoing - W3Schools</p><p>Self-teaching programming languages education - w3schools.com</p>
-   <h3><b>Javascript Online Course</b></h3><p>2024 - Frontend Masters</p><p>Javascript: the hard parts, async and functional programming - frontendmasters.com</p>
-   <h3><b>Node.js Online Course</b></h3><p>2025 - Frontend Masters</p><p>Node.js - frontendmasters.com</p>
   </div>
-
  </div>
 
  <div class="third mob m0 pt0">
@@ -179,9 +118,9 @@ hr{display:none}
    <p>Autodesk AutoCAD</p><div class="bar"><div class="bar w80 ani-scroll"></div></div>
    <p>ESRI ArcGIS</p><div class="bar"><div class="bar w60 ani-scroll"></div></div>
    <p>Google Maps<br><span class="small">Earth, MyMaps, Maps platform API</span></p><div class="bar"><div class="bar w70 ani-scroll"></div></div>
-   <p>Frontend<br><span class="small">HTML 5, CSS 3, Javascript, JS, Vue.js, PHP</span></p><div class="bar"><div class="bar w85 ani-scroll"></div></div>
-   <p>Backend<br><span class="small">PHP, Javascript, Node.js</span></p><div class="bar"><div class="bar w75 ani-scroll"></div></div>
+   <p>Backend<br><span class="small">PHP, Javascript, MongoDB Atlas, Node.js</span></p><div class="bar"><div class="bar w75 ani-scroll"></div></div>
    <p>WordPress.org</p><div class="bar"><div class="bar w100 ani-scroll"></div></div>
+   <p>Inteligência Artificial<br><span class="small">Google Gemini and ChatGPT 4</span></p><div class="bar"><div class="bar w75 ani-scroll"></div></div>
    <p>Arduino ESP Enviroment</p><div class="bar"><div class="bar w80 ani-scroll"></div></div>
    <p>DJI Drones</p><div class="bar"><div class="bar w75 ani-scroll"></div></div>
    <p>Agile Management<br><span class="small">PDCA, Scrum, Kanban</span></p><div class="bar"><div class="bar w90 ani-scroll"></div></div>
@@ -195,19 +134,5 @@ hr{display:none}
 <option class="lang-opt pt" value="cv_pt.html">Português</option>
 </select></div>
 </body>
-
-<script>
-const options = {root:null,rootMargin:'0px',threshold:0.5};
-const callback = (entries) => {
- entries.forEach(entry => {
-  if(entry.isIntersecting){
-   entry.target.classList.add("ani-width"); //entry.isIntersecting
-   //elements.splice(elements.indexOf(entry.target),1) //remove this row to repeat animation
-  }
- });
-};
-let observer = new IntersectionObserver(callback,options);
-document.querySelectorAll('.ani-scroll')
-.forEach(el => {observer.observe(el)});
-</script>
+<script defer="" type="text/javascript" src="script.js"></script>
 </html>
