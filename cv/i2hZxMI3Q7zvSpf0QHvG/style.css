@@ -9,7 +9,7 @@ div[onclick]{cursor:pointer}
 .half,.third,.twothirds{float:left}
 .half{width:49.99999%}.third{width:33.33333%}.twothirds{width:66.66666%}
 
-h1,h2{letter-spacing:4px;font-family:'Lora', serif}
+h1,h2{letter-spacing:2px;font-family:'Lora', serif}
 h1{font-size:1.6em;font-weight:500;bottom:0;position:absolute;color:#fff;margin:12px 20px;text-shadow:2px 2px 3px #252525,2px 2px 5px #252525}
 h2{font-size:1.4em;margin:1.2em 0;font-weight:600}
 h3,p{line-height:1.8em;letter-spacing:.8px;text-align:justify;font-size:1.1em;font-weight:300}
@@ -62,12 +62,12 @@ html,body,.page,.container{width:100%}
 body{background:#fff;margin:auto;padding-left:60px}
 .page{margin:0;padding:45px 0;min-height:297mm}
 .container{max-width:unset;box-shadow:none}
+.info{padding:15px 45px}
 .third .info{padding:15px 30px}
 .third{height:99%}
-h2,h3,p{display:block;break-inside:avoid;page-break-inside:avoid;line-height:1.3em}h3,.third p{margin:.5em}p{font-size:1em}h2{font-size:1.3em}
+h1,h2,h3,p{display:block;break-inside:avoid;page-break-inside:avoid;line-height:1.3em;font-size:90%}
 .twothirds{padding:0}#work,#achievements{padding:0 45px}
 .pagebreak{page-break-before:always;break-after:page}
 #pgdivider{background:none;height:1px;margin:0}
 script,style,hr,.lang{display:none}
-
 }
