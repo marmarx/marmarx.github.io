@@ -1,0 +1,47 @@
+<!-- Flags by @pixelastic at https://github.com/pixelastic/css-flags/tree/master and https://pixelastic.github.io/css-flags/-->
+
+<html>
+<style>
+.flag{margin:15px;position:relative;transition:all .5s ease}
+.bra{width: 220px;height: 154px;background-color: #FFE000;
+    background-image: -webkit-linear-gradient(303deg, #009639 0, #009639 75px, transparent 75px), -webkit-linear-gradient(237deg, #009639 0, #009639 75px, transparent 75px), -webkit-linear-gradient(123deg, #009639 0, #009639 75px, transparent 75px), -webkit-linear-gradient(57deg, #009639 0, #009639 75px, transparent 75px);
+    background-image: linear-gradient(147deg, #009639 0, #009639 75px, transparent 75px), linear-gradient(213deg, #009639 0, #009639 75px, transparent 75px), linear-gradient(-33deg, #009639 0, #009639 75px, transparent 75px), linear-gradient(33deg, #009639 0, #009639 75px, transparent 75px)
+}
+.bra:after{content: '';display: block;position: absolute;width: 77px;height: 77px;border-radius: 50%;top: 39px;left: 72px;background-color: #012169;
+    background-image: -webkit-radial-gradient(17px 116px circle, #012169 88px, transparent 89px), -webkit-radial-gradient(17px 116px circle, #FFFFFF 94px, transparent 95px);
+    background-image: radial-gradient(circle at 17px 116px, #012169 88px, transparent 89px), radial-gradient(circle at 17px 116px, #FFFFFF 94px, transparent 95px)
+}
+
+.gb{width: 220px;height: 110px;
+    background: -webkit-linear-gradient(top, transparent, transparent 44px, #c8102e 44px, #c8102e 66px, transparent 66px, transparent 100%), -webkit-linear-gradient(left, transparent, transparent 99px, #c8102e 99px, #c8102e 121px, transparent 121px, transparent 100%), -webkit-linear-gradient(top, transparent, transparent 37px, #FFF 37px, #FFF 73px, transparent 73px, transparent 100%), -webkit-linear-gradient(left, transparent, transparent 92px, #FFF 92px, #FFF 128px, transparent 128px, transparent 100%), -webkit-linear-gradient(63.435deg, transparent, transparent 91px, #c8102e 91px, #c8102e 98px, transparent 98px, transparent 100%) 0 0/110px 100% no-repeat, -webkit-linear-gradient(116.565deg, transparent, transparent 98px, #c8102e 98px, #c8102e 106px, transparent 106px, transparent 100%) 110px 0/110px 100% no-repeat, -webkit-linear-gradient(63.435deg, transparent, transparent 98px, #c8102e 98px, #c8102e 106px, transparent 106px, transparent 100%) 110px 55px/110px 100% no-repeat, -webkit-linear-gradient(116.565deg, transparent, transparent 91px, #c8102e 91px, #c8102e 98px, transparent 98px, transparent 100%) 0 55px/110px 100% no-repeat, -webkit-linear-gradient(63deg, transparent, transparent 87px, #FFF 87px, #FFF 109px, transparent 109px, transparent 100%), -webkit-linear-gradient(297deg, transparent, transparent 87px, #FFF 87px, #FFF 109px, transparent 109px, transparent 100%), #012169;
+    background: linear-gradient(180deg, transparent, transparent 44px, #c8102e 44px, #c8102e 66px, transparent 66px, transparent 100%), linear-gradient(90deg, transparent, transparent 99px, #c8102e 99px, #c8102e 121px, transparent 121px, transparent 100%), linear-gradient(180deg, transparent, transparent 37px, #FFF 37px, #FFF 73px, transparent 73px, transparent 100%), linear-gradient(90deg, transparent, transparent 92px, #FFF 92px, #FFF 128px, transparent 128px, transparent 100%), linear-gradient(26.56505deg, transparent, transparent 91px, #c8102e 91px, #c8102e 98px, transparent 98px, transparent 100%) 0 0/110px 100% no-repeat, linear-gradient(-26.56505deg, transparent, transparent 98px, #c8102e 98px, #c8102e 106px, transparent 106px, transparent 100%) 110px 0/110px 100% no-repeat, linear-gradient(26.56505deg, transparent, transparent 98px, #c8102e 98px, #c8102e 106px, transparent 106px, transparent 100%) 110px 55px/110px 100% no-repeat, linear-gradient(-26.56505deg, transparent, transparent 91px, #c8102e 91px, #c8102e 98px, transparent 98px, transparent 100%) 0 55px/110px 100% no-repeat, linear-gradient(27deg, transparent, transparent 87px, #FFF 87px, #FFF 109px, transparent 109px, transparent 100%), linear-gradient(153deg, transparent, transparent 87px, #FFF 87px, #FFF 109px, transparent 109px, transparent 100%), #012169
+}
+
+.usa{width: 220px;height: 116px;
+    background-image: -webkit-linear-gradient(top, #ba0c2f 0, #ba0c2f 8%, #FFF 8%, #FFF 15%, #ba0c2f 15%, #ba0c2f 23%, #FFF 23%, #FFF 31%, #ba0c2f 31%, #ba0c2f 38%, #FFF 38%, #FFF 46%, #ba0c2f 46%, #ba0c2f 54%, #FFF 54%, #FFF 62%, #ba0c2f 62%, #ba0c2f 69%, #FFF 69%, #FFF 77%, #ba0c2f 77%, #ba0c2f 85%, #FFF 85%, #FFF 92%, #ba0c2f 92%, #ba0c2f 100%);
+    background-image: linear-gradient(180deg, #ba0c2f 0, #ba0c2f 8%, #FFF 8%, #FFF 15%, #ba0c2f 15%, #ba0c2f 23%, #FFF 23%, #FFF 31%, #ba0c2f 31%, #ba0c2f 38%, #FFF 38%, #FFF 46%, #ba0c2f 46%, #ba0c2f 54%, #FFF 54%, #FFF 62%, #ba0c2f 62%, #ba0c2f 69%, #FFF 69%, #FFF 77%, #ba0c2f 77%, #ba0c2f 85%, #FFF 85%, #FFF 92%, #ba0c2f 92%, #ba0c2f 100%)
+}
+.usa:before{content: "";display: block;position: absolute;background-color: #012169;width: 88px;height: 62px;left: 0;top: 0}
+.usa:after{color: transparent;content: "✭";font-size: 7px;height: 7px;line-height: 7px;text-align: center;position: absolute;width: 7px;top: -4px;left: -4px;
+    text-shadow: 7px 6px 0px #FFF, 22px 6px 0px #FFF, 37px 6px 0px #FFF, 51px 6px 0px #FFF, 66px 6px 0px #FFF, 81px 6px 0px #FFF, 15px 12px 0px #FFF, 29px 12px 0px #FFF, 44px 12px 0px #FFF, 59px 12px 0px #FFF, 73px 12px 0px #FFF, 7px 19px 0px #FFF, 22px 19px 0px #FFF, 37px 19px 0px #FFF, 51px 19px 0px #FFF, 66px 19px 0px #FFF, 81px 19px 0px #FFF, 15px 25px 0px #FFF, 29px 25px 0px #FFF, 44px 25px 0px #FFF, 59px 25px 0px #FFF, 73px 25px 0px #FFF, 7px 31px 0px #FFF, 22px 31px 0px #FFF, 37px 31px 0px #FFF, 51px 31px 0px #FFF, 66px 31px 0px #FFF, 81px 31px 0px #FFF, 15px 37px 0px #FFF, 29px 37px 0px #FFF, 44px 37px 0px #FFF, 59px 37px 0px #FFF, 73px 37px 0px #FFF, 7px 44px 0px #FFF, 22px 44px 0px #FFF, 37px 44px 0px #FFF, 51px 44px 0px #FFF, 66px 44px 0px #FFF, 81px 44px 0px #FFF, 15px 50px 0px #FFF, 29px 50px 0px #FFF, 44px 50px 0px #FFF, 59px 50px 0px #FFF, 73px 50px 0px #FFF, 7px 56px 0px #FFF, 22px 56px 0px #FFF, 37px 56px 0px #FFF, 51px 56px 0px #FFF, 66px 56px 0px #FFF, 81px 56px 0px #FFF;
+}
+</style>
+<body>
+<div class="flag bra"></div>
+<div class="flag usa"></div>
+<div class="flag gb"></div>
+<div class="flag bra" onclick="rotate_flag(this)"></div>
+<script>
+function flags(){
+ const flags = ['bra','usa','gb'];
+ let i=0;
+ return function rotate(e){
+  e.classList.remove(flags[i]);
+  i++;
+  i=i>2?0:i;
+  e.classList.add(flags[i]);
+ }
+}
+const rotate_flag = flags();
+</script>
+</body>
