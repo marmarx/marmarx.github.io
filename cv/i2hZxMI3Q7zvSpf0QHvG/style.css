@@ -1,5 +1,5 @@
 :root{--black:#3b3b3b;--white:#fff;--color:rgb(76,189,25);--backcolor:rgba(76,189,25,.1)}
-*,*:before,*:after{margin:0;padding:0;transition:all .7s ease-in-out;sans-serif;color:var(--black);word-wrap:normal;word-break:keep-all;box-sizing:border-box}
+*,*:before,*:after{margin:0;padding:0;transition:all .7s ease-in-out;color:var(--black);word-wrap:normal;word-break:keep-all;box-sizing:border-box}
 html,body{overflow-x:hidden;width:100vw}
 ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:#f1f1f1}::-webkit-scrollbar-thumb{background:#bbb}::-webkit-scrollbar-thumb:hover{background:#999}::selection{background:#30f2bb}
 
@@ -12,7 +12,7 @@ div[onclick]{cursor:pointer}
 h1,h2{letter-spacing:2px;font-family:'Lora', serif}
 h1{font-size:1.6em;font-weight:500;bottom:0;position:absolute;color:#fff;margin:12px 20px;text-shadow:2px 2px 3px #252525,2px 2px 5px #252525}
 h2{font-size:1.4em;margin:1.2em 0;font-weight:600}
-h3,p{line-height:1.8em;letter-spacing:.8px;text-align:justify;font-size:1.1em;font-weight:300}
+h3,p{line-height:2em;letter-spacing:.8px;text-align:justify;font-size:1.1em;font-weight:300}
 h3,.third p{margin-top:.8em}
 .small{font-size:.9em;margin:0;letter-spacing:normal}
 b{font-weight:bold}i{font-style:italic}
@@ -55,14 +55,12 @@ hr{display:none}
 }
 
 @media print{
-::-webkit-input-placeholder,:-moz-placeholder,::-moz-placeholder,:-ms-input-placeholder{color:transparent}::placeholder{opacity:0}
 *{-webkit-print-color-adjust:exact;-moz-print-color-adjust:exact;-ms-print-color-adjust:exact;print-color-adjust:exact}
-@page{size:A4;margin:0}
 html,body,.page,.container{width:100%}
-body{background:#fff;margin:auto;padding-left:60px}
-.page{margin:0;padding:45px 0;min-height:297mm}
+body{background:#fff;margin:0;padding-left:60px}
+.page{margin:0;padding:60px 0;min-height:297mm}
 .container{max-width:unset;box-shadow:none}
-.info{padding:15px 45px}
+.info{padding:15px 45px;page-break-after:always;break-after:page}
 .third .info{padding:15px 30px}
 .third{height:99%}
 h1,h2,h3,p{display:block;break-inside:avoid;page-break-inside:avoid;line-height:1.3em;font-size:90%}
@@ -72,4 +70,5 @@ h2 .fa{padding-right:25px}
 #pgdivider{background:none;height:1px;margin:0}
 #comment{padding-top:30px}
 script,style,hr,.lang{display:none}
+@page{size:auto;margin:5mm 5mm 10mm 0mm!important}
 }
