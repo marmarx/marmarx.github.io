@@ -10,7 +10,7 @@ div[onclick]{cursor:pointer}
 .half{width:49.99999%}.third{width:33.33333%}.twothirds{width:66.66666%}
 
 h1,h2{letter-spacing:2px;font-family:'Lora', serif}
-h1{font-size:1.6em;font-weight:500;bottom:0;position:absolute;color:#fff;margin:12px 20px;text-shadow:2px 2px 3px #252525,2px 2px 5px #252525}
+h1{font-size:1.8em;font-weight:500;bottom:0;position:absolute;color:#fff;margin:12px 20px;text-shadow:2px 2px 3px #252525,2px 2px 5px #252525}
 h2{font-size:1.4em;margin:1.2em 0;font-weight:600}
 h3,p{line-height:2em;letter-spacing:.8px;text-align:justify;font-size:1.1em;font-weight:300}
 h3,.third p{margin-top:.8em}
@@ -22,9 +22,9 @@ body{background:#f1f1f1}
 hr{border:0;border-top:1px solid var(--black);margin:20px 100px 20px 0;height:0;opacity:.8}.third hr{border-color:var(--white);margin:0 20px}
 .third{background:var(--backcolor);height:100%}
 .info{padding:30px 45px}
-.twothirds{width:66.66666%;padding-left:45px}
+.twothirds{padding-left:45px}
 .page{margin:100px auto;padding:120px 75px 0;width:90%;max-width:1200px;box-shadow:6px 10px 28px 0px rgba(0,0,0,0.4);overflow-y:hidden}
-.photo{position:relative;background:url("pic.jpg");background-size:cover;background-position:center;width:100%;padding-bottom:100%}
+.photo{position:relative;width:100%;padding-bottom:100%;background:url("pic.jpg");background-size:cover;background-position:center}
 .fa{margin-right:5px}.fa,.fa:before,.fa:after{color:var(--color)!important}
 .bar{border-radius:16px;height:10px;background:#f1f1f1;width:100%;margin:10px 0 15px}
 .ani-scroll{background:var(--color)}
@@ -40,11 +40,11 @@ hr{border:0;border-top:1px solid var(--black);margin:20px 100px 20px 0;height:0;
 .ani-width{animation: ani-width 1.5s ease-out}
 @keyframes ani-width{0%{width:0}}
 
-@media (max-width:780px){
+@media (max-width:730px){
 .half,.third,.twothirds{width:100%}
-.third,.twothirds{padding:30px}
+.twothirds{padding:30px}
 .third{padding:30% 30px 45px;margin-top:100px;height:unset;position:relative}
-.photo{width:50%;padding-bottom:50%;border-radius:100%;position:absolute;top:0;left:50%;margin:-25%}
+.photo{position:absolute;width:50%;padding-bottom:50%;border-radius:100%;top:0;left:50%;margin:-25%}
 h1{position:relative;text-align:center;margin:0;width:100%;color:var(--black);text-shadow:none;font-weight:bold}
 hr{display:none}
 #scholl{margin:0}
@@ -58,17 +58,18 @@ hr{display:none}
 *{-webkit-print-color-adjust:exact;-moz-print-color-adjust:exact;-ms-print-color-adjust:exact;print-color-adjust:exact}
 html,body,.page,.container{width:100%}
 body{background:#fff;margin:0;padding-left:60px}
-.page{margin:0;padding:60px 0;min-height:297mm}
+.page{margin:0;padding:0;min-height:297mm}
 .container{max-width:unset;box-shadow:none}
 .info{padding:15px 45px;page-break-after:always;break-after:page}
-.third .info{padding:15px 30px}
-.third{height:99%}
-h1,h2,h3,p{display:block;break-inside:avoid;page-break-inside:avoid;line-height:1.3em;font-size:90%}
+.third{width:38.9999%}.twothirds{width:60.9999%}
+.third .info{padding:30px}
+h1,h2,h3,p{display:block;line-height:1.3em;font-size:90%;break-inside:avoid;page-break-inside:avoid}
+h1{font-size:150%}
 h2 .fa{padding-right:25px}
 .twothirds{padding:0}#work,#achievements{padding:0 45px}
 .pagebreak{page-break-before:always;break-after:page}
 #pgdivider{background:none;height:1px;margin:0}
 #comment{padding-top:30px}
 script,style,hr,.lang{display:none}
-@page{size:auto;margin:5mm 5mm 10mm 0mm!important}
+@page{size:A4;margin:17mm 5mm 15mm 0mm!important}
 }
