@@ -56,16 +56,16 @@ hr{display:none}
 
 @page{size:A4;margin-top:25mm}
 @media print{
-html{width:100%}
-body{width:100%;background:#fff;margin:auto;padding-left:60px}
-.page{width:100%;margin:0;padding:45px 0}
-.container{width:100%,max-width:unset;box-shadow:none}
+::-webkit-input-placeholder,:-moz-placeholder,::-moz-placeholder,:-ms-input-placeholder{color:transparent}::placeholder{opacity:0}
+html,body,.page,.container{width:100%}
+body{background:#fff;margin:auto;padding-left:60px}
+.page{margin:0;padding:45px 0;min-height:297mm}
+.container{max-width:unset;box-shadow:none}
 .third .info{padding:15px 30px}
 .third{height:99%}
 h2,h3,p{display:block;break-inside:avoid;page-break-inside:avoid;line-height:1.3em}h3,.third p{margin:.5em}p{font-size:1em}h2{font-size:1.3em}
-script,style{display:none}
 .twothirds{padding:0}#work,#achievements{padding:0 45px}
-hr{display:none}
 .pagebreak{page-break-before:always;break-after:page}
-.lang{display:none}
+#pgdivider{background:none;height:1px;margin:0}
+script,style,hr,.lang{display:none}
 }
