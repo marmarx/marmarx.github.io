@@ -53,11 +53,12 @@ hr{display:none}
 .twothirds .info{padding:30px 0}
 .pt0{padding-top:45px}.pb{padding-bottom:0}
 }
+
+@page{size:A4;margin-top:25mm}
 @media print{
-@page{margin:0;padding:0}
 html{width:100%}
 body{width:100%;background:#fff;margin:auto;padding-left:60px}
-.page{margin:0;padding:45px 0}
+.page{width:100%;margin:0;padding:45px 0}
 .container{width:100%,max-width:unset;box-shadow:none}
 .third .info{padding:15px 30px}
 .third{height:99%}
