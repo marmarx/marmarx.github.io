@@ -66,6 +66,7 @@ body{background:#fff;margin:auto;padding-left:60px}
 .third .info{padding:15px 30px}
 .third{height:99%}
 h1,h2,h3,p{display:block;break-inside:avoid;page-break-inside:avoid;line-height:1.3em;font-size:90%}
+h2 .fa{padding-right:25px}
 .twothirds{padding:0}#work,#achievements{padding:0 45px}
 .pagebreak{page-break-before:always;break-after:page}
 #pgdivider{background:none;height:1px;margin:0}
