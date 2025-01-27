@@ -70,5 +70,6 @@ h2 .fa{padding-right:25px}
 .twothirds{padding:0}#work,#achievements{padding:0 45px}
 .pagebreak{page-break-before:always;break-after:page}
 #pgdivider{background:none;height:1px;margin:0}
+#comment{padding-top:45px}
 script,style,hr,.lang{display:none}
 }
