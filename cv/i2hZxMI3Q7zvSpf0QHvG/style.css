@@ -1,4 +1,4 @@
-:root{--black:#3b3b3b;--white:#fff;--color:rgb(76,189,25);--backcolor:rgba(76,189,25,.1)}
+:root{--black:#3b3b3b;--washblack:#838383;--white:#fff;--color:rgb(76,189,25);--backcolor:rgba(76,189,25,.1)}
 *,*:before,*:after{margin:0;padding:0;transition:all .1s ease,opacity .3s ease;color:var(--black);word-wrap:normal;word-break:keep-all;box-sizing:border-box}
 html,body{overflow-x:hidden;width:100vw}
 ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:#f1f1f1}::-webkit-scrollbar-thumb{background:#bbb}::-webkit-scrollbar-thumb:hover{background:#999}::selection{background:#30f2bb}
@@ -14,7 +14,7 @@ h1{font-size:1.8em;font-weight:500;bottom:0;position:absolute;color:#fff;margin:
 h2{font-size:1.4em;margin:1.2em 0;font-weight:600}
 h3,p,li{line-height:2em;letter-spacing:.8px;text-align:justify;font-size:1.1em;font-weight:300}
 li{margin-left:25px}
-h3,.third p{margin-top:.8em}
+h3,.third p{margin:.4em 0}
 .small{font-size:.9em;margin:0;letter-spacing:normal}
 b{font-weight:bold}i{font-style:italic}
 a{text-decoration:none;word-wrap:break-word}
@@ -37,9 +37,16 @@ hr{border:0;border-top:1px solid var(--black);margin:20px 100px 20px 0;height:0;
 .lang-opt{padding:5px 10px 5px 50px}
 
 #skills,#skills_mob{text-align:left!important}
-.details{opacity:1;max-height:unset}
+.details{opacity:1;max-height:unset;font-size:90%}
 .hid,.hid *{max-height:0!important;opacity:0}
 .details div{padding:10px 15px 20px}
+
+.more{position:relative;display:flex;align-items:center}
+.plus{position:absolute;left:-50px;width:35px;height:35px;border-radius:100%;display:flex;align-items:center;justify-content:center}
+.plus:before,.plus:after{content:'';position:absolute;width:15px;height:2px;background-color:var(--color);border-radius:100%}
+.plus:after{-webkit-transform:rotate(90deg);transform:rotate(90deg)}
+.close{-webkit-transform:rotate(45deg);transform:rotate(45deg)}
+.more:hover .plus{background:var(--backcolor)}
 
 .ani-width{animation: ani-width 1.5s ease-out}
 @keyframes ani-width{0%{width:0}}
@@ -56,6 +63,7 @@ hr{display:none}
 .page{margin:0;width:100%;padding:120px 20px}
 .twothirds .info{padding:30px 0}
 .pt0{padding-top:45px}.pb{padding-bottom:0}
+.plus{left:-45px}
 }
 
 @media print{
@@ -67,13 +75,14 @@ body{background:#fff;margin:0;padding-left:60px}
 .info{padding:15px 45px;page-break-after:always;break-after:page}
 .third{width:38.9999%}.twothirds{width:60.9999%}
 .third .info{padding:30px}
-h1,h2,h3,p{display:block;line-height:1.3em;font-size:90%;break-inside:avoid;page-break-inside:avoid}
+h1,h2,h3,p,.details,li{line-height:1.5em;font-size:90%;break-inside:avoid;page-break-inside:avoid}
 h1{font-size:150%}
 h2 .fa{padding-right:25px}
 .twothirds{padding:0}#work,#achievements{padding:0 45px}
 .pagebreak{page-break-before:always;break-after:page}
 #pgdivider{background:none;height:1px;margin:0}
 #comment{padding-top:30px}
-script,style,hr,.lang,.details{display:none}
+#achievements{padding-bottom:70px}
+head,script,style,hr,.lang,.plus{display:none}
 @page{size:A4;margin:17mm 5mm 15mm 0mm!important}
 }

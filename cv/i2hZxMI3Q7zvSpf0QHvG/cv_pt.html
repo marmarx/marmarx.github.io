@@ -10,9 +10,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Lora&family=Open+Sans&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<script type="text/javascript" src="script.js" defer></script>
 </head>
 
-<body onclick="console.log(event.target)">
+<body>
 <div class="row"><div class="container page">
  <div class="third">
  <div class="photo"><h1 class="name web">Marco Martins</h1></div>
@@ -96,21 +97,22 @@
   <div id="achievements" class="info pb">
    <h2><b><i class="fa fa-star fa-fw"></i>Principais Resultados</b></h2>
 
-   <div><h3><b>Projeto Básico de um Tanque de Regularização de Vazão (TRV) de resíduos</b> para a ETA Foz do Brasil em Limeira/SP (2012)</h3></div>
-   <div><h3><b>Estudos e licenciamento ambiental</b> da unidade fabril da Mercedes Benz SA em Limeira/SP (2014)</h3></div>
+   <div><h3><b>Projeto Básico de um Tanque de Regularização de Vazão de resíduos</b> para a ETA Foz do Brasil em Limeira/SP (2012)</h3></div>
+   <div><h3><b>Estudos e licenciamento ambiental</b> da unidade fabril da Mercedes Benz SA em Iracemápolis/SP (2014)</h3></div>
 
-   <div>
-      <div onclick="show(this)">
+   <div class="mais">
+      <div class="more" onclick="show(this)">
          <h3><b>Elaboração de Planos de Gestão de Resíduos Sólidos</b> da Polypack Laboratório de Ensaios LTDA (2014), e para os municípios de Pirassununga/SP (2014 a 2015) e Redenção da Serra/SP (2015 a 2018).</h3>
+         <div class="plus"></div>
       </div>
-      <div class="details hid" onclick="hide(this)"><div>
+      <div class="details hid"><div>
          <p>Atividades:</p>
          <ul>
-            <li><i>Contextualização:</i> levantamento de informações preliminares sobre o município, como evolução populacional, perfil socioeconômico, uso do solo, clima, relevo, hidrografia e legislações locais.</li>
-            <li><i>Diagnóstico:</i> análise de dados sobre resíduos sólidos, incluindo infraestrutura, serviços de saneamento, qualificação e quantificação de resíduos, áreas de descarte irregular e polos geradores.</li>
-            <li><i>Prognóstico:</i> projeção do crescimento, geração e demanda de serviços de saneamento, elaboração de cenários, e avaliação de impactos de cada cenário.</li>
-            <li><i>Planejamento:</i> definição de diretrizes e estratégias focadas em educação ambiental, redução, reuso e reciclagem, com análise financeira, orçamentária, metas e cronograma de implementação.</li>
-            <li><i>Consultas Públicas:</i> apresentação do trabalho e coleta de contribuições da população ao longo do processo.</li>
+            <li><i>Contextualização:</i> levantamento de informações preliminares sobre o município, como evolução populacional, perfil socioeconômico, uso do solo, clima, relevo, hidrografia e legislações locais</li>
+            <li><i>Diagnóstico:</i> análise de dados sobre resíduos sólidos, incluindo infraestrutura, serviços de saneamento, qualificação e quantificação de resíduos, áreas de descarte irregular e polos geradores</li>
+            <li><i>Prognóstico:</i> projeção do crescimento, geração e demanda de serviços de saneamento, elaboração de cenários, e avaliação de impactos de cada cenário</li>
+            <li><i>Planejamento:</i> definição de diretrizes e estratégias focadas em educação ambiental, redução, reuso e reciclagem, com análise financeira, orçamentária, metas e cronograma</li>
+            <li><i>Consultas Públicas:</i> apresentação do trabalho e coleta de contribuições da população ao longo do processo</li>
          </ul>
       </div></div>
    </div>
@@ -118,48 +120,51 @@
    <div><h3><b>Auditoria do sistema de gestão de resíduos sólidos</b> da Embraer SA (2015)</h3></div>
 
    <div>
-      <div onclick="show(this)">
+      <div class="more" onclick="show(this)">
          <h3><b>Elaboração de Planos de Mobilidade Urbana</b> para os municípios de Monte Alto/SP (2015), Registro/SP (2015), Ilha Solteira/SP (2016), Porto Feliz/SP (2016 a 2017)</h3>
+         <div class="plus"></div>
       </div>
-      <div class="details hid" onclick="hide(this)"><div>
+      <div class="details hid"><div>
          <p>Atividades:</p>
          <ul>
-            <li><i>Contextualização:</i> levantamento de informações preliminares sobre o município, incluindo dados populacionais, perfil socioeconômico, uso do solo, clima, relevo e legislações locais.</li>
-            <li><i>Diagnóstico:</i> coleta e análise detalhada de dados, incluindo infraestrutura, transporte, qualidade das vias, conectividade, fluxos e linhas de desejo, acessibilidade e vocação para mobilidade.</li>
-            <li><i>Prognóstico:</i> projeções de crescimento e demandas de transporte, com cenários futuros e avaliação de seus impactos.</li>
-            <li><i>Planejamento:</i> criação de estratégias e diretrizes para priorizar transporte sustentável, incluindo análise financeira, orçamentária, metas e cronograma.</li>
-            <li><i>Consultas Públicas:</i> apresentação do trabalho e coleta de contribuições da população ao longo do processo.</li>
+            <li><i>Contextualização:</i> levantamento de informações preliminares sobre o município, incluindo dados populacionais, perfil socioeconômico, uso do solo, clima, relevo e legislações locais</li>
+            <li><i>Diagnóstico:</i> coleta e análise detalhada de dados, incluindo infraestrutura, transporte, qualidade das vias, conectividade, fluxos e linhas de desejo, acessibilidade e vocação para mobilidade</li>
+            <li><i>Prognóstico:</i> projeções de crescimento e demandas de transporte, com cenários futuros e avaliação de seus impactos</li>
+            <li><i>Planejamento:</i> criação de estratégias e diretrizes para priorizar transporte sustentável, incluindo análise financeira, orçamentária, metas e cronograma</li>
+            <li><i>Consultas Públicas:</i> apresentação do trabalho e coleta de contribuições da população ao longo do processo</li>
          </ul>
       </div></div>
    </div>
 
    <div>
-      <div onclick="show(this)">
+      <div class="more" onclick="show(this)">
          <h3><b>Elaboração de Planos de Transporte Coletivo</b> para os municípios de Monte Alto/SP (2016) e Registro/SP (2018)</h3>
+         <div class="plus"></div>
       </div>
-      <div class="details hid" onclick="hide(this)"><div>
+      <div class="details hid"><div>
          <p>Atividades:</p>
          <ul>
-            <li><i>Contextualização:</i> levantamento de informações preliminares sobre o município, incluindo dados populacionais, perfil socioeconômico, uso do solo, clima, relevo e legislações locais.</li>
-            <li><i>Diagnóstico:</i> coleta e análise detalhada de dados, incluindo infraestrutura de transporte coletivo, fluxos e linhas de desejo, acessibilidade e pesquisa sobe-e-desce.</li>
-            <li><i>Prognóstico:</i> projeções de crescimento e demandas pelo transporte coletivo, com cenários futuros e avaliação de seus impactos.</li>
-            <li><i>Planejamento:</i> projeto de linhas, horários e itinerários de transporte, incluindo análise financeira e de resico, além de diretrizes de educação e comunicação.</li>
-            <li><i>Consultas Públicas:</i> apresentação do trabalho e coleta de contribuições da população ao longo do processo.</li>
+            <li><i>Contextualização:</i> levantamento de informações preliminares sobre o município, incluindo dados populacionais, perfil socioeconômico, uso do solo, clima, relevo e legislações locais</li>
+            <li><i>Diagnóstico:</i> coleta e análise detalhada de dados, incluindo infraestrutura de transporte coletivo, fluxos e linhas de desejo, acessibilidade e pesquisa sobe-e-desce</li>
+            <li><i>Prognóstico:</i> projeções de crescimento e demandas pelo transporte coletivo, com cenários futuros e avaliação de seus impactos</li>
+            <li><i>Planejamento:</i> projeto de linhas, horários e itinerários de transporte, incluindo análise financeira e de resico, além de diretrizes de educação e comunicação</li>
+            <li><i>Consultas Públicas:</i> apresentação do trabalho e coleta de contribuições da população ao longo do processo</li>
          </ul>
       </div></div>
    </div>
 
    <div><h3><b>Webdesign e programação de website (front-end e back-end)</b> para Genos Consultoria Ambiental LTDA ME (2017)</h3></div>
    <div><h3><b>Ampliação do Perímetro Urbano e Avaliação Ambiental Estratégica</b> da cidade de Água Comprida/MG (2017)</h3></div>
-   <div><h3><b>Monitoramento ambiental das obras de fixação do Rio Itapocu</b> da cidade de Barra Velha (2017 a 2018)</h3></div>
+   <div><h3><b>Monitoramento ambiental das obras de fixação do Rio Itapocu</b> da cidade de Barra Velha/SC (2017 a 2018)</h3></div>
    <div><h3><b>Projeto de Segurança Viária para angariamento de verbas DETRAN/SP</b> para o município de Monte Alto/SP (2018)</div>
-   <div><h3><b>Estudo de Viabilidade Técnica, Econômica, Financeira e Ambiental do Centro de Inovação Tecnológica (CIT)</b> da cidade de Registro/SP (2018)</h3></div>
+   <div><h3><b>Estudo de Viabilidade Técnica, Econômica, Financeira e Ambiental do Centro de Inovação Tecnológica</b> da cidade de Registro/SP (2018)</h3></div>
 
    <div>
-      <div onclick="show(this)">
+      <div class="more" onclick="show(this)">
          <h3><b>Suporte estratégico e operacional à clientes da plataforma Airbnb</b><br>2018 a 2024 - Directly OnDemand Inc, San Francisco/CA, USA<br>85.113 casos resolvidos com CSAT 99% e NPS 82</h3>
+         <div class="plus"></div>
       </div>
-      <div class="details hid" onclick="hide(this)"><div>
+      <div class="details hid"><div>
          <p>Atividades:</p>
          <ul>
             <li>Aperfeiçoamento de anúncios (descrição, imagens, regras)</li>
@@ -173,7 +178,6 @@
          </ul>
       </div></div>
    </div>
-   
 
   </div>
  </div>
@@ -205,5 +209,4 @@
 <option class="lang-opt pt" value="cv_pt.html" selected>Português</option>
 </select></div>
 </body>
-<script defer="" type="text/javascript" src="script.js"></script>
 </html>
