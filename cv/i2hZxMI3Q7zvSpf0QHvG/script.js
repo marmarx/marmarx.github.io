@@ -10,3 +10,6 @@ const callback = (entries) => {
 let observer = new IntersectionObserver(callback,options);
 document.querySelectorAll('.ani-scroll')
 .forEach(el => {observer.observe(el)});
+
+const show = e => {e.parentNode.getElementsByClassName('details')[0].classList.toggle('hid')}
+const hide = e => {e.classList.add('hid')}
