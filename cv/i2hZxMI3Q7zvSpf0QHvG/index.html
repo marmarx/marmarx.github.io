@@ -120,7 +120,7 @@
 
     </div></div>
    
-  <div class="lang"><select @click="changeLang">
+  <div class="lang"><select @change="changeLang">
     <option v-for="(opt,key) in locales" :value="key">{{opt}}</option>
   </select></div>
 
