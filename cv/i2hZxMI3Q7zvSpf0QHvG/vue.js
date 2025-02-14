@@ -47,10 +47,10 @@ Vue.createApp({
         {name:'ESRI ArcGIS',details:'',level:'60'},
         {name:'Google Maps',details:'Earth, MyMaps, Maps platform API',level:'60'},
         {name:'Frontend',details:'HTML 5, CSS 3, Javascript, Vue 3',level:'70'},
-        {name:'Backend',details:'PHP, SQL, Javascript, MongoDB Atlas, Node.js',level:'75'},
+        {name:'Backend',details:'PHP, Javascript, MongoDB Atlas, Node.js',level:'75'},
         {name:'WordPress.org',details:'',level:'100'},
         {name:'AI',details:'Google Gemini, ChatGPT 4, Claude',level:'90'},
-        {name:'Arduino ESP Enviroment',details:'',level:'80'},
+        {name:'Arduino ESP Environment',details:'',level:'80'},
         {name:'DJI Drones',details:'',level:'100'},
         {name:'Agile Management',details:'PDCA, Scrum, Kanban',level:'90'}
       ],
@@ -63,7 +63,7 @@ Vue.createApp({
         {name:'ESRI ArcGIS',details:'',level:'60'},
         {name:'Google Maps',details:'Earth, MyMaps, Maps platform API',level:'60'},
         {name:'Frontend',details:'HTML 5, CSS 3, Javascript, Vue 3',level:'70'},
-        {name:'Backend',details:'PHP, SQL, Javascript, MongoDB Atlas, Node.js',level:'75'},
+        {name:'Backend',details:'PHP, Javascript, MongoDB Atlas, Node.js',level:'75'},
         {name:'WordPress.org',details:'',level:'100'},
         {name:'Inteligência Artificial',details:'Google Gemini, ChatGPT 4, Claude',level:'90'},
         {name:'Arduino ESP',details:'',level:'80'},
@@ -89,30 +89,30 @@ Vue.createApp({
         {name:'Volunteer - Rondon Project',details:'Jan 2011 - Ministry of Defense, Federal Government, Brazil'},
         {name:'Intern - Water Treatment System Designer',details:'Mar 2012 to Dec 2012 - Hidrosan Engineering S/A, São Carlos/SP, Brazil'},
         {name:'Partner - CFO, Project Manager, and Salles Represensative',details:'May 2013 to Aug 2018 - Genos Environmental Consulting LTDA ME, São Carlos/SP, Brazil'},
-        {name:'Freelancer - Airbnb Community Expert - Customer Support and Conflict Resolution',details:'May 2018 to Jul 2024 - Directly OnDemand Inc, San Francisco, USA'}
+        {name:'Freelancer - Airbnb Community Expert - Customer Support, Conflict Resolution, and AI training',details:'May 2018 to Jul 2024 - Directly OnDemand Inc, San Francisco, USA'}
       ],
       pt:[
         {name:'Voluntário - Projeto Social Fênix',details:'Mar 2010 a Nov 2012 - Grupo Estudantil Fênix-USP, São Carlos/SP, Brasil'},
         {name:'Voluntário - Projeto Rondon',details:'Jan 2011 - Ministério da Defesa, Governo Federal, Brasil'},
         {name:'Estagiário - Projetista Sistema de Tratamento',details:'Mar 2012 a Dez 2012 - Hidrosan Engenharia S/A, São Carlos/SP, Brasil'},
         {name:'Sócio - Gestor de Projetos, Representante de Vendas e CFO',details:'Mai 2013 a Ago 2018 - Genos Consultoria Ambiental LTDA ME, São Carlos/SP, Brasil'},
-        {name:'Freelancer - Airbnb Community Expert - Atendimento ao cliente',details:'Mai 2018 a Jul 2024 - Directly OnDemand Inc, São Francisco, USA'}
+        {name:'Freelancer - Airbnb Community Expert - Atendimento ao cliente, resolução de conflitos, e treinamento de IA',details:'Mai 2018 a Jul 2024 - Directly OnDemand Inc, São Francisco, USA'}
       ]
     },
     courses:{
       en:[
-        {name:'HTML 5, CSS 3, Javascript, PHP, SQL',details:'2016 to 2017 - W3Schools'},
+        {name:'HTML 5, CSS 3, Javascript, PHP',details:'2016 to 2017 - W3Schools'},
         {name:'JavaScript: from first steps to professional',details:'2024 - Frontend Masters'},
         {name:'JavaScript: the hard parts v2',details:'2024 - Frontend Masters'},
         {name:'The hard parts of asynchronous JavaScript',details:'2024 - Frontend Masters'},
         {name:'The hard parts of functional JavaScript',details:'2024 - Frontend Masters'},
         {name:'Node.js and MongoDB Atlas integrated to Google Gemini',details:'2024 - Alura'},
-        {name:'Frontend responsiveness, DOM manipulation and React.js',details:'2025 - Alura'},
+        {name:'Frontend responsiveness, DOM manipulation, and React.js',details:'2025 - Alura'},
         {name:'Vue.js 3 Fundamentals',details:'Ongoing - Frontend Masters'},
         {name:'The hard parts of servers & Node.js',details:'Ongoing - Frontend Masters'}
       ],
       pt:[
-        {name:'HTML 5, CSS 3, Javascript, PHP, SQL',details:'2016 a 2017 - W3Schools'},
+        {name:'HTML 5, CSS 3, Javascript, PHP',details:'2016 a 2017 - W3Schools'},
         {name:'JavaScript: dos primeiros passos ao profissional',details:'2024 - Frontend Masters'},
         {name:'JavaScript: the hard parts v2',details:'2024 - Frontend Masters'},
         {name:'The hard parts of asynchronous JavaScript',details:'2024 - Frontend Masters'},
@@ -147,15 +147,15 @@ Vue.createApp({
         {name:'Development of Public Transportation Plans',span:'for the municipalities of Monte Alto/SP (2016) and Registro/SP (2018)',
         details:[
           {subhead:'Contextualization',text:'preliminary data collection about the municipality, including population data, socioeconomic profile, land use, climate, topography, and local legislation'},
-          {subhead:'Diagnosis',text:'detailed data collection and analysis, including public transportation infrastructure, flows and desire lines, accessibility, and boarding and alighting surveys'},
+          {subhead:'Diagnosis',text:'detailed data collection and analysis, including public transportation infrastructure, flow and desire lines, accessibility, and boarding and alighting surveys'},
           {subhead:'Prognosis',text:'growth projections and public transportation demands, with future scenarios and impact assessments'},
-          {subhead:'Planning',text:'design of routes, schedules, itineraries and transportation technology, including financial and risk analysis, as well as education and communication guidelines'},
+          {subhead:'Planning',text:'design of routes, schedules, itineraries, and transportation technology, including financial and risk analysis, as well as education and communication guidelines'},
           {subhead:'Public Consultations',text:'project presentation and gathering of public contributions throughout the process'}
         ]},
-        {name:'Web design and website programming (fullstack)',span:'for Genos Consultoria Ambiental LTDA ME (2017)'},
+        {name:'Static website design and programming (full-stack)',span:'for Genos Consultoria Ambiental LTDA ME (2017)'},
         {name:'Urban Perimeter Expansion and Strategic Environmental Assessments',span:'of the city of Água Comprida/MG (2017)'},
         {name:'Environmental monitoring of the Rio Itapocu course setting',span:'in the city of Barra Velha/SC (2017 to 2018)'},
-        {name:'DETRAN fund raising Road Safety Project',span:'for the municipality of Monte Alto/SP (2018)'},
+        {name:'DETRAN fundraising Road Safety Project',span:'for the municipality of Monte Alto/SP (2018)'},
         {name:'Technical, Economic, Financial, and Environmental Feasibility Study of the Technological Innovation Center',span:'in the city of Registro/SP (2018)'},
         {name:'Strategic and operational support for Airbnb platform clients',span:'\n2018 to 2024 - Directly OnDemand Inc, San Francisco/CA, USA\n85,113 cases resolved with CSAT 99% and NPS 82',
         details:[
@@ -166,7 +166,8 @@ Vue.createApp({
           {subhead:'',text:'Mediation and resolution of conflicts, including discrimination and extenuating circumstances'},
           {subhead:'',text:'Assistance in critical situations, such as humanitarian crises and natural disasters'},
           {subhead:'',text:'Fraud identification and prevention'},
-          {subhead:'',text:'Personalized advice and support in various situations'}
+          {subhead:'',text:'Personalized advice and support in various situations'},
+          {subhead:'',text:'AI training focused on customer support'}
         ]}
       ],
       pt:[
@@ -211,7 +212,8 @@ Vue.createApp({
           {subhead:'',text:'Mediação e resolução de conflitos, incluindo discriminação e circunstâncias atenuantes'},
           {subhead:'',text:'Assistência em situações críticas, como crises humanitárias e desastres naturais'},
           {subhead:'',text:'Identificação e combate a fraudes'},
-          {subhead:'',text:'Aconselhamento e suporte personalizado em diversas situações'}
+          {subhead:'',text:'Aconselhamento e suporte personalizado em diversas situações'},
+          {subhead:'',text:'Treinamento de IA com foco ao atendimento ao consumidor'}
         ]}
       ]
     }
