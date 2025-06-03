@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Title</title>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="author" content="Marco Martins">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#2f4550">
+<!-- 
+<link rel="icon" type="image/png" href="src/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora&family=Open+Sans&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script defer type="text/javascript" src="script.js"></script>
+https://codepen.io/chriscoyier/pen/xXJMYX
+https://css-tricks.com/making-pure-css-playpause-button/
+-->
+<style>
+/* the --gradient-angle variable is an angle (deg), its initial value is 90deg and it does not inherit from parent */
+@property --gradient-angle { syntax: "<angle>"; initial-value: 90deg; inherits: false }
+
+:root { --white:#f3f3f3; --black: #1f2937; --black-background: #111827; --color-1: #6420aa; --color-2: #ff3ea5; --color-3: #ff7ed4}
+*,*::after,*::before {margin: 0; padding: 0; box-sizing: border-box}
+
+body {
+  height: 100vh; width: 100%;
+  display:flex; justify-content: center; align-items: center;
+  overflow-x: hidden;
+  background-color: var(--black-background);
+}
+
+.animated-border {
+  position: relative; height: 3rem; width: 3rem;
+  display:flex; justify-content: center; align-items: center;
+  padding: 0; border-radius: 50%; margin: auto;
+  cursor: pointer;
+  font-size: 1.5em;
+  color: var(--white); background-color: var(--black);
+}
+
+.animated-border::after,.animated-border::before {
+  content: ""; position: absolute; z-index: -1;
+  border-radius: inherit; inset: -0.3rem;
+  background: conic-gradient(from var(--gradient-angle),var(--black),var(--color-1),var(--color-2),var(--color-3),var(--color-2),var(--color-1),var(--black));
+  animation: rotate 3.5s linear infinite; animation-play-state: paused
+}
+.animated-border::after {filter: blur(3rem)}
+/* .animated-border:hover:after,.animated-border:hover:before{animation-play-state:running} */
+
+@keyframes rotate {
+  0%{--gradient-angle: 0deg}
+  100%{--gradient-angle: 360deg}
+}
+
+.animated-border label {
+	 display: block;
+	 box-sizing: border-box;
+	 width: 0; height: 50%;
+   transition: 300ms all ease;
+	 cursor: pointer;
+	 border-color: transparent transparent transparent var(--white);
+   border-style: solid; border-width: .5em 0 .5em .9em; margin-left: .2em;
+   outline: none;
+}
+
+.animated-border input {display: none}
+.animated-border input:checked + label {border-style: double; border-width: 0 0 0 .78em; margin: 0}
+.animated-border:has(#play-pause:checked):before, .animated-border:has(#play-pause:checked):after {animation-play-state: running}
+</style>
+</head>
+
+<body>
+  <div class="animated-border">
+    <input type="checkbox" id="play-pause" hidden />
+    <label for="play-pause" tabindex=1></label>
+  </div>
+</body>
+
+</html>
