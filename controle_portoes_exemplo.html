@@ -2,31 +2,34 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Controle de Portões</title>
 <style>
-  body { font-family: Arial; padding: 20px; }
+  body { font-family: Arial; padding: 20px; display: grid; grid-template-columns: 1fr 1fr 1fr; grid-gap: 10px }
   .gate {
     border: 1px solid #ccc;
     padding: 12px;
     margin-bottom: 10px;
     border-radius: 6px;
+    background-position: 0 0;
+    background-size: 200%;
+    background: linear-gradient(
+      to right, #ff6347 0%, #ff6347 50%, #4682b4 50%, #4682b4 100%
+    );
+    
   }
-  .open { background: #ffd6d6; }
-  .closed { background: #d6ffd6; }
+  .open { animation: slideBg 2s linear forwards }
+  .closed { animation: slideBg 2s linear backwards }
+
+  @keyframes slideBg {
+    from { background-position: 0 0; }
+    to { background-position: -100% 0; } /* Horizontal scroll */
+  }
+  
   button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
-
-  .door {
-    height: 10px;
-    background: #333;
-    margin: 8px 0;
-    transform-origin: left;
-    transition: transform 3s linear;
-  }
-  .open-door { transform: rotateY(80deg); }
-  .closed-door { transform: rotateY(0deg); }
 </style>
 
 </head>
@@ -37,14 +40,12 @@
 
 <script>
 const gates = [
-  { id: 1, local: "Entrada A", condominio: "Residencial Sol", fechado: true, conflitos: [2] },
-  { id: 2, local: "Entrada B", condominio: "Residencial Sol", fechado: true, conflitos: [1] },
-  { id: 3, local: "Garagem", condominio: "Residencial Lua", fechado: true, conflitos: [] }
+  { id: 1, local: "Frente A", condominio: "Residencial Sol", fechado: true, conflitos: [2] },
+  { id: 2, local: "Frente B", condominio: "Residencial Sol", fechado: true, conflitos: [1] },
+  { id: 3, local: "Fundos", condominio: "Residencial Sol", fechado: true, conflitos: [] }
 ]
 
-function getGate(id) {
-  return gates.find(g => g.id === id)
-}
+const getGate = (id) => gates.find(g => g.id === id)
 
 function hasOpenConflict(gate) {
   return gate.conflitos.some(cid => {
@@ -67,9 +68,8 @@ function toggleGate(id) {
       return
     }
     gate.fechado = false
-  } else {
-    gate.fechado = true
   }
+  else gate.fechado = true
 
   render()
 }
@@ -90,14 +90,14 @@ function render() {
 
     if (gate.fechado && conflictOpen) {
       btn.disabled = true
-      btn.title = "Conflito com portão aberto"
+      btn.title = "Intertravamento ativo"
     }
 
-    div.innerHTML = `<div class="door ${gate.fechado ? "closed-door" : "open-door"}"></div>
+    div.innerHTML = `
       <strong>${gate.condominio}</strong><br>
       Local: ${gate.local}<br>
       Status: ${gate.fechado ? "Fechado" : "Aberto"}<br>
-      Conflitos: ${gate.conflitos.join(", ") || "Nenhum"}<br><br>
+      Conflitos: ${gate.conflitos.map(c => gates.find(p => p.id === c.id).local).join(", ") || "Nenhum"}<br><br>
     `
 
     div.appendChild(btn)
