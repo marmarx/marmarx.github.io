@@ -71,7 +71,7 @@ function toggleGate(id) {
 
   if (g.estado === "fechado") {
     if (hasOpenConflict(g)) return alert("Conflito ativo");
-    g.estado = "abrindo";
+    g.estado = "abrindo...";
     syncUI();
 
     setTimeout(() => {
@@ -80,7 +80,7 @@ function toggleGate(id) {
     }, 2000);
 
   } else if (g.estado === "aberto") {
-    g.estado = "fechando";
+    g.estado = "fechando...";
     syncUI();
 
     setTimeout(() => {
@@ -104,11 +104,11 @@ function syncUI() {
     el.querySelector(".conflicts").textContent = getConflicts(g).join(", ") || "Nenhum";
     
     el.classList.remove('open', 'closed');
-    const closing = g.estado === "fechado" || g.estado === "fechando";
+    const closing = g.estado === "fechado" || g.estado === "fechando...";
     el.classList.add(closing ? "closed" : "open");
 
     btn.textContent = closing ? "Abrir" : "Fechar";
-    const busy = g.estado === "abrindo" || g.estado === "fechando";
+    const busy = g.estado === "abrindo..." || g.estado === "fechando...";
     btn.disabled = busy || (g.estado === "fechado" && hasOpenConflict(g));
     btn.onclick = () => toggleGate(g.id);
   });
