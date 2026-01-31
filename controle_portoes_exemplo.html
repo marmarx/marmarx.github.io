@@ -111,9 +111,10 @@ function syncUI(g) {
     btn.disabled = busy || (g.estado === "fechado" && hasOpenConflict(g));
     btn.onclick = () => toggleGate(g.id);
 
+    const state = g.estado.replace(/\.+$/, '')
     el.classList.remove('fechado', 'abrindo', 'aberto', 'fechando');
     el.offsetHeight; // reflow force
-    el.classList.add(g.estado.replaceAll(/./g,'');
+    el.classList.add(state);
 }
 
 function renderInitial() {
