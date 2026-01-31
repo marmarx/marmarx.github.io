@@ -22,9 +22,11 @@
       to right, #ff6347 0%, #ff6347 50%, #4682b4 50%, #4682b4 100%
     );
   }
+  .gate.aberto { background-position: -100% 0 }
+  .gate.fechado { background-position: 0 0 }
 
-  .open { animation: slideBg 2s linear forwards; }
-  .closed { animation: slideBg 2s linear reverse forwards; }
+  .gate.abrindo { animation: slideBg 2s linear forwards; }
+  .gate.fechando { animation: slideBg 2s linear reverse forwards; }
 
   @keyframes slideBg {
     from { background-position: 0 0; }
@@ -109,10 +111,9 @@ function syncUI(g) {
     btn.disabled = busy || (g.estado === "fechado" && hasOpenConflict(g));
     btn.onclick = () => toggleGate(g.id);
 
-    if(!busy) return // animate only while transitioning 
-    el.classList.remove('open', 'closed');
+    el.classList.remove('fechado', 'abrindo', 'aberto', 'fechando');
     el.offsetHeight; // reflow force
-    el.classList.add(g.estado === "fechando..." ? "closed" : "open");
+    el.classList.add(g.estado.replaceAll(/./g,'');
 }
 
 function renderInitial() {
@@ -121,7 +122,7 @@ function renderInitial() {
 
   gates.forEach(g => {
     const div = document.createElement("div");
-    div.className = "gate";
+    div.className = "gate fechado";
     div.dataset.id = g.id;
 
     div.innerHTML = `
