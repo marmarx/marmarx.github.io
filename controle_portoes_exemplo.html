@@ -90,30 +90,32 @@ function toggleGate(id) {
 
 function syncUI(g) {
   const el = document.querySelector(`.gate[data-id="${g.id}"]`);
-  const btn = el.querySelector("button");
-
-  const conflictOpen = hasOpenConflict(g);
-
+  if (!el) return
+  
   el.querySelector(".title").textContent = g.condominio;
   el.querySelector(".local").textContent = g.local;
   el.querySelector(".status").textContent = g.estado;
   el.querySelector(".conflicts").textContent = getConflicts(g).join(", ") || "Nenhum";
 
-  const closing = g.estado === "fechado" || g.estado === "fechando...";
-  btn.textContent = closing ? "Abrir" : "Fechar";
-  btn.onclick = () => toggleGate(g.id);
-
   const state = g.estado.replace(/\./g, '')
   el.classList.remove('fechado', 'abrindo', 'aberto', 'fechando');
   el.offsetHeight; // reflow force
   el.classList.add(state);
+  
+  const btn = el.querySelector("button");
+  const closing = g.estado === "fechado" || g.estado === "fechando...";
+  btn.textContent = closing ? "Abrir" : "Fechar";
+  btn.onclick = () => toggleGate(g.id);
 
-  gates.forEach(cg => {
-    const cel = document.querySelector(`.gate[data-id="${cg.id}"]`);
-    const cbtn = cel.querySelector("button");
+  gates.forEach(gate => {
+    const elem = document.querySelector(`.gate[data-id="${gate.id}"]`);
+    if(!elem) return
+    
+    const conflictOpen = hasOpenConflict(gate);
+    const busy = gate.estado === "abrindo..." || gate.estado === "fechando...";
 
-    const busy = cg.estado === "abrindo..." || cg.estado === "fechando...";
-    cbtn.disabled = busy || (cg.estado === "fechado" && hasOpenConflict(cg));
+    const button = elem.querySelector("button");
+    button.disabled = busy || (gate.estado === "fechado" && hasOpenConflict(gate));
   });
 }
 
@@ -135,8 +137,9 @@ function renderInitial() {
     `;
 
     container.appendChild(div);
-    syncUI(g);
   });
+  
+  gates.forEach(g => syncUI(g));
 }
 
 renderInitial();
