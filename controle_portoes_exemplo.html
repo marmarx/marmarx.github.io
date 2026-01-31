@@ -111,7 +111,9 @@ function syncUI(g) {
     btn.disabled = busy || (g.estado === "fechado" && hasOpenConflict(g));
     btn.onclick = () => toggleGate(g.id);
 
-    const state = g.estado.replace(/\.+$/, '')
+    //const state = g.estado.replace(/\.+$/, '')
+    const state = g.estado.replace(/\./g, '')
+  
     el.classList.remove('fechado', 'abrindo', 'aberto', 'fechando');
     el.offsetHeight; // reflow force
     el.classList.add(state);
