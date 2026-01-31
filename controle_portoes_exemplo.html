@@ -92,11 +92,9 @@ function syncUI() {
     el.querySelector(".local").textContent = g.local;
     el.querySelector(".status").textContent = g.fechado ? "Fechado" : "Aberto";
     el.querySelector(".conflicts").textContent = getConflicts(g).join(", ") || "Nenhum";
-
-    let state = ['closed', 'open']
-    if (g.fechado) state = ['open', 'closed']
-    el.classList.remove(state[0]);
-    el.classList.add(state[1]);
+    
+    el.classList.toggle('open');
+    el.classList.toggle('closed');
 
     btn.textContent = g.fechado ? "Abrir" : "Fechar";
     btn.disabled = g.fechado && conflictOpen;
@@ -110,7 +108,7 @@ function renderInitial() {
 
   gates.forEach(g => {
     const div = document.createElement("div");
-    div.className = "gate";
+    div.className = "gate open";
     div.dataset.id = g.id;
 
     div.innerHTML = `
