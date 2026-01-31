@@ -93,8 +93,10 @@ function syncUI() {
     el.querySelector(".status").textContent = g.fechado ? "Fechado" : "Aberto";
     el.querySelector(".conflicts").textContent = getConflicts(g).join(", ") || "Nenhum";
 
-    el.classList.toggle("open", !g.fechado);
-    el.classList.toggle("closed", g.fechado);
+    let state = ['closed', 'open']
+    if (g.fechado) state = ['open', 'closed']
+    el.classList.remove(state[0]);
+    el.classList.add(state[1]);
 
     btn.textContent = g.fechado ? "Abrir" : "Fechar";
     btn.disabled = g.fechado && conflictOpen;
