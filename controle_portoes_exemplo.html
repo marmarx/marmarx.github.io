@@ -6,15 +6,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Controle de Portões</title>
 <style>
-  body { font-family: Arial; padding: 20px }
+  :root { --2rem: clamp(1rem, 10vw, 2rem) }
+  body { margin: 0; padding: var(--2rem) }
+
+  h1 { font-size: clamp(1.8rem, 7vw + 1rem, 5rem) }
+  h2 { font-size: clamp(1.2rem, 3vw + .5rem, 3rem) }
+  h2 { font-weight: bold }
+  
   #gates {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 10px;
+    grid-template-columns: repeat(auto-fit, 200px);
+    gap: var(--2rem);
   }
   .gate {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 3;
+    gap: 0;
+    padding: clamp(.5rem, 5vw, 1rem);
     border: 1px solid #ccc;
-    padding: 12px;
     border-radius: 6px;
     background-position: 0 0;
     background-size: 200% 100%;
@@ -22,9 +32,9 @@
       to right, #ff6347 0%, #ff6347 50%, #4682b4 50%, #4682b4 100%
     );
   }
+  
   .gate.aberto { background-position: -100% 0 }
   .gate.fechado { background-position: 0 0 }
-
   .gate.abrindo { animation: slideBg 2s linear forwards; }
   .gate.fechando { animation: slideBg 2s linear reverse forwards; }
 
@@ -41,7 +51,7 @@
 </head>
 <body>
 
-<h2>Controle de Portões</h2>
+<h1>Controle de Portões</h1>
 <div id="gates"></div>
 
 <script>
@@ -129,10 +139,10 @@ function renderInitial() {
     div.dataset.id = g.id;
 
     div.innerHTML = `
-      <strong class="title"></strong><br>
-      Local: <span class="local"></span><br>
-      Status: <span class="status"></span><br>
-      Conflitos: <span class="conflicts"></span><br><br>
+      <h2 class="title"></h2>
+      <p><b>Local:</b> <span class="local"></span></p>
+      <p><b>Status:</b> <span class="status"></span></p>
+      <p><b>Conflitos:</b> <span class="conflicts"></span></p>
       <button></button>
     `;
 
