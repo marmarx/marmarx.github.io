@@ -7,7 +7,7 @@
 <title>Controle de Portões</title>
 <style>
   :root { --2rem: clamp(1rem, 10vw, 2rem) }
-  body { margin: 0; padding: var(--2rem) }
+  body { margin: 0; padding: var(--2rem); justify-content: center }
 
   h1 { font-size: clamp(1.8rem, 7vw + 1rem, 5rem) }
   h2 { font-size: clamp(1.2rem, 3vw + .5rem, 3rem) }
@@ -17,6 +17,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, 200px);
     gap: var(--2rem);
+    place-items: center;
   }
   .gate {
     display: grid;
