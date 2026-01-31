@@ -44,9 +44,9 @@
 
 <script>
 const gates = [
-  { id: 1, local: "Frente A", condominio: "Residencial Sol", fechado: true, conflitos: [2] },
-  { id: 2, local: "Frente B", condominio: "Residencial Sol", fechado: true, conflitos: [1] },
-  { id: 3, local: "Fundos",  condominio: "Residencial Sol", fechado: true, conflitos: [] }
+  { id: 1, local: "Frente A", condominio: "Residencial Sol", status:'fechado', conflitos: [2] },
+  { id: 2, local: "Frente B", condominio: "Residencial Sol", status:'fechado', conflitos: [1] },
+  { id: 3, local: "Fundos",  condominio: "Residencial Sol", status:'fechado', conflitos: [] }
 ];
 
 const getGate = (id) => gates.find(g => g.id === id);
@@ -66,20 +66,30 @@ const hasOpenConflict = (g) => (g.conflitos || []).some(cid => {
 const canOpen = (gate) => !hasOpenConflict(gate);
 
 function toggleGate(id) {
-  const gate = getGate(id);
-  if (!gate) return;
+  const g = getGate(id);
+  if (!g) return;
 
-  if (gate.fechado) {
-    if (!canOpen(gate)) {
-      alert("Existe um portão em conflito aberto.");
-      return;
-    }
-    gate.fechado = false;
+  if (g.estado === "fechado") {
+    if (hasOpenConflict(g)) return alert("Conflito ativo");
+    g.estado = "abrindo";
+    syncUI();
+
+    setTimeout(() => {
+      g.estado = "aberto";
+      syncUI();
+    }, 2000);
+
+  } else if (g.estado === "aberto") {
+    g.estado = "fechando";
+    syncUI();
+
+    setTimeout(() => {
+      g.estado = "fechado";
+      syncUI();
+    }, 2000);
   }
-  else gate.fechado = true;
-
-  syncUI();
 }
+
 
 function syncUI() {
   gates.forEach(g => {
@@ -93,11 +103,12 @@ function syncUI() {
     el.querySelector(".status").textContent = g.fechado ? "Fechado" : "Aberto";
     el.querySelector(".conflicts").textContent = getConflicts(g).join(", ") || "Nenhum";
     
-    el.classList.toggle('open');
-    el.classList.toggle('closed');
+    el.classList.remove('open','closed');
+    el.classList.add(g.estado.includes('fech') ? "closed" : "open");
 
-    btn.textContent = g.fechado ? "Abrir" : "Fechar";
-    btn.disabled = g.fechado && conflictOpen;
+    const busy = g.estado === "abrindo" || g.estado === "fechando";
+    btn.textContent = g.estado === "fechado" ? "Abrir" : "Fechar";
+    btn.disabled = busy || (g.estado === "fechado" && hasOpenConflict(g));
     btn.onclick = () => toggleGate(g.id);
   });
 }
@@ -108,7 +119,7 @@ function renderInitial() {
 
   gates.forEach(g => {
     const div = document.createElement("div");
-    div.className = "gate open";
+    div.className = "gate";
     div.dataset.id = g.id;
 
     div.innerHTML = `
