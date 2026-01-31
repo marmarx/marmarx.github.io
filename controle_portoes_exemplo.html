@@ -44,9 +44,9 @@
 
 <script>
 const gates = [
-  { id: 1, local: "Frente A", condominio: "Residencial Sol", status:'fechado', conflitos: [2] },
-  { id: 2, local: "Frente B", condominio: "Residencial Sol", status:'fechado', conflitos: [1] },
-  { id: 3, local: "Fundos",  condominio: "Residencial Sol", status:'fechado', conflitos: [] }
+  { id: 1, local: "Frente A", condominio: "Residencial Sol", estado:'fechado', conflitos: [2] },
+  { id: 2, local: "Frente B", condominio: "Residencial Sol", estado:'fechado', conflitos: [1] },
+  { id: 3, local: "Fundos",  condominio: "Residencial Sol", estado:'fechado', conflitos: [] }
 ];
 
 const getGate = (id) => gates.find(g => g.id === id);
