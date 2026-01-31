@@ -78,41 +78,55 @@ function toggleGate(id) {
   }
   else gate.fechado = true;
 
-  render();
+  syncUI();
 }
 
-function render() {
-  const container = document.getElementById("gates");
-  container.innerHTML = "";
+function syncUI() {
+  gates.forEach(g => {
+    const el = document.querySelector(`.gate[data-id="${g.id}"]`);
+    const btn = el.querySelector("button");
 
-  gates.forEach(gate => {
-    const conflictOpen = hasOpenConflict(gate);
+    const conflictOpen = hasOpenConflict(g);
 
-    const div = document.createElement("div");
-    div.className = `gate ${gate.fechado ? "closed" : "open"}`;
+    el.querySelector(".title").textContent = g.condominio;
+    el.querySelector(".local").textContent = g.local;
+    el.querySelector(".status").textContent = g.fechado ? "Fechado" : "Aberto";
+    el.querySelector(".conflicts").textContent = getConflicts(g).join(", ") || "Nenhum";
 
-    const btn = document.createElement("button");
-    btn.textContent = gate.fechado ? "Abrir" : "Fechar";
-    btn.onclick = () => toggleGate(gate.id);
+    el.classList.toggle("open", !g.fechado);
+    el.classList.toggle("closed", g.fechado);
 
-    if (gate.fechado && conflictOpen) {
-      btn.disabled = true;
-      btn.title = "Intertravamento ativo";
-    }
-
-    div.innerHTML = `
-      <strong>${gate.condominio}</strong><br>
-      Local: ${gate.local}<br>
-      Status: ${gate.fechado ? "Fechado" : "Aberto"}<br>
-      Conflitos: ${getConflicts(gate).join(", ") || "Nenhum"}<br><br>
-    `;
-
-    div.appendChild(btn);
-    container.appendChild(div);
+    btn.textContent = g.fechado ? "Abrir" : "Fechar";
+    btn.disabled = g.fechado && conflictOpen;
+    btn.onclick = () => toggleGate(g.id);
   });
 }
 
-render();
+function renderInitial() {
+  const container = document.getElementById("gates");
+  container.innerHTML = "";
+
+  gates.forEach(g => {
+    const div = document.createElement("div");
+    div.className = "gate";
+    div.dataset.id = g.id;
+
+    div.innerHTML = `
+      <strong class="title"></strong><br>
+      Local: <span class="local"></span><br>
+      Status: <span class="status"></span><br>
+      Conflitos: <span class="conflicts"></span><br><br>
+      <button></button>
+    `;
+
+    container.appendChild(div);
+  });
+
+  syncUI();
+}
+
+renderInitial();
+
 </script>
 
 </body>
