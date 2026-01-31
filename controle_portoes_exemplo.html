@@ -109,7 +109,7 @@ function syncUI(g) {
     btn.disabled = busy || (g.estado === "fechado" && hasOpenConflict(g));
     btn.onclick = () => toggleGate(g.id);
 
-    if(!closing) return // animate only while transitioning 
+    if(!busy) return // animate only while transitioning 
     el.classList.remove('open', 'closed');
     el.offsetHeight; // reflow force
     el.classList.add(g.estado === "fechando..." ? "closed" : "open");
