@@ -100,18 +100,15 @@ function syncUI() {
 
     el.querySelector(".title").textContent = g.condominio;
     el.querySelector(".local").textContent = g.local;
-    el.querySelector(".status").textContent =
-      g.estado === "fechado" ? "Fechado" :
-      g.estado === "aberto"  ? "Aberto"  :
-      g.estado === "abrindo" ? "Abrindo..." :
-      "Fechando...";
+    el.querySelector(".status").textContent = g.estado;
     el.querySelector(".conflicts").textContent = getConflicts(g).join(", ") || "Nenhum";
     
-    el.classList.remove('open','closed');
-    el.classList.add(g.estado.includes('fecha') ? "closed" : "open");
+    el.classList.remove('open', 'closed');
+    const closing = g.estado === "fechado" || g.estado === "fechando";
+    el.classList.add(closing ? "closed" : "open");
 
+    btn.textContent = closing ? "Abrir" : "Fechar";
     const busy = g.estado === "abrindo" || g.estado === "fechando";
-    btn.textContent = g.estado === "fechado" ? "Abrir" : "Fechar";
     btn.disabled = busy || (g.estado === "fechado" && hasOpenConflict(g));
     btn.onclick = () => toggleGate(g.id);
   });
