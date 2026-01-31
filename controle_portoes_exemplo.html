@@ -67,57 +67,53 @@ const hasOpenConflict = (g) => (g.conflitos || []).some(cid => {
 
 const canOpen = (gate) => !hasOpenConflict(gate);
 
+const newStatus = (g, status) => {
+  g.estado = status;
+  syncUI(g);
+}
+
 function toggleGate(id) {
   const g = getGate(id);
   if (!g) return;
 
   if (g.estado === "fechado") {
     if (hasOpenConflict(g)) return alert("Conflito ativo");
-    g.estado = "abrindo...";
-    syncUI(g);
-
-    setTimeout(() => {
-      g.estado = "aberto";
-      syncUI(g);
-    }, 2000);
+    newStatus(g, "abrindo...");
+    setTimeout(() => newStatus(g, "aberto"), 2000);
 
   } else if (g.estado === "aberto") {
-    g.estado = "fechando...";
-    syncUI(g);
-
-    setTimeout(() => {
-      g.estado = "fechado";
-      syncUI(g);
-    }, 2000);
+    newStatus(g, "fechando...");
+    setTimeout(() => newStatus(g, "fechado"), 2000);
   }
 }
 
 
-function syncUI(blank) {
-  gates.forEach(g => {
-    const el = document.querySelector(`.gate[data-id="${g.id}"]`);
-    const btn = el.querySelector("button");
+function syncUI(g) {
+  const el = document.querySelector(`.gate[data-id="${g.id}"]`);
+  const btn = el.querySelector("button");
 
-    const conflictOpen = hasOpenConflict(g);
+  const conflictOpen = hasOpenConflict(g);
 
-    el.querySelector(".title").textContent = g.condominio;
-    el.querySelector(".local").textContent = g.local;
-    el.querySelector(".status").textContent = g.estado;
-    el.querySelector(".conflicts").textContent = getConflicts(g).join(", ") || "Nenhum";
+  el.querySelector(".title").textContent = g.condominio;
+  el.querySelector(".local").textContent = g.local;
+  el.querySelector(".status").textContent = g.estado;
+  el.querySelector(".conflicts").textContent = getConflicts(g).join(", ") || "Nenhum";
 
-    const busy = g.estado === "abrindo..." || g.estado === "fechando...";
-    const closing = g.estado === "fechado" || g.estado === "fechando...";
+  const closing = g.estado === "fechado" || g.estado === "fechando...";
+  btn.textContent = closing ? "Abrir" : "Fechar";
+  btn.onclick = () => toggleGate(g.id);
 
-    btn.textContent = closing ? "Abrir" : "Fechar";
-    btn.disabled = busy || (g.estado === "fechado" && hasOpenConflict(g));
-    btn.onclick = () => toggleGate(g.id);
+  const state = g.estado.replace(/\./g, '')
+  el.classList.remove('fechado', 'abrindo', 'aberto', 'fechando');
+  el.offsetHeight; // reflow force
+  el.classList.add(state);
 
-    //const state = g.estado.replace(/\.+$/, '')
-    const state = g.estado.replace(/\./g, '')
-  
-    el.classList.remove('fechado', 'abrindo', 'aberto', 'fechando');
-    el.offsetHeight; // reflow force
-    el.classList.add(state);
+  gates.forEach(cg => {
+    const cel = document.querySelector(`.gate[data-id="${cg.id}"]`);
+    const cbtn = cel.querySelector("button");
+
+    const busy = cg.estado === "abrindo..." || cg.estado === "fechando...";
+    cbtn.disabled = busy || (cg.estado === "fechado" && hasOpenConflict(cg));
   });
 }
 
