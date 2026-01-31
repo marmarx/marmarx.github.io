@@ -6,18 +6,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Controle de Portões</title>
 <style>
-  :root { --2rem: clamp(1rem, 10vw, 2rem) }
-  body { margin: 0; padding: var(--2rem); justify-content: center }
+  body { margin: 0; padding: 0; display: flex }
 
   h1 { font-size: clamp(1.8rem, 7vw + 1rem, 5rem) }
-  h2 { font-size: clamp(1.2rem, 3vw + .5rem, 3rem) }
+  h2, p { font-size: clamp(1.2rem, 3vw + .5rem, 3rem) }
   h2 { font-weight: bold }
   
   #gates {
     display: grid;
     grid-template-columns: repeat(auto-fit, 400px);
-    gap: var(--2rem);
+    gap: clamp(1rem, 10vw, 2rem);
     place-items: center;
+    margin: auto;
   }
   .gate {
     display: grid;
@@ -33,10 +33,9 @@
       to right, #ff6347 0%, #ff6347 50%, #4682b4 50%, #4682b4 100%
     );
   }
-  
-  .gate.aberto { background-position: -100% 0 }
-  .gate.fechado { background-position: 0 0 }
-  .gate.abrindo { animation: slideBg 2s linear forwards; }
+  .gate.fechado  { background-position: 0 0 }
+  .gate.aberto   { background-position: -100% 0 }
+  .gate.abrindo  { animation: slideBg 2s linear forwards; }
   .gate.fechando { animation: slideBg 2s linear reverse forwards; }
 
   @keyframes slideBg {
@@ -51,7 +50,7 @@
 </style>
 </head>
 <body>
-
+  
 <h1>Controle de Portões</h1>
 <div id="gates"></div>
 
