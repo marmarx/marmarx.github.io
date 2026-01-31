@@ -60,7 +60,7 @@ const getConflicts = (g) => (g.conflitos || []).map(cid => {
 /* true se existir conflito aberto */
 const hasOpenConflict = (g) => (g.conflitos || []).some(cid => {
     const c = getGate(cid);
-    return c && c.fechado === false;
+    return c && !(c.estado === 'fechado');
   });
 
 const canOpen = (gate) => !hasOpenConflict(gate);
@@ -100,11 +100,15 @@ function syncUI() {
 
     el.querySelector(".title").textContent = g.condominio;
     el.querySelector(".local").textContent = g.local;
-    el.querySelector(".status").textContent = g.fechado ? "Fechado" : "Aberto";
+    el.querySelector(".status").textContent =
+      g.estado === "fechado" ? "Fechado" :
+      g.estado === "aberto"  ? "Aberto"  :
+      g.estado === "abrindo" ? "Abrindo..." :
+      "Fechando...";
     el.querySelector(".conflicts").textContent = getConflicts(g).join(", ") || "Nenhum";
     
     el.classList.remove('open','closed');
-    el.classList.add(g.estado.includes('fech') ? "closed" : "open");
+    el.classList.add(g.estado.includes('fecha') ? "closed" : "open");
 
     const busy = g.estado === "abrindo" || g.estado === "fechando";
     btn.textContent = g.estado === "fechado" ? "Abrir" : "Fechar";
