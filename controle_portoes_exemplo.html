@@ -5,7 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Controle de Portões</title>
 <style>
-  body { font-family: Arial; padding: 20px; display: grid; grid-template-columns: 1fr 1fr 1fr; grid-gap: 10px }
+  body { font-family: Arial; padding: 20px }
+  .gates {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 10px
+  }
   .gate {
     border: 1px solid #ccc;
     padding: 12px;
@@ -13,7 +18,7 @@
     border-radius: 6px;
     background-position: 0 0;
     background-size: 200%;
-    background: linear-gradient(
+    background-color: linear-gradient(
       to right, #ff6347 0%, #ff6347 50%, #4682b4 50%, #4682b4 100%
     );
     
@@ -46,6 +51,10 @@ const gates = [
 ]
 
 const getGate = (id) => gates.find(g => g.id === id)
+const getConflicts = (g) => g.conflitos.map(c => {
+  const conflict = getGate(c.id)
+  return conflict.local
+})
 
 function hasOpenConflict(gate) {
   return gate.conflitos.some(cid => {
@@ -97,7 +106,7 @@ function render() {
       <strong>${gate.condominio}</strong><br>
       Local: ${gate.local}<br>
       Status: ${gate.fechado ? "Fechado" : "Aberto"}<br>
-      Conflitos: ${gate.conflitos.map(c => gates.find(p => p.id === c.id).local).join(", ") || "Nenhum"}<br><br>
+      Conflitos: ${getConflicts(gate).join(", ") || "Nenhum"}<br><br>
     `
 
     div.appendChild(btn)
