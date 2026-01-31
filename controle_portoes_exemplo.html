@@ -105,6 +105,7 @@ function syncUI() {
     
     el.classList.remove('open', 'closed');
     const closing = g.estado === "fechado" || g.estado === "fechando...";
+    el.offsetHeight; // reflow force
     el.classList.add(closing ? "closed" : "open");
 
     btn.textContent = closing ? "Abrir" : "Fechar";
