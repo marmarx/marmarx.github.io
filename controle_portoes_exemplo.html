@@ -93,7 +93,8 @@ function toggleGate(id) {
 }
 
 
-function syncUI(g) {
+function syncUI(blank) {
+  gates.forEach(g => {
     const el = document.querySelector(`.gate[data-id="${g.id}"]`);
     const btn = el.querySelector("button");
 
@@ -117,6 +118,7 @@ function syncUI(g) {
     el.classList.remove('fechado', 'abrindo', 'aberto', 'fechando');
     el.offsetHeight; // reflow force
     el.classList.add(state);
+  });
 }
 
 function renderInitial() {
