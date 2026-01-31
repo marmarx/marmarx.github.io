@@ -72,27 +72,26 @@ function toggleGate(id) {
   if (g.estado === "fechado") {
     if (hasOpenConflict(g)) return alert("Conflito ativo");
     g.estado = "abrindo...";
-    syncUI();
+    syncUI(g);
 
     setTimeout(() => {
       g.estado = "aberto";
-      syncUI();
+      syncUI(g);
     }, 2000);
 
   } else if (g.estado === "aberto") {
     g.estado = "fechando...";
-    syncUI();
+    syncUI(g);
 
     setTimeout(() => {
       g.estado = "fechado";
-      syncUI();
+      syncUI(g);
     }, 2000);
   }
 }
 
 
-function syncUI() {
-  gates.forEach(g => {
+function syncUI(g) {
     const el = document.querySelector(`.gate[data-id="${g.id}"]`);
     const btn = el.querySelector("button");
 
@@ -102,17 +101,18 @@ function syncUI() {
     el.querySelector(".local").textContent = g.local;
     el.querySelector(".status").textContent = g.estado;
     el.querySelector(".conflicts").textContent = getConflicts(g).join(", ") || "Nenhum";
-    
-    el.classList.remove('open', 'closed');
+
+    const busy = g.estado === "abrindo..." || g.estado === "fechando...";
     const closing = g.estado === "fechado" || g.estado === "fechando...";
-    el.offsetHeight; // reflow force
-    el.classList.add(closing ? "closed" : "open");
 
     btn.textContent = closing ? "Abrir" : "Fechar";
-    const busy = g.estado === "abrindo..." || g.estado === "fechando...";
     btn.disabled = busy || (g.estado === "fechado" && hasOpenConflict(g));
     btn.onclick = () => toggleGate(g.id);
-  });
+
+    if(!closing) return // animate only while transitioning 
+    el.classList.remove('open', 'closed');
+    el.offsetHeight; // reflow force
+    el.classList.add(g.estado === "fechando..." ? "closed" : "open");
 }
 
 function renderInitial() {
@@ -134,8 +134,6 @@ function renderInitial() {
 
     container.appendChild(div);
   });
-
-  syncUI();
 }
 
 renderInitial();
