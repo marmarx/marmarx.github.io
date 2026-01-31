@@ -15,7 +15,7 @@
   
   #gates {
     display: grid;
-    grid-template-columns: repeat(auto-fit, 200px);
+    grid-template-columns: repeat(auto-fit, 400px);
     gap: var(--2rem);
     place-items: center;
   }
@@ -59,7 +59,7 @@
 const gates = [
   { id: 1, local: "Frente A", condominio: "Residencial Sol", estado:'fechado', conflitos: [2] },
   { id: 2, local: "Frente B", condominio: "Residencial Sol", estado:'fechado', conflitos: [1] },
-  { id: 3, local: "Fundos",  condominio: "Residencial Sol", estado:'fechado', conflitos: [] }
+  { id: 3, local: "Fundos", condominio: "Residencial Sol", estado:'fechado', conflitos: [] }
 ];
 
 const getGate = (id) => gates.find(g => g.id === id);
