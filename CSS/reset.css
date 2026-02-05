@@ -45,7 +45,8 @@ main { flex-direction: column; }
 h1, h2 { min-inline-size: minmax(fit-content, 80%); margin: auto; font-weight: bold; text-wrap: balance } /* min-inline-size acts similarly to width; balance breaks text keeping the same number of words in each line */
 h1 { font-size: clamp(1.8rem, 5vw + 1rem, 5rem); margin-block: 2rem; } /* responsive and zoomable font-size; top and bottom margin only */
 h2 { font-size: clamp(1.4rem, 3.5vw + .8rem, 4rem); margin-block: 1.5rem; }
-p { font-size: clamp(1.2rem, 1vw + .5rem, 3rem); line-height: clamp(1.4rem, 1vw +.7rem, 3.2rem); text-wrap: pretty } /* pretty breaks text more naturally, avoids orfan words */
+p { font-size: clamp(1.2rem, 1vw + .5rem, 3rem); line-height: clamp(1.4rem, 1vw +.7rem, 3.2rem) }
+p, li, figcaption { max-width: 65ch; text-wrap: pretty } /* prevents overexagerated text width, easier for readers; pretty breaks text more naturally, avoids orfan words */
 
 a { text-decoration: none; cursor: pointer }
 [href$=".pdf"]::after { content: url(images/pdf.svg) / "download PDF" } /* adds an icon and alt text to downloadable pdf href */
@@ -68,3 +69,4 @@ TIPS:
 - aspect-ration: w / h -> maintains aspect ration of an elements, useful for images and videos
 - background-repeat: space -> prevents background images from being cut off
 */
+
