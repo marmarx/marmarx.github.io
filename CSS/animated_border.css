@@ -2,7 +2,8 @@
   position: relative;
   background: var(--black);
   border-radius: 10px; corner-shape: squircle;
-  --animation-width: 4px
+  cursor: pointer;
+  --animation-width: 4px;
 
   &::before, &::after {
     content: '';
@@ -13,19 +14,20 @@
     z-index: -1;
   }
 
-  &:hover &::before, &:hover &::after { animation-play-state: running }
-
   &::before { padding: var(--animation-width) }
   &::after { filter: blur(1.5rem); opacity: .5; padding: calc(var(--animation-width) * 2) }
 
-  @property --angle {
-    syntax: '<angle>';
-    initial-value: 0deg;
-    inherits: false;
-  }
-  
-  @keyframes spin {
-    from { --angle: 0deg }
-    to { --angle: 360deg }
-  }
+  &:hover::before, &:hover::after,
+  &:focus::before, &:focus::after { animation-play-state: running }
+}
+
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes spin {
+  from { --angle: 0deg }
+  to { --angle: 360deg }
 }
