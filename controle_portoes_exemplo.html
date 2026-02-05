@@ -6,14 +6,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Controle de Portões</title>
 <style>
-  body { margin: 0; padding: 0; display: flex; flex-direction: column }
+  body { margin: 0; padding: 0; display: flex; flex-direction: column; width: 100vw }
 
-  h1 { font-size: clamp(1.8rem, 7vw + 1rem, 5rem) }
-  h2, p { font-size: clamp(1.2rem, 3vw + .5rem, 3rem) }
+  h1 {
+    width: 80%; margin: auto;
+    font-size: clamp(1.8rem, 5vw + 1rem, 5rem)
+  }
+  h1, h2 { text-wrap: balance }
+  h2, p { font-size: clamp(1.2rem, 1vw + .5rem, 3rem) }
   h2 { font-weight: bold }
+  p { min-inline-size: fit-content; text-wrap: pretty }
   
   #gates {
-    width: clamp(250px, 80vw, 1200px);
+    width: clamp(250px, 80%, 1200px);
     margin: auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
