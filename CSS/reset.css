@@ -1,0 +1,70 @@
+@import "colors.css";
+
+:root { font-size: 10px; /*1 em = 10 px*/ }
+
+*, *:before, *:after {
+  margin: 0; padding: 0; border: 0; box-sizing: border-box;
+  font-family: inherit; font-size: inherit; color: inherit;
+  text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  word-wrap: normal; word-break: keep-all;
+  transition: all .3s ease-in-out;
+  color-scheme: dark light;
+  -webkit-user-select: none; user-select: none; /* prevents text selection highlighting on double click -> useful when developing html apps */
+  background-size: cover; background-position: center; background-repeat: no-repeat;
+  place-items: center; place-content: center;
+}
+
+.selectable-text { -webkit-user-select: all; user-select: all; } /* makes easier for users to select a selectable text */
+
+html {
+  font-family: 'Open Sans', sans-serif;  font-weight: normal;  color: var(--text);
+  font-size: 1.2em; line-height: 1.4em; /* 12 px and 14 px */
+  scroll-behavior: smooth;
+}
+
+body {
+  width: 100vw; min-height: 100vh; overflow-x: hidden;
+  background: var(--background);
+  display: flex; flex-direction: column; align-items: center;
+}
+
+main, header, footer { width: 100%; display: flex; align-items: center; }
+main { flex-direction: column; }
+
+.row {
+  width: clamp(250px, 80%, 1200px); margin-inline: auto;  /* left and right margin only */
+  display: grid; gap: clamp(1rem, 5vw, 2rem); place-items: center;
+  @media (width > 768px) { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); } /* on small screens, it will behave as a single column */
+}
+
+.card {
+  display: grid; grid-template-rows: subgrid; grid-row: span 5; gap: 0; /* subgrid will align content with other children content */
+  padding: clamp(.5rem, 5vw, 1rem);
+}
+
+h1, h2 { min-inline-size: minmax(fit-content, 80%); margin: auto; font-weight: bold; text-wrap: balance } /* min-inline-size acts similarly to width; balance breaks text keeping the same number of words in each line */
+h1 { font-size: clamp(1.8rem, 5vw + 1rem, 5rem); margin-block: 2rem; } /* responsive and zoomable font-size; top and bottom margin only */
+h2 { font-size: clamp(1.4rem, 3.5vw + .8rem, 4rem); margin-block: 1.5rem; }
+p { font-size: clamp(1.2rem, 1vw + .5rem, 3rem); line-height: clamp(1.4rem, 1vw +.7rem, 3.2rem); text-wrap: pretty } /* pretty breaks text more naturally, avoids orfan words */
+
+a { text-decoration: none; cursor: pointer }
+[href$=".pdf"]::after { content: url(images/pdf.svg) / "download PDF" } /* adds an icon and alt text to downloadable pdf href */
+[href^="http"]::after { content: url(images/external-link.svg) / "external link" } /* adds an icon and alt text to external links */
+
+img, picture, video, svg { display: block; max-width: 100%; height: auto; object-fit: cover; object-position: center; }
+button, div[onclick]{ cursor: pointer; inline-size: fit-content; } /* will break text only on small screens and prevents overflow */
+input, textarea, select, button { font-family: inherit; font-size: inherit; color: inherit; }
+button, div[onclick], input, textarea, select, button { outline-color: transparent } /*same effect as outline: none, but still allows high contrast mode (accessibility) */
+textarea { field-sizing: content }
+select option { color: var(--text) } select:invalid { color: oklch(from var(--text) 90% c h / 1) } /* lightness chroma hue / transparency -> similar to hsla, produces better results */
+table { border-collapse: collapse }
+
+@media screen and (max-width: 992px) {}
+
+/*
+TIPS:
+- inset: 0 0 0 0 -> replaces top, left, bottom, right
+- isolation: isolate -> creates a new stacking context for z-index management
+- aspect-ration: w / h -> maintains aspect ration of an elements, useful for images and videos
+- background-repeat: space -> prevents background images from being cut off
+*/

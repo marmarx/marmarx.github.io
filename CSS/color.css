@@ -1,0 +1,22 @@
+:root {
+  --white: #f6f6f6; --black:#1f2937;
+  --scrollbar: #999
+}
+
+@media (prefers-color-scheme: light) {
+  :root{
+    --background: var(--white); --text: var(--black);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root{
+    --background: var(--black); --text: var(--white);
+  }
+}
+
+::-webkit-scrollbar { width: 6px }
+::-webkit-scrollbar-track { background: oklch(from( var(--scrollbar) 90% c h )) }
+::-webkit-scrollbar-thumb { background: oklch(from( var(--scrollbar) 75% c h )) }
+::-webkit-scrollbar-thumb:hover { background: oklch(from( var(--scrollbar) 100% c h )) }
+::selection { background: #30f2bb }
