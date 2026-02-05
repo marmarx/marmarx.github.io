@@ -2,26 +2,28 @@
   width: 100%;
   display: flex;
   overflow-x: auto;
-}
-.carousel::-webkit-scrollbar { display: none }
 
-.group {
-  display: flex; align-items: center; justify-content: center; gap: .5em;
-  margin-right: .5em; /* fixes animation hiccup */
-  animation: spin 5s linear infinite;
-}
+  &::-webkit-scrollbar { display: none }
 
-.card {
-  flex: 0 0 5em; align-content: center;
-  height: 5em;
-  padding: 1em; border-radius: .2em;
-  background: cornflowerblue;
-  font-size: 3rem; text-align: center;
+  .group {
+    display: flex; align-items: center; justify-content: center; gap: .5em;
+    margin-right: .5em; /* fixes animation hiccup */
+    animation: spin 5s linear infinite;
+  }
+
+  .card {
+    flex: 0 0 5em; align-content: center;
+    height: 5em;
+    padding: 1em; border-radius: .2em;
+    background: cornflowerblue;
+    font-size: 3rem; text-align: center;
+  }
 }
 
 @keyframes spin {
   from { translate: 0 }
   to { translate: -100% }
 }
+
 
 /* duplicate the group in html and add aria-hidden to it: <div aria-hidden class="group">*/
