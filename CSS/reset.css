@@ -66,7 +66,18 @@ table { border-collapse: collapse }
 TIPS:
 - inset: 0 0 0 0 -> replaces top, left, bottom, right
 - isolation: isolate -> creates a new stacking context for z-index management
-- aspect-ration: w / h -> maintains aspect ration of an elements, useful for images and videos
+- aspect-ration: w / h -> maintains aspect ratio of an element, useful for images and videos
 - background-repeat: space -> prevents background images from being cut off
+
+- div p -> selects all 'p's inside 'div'
+- div > p -> selects only 'p's that are direct children of div
+- div + div -> selects all 'p's that are siblings and come after any first 'p'
+- div ~ div -> selects all 'p's that are siblings and come after the very first 'p'
+
+- div[class] -> if it has a class
+- div[class="row"] -> same as div.row
+- div[class^="row"] -> select divs that have a class starting with 'row'
+- div[class$="row"] -> select divs that have a class ending with 'row'
 */
+
 
