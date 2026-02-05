@@ -9,11 +9,11 @@
   body { margin: 0; padding: 0; display: flex; flex-direction: column; width: 100vw }
 
   h1 {
-    width: 80%; margin: auto;
+    min-inline-size: fit-content; margin: auto;
     font-size: clamp(1.8rem, 5vw + 1rem, 5rem)
   }
   h1, h2 { text-wrap: balance }
-  h2, p { font-size: clamp(1.2rem, 1vw + .5rem, 3rem) }
+  h2, p { font-size: clamp(1.2rem, 1vw + .5rem, 3rem); line-height: clamp(1.4rem, 1vw +.7rem, 3.2rem)}
   h2 { font-weight: bold }
   p { min-inline-size: fit-content; text-wrap: pretty }
   
