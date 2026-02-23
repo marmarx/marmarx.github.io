@@ -12,6 +12,9 @@
   -webkit-user-select: none; user-select: none; /* prevents text selection highlighting on double click -> useful when developing html apps */
   background-size: cover; background-position: center; background-repeat: no-repeat;
   place-items: center; place-content: center;
+
+  /* default values: */
+  width: auto; height: auto;
 }
 
 .selectable-text { -webkit-user-select: all; user-select: all; } /* makes easier for users to select a selectable text */
@@ -34,7 +37,7 @@ main { flex-direction: column; }
 .row {
   width: clamp(250px, 80%, 1200px); margin-inline: auto;  /* left and right margin only */
   display: grid; gap: clamp(1rem, 5vw, 2rem); place-items: center;
-  @media (width > 768px) { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); } /* on small screens, it will behave as a single column */
+  @media (width > 768px) { grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)); } /* on small screens, it will behave as a single column */
 }
 
 .card {
@@ -55,7 +58,11 @@ a { text-decoration: none; cursor: pointer }
 img, picture, video, svg { display: block; max-width: 100%; height: auto; object-fit: cover; object-position: center; }
 button, div[onclick]{ cursor: pointer; inline-size: fit-content; } /* will break text only on small screens and prevents overflow */
 input, textarea, select, button { font-family: inherit; font-size: inherit; color: inherit; }
-button, div[onclick], input, textarea, select, button { outline-color: transparent } /*same effect as outline: none, but still allows high contrast mode (accessibility) */
+button, div[onclick], input, textarea, select, option, checkbox{
+  user-select: none;
+  outline-color: transparent; /* same effect as outline: none, but still allows high contrast mode (accessibility) */
+  &:focus-visible { outline-color: var(--primary-color) }
+} 
 textarea { field-sizing: content }
 select option { color: var(--text) } select:invalid { color: oklch(from var(--text) 90% c h / 1) } /* lightness chroma hue / transparency -> similar to hsla, produces better results */
 table { border-collapse: collapse }
@@ -79,5 +86,6 @@ TIPS:
 - div[class^="row"] -> select divs that have a class starting with 'row'
 - div[class$="row"] -> select divs that have a class ending with 'row'
 */
+
 
 
