@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Title</title>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="author" content="Marco Martins">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#2f4550">
+<link rel="icon" type="image/png" href="src/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora&family=Open+Sans&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script defer type="text/javascript" src="script.js"></script>
+
+<style>
+:root{--color: red}
+
+body{
+  width: 100svw; height: 100svh; overflow: hidden;
+  display: flex; flex-direction: column; gap: .5rem;
+  align-items: center; justify-content: center;
+}
+h1 { margin: 0 }
+
+
+/* EXAMPLE 1 - Loading Animation: delay based on sibling index */
+.loading {
+  position: relative;
+  display: flex; gap: 1rem; border-radius: 50%;
+  margin-bottom: 200px;
+
+  .circle {
+    --size: 20px;
+    width: var(--size); aspect-ratio: 1;
+    background: var(--color); border-radius: 50%;
+    animation: loading 1s ease-in-out alternate infinite;
+    animation-delay: calc(var(--i) * .1s);
+    animation-delay: calc(sin(10deg) * var(--i) * 1s);  /* using sin() as a movement damper -> softer movement */
+  }
+
+  /* Regular CSS */
+  /* .circle:nth-child(1) { --i: 1 } ... */
+
+  /* SCSS */
+  /* @for $i from 1 through 6 { .circle:nth-child(#{$i}) { --i: $i } } */
+
+  /* Regular CSS + sibling-index() */
+  .circle { --i: sibling-index() }
+}
+
+@keyframes loading {
+  to { transform: translateY(500%) }
+}
+
+
+/* EXAMPLE 2 - Clock: polar cordinates positioning */
+.clock {
+  --width: 155px; --_radius: 80px; --_font: 1rem;
+  --black: #222222; --white: white;
+  --animation-time: 12s; /* = 60 minutes */
+
+  position: relative; width: var(--width); aspect-ratio: 1;
+  background: var(--black); border-radius: 50%;
+  isolation: isolate;
+
+  &::before{
+    content: ""; position: absolute; inset: 0 0 auto; transform: translateX(.5px);
+    width: 2px; height: calc(var(--width) / 2);
+    margin: auto;
+    background: var(--color); opacity: .6;
+    z-index: 3;
+  }
+
+  .hour, .minute {
+    --position: calc((var(--width) - var(--size)) / 2);
+
+    position: absolute; top: var(--position); left: var(--position);
+    width: var(--size); aspect-ratio: 1;
+    display: flex; align-items: center; justify-content: center;
+    font-size: var(--font); line-height: 0rem; color: var(--color);
+    background: var(--bg-color); border-radius: 50%;
+
+    animation: rotate var(--animation-duration) linear infinite;
+    transform: translate(
+      calc(cos(var(--degrees)) * var(--radius)),
+      calc(sin(var(--degrees)) * var(--radius))
+    );
+  }
+
+  .hour {
+    --size: 25px; --radius: var(--_radius); --font: var(--_font);
+    --color: var(--black); --bg-color: var(--white);
+    --animation-duration: calc(var(--animation-time) * 12); /* = 12 hours */
+  }
+
+  .minute {
+    --size: 20px; --radius: calc(var(--_radius) * 0.7); --font: calc(var(--_font) * 0.7);
+    --color:  var(--white); --bg-color: var(--black);
+    --animation-duration: var(--animation-time); /* = 60 minutes */
+  }
+
+  /* Regular CSS */
+  /* .minutes:nth-child(1)  { --degrees: 300deg } ... 
+
+  /* SCSS */
+  /* $total: 12; @for $i from 1 through ($total +1) { .minutes:nth-child(#{$i}) { --degrees: $i * 30deg - 90deg } } */
+
+  /* Regular CSS + sibling-index() */
+  .hour, .minute { --initial-degrees: calc(sibling-index() * 360deg / sibling-count() - 90deg) }
+}
+
+@property --degrees {
+  syntax: '<angle>'; /* Defines the variable as an angle type */
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes rotate {
+  from { --degrees: var(--initial-degrees) }
+  to { --degrees: calc(var(--initial-degrees) - 360deg) }
+}
+
+</style>
+</head>
+<body>
+
+  <h1>Example 1: Loading Animation</h1>
+  <p>Animation delay based on sibling index, using sin() for softer movement</p>
+  <div class="loading">
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+  </div>
+
+  <h1>Example 2: Clock</h1>
+  <p>Using polar coordinates for positioning, custom property animated (12s = 1hour)</p>
+  <div class="clock">
+    <div class="hours">
+      <div class="hour">1</div>
+      <div class="hour">2</div>
+      <div class="hour">3</div>
+      <div class="hour">4</div>
+      <div class="hour">5</div>
+      <div class="hour">6</div>
+      <div class="hour">7</div>
+      <div class="hour">8</div>
+      <div class="hour">9</div>
+      <div class="hour">10</div>
+      <div class="hour">11</div>
+      <div class="hour">12</div>
+    </div>
+    <div class="minutes">
+      <div class="minute">5</div>
+      <div class="minute">10</div>
+      <div class="minute">15</div>
+      <div class="minute">20</div>
+      <div class="minute">25</div>
+      <div class="minute">30</div>
+      <div class="minute">35</div>
+      <div class="minute">40</div>
+      <div class="minute">45</div>
+      <div class="minute">50</div>
+      <div class="minute">55</div>
+      <div class="minute">60</div>
+    </div>
+  </div>
+
+<script></script>
+</body>
+</html>
