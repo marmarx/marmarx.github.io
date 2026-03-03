@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Title</title>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="author" content="Marco Martins">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#2f4550">
+<link rel="icon" type="image/png" href="src/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora&family=Open+Sans&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script defer type="text/javascript" src="script.js"></script>
+
+<style>
+body{ width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center }
+
+.clock {
+  position: relative; width: 5px; aspect-ratio: 1;
+  background: black; border-radius: 50%;
+}
+
+.number {
+  --size: 25px; --radius: 70px;
+  position: absolute; top: calc(var(--size) / 2); left: calc(var(--size) / 2);
+  width: var(--size); aspect-ratio: 1;
+  display: flex; align-items: center; justify-content: center;
+  color: white; background: black; border-radius: 50%;
+  transform: translate(calc(cos(var(--degrees)) * var(--radius)), calc(sin(var(--degrees)) * var(--radius)))
+}
+
+.number:nth-child(4) { --degrees: 30deg } /* :nth-of-type */
+.number:nth-child(5) { --degrees: 60deg }
+.number:nth-child(6) { --degrees: 90deg }
+.number:nth-child(7) { --degrees: 120deg }
+.number:nth-child(8) { --degrees: 150deg }
+.number:nth-child(9) { --degrees: 180deg }
+.number:nth-child(10) { --degrees: 210deg }
+.number:nth-child(11) { --degrees: 240deg }
+.number:nth-child(12) { --degrees: 270deg }
+.number:nth-child(1) { --degrees: 300deg }
+.number:nth-child(2) { --degrees: 330deg }
+.number:nth-child(3) { --degrees: 360deg }
+
+/* SCSS /*
+$total: 12;
+@for $i from 1 trough ($total +1) {
+  .number:nth-child(#{$i}) { --degrees: $i * 30deg - 90deg }
+}
+*/
+
+
+</style>
+</head>
+<body>
+
+  <div class="clock">
+    <div class="number">1</div>
+    <div class="number">2</div>
+    <div class="number">3</div>
+    <div class="number">4</div>
+    <div class="number">5</div>
+    <div class="number">6</div>
+    <div class="number">7</div>
+    <div class="number">8</div>
+    <div class="number">9</div>
+    <div class="number">10</div>
+    <div class="number">11</div>
+    <div class="number">12</div>
+  </div>
+
+<script></script>
+</body>
+</html>
