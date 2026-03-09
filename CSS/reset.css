@@ -12,6 +12,7 @@
   -webkit-user-select: none; user-select: none; /* prevents text selection highlighting on double click -> useful when developing html apps */
   background-size: cover; background-position: center; background-repeat: no-repeat;
   place-items: center; place-content: center;
+  -webkit-tap-highlight-color: transparent; /* prevents highlight upon tapping elements */
 
   /* default values: */
   width: auto; height: auto;
@@ -86,6 +87,7 @@ TIPS:
 - div[class^="row"] -> select divs that have a class starting with 'row'
 - div[class$="row"] -> select divs that have a class ending with 'row'
 */
+
 
 
 
