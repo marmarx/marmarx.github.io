@@ -23,13 +23,15 @@
 html {
   font-family: 'Open Sans', sans-serif;  font-weight: normal;  color: var(--text);
   font-size: 1.2em; line-height: 1.4em; /* 12 px and 14 px */
-  scroll-behavior: smooth;
+  scroll-behavior: smooth; scrollbar-gutter: stable;
+  interpolate-size: allow-keywords; /* allow animations with: auto, fit-content, fill-available */
+  transition-behavior: allow-discrete; /* allow animations with: display , visibility, var(--myVar) */
 }
 
 body {
-  width: 100vw; min-height: 100vh; overflow-x: hidden;
+  width: 100svw; min-height: 100svh; overflow-x: hidden;
   background: var(--background);
-  display: flex; flex-direction: column; align-items: center;
+  display: grid; grid-template-rows: auto 1fr auto; /* header, main, footer */
 }
 
 main, header, footer { width: 100%; display: flex; align-items: center; }
