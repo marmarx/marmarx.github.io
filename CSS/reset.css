@@ -21,7 +21,7 @@
 .selectable-text { -webkit-user-select: all; user-select: all; } /* makes easier for users to select a selectable text */
 
 html {
-  font-family: 'Open Sans', sans-serif;  font-weight: normal;  color: var(--text);
+  font-family: 'Open Sans', sans-serif;  font-weight: normal;  color: var(--text); accent-color: var(--primary-color);
   font-size: 1.2em; line-height: 1.4em; /* 12 px and 14 px */
   scroll-behavior: smooth; scrollbar-gutter: stable;
   interpolate-size: allow-keywords; /* allow animations with: auto, fit-content, fill-available */
