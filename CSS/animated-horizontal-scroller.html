@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Title</title>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- forked from Kevin Powell -->
+<script defer type="text/javascript" src="script.js"></script>
+
+<style>
+  .horizontal-animated-scroller {
+    width: 100%;
+    display: grid;
+    gap: 1rem;
+    grid-auto-flow: column;
+    grid-auto-columns: 300px;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+
+    /* select all children */
+    & > * {
+      background: red; /* visualization only */
+      aspect-ratio: 1/1;
+      scroll-snap-align: center;
+      animation: scroller linear both;
+      animation-timeline: view(x);
+    }
+  }
+
+  @keyframes scroller {
+    0%, 100% { opacity: .25; scale: 0.5 }
+    35%, 65% { opacity: 1; scale: 1 }
+  }
+</style>
+
+</head>
+<body>
+  <div class="horizontal-animated-scroller">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</body>
+</html>
