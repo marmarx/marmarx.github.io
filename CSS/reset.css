@@ -68,7 +68,7 @@ button, div[onclick], input, textarea, select, option, checkbox{
 } 
 textarea { field-sizing: content }
 select option { color: var(--text) } select:invalid { color: oklch(from var(--text) 90% c h / 1) } /* lightness chroma hue / transparency -> similar to hsla, produces better results */
-table { border-collapse: collapse }
+table { border-collapse: collapse; font-variant-numeric: tabular-nums }
 
 @media screen and (max-width: 992px) {}
 
