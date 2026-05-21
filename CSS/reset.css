@@ -4,16 +4,22 @@
 :root { font-size: 10px; /*1 em = 10 px*/ }
 
 :root {
-  color-scheme: light;
+  @media (prefers-color-scheme: light) {
+    --theme: light; color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    --theme: dark; color-scheme: dark;
+  }
+}
+
+:root {
   --text: hsl(0deg 0% 16.86%);
   --text-washed: hsl(from var(--text) h s calc(l + 30));
 
   @container style(--theme: dark) {
-    color-scheme: dark;
     --text: hsl(0deg 0% 90%);
     --text-washed: hsl(from var(--text) h s calc(l - 20));
   }
-  @media (prefers-color-scheme: dark) { --theme: dark }
 }
 
 ::-webkit-scrollbar{ width: 6px }
