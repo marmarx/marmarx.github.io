@@ -83,7 +83,7 @@ a.disabled { pointer-events: none; cursor: default }
 [href$=".pdf"]::after { content: url(/icons/file-save.svg) / "download PDF file" } /* adds an icon and alt text to downloadable pdf href */
 [href^="http"]::after { content: url(/icons/external-link.svg) / "external link" } /* adds an icon and alt text to external links */
 
-img, picture, video, svg { display: block; max-width: 100%; height: auto; object-fit: cover; object-position: center }
+img, picture, video, svg { display: block; max-width: 100%; height: auto; object-fit: cover; object-position: center } /* max-width and height allow responsivity */
 
 button, div[onclick], input, select, option { cursor: pointer; -webkit-user-select: none; user-select: none }
 button, div[onclick] { inline-size: fit-content } /* will break text only on small screens and prevents overflow */
