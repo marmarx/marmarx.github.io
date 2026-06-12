@@ -128,7 +128,7 @@ table { border-collapse: collapse; font-variant-numeric: tabular-nums }
 }
 
 /* parameters with defined type(s) and a default value */
-@function --transparent(--color <color>, --alpha: <number> | <percentage>: 0.7) 
+@function --transparent(--color <color>, --alpha type(<number> | <percentage>): 0.7)
 returns <color> {
   result: oklch(from var(--color) l c h);
   result: oklch(from var(--color) l c h / var(--alpha));
