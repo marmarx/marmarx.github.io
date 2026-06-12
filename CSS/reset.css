@@ -37,7 +37,7 @@
   text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
 
   /* place-items: center; place-content: center; */
-  background-size: cover; background-position: center; background-repeat: no-repeat;
+  background-size: cover; background-position: center; background-repeat: no-repeat; background-origin: border-box;
   
   -webkit-user-select: none; user-select: none; /* prevents text selection highlighting on double click -> useful when developing html apps */
   -webkit-tap-highlight-color: transparent; -webkit-touch-callout: none;  /* prevents highlight upon tapping elements */
