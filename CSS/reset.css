@@ -110,6 +110,29 @@ table { border-collapse: collapse; font-variant-numeric: tabular-nums }
   padding: clamp(.5rem, 5vw, 1rem);
 }
 
+
+/*** CSS Functions ***/
+@function --inner-radius(--outer, --padding) {
+  result: max(0px, calc(var(--outer) - var(--padding)));
+}
+
+@function --transparent(--color <color>, --alpha: 0.7 type(<number> | <percentage>)) 
+returns <color> {
+  result: oklch(from var(--color) l c h);
+  result: oklch(from var(--color) l c h / var(--alpha));
+  /* in CSS functions the last 'result' always wins (cascade) - it's quite different from JS 'return' behavior */
+}
+
+@function --media-query(--phone, --tablet, --laptop, --large) {
+  result: if(
+    media(width > 992px): var(--large);
+    media(width > 768px): var(--laptop);
+    media(width > 600px): var(--tablet);
+    else: var(--phone)
+  );
+  /* here we only have one 'result' and the if stops at the first matching condition */
+}
+
 /*
 TIPS:
 - inset: 0 0 0 0 -> replaces top, left, bottom, right
