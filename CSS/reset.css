@@ -128,7 +128,7 @@ returns <color> {
     media(width > 992px): var(--large);
     media(width > 768px): var(--laptop);
     media(width > 600px): var(--tablet);
-    else: var(--phone)
+    else: var(--phone);
   );
   /* here we only have one 'result' and the if stops at the first matching condition */
 }
