@@ -100,28 +100,6 @@ table { border-collapse: collapse; font-variant-numeric: tabular-nums }
 @media only screen and (min-width: 1200px) {} /* large   */
 
 
-/*** CSS Functions ***/
-@function --inner-radius(--outer, --padding) {
-  result: max(0px, calc(var(--outer) - var(--padding)));
-}
-
-@function --media-query(--phone, --tablet, --laptop, --large) {
-  result: if(
-    media(width > 992px): var(--large);
-    media(width > 768px): var(--laptop);
-    media(width > 600px): var(--tablet);
-    else: var(--phone);
-  );
-  /* the if stops at the first matching condition */
-}
-
-@function --transparent(--color <color>, --alpha: <number> | <percentage>: 0.7)
-returns <color> {
-  result: oklch(from var(--color) l c h);
-  result: oklch(from var(--color) l c h / var(--alpha));
-  /* in CSS functions the last 'result' always wins (cascade) - it's quite different from JS 'return' behavior */
-}
-
 .row {
   width: clamp(250px, 80%, 1200px); margin-inline: auto;  /* left and right margin only */
   display: grid; gap: clamp(1rem, 5vw, 2rem); place-items: center;
@@ -129,15 +107,46 @@ returns <color> {
 }
 
 .card {
-  --border-radius: 1em;
-  --padding: clamp(.5rem, 5vw, 1rem);
-  
   display: grid; grid-template-rows: subgrid; grid-row: span 5; gap: 0; /* subgrid will align content with other children content */
-  border-radius: var(--border-radius); padding: var(--padding);
-
-  & > .picture { border-radius: --inner-radius(--border-radius, --padding) }
+  padding: clamp(.5rem, 5vw, 1rem);
 }
 
+
+/*** CSS Functions ***/
+@function --inner-radius(--outer, --padding) {
+  result: max(0px, calc(var(--outer) - var(--padding)));
+}
+
+@function --media-query(--phone, --tablet, --laptop, --large) {
+  /* if stops at the first matching condition */
+  result: if(
+    media(width > 992px): var(--large);
+    media(width > 768px): var(--laptop);
+    media(width > 600px): var(--tablet);
+    else: var(--phone);
+  );
+}
+
+/* parameters with defined type(s) and a default value */
+@function --transparent(--color <color>, --alpha: <number> | <percentage>: 0.7) 
+returns <color> {
+  result: oklch(from var(--color) l c h);
+  result: oklch(from var(--color) l c h / var(--alpha));
+  /* in CSS functions the last 'result' always wins (cascade) - it's quite different from JS 'return' behavior */
+}
+
+.flex-card {
+  --color: azure;
+  --border-radius: 1em;
+  --padding: clamp(.5rem, 5vw, 1rem);
+
+  display: flex; flex-direction: --media-query(column, row, row, row);
+  padding: var(--padding);
+  border: 1px solid var(--color); border-radius: var(--border-radius);
+  background-color: --transparent(--color);
+  
+  & > img { width: 100%; aspect-ratio: 16/10; border-radius: --inner-radius(--border-radius, --padding) }
+}
 
 
 /*
