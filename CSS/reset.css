@@ -99,28 +99,10 @@ table { border-collapse: collapse; font-variant-numeric: tabular-nums }
 @media only screen and (min-width: 992px)  {} /* laptops */
 @media only screen and (min-width: 1200px) {} /* large   */
 
-.row {
-  width: clamp(250px, 80%, 1200px); margin-inline: auto;  /* left and right margin only */
-  display: grid; gap: clamp(1rem, 5vw, 2rem); place-items: center;
-  @media (width > 768px) { grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)) } /* on small screens, it will behave as a single column */
-}
-
-.card {
-  display: grid; grid-template-rows: subgrid; grid-row: span 5; gap: 0; /* subgrid will align content with other children content */
-  padding: clamp(.5rem, 5vw, 1rem);
-}
-
 
 /*** CSS Functions ***/
 @function --inner-radius(--outer, --padding) {
   result: max(0px, calc(var(--outer) - var(--padding)));
-}
-
-@function --transparent(--color <color>, --alpha: 0.7 type(<number> | <percentage>)) 
-returns <color> {
-  result: oklch(from var(--color) l c h);
-  result: oklch(from var(--color) l c h / var(--alpha));
-  /* in CSS functions the last 'result' always wins (cascade) - it's quite different from JS 'return' behavior */
 }
 
 @function --media-query(--phone, --tablet, --laptop, --large) {
@@ -130,8 +112,33 @@ returns <color> {
     media(width > 600px): var(--tablet);
     else: var(--phone);
   );
-  /* here we only have one 'result' and the if stops at the first matching condition */
+  /* the if stops at the first matching condition */
 }
+
+@function --transparent(--color <color>, --alpha: <number> | <percentage>: 0.7)
+returns <color> {
+  result: oklch(from var(--color) l c h);
+  result: oklch(from var(--color) l c h / var(--alpha));
+  /* in CSS functions the last 'result' always wins (cascade) - it's quite different from JS 'return' behavior */
+}
+
+.row {
+  width: clamp(250px, 80%, 1200px); margin-inline: auto;  /* left and right margin only */
+  display: grid; gap: clamp(1rem, 5vw, 2rem); place-items: center;
+  @media (width > 768px) { grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)) } /* on small screens, it will behave as a single column */
+}
+
+.card {
+  --border-radius: 1em;
+  --padding: clamp(.5rem, 5vw, 1rem);
+  
+  display: grid; grid-template-rows: subgrid; grid-row: span 5; gap: 0; /* subgrid will align content with other children content */
+  border-radius: var(--border-radius); padding: var(--padding);
+
+  & > .picture { border-radius: --inner-radius(--border-radius, --padding) }
+}
+
+
 
 /*
 TIPS:
