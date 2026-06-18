@@ -4,6 +4,13 @@
 :root { font-size: 10px; /*1 em = 10 px*/ }
 
 :root {
+  @media only screen and (max-width: 1200px) { --screen: notebook }
+  @media only screen and (max-width: 992px)  { --screen: laptop }
+  @media only screen and (max-width: 768px)  { --screen: tablet }
+  @media only screen and (max-width: 600px)  { --screen: mobile }
+}
+
+:root {
   @media (prefers-color-scheme: light) {
     --theme: light; color-scheme: light;
   }
@@ -27,7 +34,7 @@
 ::-webkit-scrollbar-thumb{ background: #bbb }
 ::-webkit-scrollbar-thumb:hover{ background: #999 }
 ::selection{ background: #30f2bb }
-/* @media only screen and (min-width: 768px) { ::-webkit-scrollbar{ display: none } } */
+@container style((--screen: tablet) or (--screen: mobile)) { ::-webkit-scrollbar{ display: none } }
 
 * {
   box-sizing: border-box;
@@ -99,11 +106,15 @@ table { border-collapse: collapse; font-variant-numeric: tabular-nums }
 @media only screen and (min-width: 992px)  {} /* laptops */
 @media only screen and (min-width: 1200px) {} /* large   */
 
+@container style((--screen: mobile) {} /* phones */
+@container style((--screen: mobile) or (--screen: tablet) /* tablets or phones */
 
 .row {
   width: clamp(250px, 80%, 1200px); margin-inline: auto;  /* left and right margin only */
   display: grid; gap: clamp(1rem, 5vw, 2rem); place-items: center;
-  @media (width > 768px) { grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)) } /* on small screens, it will behave as a single column */
+  grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr))
+  
+  @container style((--screen: tablet) or (--screen: mobile)) { grid-template-columns: unset }/* on small screens, it will behave as a single column */
 }
 
 .card {
