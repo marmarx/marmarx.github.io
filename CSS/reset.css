@@ -110,11 +110,11 @@ table { border-collapse: collapse; font-variant-numeric: tabular-nums }
 @media only screen and (min-width: 992px)  {} /* laptops */
 @media only screen and (min-width: 1200px) {} /* large   */
 
-@container style((--screen: mobile) {} /* phones */
-@container style((--screen: mobile) or (--screen: tablet) /* tablets or phones */
+@container style((--screen: mobile)) {} /* phones */
+@container style((--screen: mobile) or (--screen: tablet)) {} /* tablets or phones */
 
 @media only screen and (orientation: landscape) {}
-@media only screen and (orientation: portrait) {}
+@media only screen and (orientation: portrait)  {}
 
 @media (prefers-reduced-motion: reduce) {}
 
