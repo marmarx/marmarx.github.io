@@ -19,8 +19,6 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {}
-
 :root {
   --text: hsl(0deg 0% 16.86%);
   --text-washed: hsl(from var(--text) h s calc(l + 30));
