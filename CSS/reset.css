@@ -34,7 +34,6 @@
   
     --text: hsl(0deg 0% 90%);
     --text-washed: hsl(from var(--text) h s calc(l - 20));
-    --hover: oklch(from var(--accent) calc(l + var(--lighten)) c h);
   }
 }
 
