@@ -23,9 +23,15 @@
   --text: hsl(0deg 0% 16.86%);
   --text-washed: hsl(from var(--text) h s calc(l + 30));
 
+  --lighten: 0.08; --darken: 0.2;
+  --accent-color: hsl(270, 58%, 54%); /* #1db954; */
+  --accent-dodge: oklch(from var(--accent) clamp(0, calc((0.7 - l) * 1000), 1) 0 0); /* l > .7 ? 0 : 1   */
+  --hover: oklch(from var(--accent-color) calc(l + var(--darken)) c h);
+
   @container style(--theme: dark) {
     --text: hsl(0deg 0% 90%);
     --text-washed: hsl(from var(--text) h s calc(l - 20));
+    --hover: oklch(from var(--accent-color) calc(l + var(--lighten)) c h);
   }
 }
 
@@ -131,6 +137,37 @@ table { border-collapse: collapse; font-variant-numeric: tabular-nums }
   display: grid; grid-template-rows: subgrid; grid-row: span 5; gap: 0; /* subgrid will align content with other children content */
   padding: clamp(.5rem, 5vw, 1rem);
 }
+
+.anchor-element {
+  anchor-name: --my-anchor;
+}
+
+
+/* ANCHOR POSITIONING */
+.anchored-element {
+  position: absolute;
+  position-anchor: --my-anchor;
+
+  & .position-self {
+    justify-self: anchor-center; /* horizontal align */
+    align-self: anchor-center; /* vertical align */
+  }
+
+  & .position-absolute {
+    top: anchor(--my-anchor bottom);
+    left: anchor(--my-anchor center);
+  }
+
+  & .position-around {
+    position-area: center bottom;  /* horizontal vertical */
+  }
+
+  & .position-inset {
+    inset-inline-start: anchor(left);
+    inset-block-start: anchor(bottom);
+  }
+}
+
 
 /*
 TIPS:
