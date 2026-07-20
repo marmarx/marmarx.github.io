@@ -23,14 +23,19 @@
   --text: hsl(0deg 0% 16.86%);
   --text-washed: hsl(from var(--text) h s calc(l + 30));
 
-  --lighten: 0.08; --darken: 0.2;
+  --lighten: pow(1.1, var(--tier, 1));
+  --darken:  pow(0.9, var(--tier, 1));
+  
   --accent: hsl(270, 58%, 54%); /* #1db954; */
   --accent-dodge: oklch(from var(--accent) clamp(0, calc((0.7 - l) * 1000), 1) 0 0); /* l > .7 ? 0 : 1   */
-  --accent-dark:  oklch(from var(--accent) calc(l + var(--darken)) c h);
-  --accent-light: oklch(from var(--accent) calc(l + var(--lighten)) c h);
+
+  --shadow-s: inset 0 1px 2px #ffffff30, 0 1px 2px #00000030, 0 2px 4px #00000015;
+  --shadow-m: inset 0 1px 2px #ffffff50, 0 2px 4px #00000030, 0 4px 8px #00000015;
+  --shadow-l: inset 0 1px 2px #ffffff70, 0 4px 6px #00000030, 0 6px 10px #00000015;
 
   @container style(--theme: dark) {
-    --lighten: -0.2; --darken: 0.08;
+   --lighten: pow(0.9, var(--tier, 1));
+   --darken:  pow(1.1, var(--tier, 1));
   
     --text: hsl(0deg 0% 90%);
     --text-washed: hsl(from var(--text) h s calc(l - 20));
