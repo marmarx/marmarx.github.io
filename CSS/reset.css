@@ -26,7 +26,7 @@
   --lighten: pow(1.1, var(--tier, 1));
   --darken:  pow(0.9, var(--tier, 1));
   
-  --accent: hsl(270, 58%, 54%); /* #1db954; */
+  --accent: oklch(55% 0.20 303); /* oklch(68% 0.19 148) */
   --accent-dodge: oklch(from var(--accent) clamp(0, calc((0.7 - l) * 1000), 1) 0 0); /* l > .7 ? 0 : 1   */
 
   --shadow-s: inset 0 1px 2px #ffffff30, 0 1px 2px #00000030, 0 2px 4px #00000015;
