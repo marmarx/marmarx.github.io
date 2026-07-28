@@ -18,13 +18,12 @@ body {
 #app { width: 100% }
 
 header, main, footer { padding-inline: 2em }
-header { 
+header, footer { 
   --bg-lvl: 1; --bd-lvl: 3;
   background-color: var(--bg-cl);
-  border-bottom: 1px solid var(--bd-cl);
-  margin-bottom: 1em;
 }
-footer { position: fixed; inset: auto 0 0 0; min-width: 100svw; margin-top: 1em }
+header { border-bottom: 1px solid var(--bd-cl); margin-bottom: 1em; }
+footer { border-top:    1px solid var(--bd-cl); margin-top:    1em; }
 
 @container style((--screen: mobile)) {
   header { border: none }
