@@ -1,0 +1,19 @@
+/* color palette from <https://github.com/vuejs/theme> */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300..800&display=swap');
+
+:root { font-size: 10px; } /*1 em = 10 px*/
+
+* { font-family: "Open Sans", sans-serif; line-height: 1.5 }
+
+/* min-inline-size acts similarly to width; balance breaks text keeping the same number of words in each line */
+h1, h2, h3 { min-inline-size: minmax(fit-content, 80%); margin: auto; font-weight: bold; text-wrap: balance }
+
+/* responsive and zoomable font-size; top and bottom margin only */
+h1 { font-size: clamp(1.6rem, 3vw + 1rem, 3rem);    margin-block: 1rem }
+h2 { font-size: clamp(1.2rem, 2vw + .8rem, 2.5rem); margin-block: .8rem }
+h3 { font-size: clamp(1rem, 1.2vw + .6rem, 1.4rem); margin-block: .8rem }
+p  { font-size: clamp(.6rem, .8vw + .5rem, 1rem) }
+
+/* prevents overexagerated text width, easier for readers; pretty breaks text more naturally, avoids orfan words */
+p, li, figcaption { max-width: 65ch; text-wrap: pretty }

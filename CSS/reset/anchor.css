@@ -1,0 +1,28 @@
+/* ANCHOR POSITIONING */
+.anchor-element {
+  anchor-name: --my-anchor;
+}
+
+.anchored-element {
+  position: absolute;
+  position-anchor: --my-anchor;
+
+  & .position-self {
+    justify-self: anchor-center; /* horizontal align */
+    align-self:   anchor-center; /* vertical align */
+  }
+
+  & .position-absolute {
+    top:  anchor(--my-anchor bottom);
+    left: anchor(--my-anchor center);
+  }
+
+  & .position-around {
+    position-area: center bottom;  /* horizontal vertical */
+  }
+
+  & .position-inset {
+    inset-inline-start: anchor(left);
+    inset-block-start:  anchor(bottom);
+  }
+}

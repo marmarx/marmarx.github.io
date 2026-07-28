@@ -1,0 +1,106 @@
+/* Default media querries */
+:root {
+  @media only screen and (max-width: 1200px) { --screen: notebook }
+  @media only screen and (max-width: 992px)  { --screen: laptop }
+  @media only screen and (max-width: 768px)  { --screen: tablet }
+  @media only screen and (max-width: 600px)  { --screen: mobile }
+}
+
+@container style((--screen: tablet) or (--screen: mobile)) {}
+
+/* Reset styles */
+* {
+  box-sizing: border-box;
+  outline-color: transparent; /* same effect as outline: none, but still allows high contrast mode (accessibility) */
+
+  word-wrap: normal; word-break: keep-all;
+  text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+
+  /* place-items: <align-items> <justify-items> */
+  /* place-items: center; place-content: center; */
+  background-size: cover; background-position: center; background-repeat: no-repeat; background-origin: border-box;
+  
+  -webkit-user-select: none; user-select: none; /* prevents user selection */
+  -webkit-tap-highlight-color: transparent; -webkit-touch-callout: none;  /* prevents highlight upon tapping elements */
+
+  &:is(:hover, :focus, :focus-visible, :focus-within) { outline-color: var(--accent) }
+}
+
+/* makes easier for users to select a selectable text */
+.selectable-text { -webkit-user-select: all; user-select: all }
+
+*, *:before, *:after {
+  /* transition: all ease 0.25s; -webkit-transition: all ease 0.3s; */ /* performance issues */
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none!important; transition-duration: 0!important;
+    transition: none!important; -webkit-transition: none!important;
+  }
+}
+
+html {
+  color-scheme: dark light;
+  accent-color: var(--accent);
+  scroll-behavior: smooth; scrollbar-gutter: stable;
+  interpolate-size: allow-keywords; /* allow animations with: auto, fit-content, fill-available */
+  transition-behavior: allow-discrete; /* allow animations with: display , visibility, var(--myVar) */
+ }
+
+body {
+  width: 100vw; min-height: 100svh; overflow-x: hidden;
+  margin: 0; padding: 0; border: 0;
+  display: grid; grid-template-rows: auto 1fr auto; /* header, main, footer */
+}
+
+main, header, footer { width: 100%; display: flex; align-items: center }
+main { flex-direction: column }
+
+a { text-decoration: none; cursor: pointer }
+a.disabled { pointer-events: none; cursor: default }
+[href$=".pdf"]::after { content: url(/icons/file-save.svg) / "download PDF file" } /* adds an icon and alt text to downloadable pdf href */
+[href^="http"]::after { content: url(/icons/external-link.svg) / "external link" } /* adds an icon and alt text to external links */
+
+img, picture, video, svg { display: block; max-width: 100%; height: auto; object-fit: cover; object-position: center } /* max-width and height allow responsivity */
+
+button, div[onclick], input, select, option { cursor: pointer; -webkit-user-select: none; user-select: none }
+button, div[onclick] { inline-size: fit-content } /* will break text only on small screens and prevents overflow */
+
+button, input, textarea, select { font-family: inherit; font-size: inherit; color: inherit }
+textarea { field-sizing: content }
+select option { color: inherit }
+select:invalid, option:disabled { color: oklch(from currentColor l c h / 0.7) }
+table { border-collapse: collapse; font-variant-numeric: tabular-nums }
+
+
+@media only screen and (min-width: 600px)  {} /* phones  */
+@media only screen and (min-width: 768px)  {} /* tablets */
+@media only screen and (min-width: 992px)  {} /* laptops */
+@media only screen and (min-width: 1200px) {} /* large   */
+
+@container style((--screen: mobile)) {} /* phones only */
+@container style((--screen: mobile) or (--screen: tablet)) {} /* tablets or phones */
+
+@media only screen and (orientation: landscape) {}
+@media only screen and (orientation: portrait)  {}
+
+@media (prefers-reduced-motion: reduce) {}
+@media (prefers-reduced-motion: no-preference) {}
+
+
+/*
+TIPS:
+- inset: 0 0 0 0 -> replaces top, left, bottom, right
+- isolation: isolate -> creates a new stacking context for z-index management
+- aspect-ration: w / h -> maintains aspect ratio of an element, useful for images and videos
+- background-repeat: space -> prevents background images from being cut off
+
+- div p -> selects all 'p's inside 'div'
+- div > p -> selects only 'p's that are direct children of div
+- div + div -> selects all 'p's that are siblings and come after any first 'p'
+- div ~ div -> selects all 'p's that are siblings and come after the very first 'p'
+
+- div[class] -> if it has a class
+- div[class="row"] -> same as div.row
+- div[class^="row"] -> select divs that have a class starting with 'row'
+- div[class$="row"] -> select divs that have a class ending with 'row'
+*/

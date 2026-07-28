@@ -1,0 +1,32 @@
+/* Colors scheme: text, background, border */
+:root {
+  --theme: light;  color-scheme: dark light;
+  --tx-color: #424242;  --bg-color: #fff;  --bd-color: #a0a0a0;
+  --lighten: 1.15;  --darken: 0.95;
+
+  @media (prefers-color-scheme: dark) {
+    --theme: dark;  color-scheme: dark;
+    --tx-color: #fff;  --bg-color: #121212;  --bd-color: #3d3d3d;
+    --lighten: 0.85;  --darken:  1.25;
+  }
+}
+
+/* Default variables: text, background, border color */
+:root, .tx { --tx-cl: oklch(from var(--tx-color) calc(l * pow(var(--lighten), var(--tx-lvl, 0))) c h / var(--tx-op, 1)) }
+:root, .bg { --bg-cl: oklch(from var(--bg-color) calc(l * pow(var(--darken),  var(--bg-lvl, 0))) c h / var(--bg-op, 1)) }
+:root, .bd { --bd-cl: oklch(from var(--bd-color) calc(l * pow(var(--darken),  var(--bd-lvl, 0))) c h / var(--bd-op, 1)) }
+
+/* Default classes: text, background, border color */
+.tx { color: var(--tx-cl) }
+.bg { background-color: var(--bg-cl) }
+.bd { border-color: var(--bd-cl) }
+
+
+/* Color: accent */
+:root{
+  --accent: oklch(55% 0.20 303); /* oklch(68% 0.19 148) */
+  --accent-dodge: oklch(from var(--accent) clamp(0, calc((0.7 - l) * 1000), 1) 0 0); /* l > .7 ? 0 : 1   */
+}
+
+/* Text selection highlight */
+::selection { background-color: var(--accent, #30f2bb) }

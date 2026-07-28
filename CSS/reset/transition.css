@@ -1,0 +1,35 @@
+/**** SPA navigation animation ****/
+@media(prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto }
+}
+
+/**** Specific group of elements animation ****/
+@media(prefers-reduced-motion: no-preference) {
+  .album-transition { view-transition-class: transition-artwork }
+
+  ::view-transition-group(.transition-artwork) {
+    object-fit: cover;
+    object-position: center;
+    animation-duration: 500ms;
+    animation-timing-function: ease-in-out;
+  }
+
+  /* Custom animation */
+  /* ::view-transition-old(.transition-artwork) {
+    animation-name: fadeOut;
+  }
+
+  ::view-transition-new(.transition-artwork) {
+    animation-name: fadeIn;
+  } */
+}
+
+/* @keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+} */

@@ -1,0 +1,29 @@
+:root {
+  /* Shadow transparency and color */
+  --sh-tp: 0.10;
+  --sh-cl: hsl(0, 0%, 0%);
+  
+  /* Colors by layers: inner, mid, outter and inset shadow */
+  --sh-in: oklch(from var(--sh-cl) l c h / var(--sh-tp));
+  --sh-md: oklch(from var(--sh-cl) l c h / calc(var(--sh-tp) / 2));
+  --sh-ot: oklch(from var(--sh-cl) l c h / calc(var(--sh-tp) / 3));
+  --in-cl: transparent;
+
+  @media (prefers-color-scheme: dark) {
+    --sh-tp: 0.05;
+    --in-cl: oklch(from var(--sh-cl) l c h / calc(var(--sh-tp) * 2));
+  }
+}
+
+.sh, .sh-s, .sh-m, .sh-l {
+  /* box-shadow: [inset] [offset-x] [offset-y] [blur-radius] [spread-radius] [color]; */
+  box-shadow:
+    0 1px 2px var(--sh-in),
+    0 calc(1px * var(--sh-sz)) calc(2px * var(--sh-sz)) var(--sh-md),
+    0 calc(2px * var(--sh-sz)) calc(4px * var(--sh-sz)) var(--sh-ot),
+    inset 0 0 0 1px var(--in-cl);
+}
+
+.sh-s { --sh-sz: 1 }
+.sh-m { --sh-sz: 2 }
+.sh-l { --sh-sz: 3 }
