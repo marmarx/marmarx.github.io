@@ -9,31 +9,21 @@
 
 * { box-sizing: border-box; }
 
-body {
-  width: 100svw; min-height: 100svh;
-  display: flex; flex-direction: column; align-items: center; 
-  padding-block: 0 100px; margin: 0; border: 0;
-  overflow-x: hidden;
-  
+body { 
   color: var(--tx-cl);
   background: var(--bg-cl);
   accent-color: var(--accent);
-
-  @media screen and (max-width: 1000px) { align-items: unset; }
 }
 
 #app { width: 100% }
 
-header, main, footer { width: 100%; display: flex; justify-content: center; padding-inline: 2em }
-header > *, main > *, footer > * { max-width: var(--view-width); margin: 0 auto }
-
+header, main, footer { padding-inline: 2em }
 header { 
   --bg-lvl: 1; --bd-lvl: 3;
   background-color: var(--bg-cl);
   border-bottom: 1px solid var(--bd-cl);
   margin-bottom: 1em;
 }
-
 footer { position: fixed; inset: auto 0 0 0; min-width: 100svw; margin-top: 1em }
 
 @container style((--screen: mobile)) {
