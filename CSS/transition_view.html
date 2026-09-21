@@ -1,0 +1,138 @@
+<html>
+<head>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<style>
+/* view trasition - https://youtu.be/onraoQExbHw */
+* { box-sizing: border-box; }
+
+.grid {
+  max-width: 1200px; margin: auto;
+
+  container: items / inline-size;
+  display: grid; gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr));
+  grid-auto-rows: auto;
+}
+
+.item {
+  --in-view: false;
+
+  display: grid;
+  grid-row: span 4; /* Spans 3 rows (e.g., image, header, content) */
+  grid-template-rows: subgrid;
+
+  animation: item-in-view both;
+  animation-timeline: view(); /* scroll() */
+  animation-range: entry 0% cover 40%;
+}
+
+@keyframes item-in-view {
+  from { --in-view: false; }
+  to   { --in-view: true; }
+}
+
+/* two colums + one gap */
+@container items (width > calc(15rem * 2 + 1rem * 1)) {
+  .item:nth-child(2n) { --stagger: 1 }
+}
+
+/* three cols + two gaps */
+@container items (width > calc(15rem * 3 + 1rem * 2)) {
+  .item:nth-child(3n + 1) { --stagger: 0 }
+  .item:nth-child(3n + 2) { --stagger: 1 }
+  .item:nth-child(3n + 3) { --stagger: 2 }
+}
+
+/* four cols + three gaps */
+@container items (width > calc(15rem * 4 + 1rem * 3)) {
+  .item:nth-child(4n + 1) { --stagger: 0 }
+  .item:nth-child(4n + 2) { --stagger: 1 }
+  .item:nth-child(4n + 3) { --stagger: 2 }
+  .item:nth-child(4n + 4) { --stagger: 4 }
+}
+
+.card {
+  --bg-cl: rgb(243, 243, 243);
+  --tx-cl: oklch(from var(--bg-cl) clamp(0, calc((0.7 - l) * 1000), 1) c h);
+
+  background: var(--bg-cl);
+  color: var(--tx-cl);
+
+  display: grid; gap: 0;
+  grid-template-rows: subgrid;
+  grid-row: span 4;
+  border-radius: .5rem;
+  overflow: clip;
+
+  & > * { inline-size: 100%; padding: 0; margin: 0 }
+  & > img {
+    block-size: 100%;
+    object-fit: cover;
+  }
+  & > .title, & > .details { width: 100% }
+  & > :not(img) { padding: 1rem }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      animation: card-in both 1s;
+      animation-play-state: paused;
+      animation-delay: calc(var(--stagger, 0s) * .25s);
+
+      @container style(--in-view: true) {
+        animation-play-state: running;
+      }
+    }
+  }
+}
+
+@keyframes card-in {
+  0% {
+    opacity: 0;
+    translate: 0 30px;
+    scale: .7; /* fallback */
+    scale: random(0.5, 0.8);
+    rotate: 0deg; /* fallback */
+    rotate: random(-8deg, 8deg);
+ }
+    100% { opacity: 1; translate: 0 0; scale: 1; rotate: 0deg; }
+}
+</style>
+</head>
+
+<body>
+<div id="app">
+  <div class="grid">  
+    <div v-for="n in 20" :key="n" class="item">
+      <div class="card">
+        <img :src="getImg()" alt="headphone" />
+        <h3 class="title">Item {{n}}</h3>
+        <p class="details">{{ getTxt() }}</p>
+        <div class="price">${{ 10 * n / 2 }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const ipsium = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sed scelerisque mauris. Fusce facilisis eget felis quis tristique.";
+  const min_len = 10;
+  const len = ipsium.length - min_len;
+
+  const { createApp, ref } = Vue;
+  
+  createApp({
+    setup() {
+      const getTxt = () => {
+        const random_len = Math.floor(Math.random() * len) + min_len;
+        return ipsium.substring(0, random_len);
+      };
+      const getImg = () => {
+        const random = Math.floor(Math.random() * 3)
+        return ['image_1.webp', 'image_2.webp', 'image_3.webp'][random]
+      };
+      return { getTxt, getImg }
+    }
+  }).mount('#app');
+</script>
+</body>
+</html>
