@@ -1,0 +1,25 @@
+<html>
+<head>
+<style>
+/* content sandwish - https://youtu.be/6Pd6B0ZmT6s */
+details { interpolate-size: allow-keywords }
+
+details::details-content {
+  height: 0;
+  overflow: clip;
+  transition:
+    height .5s ease-in-out,
+    content-visibility .5s allow-discrete;
+}
+
+details[open]::details-content { height: auto }
+</style>
+</head>
+
+<body>
+<details>
+  <summary>Click to see more details</summary>
+  <p>This is the hidden content that appears when expanded.</p>
+</details>
+</body>
+</html>

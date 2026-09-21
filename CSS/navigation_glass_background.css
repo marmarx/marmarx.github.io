@@ -1,0 +1,41 @@
+/* glass nav - https://youtube.com/shorts/PBFooCG3ClY */
+:root { --bk-img: url(''); --bouncy: linear(); }
+
+body {
+  background-attachment: fixed;
+  background-image: var(--bk-img);
+}
+
+nav ul { anchor-name: --nav; }
+nav a:is(:hover, :focus-visible) { anchor-name: --nav; }
+
+nav::before, nav::after {
+  content: '';
+  position: absolute;
+  position-anchor: --nav;
+  top: calc(anchor(bottom) - 4px);
+  right: calc(anchor(right) + 1rem);
+  bottom: anchor(bottom);
+  left: calc(anchor(left) + 1rem);
+  transition: inset .5s;
+  transition-timing-function: var(--bouncy);
+}
+
+nav:has(a:hover, a:focus-visible)::before,
+nav:has(a:hover, a:focus-visible)::after {
+  top: anchor(top);
+  right: anchor(right);
+  left: anchor(left);
+}
+
+nav::before {
+  z-index: -2;
+  background-attachment: fixed;
+  background-image: var(--bk-img);
+}
+
+nav::after {
+  backdrop-filter: blur(2px);
+  background-color: hsl(200 100% 100% / 0.1);
+  z-index: -1;
+}

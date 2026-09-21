@@ -1,0 +1,10 @@
+/* persistent hover - https://youtube.com/shorts/wazlBxxTohA */
+a {
+transition-property: color;
+transition-duration: calc(infinity * 1s);
+
+  &:is(:hover, :focus) {
+    color: red;
+    transition-duration: .5s;
+  }
+}

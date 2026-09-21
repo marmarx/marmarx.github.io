@@ -1,0 +1,22 @@
+/* subgrid - https://youtube.com/shorts/RulF_MU1yZ8 */
+.grid {
+  display: grid; gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
+}
+
+.card{
+  display: grid; gap: 0;
+  grid-row: span 4;
+  grid-template-rows: subgrid;
+  background: gray;
+  border-radius: 95rem;
+  overflow: clip;
+
+  & > .title, & > .details {color: white}
+  & > img {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+  & > :not(img) { padding: 1rem }
+}

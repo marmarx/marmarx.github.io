@@ -1,0 +1,25 @@
+/* particles - https://youtu.be/Uy3xsfAD8s0 */
+.particle {
+  position: absolute;
+  width: 10px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+
+  top: random(0%, 100%);
+  left: random(0%, 100%);
+  scale: random(0.5, 1.5);
+
+  animation-name: float;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-delay: random(0s, 5s);
+  animation-duration: random(2s, 6s);
+
+  background-color: hsl(random(190, 230) 70% 60%);
+}
+
+@keyframes float {
+  from { translate: (random(-2rem, 2rem), random(-2rem, 2rem)) }
+  to   { translate: (random(-2rem, 2rem), random(-2rem, 2rem)) }
+}
