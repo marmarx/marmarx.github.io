@@ -1,0 +1,81 @@
+<html lang="pt-BR">
+<head>
+<title>Grid Lanes</title>
+<meta name="author" content="Marco Martins">
+<meta name="description" content="Descript">
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<style>
+:root { --layout: block }
+body { padding: 1rem; border: 0; margin: 0 }
+button { padding: .6em .8em; margin: 1em }
+.gallery-container {
+  --gap: clamp(1rem, 5vmin, 2rem);
+
+  columns: 300px;
+  display: var(--layout);
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--gap);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--gap);
+
+  & > * {
+    --cl: oklch(from red l c var(--c, h));
+
+    height: var(--h);
+    background: var(--cl);
+    border-radius: 1em;
+    break-inside: avoid;
+    margin-bottom: var(--gap);
+  }
+}
+</style>
+</head>
+
+<body>
+<div id="app">
+  <p>'display: mansonory' is about to become 'display: grid-lanes'</p>
+  <p>meanwhile, one can use 'colums' to fake it</p>
+  <p>css columns has no effect while display: grid, note that the widths change</p>
+  <p>Current display: {{ layout }}</p>
+  <button @click="changeLayout">Change Layout</button>
+  <div class="gallery-container">
+    <div v-for="n in 16" :key="n" :style="{ '--h': randomH(), '--c': randomC() }"></div>
+  </div>
+</div>
+
+<script>
+  const layouts = ['block', 'grid', 'grid-lanes']
+  const { createApp, ref, computed } = Vue;
+  
+  createApp({
+    setup() {
+      // STATE
+      const count = ref(0)
+      const layout = computed(() => layouts[count.value])
+
+      // METHODS
+      const random = (min, max) => Math.floor(Math.random() * (max + min)) + min
+      const randomH = () => `${random(50, 250)}px`
+      const randomC = () => `${random(0, 360)}`
+
+      const increaseCount = () => {
+        const updated = count.value + 1
+	count.value = updated === layouts.length ? 0 : updated
+      }
+
+      const changeLayout = () => {
+        increaseCount()
+	document.documentElement.style.setProperty('--layout', layout.value)
+        console.log(count.value, layout.value)
+      }
+
+      return { randomH, randomC, changeLayout, layout }
+    }
+  }).mount('#app');
+</script>
+</body>
+</html>
